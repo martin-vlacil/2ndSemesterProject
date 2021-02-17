@@ -7,5 +7,4 @@ public class DoesThisThingReallyWork {
 		System.out.println("Yes it does!");
 
 	}
-
 }
