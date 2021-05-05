@@ -1,5 +1,8 @@
 package controlLayer;
 
+import java.sql.SQLException;
+
+import databaseLayer.RoomDB;
 import modelLayer.Room;
 
 /**
@@ -9,17 +12,19 @@ import modelLayer.Room;
  */
 public class RoomController
 {
+	private RoomDB roomDB;
 
-	public RoomController()
+	public RoomController() throws SQLException
 	{
-		// TODO Auto-generated constructor stub
+		roomDB = new RoomDB();
 	}
 
-	public Room findByNumber(String roomNumber)
+	public Room findByNumber(String roomNumber) throws SQLException
 	{
 		Room room = null;
 		
-		//TODO - write method
+		room = roomDB.findByNumber(roomNumber);
+		//TODO - create a room not found exception?
 		
 		return room;
 	}

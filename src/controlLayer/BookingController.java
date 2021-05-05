@@ -1,5 +1,6 @@
 package controlLayer;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import modelLayer.Room;
@@ -14,17 +15,18 @@ public class BookingController
 {
 	
 	private UserController userCtr;
+	private RoomController roomCtr;
 
 	public BookingController()
 	{
 		userCtr = new UserController();
 	}
 
-	public Room selectRoom(String roomNumber)
+	public Room selectRoom(String roomNumber) throws SQLException
 	{
 		Room room = null;
 		
-		//TODO - write method
+		room = roomCtr.findByNumber(roomNumber);
 		
 		return room;
 	}

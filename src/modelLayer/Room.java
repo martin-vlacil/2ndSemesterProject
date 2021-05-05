@@ -17,11 +17,22 @@ public class Room
 	 */
 	public enum RoomType
 	{
-		CONFERENCE,
-		MAIN;
+		CONFERENCE("Conference Room"), MAIN("Main Room");
+		
+		private String type;
+		
+		private RoomType(String type)
+		{
+			this.type = type;
+		}
+		
+		public String getType()
+		{
+			return this.type;
+		}
 	}
 
-	public Room(String number,int capacity, RoomType type)
+	public Room(String number, int capacity, RoomType type)
 	{
 		this.number = number;
 		this.capacity = capacity;
