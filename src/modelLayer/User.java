@@ -30,4 +30,67 @@ public class User
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Getters and Setters for all class fields
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+	public String getPhone()
+	{
+		return phone;
+	}
+
+	public void setPhone(String phone)
+	{
+		this.phone = phone;
+	}
+
+	public String getPosition()
+	{
+		return position;
+	}
+
+	public void setPosition(String position)
+	{
+		this.position = position;
+	}
+
+	public UserType getUserType()
+	{
+		return userType;
+	}
+
+	public void setUserType(UserType userType)
+	{
+		this.userType = userType;
+	}
+
+	public Organization getOrganization()
+	{
+		return organization;
+	}
+
+	public void setOrganization(Organization organization)
+	{
+		this.organization = organization;
+	}
 }
+

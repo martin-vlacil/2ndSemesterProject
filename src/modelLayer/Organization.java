@@ -15,4 +15,16 @@ public class Organization
 
 	}
 
+	/**
+	 * Getters and Setters for all class fields
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 }

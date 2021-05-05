@@ -32,4 +32,86 @@ public class Booking
 		this.numberOfParticipants = numberOfParticipants;
 	}
 
+	/**
+	 * Getters and Setters for all class fields
+	 */
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public String getContactName()
+	{
+		return contactName;
+	}
+
+	public void setContactName(String contactName)
+	{
+		this.contactName = contactName;
+	}
+
+	public String getPhoneNumber()
+	{
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber)
+	{
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+	public LocalDateTime getStartTime()
+	{
+		return startTime;
+	}
+
+	public void setStartTime(LocalDateTime startTime)
+	{
+		this.startTime = startTime;
+	}
+
+	public LocalDateTime getEndTime()
+	{
+		return endTime;
+	}
+
+	public void setEndTime(LocalDateTime endTime)
+	{
+		this.endTime = endTime;
+	}
+
+	public int getNumberOfParticipants()
+	{
+		return numberOfParticipants;
+	}
+
+	public void setNumberOfParticipants(int numberOfParticipants)
+	{
+		this.numberOfParticipants = numberOfParticipants;
+	}
 }

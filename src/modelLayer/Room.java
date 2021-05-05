@@ -27,4 +27,37 @@ public class Room
 		this.capacity = capacity;
 		this.type = type;
 	}
+
+	/**
+	 * Getters and Setters for all class fields
+	 */
+	public String getNumber()
+	{
+		return number;
+	}
+
+	public void setNumber(String number)
+	{
+		this.number = number;
+	}
+
+	public int getCapacity()
+	{
+		return capacity;
+	}
+
+	public void setCapacity(int capacity)
+	{
+		this.capacity = capacity;
+	}
+
+	public RoomType getType()
+	{
+		return type;
+	}
+
+	public void setType(RoomType type)
+	{
+		this.type = type;
+	}
 }

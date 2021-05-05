@@ -17,4 +17,27 @@ public class LogEntry
 		this.action = action;
 		this.time = time;
 	}
+
+	/**
+	 * Getters and Setters for all class fields
+	 */
+	public String getAction()
+	{
+		return action;
+	}
+
+	public void setAction(String action)
+	{
+		this.action = action;
+	}
+
+	public LocalDateTime getTime()
+	{
+		return time;
+	}
+
+	public void setTime(LocalDateTime time)
+	{
+		this.time = time;
+	}
 }
