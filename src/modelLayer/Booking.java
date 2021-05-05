@@ -15,12 +15,21 @@ public class Booking
 	private String contactName;
 	private String phoneNumber;
 	private String email;
-	private LocalDateTime date;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
 	private int numberOfParticipants;
 
-	public Booking()
+	public Booking(String title, String description, String contactName, String phoneNumber,
+					String email, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants)
 	{
-		// TODO Auto-generated constructor stub
+		this.title = title;
+		this.description = description;
+		this.contactName = contactName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.numberOfParticipants = numberOfParticipants;
 	}
 
 }
