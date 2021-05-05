@@ -7,8 +7,7 @@ package modelLayer;
 public class Room
 {
 	
-	private int number;
-	private String name;
+	private String number;
 	private int capacity;
 	private RoomType type;
 	
@@ -18,13 +17,14 @@ public class Room
 	 */
 	public enum RoomType
 	{
-		CONFERENCE_ROOM,
-		MAIN_ROOM;
+		CONFERENCE,
+		MAIN;
 	}
 
-	public Room()
+	public Room(String number,int capacity, RoomType type)
 	{
-		// TODO Auto-generated constructor stub
+		this.number = number;
+		this.capacity = capacity;
+		this.type = type;
 	}
-
 }
