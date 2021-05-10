@@ -12,14 +12,14 @@ public class LogEntryDB implements LogEntryDBIF
 {
 	private Connection connection;
 	
-	private static final String INSERT_LOG_ENTRY = String.format(""); //TODO - write string format
+	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?"); //TODO - write string format
 	private PreparedStatement sqlInsertLogEntry;
 
 	public LogEntryDB() throws SQLException
 	{
 		connection = DBConnection.getInstance().getConnection();
 		
-		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY, Statement.RETURN_GENERATED_KEYS);
+		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
 	}
 
 	@Override

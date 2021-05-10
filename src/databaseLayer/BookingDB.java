@@ -10,7 +10,7 @@ public class BookingDB implements BookingDBIF
 {
 	private Connection connection;
 	
-	private static final String INSERT_BOOKING = String.format(""); //TODO finish the string format
+	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)"); //TODO finish the string format
 	private PreparedStatement sqlInsertBooking;
 
 	public BookingDB() throws SQLException
