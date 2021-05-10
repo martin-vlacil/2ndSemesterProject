@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import databaseLayer.BookingDB;
 import databaseLayer.BookingDBIF;
+import databaseLayer.DBConnection;
 import databaseLayer.LogEntryDB;
 import databaseLayer.LogEntryDBIF;
 import modelLayer.Booking;
@@ -99,17 +100,22 @@ public class BookingController
 		
 		for(Room room: selectedRooms)
 			try
-			{
+			{	
+				DBConnection.getInstance().startTransaction();
+				
+				Booking booking = new Booking(title, description, this.selectedStartTime, this.selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
+				if(!bookingDB.create(booking))
 				{
-					Booking booking = new Booking(title, description, this.selectedStartTime, this.selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
-					if(!bookingDB.create(booking))
-					{
-						bookingConfirmed = false;
-					}
+					bookingConfirmed = false;
 				}
+				
+				logEntryDB.create("", LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
+				
+				DBConnection.getInstance().commitTransaction();
 			}
 			catch (SQLException e)
 			{
+				DBConnection.getInstance().rollbackTransaction();
 				bookingConfirmed = false;
 				e.printStackTrace();
 			}
