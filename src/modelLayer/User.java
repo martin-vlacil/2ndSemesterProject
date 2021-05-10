@@ -7,7 +7,7 @@ package modelLayer;
  */
 public class User
 {
-	
+	private int id;
 	private String name;
 	private String email;
 	private String phone;
@@ -22,17 +22,41 @@ public class User
 	 */
 	public enum UserType
 	{
-		DEFUALT, SUPER, ADMIN;
+		DEFAULT, SUPER, ADMIN;
 	}
 	
-	public User()
+	public User(int id, String name, String email, String phone, String position, UserType userType, Organization organization)
 	{
-		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.position = position;
+		this.userType = userType;
+		this.organization = organization;
+	}
+	
+	public User(int id, String name, String email, String phone)
+	{
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
 	}
 
 	/**
 	 * Getters and Setters for all class fields
 	 */
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
 	public String getName()
 	{
 		return name;

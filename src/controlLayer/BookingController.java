@@ -8,6 +8,7 @@ import databaseLayer.BookingDB;
 import databaseLayer.BookingDBIF;
 import databaseLayer.LogEntryDB;
 import databaseLayer.LogEntryDBIF;
+import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
 
@@ -92,12 +93,27 @@ public class BookingController
 		return user;
 	}
 	
-	public boolean confirmBooking(String title, String description, String contactName,
-					String phoneNumber, String email, int numberOfParticipants)
+	public boolean confirmBooking(String title, String description, int contactID, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy) throws SQLException
 	{
-		boolean bookingConfirmed = false;
+		boolean bookingConfirmed = true;
 		
-		//TODO - write method
+		for(Room room: selectedRooms)
+			try
+			{
+				{
+					Booking booking = new Booking(title, description, this.selectedStartTime, this.selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
+					if(!bookingDB.create(booking))
+					{
+						bookingConfirmed = false;
+					}
+				}
+			}
+			catch (SQLException e)
+			{
+				bookingConfirmed = false;
+				e.printStackTrace();
+			}
+			
 		
 		return bookingConfirmed;
 	}

@@ -2,15 +2,20 @@ package databaseLayer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDateTime;
+
+import modelLayer.Booking;
 
 public class BookingDB implements BookingDBIF
 {
 	private Connection connection;
 	
-	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)"); //TODO finish the string format
+	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	private PreparedStatement sqlInsertBooking;
 
 	public BookingDB() throws SQLException
@@ -21,13 +26,25 @@ public class BookingDB implements BookingDBIF
 	}
 
 	@Override
-	public boolean create(String title, String description, String contactName, String phoneNumber, String email, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants)
+	public boolean create(Booking booking) throws SQLException
 	{
-		boolean bookingCreated = false;
+		sqlInsertBooking.setString(1, booking.getTitle());
+		sqlInsertBooking.setString(2, booking.getDescription());
+		sqlInsertBooking.setTimestamp(3, Timestamp.valueOf(booking.getStartTime()));
+		sqlInsertBooking.setTimestamp(4, Timestamp.valueOf(booking.getEndTime()));
+		sqlInsertBooking.setInt(5, booking.getNumberOfParticipants());
+		if(booking.getContact() == null)
+		{
+			sqlInsertBooking.setNull(6, Types.INTEGER);
+		}
+		else
+		{
+			sqlInsertBooking.setInt(6, booking.getContact().getId());
+		}
+		sqlInsertBooking.setInt(7, booking.getCreatedBy().getId());
+		sqlInsertBooking.setInt(8, booking.getRoom().getId());
 		
-		// TODO write method
-		
-		return bookingCreated;
+		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 	}
 
 }
