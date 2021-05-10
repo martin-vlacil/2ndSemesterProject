@@ -9,34 +9,20 @@ public class Room
 	
 	private String number;
 	private int capacity;
-	private RoomType type;
+	private String name;
+	private int id;
 	
 	/**
 	 * @author Group1 dmai0920
 	 * Defines the only types of Room that are currently available.
 	 */
-	public enum RoomType
-	{
-		CONFERENCE("Conference Room"), MAIN("Main Room");
-		
-		private String type;
-		
-		private RoomType(String type)
-		{
-			this.type = type;
-		}
-		
-		public String getType()
-		{
-			return this.type;
-		}
-	}
 
-	public Room(String number, int capacity, RoomType type)
+	public Room(String number, int capacity, String name, int id)
 	{
 		this.number = number;
 		this.capacity = capacity;
-		this.type = type;
+		this.name = name;
+		this.id = id;
 	}
 
 	/**
@@ -62,13 +48,26 @@ public class Room
 		this.capacity = capacity;
 	}
 
-	public RoomType getType()
+	public String getName()
 	{
-		return type;
+		return name;
 	}
 
-	public void setType(RoomType type)
+	public void setName(String name)
 	{
-		this.type = type;
+		this.name = name;
 	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+
+	
 }

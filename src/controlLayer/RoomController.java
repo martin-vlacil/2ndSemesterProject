@@ -1,6 +1,7 @@
 package controlLayer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import databaseLayer.RoomDB;
 import modelLayer.Room;
@@ -13,19 +14,36 @@ import modelLayer.Room;
 public class RoomController
 {
 	private RoomDB roomDB;
+	private ArrayList<Room> rooms;
 
 	public RoomController() throws SQLException
 	{
 		roomDB = new RoomDB();
+		this.rooms = roomDB.getAll();
+	}
+	
+	public ArrayList<Room> getAll() throws SQLException
+	{
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		
+		rooms = roomDB.getAll();
+		this.rooms = rooms;
+		
+		return rooms;
 	}
 
-	public Room findByNumber(String roomNumber) throws SQLException
+	public Room findByID(int id) throws SQLException
 	{
 		Room room = null;
 		
-		room = roomDB.findByNumber(roomNumber);
+		for(Room chosenRoom: rooms)
+		{
+			if(chosenRoom.getId() == id)
+			{
+				room = chosenRoom;
+			}
+		}
 		//TODO - create a room not found exception?
-		
 		return room;
 	}
 }

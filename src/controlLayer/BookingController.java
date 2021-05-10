@@ -2,7 +2,12 @@ package controlLayer;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+import databaseLayer.BookingDB;
+import databaseLayer.BookingDBIF;
+import databaseLayer.LogEntryDB;
+import databaseLayer.LogEntryDBIF;
 import modelLayer.Room;
 import modelLayer.User;
 
@@ -13,20 +18,25 @@ import modelLayer.User;
  */
 public class BookingController
 {
-	
-	private UserController userCtr;
 	private RoomController roomCtr;
+	private LogEntryDBIF logEntryDB;
+	private BookingDBIF bookingDB;
+	private ArrayList<Room> selectedRooms;
 
-	public BookingController()
+	public BookingController() throws SQLException
 	{
-		userCtr = new UserController();
+		roomCtr = new RoomController();
+		logEntryDB = new LogEntryDB();
+		bookingDB = new BookingDB();
+		selectedRooms = new ArrayList<Room>();
 	}
 
-	public Room selectRoom(String roomNumber) throws SQLException
+	public Room selectRoom(int roomID) throws SQLException
 	{
 		Room room = null;
 		
-		room = roomCtr.findByNumber(roomNumber);
+		room = roomCtr.findByID(roomID);
+		this.selectedRooms.add(room);
 		
 		return room;
 	}
