@@ -22,6 +22,8 @@ public class BookingController
 	private LogEntryDBIF logEntryDB;
 	private BookingDBIF bookingDB;
 	private ArrayList<Room> selectedRooms;
+	private LocalDateTime selectedStartTime;
+	private LocalDateTime selectedEndTime;
 
 	public BookingController() throws SQLException
 	{
@@ -52,9 +54,20 @@ public class BookingController
 	
 	public boolean selectStartTime(LocalDateTime time)
 	{
-		boolean startTimeSelected = false;
+		boolean startTimeSelected = true;
 		
-		//TODO - write method
+		for(Room currentRoom: selectedRooms)
+		{
+			if(!roomCtr.checkAvailability(currentRoom.getId(), time))
+			{
+				startTimeSelected = false;
+			}
+		}
+		
+		if(startTimeSelected)
+		{
+			this.selectedStartTime = time;
+		}
 		
 		return startTimeSelected;
 	}
@@ -63,7 +76,18 @@ public class BookingController
 	{
 		boolean endTimeSelected = false;
 		
-		//TODO - write method
+		for(Room currentRoom: selectedRooms)
+		{
+			if(!roomCtr.checkAvailability(currentRoom.getId(), time))
+			{
+				endTimeSelected = false;
+			}
+		}
+		
+		if(endTimeSelected)
+		{
+			this.selectedEndTime = time;
+		}
 		
 		return endTimeSelected;
 	}
@@ -78,8 +102,7 @@ public class BookingController
 	}
 	
 	public boolean confirmBooking(String title, String description, String contactName,
-					String phoneNumber, String email, LocalDateTime startTime,
-					LocalDateTime endTime, int numberOfParticipants)
+					String phoneNumber, String email, int numberOfParticipants)
 	{
 		boolean bookingConfirmed = false;
 		

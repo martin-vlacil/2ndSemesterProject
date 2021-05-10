@@ -1,6 +1,7 @@
 package controlLayer;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import databaseLayer.RoomDB;
@@ -45,6 +46,12 @@ public class RoomController
 		}
 		//TODO - create a room not found exception?
 		return room;
+	}
+
+	public boolean checkAvailability(int roomID, LocalDateTime time)
+	{
+		// TODO Check if room with roomID is available at time
+		return true;
 	}
 }
                                                                                                 
