@@ -43,15 +43,6 @@ public class BookingController
 		return room;
 	}
 	
-	public boolean selectDate(LocalDateTime date)
-	{
-		boolean dateSelected = false;
-		
-		//TODO - write method
-		
-		return dateSelected;
-	}
-	
 	public boolean selectStartTime(LocalDateTime time)
 	{
 		boolean startTimeSelected = true;
