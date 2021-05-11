@@ -326,6 +326,7 @@ public class JCalendar extends JPanel {
     }
 
     /**
+     * FIXME	calling the method for adding a calendar event
      * @param event
      */
     public void addCalendarEvent(final CalendarEvent event) {
@@ -335,6 +336,7 @@ public class JCalendar extends JPanel {
     }
 
     /**
+     *  
      * @param event
      */
     public void removeCalendarEvent(final CalendarEvent event) {

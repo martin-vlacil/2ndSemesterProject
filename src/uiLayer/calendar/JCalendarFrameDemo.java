@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -62,7 +63,7 @@ public class JCalendarFrameDemo extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//private final SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy HH:mm:ss:SSS");
+	private final SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy HH:mm:ss:SSS");
 	//private final Random r = new Random();
 
 	//private JMenuBar menuBar;
@@ -71,7 +72,7 @@ public class JCalendarFrameDemo extends JFrame {
 	//private JTextArea description;
 	//private JMenuItem exitMenuItem;
 	private JCalendar jCalendar;
-	private JSplitPane content;
+	private JPanel content;
 	private JPopupMenu popup;
 	private JMenuItem removeMenuItem;
 
@@ -135,7 +136,9 @@ public class JCalendarFrameDemo extends JFrame {
 		jCalendar.getConfig().setAllDayPanelVisible(false);
 		//jCalendar.getConfig().setHolidays(Arrays.asList(new Date()));
 
-		content = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		//content = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		content = new JPanel();
+		content.setLayout(new BorderLayout());
 		content.add(jCalendar);
 		//content.add(new JScrollPane(description));
 
@@ -289,6 +292,7 @@ public class JCalendarFrameDemo extends JFrame {
 				} else {
 					//XXX triggered when deselecting an event
 					//description.append("Selection cleared");
+					System.out.println("Selection");
 				}
 				//description.append("\n");
 			}
@@ -309,6 +313,8 @@ public class JCalendarFrameDemo extends JFrame {
 			public void intervalSelected(IntervalSelectionEvent event) {
 				/*description.append("Interval selection changed " + sdf.format(event.getIntervalStart()) + " "
 						+ sdf.format(event.getIntervalEnd()) + "\n");*/
+				System.out.println("Interval selection changed " + sdf.format(event.getIntervalStart()) + " "
+						+ sdf.format(event.getIntervalEnd()) + "\n");
 			}
 		});
 
