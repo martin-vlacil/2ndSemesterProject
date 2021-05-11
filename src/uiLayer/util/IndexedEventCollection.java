@@ -27,6 +27,8 @@ import uiLayer.model.CalendarEvent.Property;
  */
 import org.apache.commons.collections.MultiHashMap;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -54,8 +56,8 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
     @Override
     public void add(final CalendarEvent calendarEvent) {
         calendarEvent.addObserver(this);
-        final Collection<Date> dates = CalendarUtil.getDates(calendarEvent.getStart(), calendarEvent.getEnd());
-        for (final Date date : dates) {
+        final Collection<LocalDate> dates = CalendarUtil.getDates(calendarEvent.getStart(), calendarEvent.getEnd());
+        for (final LocalDate date : dates) {
 
             if (!indexedEvents.containsValue(calendarEvent)) {
                 indexedEvents.put(date, calendarEvent);
@@ -141,9 +143,9 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
     }
 
     @Override
-    public Collection<CalendarEvent> getEvents(final Date date) {
+    public Collection<CalendarEvent> getEvents(final LocalDateTime date) {
         @SuppressWarnings("rawtypes")
-        final Collection events = indexedEvents.getCollection(CalendarUtil.stripTime(date));
+        final Collection events = indexedEvents.getCollection(date.toLocalDate());
         if (events == null)
             return new ArrayList<CalendarEvent>();
         @SuppressWarnings("unchecked")

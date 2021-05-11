@@ -3,7 +3,7 @@
  * ************************************************************************ */
 package uiLayer.events;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import uiLayer.calendar.JCalendar;
 
@@ -14,8 +14,8 @@ import uiLayer.calendar.JCalendar;
 public class IntervalSelectionEvent {
 
 	private JCalendar owner;
-	private Date intervalStart;
-	private Date intervalEnd;
+	private LocalDateTime intervalStart;
+	private LocalDateTime intervalEnd;
 
 	/**
 	 * Creates a new instance of {@link IntervalSelectionEvent}
@@ -32,7 +32,7 @@ public class IntervalSelectionEvent {
 	 *           the interval end
 	 * 
 	 */
-	public IntervalSelectionEvent(final JCalendar owner, final Date intervalStart, final Date intervalEnd) {
+	public IntervalSelectionEvent(final JCalendar owner, final LocalDateTime intervalStart, final LocalDateTime intervalEnd) {
 		super();
 		this.owner = owner;
 		this.intervalStart = intervalStart;
@@ -42,7 +42,7 @@ public class IntervalSelectionEvent {
 	/**
 	 * @return the intervalStart
 	 */
-	public Date getIntervalStart() {
+	public LocalDateTime getIntervalStart() {
 		return intervalStart;
 	}
 
@@ -50,14 +50,14 @@ public class IntervalSelectionEvent {
 	 * @param intervalStart
 	 *           the intervalStart to set
 	 */
-	public void setIntervalStart(final Date intervalStart) {
+	public void setIntervalStart(final LocalDateTime intervalStart) {
 		this.intervalStart = intervalStart;
 	}
 
 	/**
 	 * @return the intervalEnd
 	 */
-	public Date getIntervalEnd() {
+	public LocalDateTime getIntervalEnd() {
 		return intervalEnd;
 	}
 
@@ -65,7 +65,7 @@ public class IntervalSelectionEvent {
 	 * @param intervalEnd
 	 *           the intervalEnd to set
 	 */
-	public void setIntervalEnd(final Date intervalEnd) {
+	public void setIntervalEnd(final LocalDateTime intervalEnd) {
 		this.intervalEnd = intervalEnd;
 	}
 

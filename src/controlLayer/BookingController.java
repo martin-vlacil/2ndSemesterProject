@@ -126,9 +126,10 @@ public class BookingController
 		
 		return bookingConfirmed;
 	}
-	 
+	
 	public String validateInformation(String[] information)
 	{
+		//TODO maybe we can use smth fancy like hashmap? Also Regex at phonenumber and attendees
 		switch(information[0])
 		{
 			case "title":

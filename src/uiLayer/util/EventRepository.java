@@ -3,6 +3,7 @@
  * ************************************************************************ */
 package uiLayer.util;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import uiLayer.calendar.JCalendar;
@@ -44,7 +45,7 @@ public class EventRepository {
 			this.intervalSelectionListeners.get(owner).remove(intervalSelectionListener);
 	}
 
-	public void triggerIntervalSelection(final JCalendar owner, final Date start, final Date end) {
+	public void triggerIntervalSelection(final JCalendar owner, final LocalDate start, final LocalDate end) {
 		if (!intervalSelectionListeners.containsKey(owner))
 			return;
 		final IntervalSelectionEvent selectionEvent = new IntervalSelectionEvent(owner, start, end);

@@ -15,7 +15,7 @@
  */
 package uiLayer.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Observable;
 
 /**
@@ -27,8 +27,8 @@ public class CalendarEvent extends Observable implements Comparable<CalendarEven
     private String summary;
     private String description;
     private String location;
-    private Date start;
-    private Date end;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private EventType type;
     private boolean selected;
     private boolean allDay;
@@ -43,25 +43,25 @@ public class CalendarEvent extends Observable implements Comparable<CalendarEven
         type.setName("default");
     }
 
-    public CalendarEvent(final Date start, final Date end) {
+    public CalendarEvent(final LocalDateTime start, final LocalDateTime end) {
         this();
         this.start = start;
         this.end = end;
     }
 
-    public CalendarEvent(final String summary, final Date start, final Date end) {
+    public CalendarEvent(final String summary, final LocalDateTime start, final LocalDateTime end) {
         this(start, end);
         this.summary = summary;
         this.start = start;
         this.end = end;
     }
 
-    public CalendarEvent(final Date start, final Date end, final EventType type) {
+    public CalendarEvent(final LocalDateTime start, final LocalDateTime end, final EventType type) {
         this(start, end);
         this.type = type;
     }
 
-    public CalendarEvent(final String sumamry, final Date start, final Date end, final EventType type) {
+    public CalendarEvent(final String sumamry, final LocalDateTime start, final LocalDateTime end, final EventType type) {
         this(sumamry, start, end);
         this.type = type;
     }
@@ -120,14 +120,14 @@ public class CalendarEvent extends Observable implements Comparable<CalendarEven
     /**
      * @return the start
      */
-    public Date getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
     /**
      * @param start the start to set
      */
-    public void setStart(final Date start) {
+    public void setStart(final LocalDateTime start) {
         this.start = start;
         setChanged();
         notifyObservers(Property.START);
@@ -137,14 +137,14 @@ public class CalendarEvent extends Observable implements Comparable<CalendarEven
     /**
      * @return the end
      */
-    public Date getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
     /**
      * @param end the end to set
      */
-    public void setEnd(final Date end) {
+    public void setEnd(final LocalDateTime end) {
         this.end = end;
         setChanged();
         notifyObservers(Property.END);

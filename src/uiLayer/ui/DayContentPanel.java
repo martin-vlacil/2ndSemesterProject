@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -72,10 +73,10 @@ public class DayContentPanel extends JPanel {
                 if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                     if(startSelection == null || endSelection == null)
                         return;
-                    Date startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(), getHeight());
-                    Date endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(), getHeight());
+                    LocalDateTime startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(), getHeight());
+                    LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(), getHeight());
                     EventRepository.get().triggerIntervalSelection(calendar,
-                            startDate, endDate);
+                            startDate.toLocalDate(), endDate.toLocalDate());
                 }
             }
 
@@ -95,12 +96,14 @@ public class DayContentPanel extends JPanel {
             @Override
             public void mousePressed(final MouseEvent e) {
 
-                final boolean isSelectedStrategyMonth = calendar
+                /*XXX disabled check for month view
+                 * final boolean isSelectedStrategyMonth = calendar
                         .getDisplayStrategy() == Type.MONTH;
                 final CalendarEvent event = isSelectedStrategyMonth ? getEventForMonth(
                         e.getX(), e.getY()) : getNotMonthEvent(e.getX(),
-                        e.getY());
-
+                        e.getY());*/
+            	final CalendarEvent event = getNotMonthEvent(e.getX(), e.getY());
+            	
                 if (e.getClickCount() == 1) {
 
                     final EventCollection events = EventCollectionRepository
@@ -149,12 +152,12 @@ public class DayContentPanel extends JPanel {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                final boolean isSelectedStrategyMonth = calendar
+               /* final boolean isSelectedStrategyMonth = calendar
                         .getDisplayStrategy() == Type.MONTH;
                 final CalendarEvent event = isSelectedStrategyMonth ? getEventForMonth(
                         e.getX(), e.getY()) : getNotMonthEvent(e.getX(),
-                        e.getY());
-
+                        e.getY());*/
+            	final CalendarEvent event = getNotMonthEvent(e.getX(), e.getY());
                 if (event != null) {
                     startSelection = null;
                     endSelection = null;
@@ -236,11 +239,12 @@ public class DayContentPanel extends JPanel {
     public void paint(final Graphics g) {
         super.paint(g);
         drawBackground((Graphics2D) g);
-        if (owner.getOwner().getDisplayStrategy() != Type.MONTH) {
+        /*if (owner.getOwner().getDisplayStrategy() != Type.MONTH) {
             drawCalendarEvents((Graphics2D) g);
         } else {
             drawCalendarEventsMonth((Graphics2D) g);
-        }
+        }*/
+        drawCalendarEvents((Graphics2D) g);
 
         if (startSelection != null && endSelection != null) {
             g.setColor(new Color(173, 216, 230, 50));
@@ -336,14 +340,14 @@ public class DayContentPanel extends JPanel {
                 int eventStart = 0;
 
                 final boolean isSameStartDay = CalendarUtil.isSameDay(
-                        event.getStart(), owner.getDate());
+                        event.getStart(), owner.getDate().atStartOfDay());
                 if (isSameStartDay) {
                     eventStart = CalendarUtil.secondsToPixels(event.getStart(),
                             getHeight());
                 }
 
                 int eventYEnd = getHeight();
-                if (CalendarUtil.isSameDay(event.getEnd(), owner.getDate())) {
+                if (CalendarUtil.isSameDay(event.getEnd(), owner.getDate().atStartOfDay())) {
                     eventYEnd = CalendarUtil.secondsToPixels(event.getEnd(),
                             getHeight());
                 }
@@ -426,7 +430,7 @@ public class DayContentPanel extends JPanel {
         }
         return null;
     }
-
+    /* XXX disabled drawing view for month view
     private void drawCalendarEventsMonth(final Graphics2D graphics2d) {
 
         final EventCollection eventsCollection = EventCollectionRepository
@@ -501,5 +505,5 @@ public class DayContentPanel extends JPanel {
         }
         return null;
     }
-
+*/
 }

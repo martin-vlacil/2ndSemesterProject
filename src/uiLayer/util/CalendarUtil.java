@@ -17,6 +17,8 @@ package uiLayer.util;
 
 import uiLayer.model.CalendarEvent;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -24,16 +26,19 @@ import java.util.*;
  */
 public class CalendarUtil {
 
-    public static boolean isSameDay(final Date date1, final Date date2) {
-        return stripTime(date1).equals(stripTime(date2));
+    public static boolean isSameDay(final LocalDateTime date1, final LocalDateTime date2) {
+        return date1.toLocalDate().equals(date2.toLocalDate());
     }
 
     public static boolean isSameMonth(final Calendar c1, final Calendar c2) {
         return c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
     }
 
-    public static boolean isToday(final Date date) {
-        final Calendar now = Calendar.getInstance();
+    /**
+     * XXX changed Date to LocalDateTime
+     */
+    public static boolean isToday(final LocalDateTime date) {
+        /*final Calendar now = Calendar.getInstance();
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
@@ -47,7 +52,8 @@ public class CalendarUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        return calendar.getTime().equals(now.getTime());
+        return calendar.getTime().equals(now.getTime());*/
+    	return date.toLocalDate().equals(LocalDate.now());
     }
 
     public static Calendar copyCalendar(final Calendar calendar, final boolean stripTime) {
@@ -87,7 +93,9 @@ public class CalendarUtil {
         return calendar.getTime();
     }
 
-    public static Date stripTime(final Date date) {
+    /**
+     * XXX changed Date to LocalDateTime
+    public static LocalDateTime stripTime(final LocalDateTime date) {
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -96,8 +104,10 @@ public class CalendarUtil {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
-
-    public static Date createInDays(final Date from, final int amount) {
+     */
+/*
+ *      * XXX Deleted as part of the Util
+    public static LocalDate createInDays(final LocalDate from, final int amount) {
         final Calendar cal = Calendar.getInstance();
         cal.setTime(from);
         cal.add(Calendar.DATE, amount);
@@ -117,40 +127,50 @@ public class CalendarUtil {
         cal.add(Calendar.MONTH, amount);
         return cal.getTime();
     }
+      */
 
-    public static Collection<Date> getDates(final Date start, final Date end) {
+    /**
+     * XXX changed from Date to LocalDate/LocalDateTime. gets localdatetime and provides all LocalDates between them.
+     */
+    public static Collection<LocalDate> getDates(final LocalDateTime start, final LocalDateTime end) {
 
-        final Set<Date> result = new HashSet<Date>();
-        final Date endDay = stripTime(end);
-        Date date = stripTime(start);
+        final Set<LocalDate> result = new HashSet<LocalDate>();
+        final LocalDate endDay = end.toLocalDate();
+        LocalDate date = start.toLocalDate();
         result.add(date);
-        while ((date = stripTime(createInDays(date, 1))).before(endDay))
+        while (date.plusDays(1).isBefore(endDay))
             result.add(date);
 
         result.add(endDay);
         return result;
     }
-
+    
+    /* XXX Deprecated
     public static long getTotalSeconds(final Date date) {
         final Calendar c = CalendarUtil.getCalendar(date, false);
         long seconds = c.get(Calendar.HOUR_OF_DAY) * 60 * 60;
         seconds += c.get(Calendar.MINUTE) * 60;
         seconds += c.get(Calendar.SECOND);
         return seconds;
+    }*/
+
+    public static int secondsToPixels(final LocalDateTime date, final int maxHeight) {
+        //final long seconds = getTotalSeconds(date);
+        final long seconds = date.toLocalTime().toSecondOfDay();
+    	return Math.round(seconds * maxHeight / 86400.0f);
     }
 
-    public static int secondsToPixels(final Date date, final int maxHeight) {
-        final long seconds = getTotalSeconds(date);
-        return Math.round(seconds * maxHeight / 86400.0f);
-    }
-
-    public static Date pixelToDate(final Date day, final int posY, final int maxHeight) {
+    /*
+     * XXX removed code, concerning Date.
+     */
+    public static LocalDateTime pixelToDate(final LocalDate day, final int posY, final int maxHeight) {
         final long seconds = Math.round(posY * 86400.0f / maxHeight);
-        final Calendar c = CalendarUtil.getCalendar(day, false);
+        /*final Calendar c = CalendarUtil.getCalendar(day, false);
         c.set(Calendar.HOUR_OF_DAY, (int) (seconds / 3600));
         c.set(Calendar.MINUTE, (int) (seconds % 3600) / 60);
         c.set(Calendar.SECOND, (int) (seconds % 3600) % 60);
-        return c.getTime();
+        return c.getTime();*/
+        return day.atTime((int) (seconds / 3600), (int) (seconds % 3600) / 60, (int) (seconds % 3600) % 60);
     }
 
     public static Map<CalendarEvent, List<CalendarEvent>> getConflicting(final Collection<CalendarEvent> calendarEvents) {
@@ -165,10 +185,10 @@ public class CalendarUtil {
                 final CalendarEvent event2 = clonedCollection.get(j);
                 if (event2.isAllDay() || event2.isHoliday())
                     continue;
-                final Date startA = event1.getStart();
-                final Date endA = event1.getEnd();
-                final Date startB = event2.getStart();
-                final Date endB = event2.getEnd();
+                final LocalDateTime startA = event1.getStart();
+                final LocalDateTime endA = event1.getEnd();
+                final LocalDateTime startB = event2.getStart();
+                final LocalDateTime endB = event2.getEnd();
 
                 final boolean isStartABeforeEndB = (startA.compareTo(endB)) < 0;
                 final boolean isEndAAfterStartB = (endA.compareTo(startB)) > 0;

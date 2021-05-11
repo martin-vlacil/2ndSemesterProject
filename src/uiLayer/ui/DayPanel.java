@@ -20,6 +20,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ import uiLayer.ui.strategy.DisplayStrategy.Type;
 public class DayPanel {
 
 	private final SimpleDateFormat sdf = new SimpleDateFormat("EEE dd MMM");
-	private Date date;
+	private LocalDate date;
 	private final DayHeaderPanel headerPanel;
 	private final DayContentPanel contentPanel;
 	//private final DayCompleteContentPanel completeDayPanel;
@@ -48,7 +49,7 @@ public class DayPanel {
 	 * @param date
 	 * @param headerRatio
 	 */
-	public DayPanel(final JCalendar owner, final Date date) {
+	public DayPanel(final JCalendar owner, final LocalDate date) {
 
 		this.date = date;
 		this.owner = owner;
@@ -74,7 +75,7 @@ public class DayPanel {
 	 * @param date
 	 * @param headerRatio
 	 */
-	public DayPanel(final JCalendar owner, final Date date, final float headerRatio) {
+	public DayPanel(final JCalendar owner, final LocalDate date, final float headerRatio) {
 
 		this(owner, date);
 		this.headerRatio = headerRatio;
@@ -107,7 +108,7 @@ public class DayPanel {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
@@ -115,7 +116,7 @@ public class DayPanel {
 	 * @param date
 	 *            the date to set
 	 */
-	public void setDate(final Date date) {
+	public void setDate(final LocalDate date) {
 		this.date = date;
 		headerPanel.setHeaderText(sdf.format(date));
 	}
