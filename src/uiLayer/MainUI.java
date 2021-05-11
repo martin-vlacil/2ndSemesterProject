@@ -64,9 +64,9 @@ public class MainUI extends JFrame {
 		contentPane.add(sidebarPanel, gbc_sidebarPanel);
 		GridBagLayout gbl_sidebarPanel = new GridBagLayout();
 		gbl_sidebarPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_sidebarPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_sidebarPanel.columnWeights = new double[]{0.1, 0.2, 0.0, Double.MIN_VALUE};
-		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_sidebarPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_sidebarPanel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		sidebarPanel.setLayout(gbl_sidebarPanel);
 		
 		JLabel userNameLabel = new JLabel("User Name");
@@ -86,6 +86,8 @@ public class MainUI extends JFrame {
 		logOutButton.setBackground(new Color(40, 41, 82));
 		logOutButton.setFocusable(false);
 		GridBagConstraints gbc_logOutButton = new GridBagConstraints();
+		gbc_logOutButton.gridheight = 2;
+		gbc_logOutButton.fill = GridBagConstraints.BOTH;
 		gbc_logOutButton.insets = new Insets(0, 0, 5, 0);
 		gbc_logOutButton.gridx = 2;
 		gbc_logOutButton.gridy = 0;
@@ -118,32 +120,56 @@ public class MainUI extends JFrame {
 		bookingButton.setBackground(new Color(40, 41, 82));
 		bookingButton.setFocusable(false);
 		GridBagConstraints gbc_bookingButton = new GridBagConstraints();
+		gbc_bookingButton.gridwidth = 3;
+		gbc_bookingButton.fill = GridBagConstraints.BOTH;
 		gbc_bookingButton.insets = new Insets(0, 0, 5, 5);
-		gbc_bookingButton.gridx = 1;
+		gbc_bookingButton.gridx = 0;
 		gbc_bookingButton.gridy = 3;
 		sidebarPanel.add(bookingButton, gbc_bookingButton);
 		
 		JButton usersButton = new JButton("Users");
 		GridBagConstraints gbc_usersButton = new GridBagConstraints();
+		gbc_usersButton.gridwidth = 3;
+		gbc_usersButton.fill = GridBagConstraints.BOTH;
 		usersButton.setForeground(Color.WHITE);
 		usersButton.setOpaque(true);
 		usersButton.setBackground(new Color(40, 41, 82));
 		usersButton.setFocusable(false);
 		gbc_usersButton.insets = new Insets(0, 0, 5, 5);
-		gbc_usersButton.gridx = 1;
+		gbc_usersButton.gridx = 0;
 		gbc_usersButton.gridy = 4;
 		sidebarPanel.add(usersButton, gbc_usersButton);
 		
 		JButton roomsButton = new JButton("Rooms");
 		GridBagConstraints gbc_roomsButton = new GridBagConstraints();
+		gbc_roomsButton.gridwidth = 3;
+		gbc_roomsButton.fill = GridBagConstraints.BOTH;
 		roomsButton.setForeground(Color.WHITE);
 		roomsButton.setOpaque(true);
 		roomsButton.setBackground(new Color(40, 41, 82));
 		roomsButton.setFocusable(false);
-		gbc_roomsButton.insets = new Insets(0, 0, 0, 5);
-		gbc_roomsButton.gridx = 1;
+		gbc_roomsButton.insets = new Insets(0, 0, 5, 5);
+		gbc_roomsButton.gridx = 0;
 		gbc_roomsButton.gridy = 5;
 		sidebarPanel.add(roomsButton, gbc_roomsButton);
+		
+		JSeparator logSeparator = new JSeparator();
+		GridBagConstraints gbc_logSeparator = new GridBagConstraints();
+		gbc_logSeparator.fill = GridBagConstraints.BOTH;
+		gbc_logSeparator.insets = new Insets(0, 0, 5, 0);
+		gbc_logSeparator.gridwidth = 3;
+		gbc_logSeparator.gridx = 0;
+		gbc_logSeparator.gridy = 6;
+		sidebarPanel.add(logSeparator, gbc_logSeparator);
+		
+		JPanel logPanel = new JPanel();
+		GridBagConstraints gbc_logPanel = new GridBagConstraints();
+		gbc_logPanel.gridwidth = 3;
+		gbc_logPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_logPanel.fill = GridBagConstraints.BOTH;
+		gbc_logPanel.gridx = 0;
+		gbc_logPanel.gridy = 7;
+		sidebarPanel.add(logPanel, gbc_logPanel);
 		
 		JPanel mainPanel = new JPanel();
 		GridBagConstraints gbc_mainPanel = new GridBagConstraints();
