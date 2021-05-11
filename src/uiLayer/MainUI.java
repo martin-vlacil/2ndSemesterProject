@@ -1,6 +1,5 @@
 package uiLayer;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -9,14 +8,16 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 
@@ -32,12 +33,13 @@ public class MainUI extends JFrame {
 			public void run() {
 				try {
 					MainUI frame = new MainUI();
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
+		}); 
 	}
 
 	/**
@@ -58,8 +60,8 @@ public class MainUI extends JFrame {
 		JPanel sidebarPanel = new JPanel();
 		GridBagConstraints gbc_sidebarPanel = new GridBagConstraints();
 		sidebarPanel.setBackground(new Color(40, 41, 82));
+		sidebarPanel.setPreferredSize(new Dimension(140, 0));
 		
-		gbc_sidebarPanel.insets = new Insets(0, 0, 0, 0);
 		gbc_sidebarPanel.fill = GridBagConstraints.BOTH;
 		gbc_sidebarPanel.gridx = 0;
 		gbc_sidebarPanel.gridy = 0;
@@ -68,38 +70,50 @@ public class MainUI extends JFrame {
 		gbl_sidebarPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_sidebarPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_sidebarPanel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.4, Double.MIN_VALUE};
 		sidebarPanel.setLayout(gbl_sidebarPanel);
+		
+		// Set the image icon of the button and scale is to 50x50
+		ImageIcon icon = new ImageIcon("src/uiLayer/images/Icon.png", "A");
+		icon = new ImageIcon(icon.getImage().getScaledInstance(50, -1, Image.SCALE_SMOOTH));
+		JButton avatarButton = new JButton(icon);
+		GridBagConstraints gbc_avatarButton = new GridBagConstraints();
+		avatarButton.setContentAreaFilled(false);
+		avatarButton.setBorder(new EmptyBorder(0, 0, 0, 0));
+		avatarButton.setFocusable(false);
+		gbc_avatarButton.insets = new Insets(10, 10, 10, 10);
+		gbc_avatarButton.fill = GridBagConstraints.BOTH;
+		gbc_avatarButton.gridheight = 2;
+		gbc_avatarButton.gridx = 0;
+		gbc_avatarButton.gridy = 0;
+		sidebarPanel.add(avatarButton, gbc_avatarButton);
 		
 		JLabel userNameLabel = new JLabel("User Name");
 		userNameLabel.setForeground(Color.WHITE);
-		userNameLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
+		userNameLabel.setFont(new Font("Roboto", Font.BOLD, 15));
 		
 		GridBagConstraints gbc_userNameLabel = new GridBagConstraints();
+		gbc_userNameLabel.insets = new Insets(25, 0, 0, 0);
 		gbc_userNameLabel.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_userNameLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_userNameLabel.gridx = 1;
 		gbc_userNameLabel.gridy = 0;
 		sidebarPanel.add(userNameLabel, gbc_userNameLabel);
 		
 		JButton logOutButton = new JButton("Log Out");
-		logOutButton.setForeground(Color.WHITE);
-		logOutButton.setOpaque(true);
-		logOutButton.setBackground(new Color(40, 41, 82));
-		logOutButton.setFocusable(false);
+		formatSidebarButton(logOutButton);
 		GridBagConstraints gbc_logOutButton = new GridBagConstraints();
+		gbc_logOutButton.anchor = GridBagConstraints.WEST;
+		gbc_logOutButton.insets = new Insets(20, 0, 20, 10);
 		gbc_logOutButton.gridheight = 2;
-		gbc_logOutButton.fill = GridBagConstraints.BOTH;
-		gbc_logOutButton.insets = new Insets(0, 0, 5, 0);
+		gbc_logOutButton.fill = GridBagConstraints.VERTICAL;
 		gbc_logOutButton.gridx = 2;
 		gbc_logOutButton.gridy = 0;
 		sidebarPanel.add(logOutButton, gbc_logOutButton);
 		
 		JLabel userTypeLabel = new JLabel("User Type");
-		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 8));
+		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
 		userTypeLabel.setForeground(Color.WHITE);
 		GridBagConstraints gbc_userTypeLabel = new GridBagConstraints();
-		gbc_userTypeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_userTypeLabel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_userTypeLabel.gridx = 1;
 		gbc_userTypeLabel.gridy = 1;
@@ -108,7 +122,6 @@ public class MainUI extends JFrame {
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.BOTH;
-		gbc_separator.insets = new Insets(0, 0, 5, 0);
 		separator.setForeground(new Color(196, 196, 196));
 		separator.setOpaque(true);
 		gbc_separator.gridwidth = 3;
@@ -117,41 +130,35 @@ public class MainUI extends JFrame {
 		sidebarPanel.add(separator, gbc_separator);
 		
 		JButton bookingButton = new JButton("Booking");
-		bookingButton.setForeground(Color.WHITE);
-		bookingButton.setOpaque(true);
-		bookingButton.setBackground(new Color(40, 41, 82));
-		bookingButton.setFocusable(false);
+		formatSidebarButton(bookingButton);
+		bookingButton.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_bookingButton = new GridBagConstraints();
+		gbc_bookingButton.insets = new Insets(20, 20, 5, 60);
 		gbc_bookingButton.gridwidth = 3;
 		gbc_bookingButton.fill = GridBagConstraints.BOTH;
-		gbc_bookingButton.insets = new Insets(0, 0, 5, 5);
 		gbc_bookingButton.gridx = 0;
 		gbc_bookingButton.gridy = 3;
 		sidebarPanel.add(bookingButton, gbc_bookingButton);
 		
 		JButton usersButton = new JButton("Users");
 		GridBagConstraints gbc_usersButton = new GridBagConstraints();
+		gbc_usersButton.insets = new Insets(0, 20, 5, 60);
 		gbc_usersButton.gridwidth = 3;
 		gbc_usersButton.fill = GridBagConstraints.BOTH;
-		usersButton.setForeground(Color.WHITE);
-		usersButton.setOpaque(true);
-		usersButton.setBackground(new Color(40, 41, 82));
-		usersButton.setFocusable(false);
-		gbc_usersButton.insets = new Insets(0, 0, 5, 5);
+		formatSidebarButton(usersButton);
+		usersButton.setHorizontalAlignment(SwingConstants.LEFT);
 		gbc_usersButton.gridx = 0;
 		gbc_usersButton.gridy = 4;
 		sidebarPanel.add(usersButton, gbc_usersButton);
 		
 		JButton roomsButton = new JButton("Rooms");
 		GridBagConstraints gbc_roomsButton = new GridBagConstraints();
+		gbc_roomsButton.insets = new Insets(0, 20, 5, 60);
 		gbc_roomsButton.anchor = GridBagConstraints.NORTH;
 		gbc_roomsButton.gridwidth = 3;
 		gbc_roomsButton.fill = GridBagConstraints.HORIZONTAL;
-		roomsButton.setForeground(Color.WHITE);
-		roomsButton.setOpaque(true);
-		roomsButton.setBackground(new Color(40, 41, 82));
-		roomsButton.setFocusable(false);
-		gbc_roomsButton.insets = new Insets(0, 0, 5, 5);
+		formatSidebarButton(roomsButton);
+		roomsButton.setHorizontalAlignment(SwingConstants.LEFT);
 		gbc_roomsButton.gridx = 0;
 		gbc_roomsButton.gridy = 5;
 		sidebarPanel.add(roomsButton, gbc_roomsButton);
@@ -161,8 +168,8 @@ public class MainUI extends JFrame {
 		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
 		logSeparator.setForeground(new Color(196, 196, 196));
 		logSeparator.setOpaque(true);
+		logSeparator.setPreferredSize(new Dimension(logSeparator.getWidth(), 4));
 		gbc_logSeparator.fill = GridBagConstraints.HORIZONTAL;
-		gbc_logSeparator.insets = new Insets(0, 0, 5, 0);
 		gbc_logSeparator.gridwidth = 3;
 		gbc_logSeparator.gridx = 0;
 		gbc_logSeparator.gridy = 6;
@@ -184,23 +191,25 @@ public class MainUI extends JFrame {
 		logPanel.setLayout(gbl_logPanel);
 		
 		JLabel logLabel = new JLabel("LOG");
-		logLabel.setFont(new Font("Roboto", Font.PLAIN, 10));
+		logLabel.setFont(new Font("Roboto", Font.BOLD, 15));
 		logLabel.setForeground(Color.WHITE);
 		logLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_logLabel = new GridBagConstraints();
-		gbc_logLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_logLabel.insets = new Insets(5, 0, 0, 0);
 		gbc_logLabel.gridx = 0;
 		gbc_logLabel.gridy = 0;
 		logPanel.add(logLabel, gbc_logLabel);
 		
 		JTextArea logTextArea = new JTextArea();
-		logTextArea.setText("1\r\n2\r\n3\r\n4");
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
+		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
+		//logTextArea.setEditable(false);
 		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
 		logTextArea.setBackground(new Color(40, 41, 82));
 		logTextArea.setPreferredSize(sidebarPanel.getSize());
+		gbc_logTextArea.insets = new Insets(5, 10, 0, 10);
 		gbc_logTextArea.fill = GridBagConstraints.BOTH;
 		gbc_logTextArea.gridx = 0;
 		gbc_logTextArea.gridy = 1;
@@ -214,4 +223,14 @@ public class MainUI extends JFrame {
 		contentPane.add(mainPanel, gbc_mainPanel);
 	}
 
+	
+	private void formatSidebarButton(JButton button)
+	{
+		button.setForeground(Color.WHITE);
+		button.setBackground(new Color(40, 41, 82));
+		button.setBorder(new EmptyBorder(15, 10, 15, 10));
+		button.setFocusable(false);
+		button.setFont(new Font("Roboto", Font.BOLD, 15));
+		//button.setContentAreaFilled(false);
+	}
 }
