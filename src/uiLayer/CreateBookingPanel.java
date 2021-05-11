@@ -52,7 +52,8 @@ public class CreateBookingPanel extends JPanel {
 	
 	private void checkRoomAvailability() 
 	{
-		
+		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
+		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
 	}
 
 }

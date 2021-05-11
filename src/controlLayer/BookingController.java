@@ -51,10 +51,12 @@ public class BookingController
 		
 		for(Room currentRoom: selectedRooms)
 		{
+			/*
 			if(!roomCtr.checkAvailability(currentRoom.getId(), time))
 			{
 				startTimeSelected = false;
 			}
+			*/
 		}
 		
 		if(startTimeSelected)
@@ -71,10 +73,11 @@ public class BookingController
 		
 		for(Room currentRoom: selectedRooms)
 		{
-			if(!roomCtr.checkAvailability(currentRoom.getId(), time))
+			//TODO MODIFIED THE METHOD IN THE ROOMCTR
+			/*if(!roomCtr.checkAvailability(currentRoom.getId(), time))
 			{
 				endTimeSelected = false;
-			}
+			}*/
 		}
 		
 		if(endTimeSelected)
@@ -172,9 +175,20 @@ public class BookingController
 		return "";
 	}
 	
-	public void checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room)
+	public String checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room)
 	{
+		if (startTime != null && endTime != null && room != null)
+		{
+			Booking booking = bookingDB.checkAvailability(startTime, endTime, room.getId());
+			if (booking != null)
+			{
+				String returnString = "There is an event between " + booking.getStartTime() + " and " + booking.getEndTime(); 
+				return returnString;
+			}
+			
+		}
 		
+		return ""; //Returns nothing. One of the elements is not filled
 	}
 	
 }

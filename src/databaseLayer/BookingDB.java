@@ -46,5 +46,13 @@ public class BookingDB implements BookingDBIF
 		
 		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 	}
+	
+	
+	@Override
+	public Booking checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID)
+	{
+		
+		return null;
+	}
 
 }
