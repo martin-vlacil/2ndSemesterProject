@@ -123,4 +123,58 @@ public class BookingController
 		
 		return bookingConfirmed;
 	}
+	 
+	public String validateInformation(String[] information)
+	{
+		switch(information[0])
+		{
+			case "title":
+				if (information[1].length() > 50)
+				{
+					return "title";
+				}
+				break;
+				
+			case "attendees":
+				String[] writtenAndAllowed = information[1].split(" ");
+				if (Integer.parseInt(writtenAndAllowed[0]) <= Integer.parseInt(writtenAndAllowed[1]))
+				{
+					return "attendees";
+				}
+				break;
+				
+			case "contactName":
+				if (information[1].length() > 25 || information[1].length() < 2)
+				{
+					return "contactName";
+				}	
+				break;
+				
+			case "phoneNumber":
+				for (int e = 0; e < information[1].length(); e++) if (Character.isDigit(information[1].charAt(e))) return "";
+				if (information[1].length() > 15 || information[1].length() < 1)
+				{
+					return "phoneNumber";
+				}
+				break;
+				
+			case "email":
+				if (!information[1].contains("@") || information[1].length() > 100 || information[1].length() < 1)
+				{
+					return "email";
+				}
+				break;
+				
+			default: return "";
+		}
+		
+		
+		return "";
+	}
+	
+	public void checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room)
+	{
+		
+	}
+	
 }
