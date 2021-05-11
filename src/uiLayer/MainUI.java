@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 
 public class MainUI extends JFrame {
 
@@ -47,17 +49,17 @@ public class MainUI extends JFrame {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.1, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0}; 
+		gbl_contentPane.rowHeights = new int[]{0};
+		gbl_contentPane.columnWeights = new double[]{0.1, 1.0};
+		gbl_contentPane.rowWeights = new double[]{Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JPanel sidebarPanel = new JPanel();
 		GridBagConstraints gbc_sidebarPanel = new GridBagConstraints();
 		sidebarPanel.setBackground(new Color(40, 41, 82));
 		
-		gbc_sidebarPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_sidebarPanel.insets = new Insets(0, 0, 0, 0);
 		gbc_sidebarPanel.fill = GridBagConstraints.BOTH;
 		gbc_sidebarPanel.gridx = 0;
 		gbc_sidebarPanel.gridy = 0;
@@ -66,7 +68,7 @@ public class MainUI extends JFrame {
 		gbl_sidebarPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_sidebarPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_sidebarPanel.columnWeights = new double[]{0.1, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_sidebarPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		sidebarPanel.setLayout(gbl_sidebarPanel);
 		
 		JLabel userNameLabel = new JLabel("User Name");
@@ -74,7 +76,7 @@ public class MainUI extends JFrame {
 		userNameLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
 		
 		GridBagConstraints gbc_userNameLabel = new GridBagConstraints();
-		gbc_userNameLabel.anchor = GridBagConstraints.WEST;
+		gbc_userNameLabel.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_userNameLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_userNameLabel.gridx = 1;
 		gbc_userNameLabel.gridy = 0;
@@ -94,11 +96,11 @@ public class MainUI extends JFrame {
 		sidebarPanel.add(logOutButton, gbc_logOutButton);
 		
 		JLabel userTypeLabel = new JLabel("User Type");
-		userTypeLabel.setFont(new Font("Tahoma", Font.PLAIN, 7));
+		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 8));
 		userTypeLabel.setForeground(Color.WHITE);
 		GridBagConstraints gbc_userTypeLabel = new GridBagConstraints();
 		gbc_userTypeLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_userTypeLabel.anchor = GridBagConstraints.WEST;
+		gbc_userTypeLabel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_userTypeLabel.gridx = 1;
 		gbc_userTypeLabel.gridy = 1;
 		sidebarPanel.add(userTypeLabel, gbc_userTypeLabel);
@@ -142,8 +144,9 @@ public class MainUI extends JFrame {
 		
 		JButton roomsButton = new JButton("Rooms");
 		GridBagConstraints gbc_roomsButton = new GridBagConstraints();
+		gbc_roomsButton.anchor = GridBagConstraints.NORTH;
 		gbc_roomsButton.gridwidth = 3;
-		gbc_roomsButton.fill = GridBagConstraints.BOTH;
+		gbc_roomsButton.fill = GridBagConstraints.HORIZONTAL;
 		roomsButton.setForeground(Color.WHITE);
 		roomsButton.setOpaque(true);
 		roomsButton.setBackground(new Color(40, 41, 82));
@@ -155,7 +158,10 @@ public class MainUI extends JFrame {
 		
 		JSeparator logSeparator = new JSeparator();
 		GridBagConstraints gbc_logSeparator = new GridBagConstraints();
-		gbc_logSeparator.fill = GridBagConstraints.BOTH;
+		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
+		logSeparator.setForeground(new Color(196, 196, 196));
+		logSeparator.setOpaque(true);
+		gbc_logSeparator.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logSeparator.insets = new Insets(0, 0, 5, 0);
 		gbc_logSeparator.gridwidth = 3;
 		gbc_logSeparator.gridx = 0;
@@ -164,12 +170,41 @@ public class MainUI extends JFrame {
 		
 		JPanel logPanel = new JPanel();
 		GridBagConstraints gbc_logPanel = new GridBagConstraints();
+		logPanel.setBackground(new Color(40, 41, 82));
 		gbc_logPanel.gridwidth = 3;
-		gbc_logPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_logPanel.fill = GridBagConstraints.BOTH;
 		gbc_logPanel.gridx = 0;
 		gbc_logPanel.gridy = 7;
 		sidebarPanel.add(logPanel, gbc_logPanel);
+		GridBagLayout gbl_logPanel = new GridBagLayout();
+		gbl_logPanel.columnWidths = new int[]{0};
+		gbl_logPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_logPanel.columnWeights = new double[]{1.0};
+		gbl_logPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		logPanel.setLayout(gbl_logPanel);
+		
+		JLabel logLabel = new JLabel("LOG");
+		logLabel.setFont(new Font("Roboto", Font.PLAIN, 10));
+		logLabel.setForeground(Color.WHITE);
+		logLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_logLabel = new GridBagConstraints();
+		gbc_logLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_logLabel.gridx = 0;
+		gbc_logLabel.gridy = 0;
+		logPanel.add(logLabel, gbc_logLabel);
+		
+		JTextArea logTextArea = new JTextArea();
+		logTextArea.setText("1\r\n2\r\n3\r\n4");
+		logTextArea.setWrapStyleWord(true);
+		logTextArea.setLineWrap(true);
+		logTextArea.setForeground(Color.WHITE);
+		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
+		logTextArea.setBackground(new Color(40, 41, 82));
+		logTextArea.setPreferredSize(sidebarPanel.getSize());
+		gbc_logTextArea.fill = GridBagConstraints.BOTH;
+		gbc_logTextArea.gridx = 0;
+		gbc_logTextArea.gridy = 1;
+		logPanel.add(logTextArea, gbc_logTextArea);
 		
 		JPanel mainPanel = new JPanel();
 		GridBagConstraints gbc_mainPanel = new GridBagConstraints();
