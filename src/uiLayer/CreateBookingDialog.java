@@ -16,6 +16,7 @@ import controlLayer.BookingController;
 import modelLayer.User;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -416,7 +417,7 @@ public class CreateBookingDialog extends JDialog {
 
 	}
 	
-	private void checkRoomAvailability() 
+	private void checkRoomAvailability() throws SQLException 
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
 		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
