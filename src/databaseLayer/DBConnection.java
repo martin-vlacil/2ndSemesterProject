@@ -67,7 +67,8 @@ public class DBConnection
 	{
 		if(dbConnection == null) 
 		{
-			dbConnection = new DBConnection();
+			//TODO REMOVE COMMENTING
+			//dbConnection = new DBConnection();
 		}
 		return dbConnection;
 	}

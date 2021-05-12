@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -14,10 +15,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controlLayer.BookingController;
+import modelLayer.Room;
 import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -32,6 +36,7 @@ public class CreateBookingDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private User user;
+	private HashMap<String, Room> rooms;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
@@ -446,5 +451,16 @@ public class CreateBookingDialog extends JDialog {
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
 		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
+	}
+	
+	private void getAllRooms(JComboBox<String> box) throws SQLException
+	{
+		ArrayList<Room> allRooms = new BookingController().getAllRooms();
+		for (Room e : allRooms)
+		{
+			box.addItem(e.getName());
+			rooms.put(e.getName(),e);
+		}
+		
 	}
 }

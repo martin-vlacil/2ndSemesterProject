@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import databaseLayer.LogEntryDB;
+import modelLayer.LogEntry;
+
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -21,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
@@ -33,6 +37,7 @@ public class MainUI extends JFrame {
 	private JButton usersButton;
 	private JButton roomsButton;
 	private JButton selectedPageButton;
+	private JTextArea logTextArea = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -55,10 +60,12 @@ public class MainUI extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public MainUI() {
+	public MainUI() throws SQLException {
 		
-		bookingPanel = new BookingPanel();
+		//TODO PASS USER
+		bookingPanel = new BookingPanel(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 871, 500);
@@ -228,12 +235,12 @@ public class MainUI extends JFrame {
 		gbc_logLabel.gridy = 0;
 		logPanel.add(logLabel, gbc_logLabel);
 		
-		JTextArea logTextArea = new JTextArea();
+		
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
 		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
-		//logTextArea.setEditable(false);
+		logTextArea.setEditable(false);
 		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
 		logTextArea.setBackground(new Color(40, 41, 82));
 		logTextArea.setPreferredSize(sidebarPanel.getSize());
@@ -292,5 +299,11 @@ public class MainUI extends JFrame {
 	{
 		button.setForeground(new Color(40, 41, 82));
 		button.setBackground(new Color(234, 234, 238));
+	}
+	
+	private void updateLog() throws SQLException
+	{
+		String logDB = new LogEntryDB().getLogs();
+		logTextArea.setText(logDB);
 	}
 }

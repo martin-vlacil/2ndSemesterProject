@@ -22,10 +22,11 @@ public class RoomDB implements RoomDBIF
 
 	public RoomDB() throws SQLException
 	{
-		connection = DBConnection.getInstance().getConnection();
+		//TODO REMOVE COMMENTING
+		//connection = DBConnection.getInstance().getConnection();
 		
 		//sqlFindByNumber = connection.prepareStatement(FIND_BY_NUMBER);
-		sqlGetAll = connection.prepareStatement(GET_ALL, Statement.RETURN_GENERATED_KEYS);
+		//sqlGetAll = connection.prepareStatement(GET_ALL, Statement.RETURN_GENERATED_KEYS);
 	}
 
 	/*
@@ -58,6 +59,8 @@ public class RoomDB implements RoomDBIF
 	@Override
 	public ArrayList<Room> getAll() throws SQLException
 	{
+		//TODO REMOVE COMMENTS
+		/*
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		
 		ResultSet rs = sqlGetAll.executeQuery();
@@ -68,6 +71,12 @@ public class RoomDB implements RoomDBIF
 			rooms.add(room);
 		}
 		
+		
 		return rooms;
+		*/
+		ArrayList<Room> rooms2 = new ArrayList<>();
+		rooms2.add(new Room("1",5,"Conference",1));
+		rooms2.add(new Room("2A", 5, "Small", 0));
+		return rooms2;
 	}
 }

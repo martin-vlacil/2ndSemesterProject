@@ -200,4 +200,8 @@ public class BookingController
 		return ""; //Returns nothing. One of the elements is not filled
 	}
 	
+	public ArrayList<Room> getAllRooms() throws SQLException
+	{
+		return roomCtr.getAll();
+	}
 }

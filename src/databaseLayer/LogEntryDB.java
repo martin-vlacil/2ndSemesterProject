@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import modelLayer.LogEntry;
 
@@ -18,9 +19,9 @@ public class LogEntryDB implements LogEntryDBIF
 
 	public LogEntryDB() throws SQLException
 	{
-		connection = DBConnection.getInstance().getConnection();
-		
-		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
+		//TODO REMOVE COMMENTING
+		//connection = DBConnection.getInstance().getConnection();
+		//sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
 	}
 
 	@Override
@@ -34,6 +35,14 @@ public class LogEntryDB implements LogEntryDBIF
 		logEntryCreated = sqlInsertLogEntry.execute(INSERT_LOG_ENTRY);
 		
 		return logEntryCreated;
+	}
+	
+	@Override
+	public String getLogs() throws SQLException
+	{
+		//TODO WRITE THE SQL SCRIPT AND ADD IT TO THE STRING
+		String returnString = "";
+		return returnString;
 	}
 
 }

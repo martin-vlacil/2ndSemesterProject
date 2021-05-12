@@ -3,7 +3,9 @@ package uiLayer;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controlLayer.BookingController;
 import modelLayer.Room;
+import modelLayer.User;
 import uiLayer.calendar.JCalendar;
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -20,16 +22,27 @@ import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class BookingPanel extends JPanel {
 
 	private JCalendar calendar;
+	private User loggedUser;
+	private HashMap<String, Room> rooms;
 	
 	/**
 	 * Create the panel.
+	 * @throws SQLException 
 	 */
-	public BookingPanel() {
+	public BookingPanel(User user) throws SQLException {
+		this.loggedUser = user;
+		this.rooms = new HashMap<String, Room>();
+		
+		
 		this.setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 0, 0, 0, 30};
@@ -65,20 +78,21 @@ public class BookingPanel extends JPanel {
 		gbc_createBookingButton.gridx = 1;
 		gbc_createBookingButton.gridy = 1;
 		add(createBookingButton, gbc_createBookingButton);
-
-		JComboBox<Room> comboBox = new JComboBox<Room>();
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {" Select..."}));
 		comboBox.setPreferredSize(new Dimension(100, 30));
 		comboBox.setEditable(false);
 		comboBox.setFocusable(false);
 		comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
 		comboBox.setForeground(Color.GRAY);
+		getAllRooms(comboBox);
+		
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
 		add(comboBox, gbc_comboBox);
-		
 		calendar = new JCalendar();
 		calendar.setPreferredSize(new Dimension(-1, -1));
 		calendar.getConfig().setAllDayPanelVisible(false);
@@ -102,5 +116,17 @@ public class BookingPanel extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//TODO WRITE COMMENT
+	private void getAllRooms(JComboBox<String> box) throws SQLException
+	{
+		ArrayList<Room> allRooms = new BookingController().getAllRooms();
+		for (Room e : allRooms)
+		{
+			box.addItem(e.getName());
+			rooms.put(e.getName(),e);
+		}
+		
 	}
 }

@@ -26,10 +26,10 @@ public class BookingDB implements BookingDBIF
 	
 	public BookingDB() throws SQLException
 	{
-		connection = DBConnection.getInstance().getConnection();
-		
-		sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
-		sqlSelectBookingsByDateAndRoom = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE_AND_ROOM);
+		//TODO REMOVE COMMENTING
+		//connection = DBConnection.getInstance().getConnection();
+		//sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
+		//sqlSelectBookingsByDateAndRoom = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE_AND_ROOM);
 	}
 
 	@Override
