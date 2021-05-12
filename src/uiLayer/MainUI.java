@@ -29,6 +29,8 @@ public class MainUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		// Remove the system's scale factor on the UI elements
+		System.setProperty("sun.java2d.uiScale", "1.0");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -74,8 +76,8 @@ public class MainUI extends JFrame {
 		sidebarPanel.setLayout(gbl_sidebarPanel);
 		
 		// Set the image icon of the button and scale is to 50x50
-		ImageIcon icon = new ImageIcon("src/uiLayer/images/Icon.png", "A");
-		icon = new ImageIcon(icon.getImage().getScaledInstance(50, -1, Image.SCALE_SMOOTH));
+		ImageIcon icon = new ImageIcon("src/uiLayer/images/Icon.png", "YOU");
+		icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 		JButton avatarButton = new JButton(icon);
 		GridBagConstraints gbc_avatarButton = new GridBagConstraints();
 		avatarButton.setContentAreaFilled(false);
@@ -91,7 +93,6 @@ public class MainUI extends JFrame {
 		JLabel userNameLabel = new JLabel("User Name");
 		userNameLabel.setForeground(Color.WHITE);
 		userNameLabel.setFont(new Font("Roboto", Font.BOLD, 15));
-		
 		GridBagConstraints gbc_userNameLabel = new GridBagConstraints();
 		gbc_userNameLabel.insets = new Insets(25, 0, 0, 0);
 		gbc_userNameLabel.anchor = GridBagConstraints.SOUTHWEST;
