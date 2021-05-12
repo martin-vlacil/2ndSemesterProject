@@ -2,6 +2,7 @@ package controlLayer;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import databaseLayer.BookingDB;
@@ -112,7 +113,8 @@ public class BookingController
 					bookingConfirmed = false;
 				}
 				
-				logEntryDB.create("", LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				logEntryDB.create(createdBy.getName() + " has booked the " + room.getName() + " on " + selectedStartTime.format(formatter), LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
 				
 				DBConnection.getInstance().commitTransaction();
 			}

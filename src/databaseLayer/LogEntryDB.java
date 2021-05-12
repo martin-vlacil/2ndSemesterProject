@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import modelLayer.LogEntry;
@@ -12,7 +13,7 @@ public class LogEntryDB implements LogEntryDBIF
 {
 	private Connection connection;
 	
-	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?"); //TODO - write string format
+	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?)");
 	private PreparedStatement sqlInsertLogEntry;
 
 	public LogEntryDB() throws SQLException
@@ -23,13 +24,18 @@ public class LogEntryDB implements LogEntryDBIF
 	}
 
 	@Override
-	public LogEntry create(String action, LocalDateTime time)
+	public LogEntry create(String action, LocalDateTime time) throws SQLException
 	{
-		LogEntry logEntry = null;
+		LogEntry createdLogEntry = null;
 		
-		// TODO write method
+		sqlInsertLogEntry.setString(1, action);
+		sqlInsertLogEntry.setTimestamp(2, Timestamp.valueOf(time));
 		
-		return logEntry;
+		sqlInsertLogEntry.execute(INSERT_LOG_ENTRY);
+		
+		createdLogEntry = new LogEntry(action, time);
+		
+		return createdLogEntry;
 	}
 
 }
