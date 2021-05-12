@@ -127,7 +127,7 @@ public class BookingController
 		return bookingConfirmed;
 	}
 	
-	public String validateInformation(String[] information)
+	public boolean validateInformation(String[] information)
 	{
 		//TODO maybe we can use smth fancy like hashmap? Also Regex at phonenumber and attendees
 		switch(information[0])
@@ -135,7 +135,7 @@ public class BookingController
 			case "title":
 				if (information[1].length() > 50)
 				{
-					return "title";
+					return false;
 				}
 				break;
 				
@@ -143,37 +143,43 @@ public class BookingController
 				String[] writtenAndAllowed = information[1].split(" ");
 				if (Integer.parseInt(writtenAndAllowed[0]) <= Integer.parseInt(writtenAndAllowed[1]))
 				{
-					return "attendees";
+					return false;
 				}
 				break;
 				
 			case "contactName":
 				if (information[1].length() > 25 || information[1].length() < 2)
 				{
-					return "contactName";
+					return false;
 				}	
 				break;
 				
 			case "phoneNumber":
-				for (int e = 0; e < information[1].length(); e++) if (Character.isDigit(information[1].charAt(e))) return "";
+				for (int e = information[1].startsWith("+") ? 1 : 0; e < information[1].length(); e++)
+				{
+					if (!Character.isDigit(information[1].charAt(e))) 
+					{
+						return false;
+					}
+				}
 				if (information[1].length() > 15 || information[1].length() < 1)
 				{
-					return "phoneNumber";
+					return false;
 				}
 				break;
 				
 			case "email":
 				if (!information[1].contains("@") || information[1].length() > 100 || information[1].length() < 1)
 				{
-					return "email";
+					return false;
 				}
 				break;
 				
-			default: return "";
+			default: return true;
 		}
 		
 		
-		return "";
+		return true;
 	}
 	
 	public String checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room)

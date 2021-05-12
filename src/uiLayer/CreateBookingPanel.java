@@ -26,7 +26,7 @@ public class CreateBookingPanel extends JPanel {
 	
 	private void checkInformation(String field, String fieldValue) 
 	{
-		if (!bookingController.validateInformation(new String[] {field,fieldValue}).equals("")) 
+		if (bookingController.validateInformation(new String[] {field,fieldValue}) == false) 
 		{
 			switch(field) 
 			{
