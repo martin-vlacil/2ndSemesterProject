@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import modelLayer.Booking;
+import modelLayer.Room;
 
 public class BookingDB implements BookingDBIF
 {
@@ -51,13 +54,19 @@ public class BookingDB implements BookingDBIF
 		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 	}
 	
-	
+	//TODO finish
 	@Override
-	public Booking checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID)
+	public Booking checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException
 	{
-		
 		return null;
 	}
 	
-
+	//TODO finish
+	@Override
+	public List<Booking> getAllForRoomFromDate(Room room, LocalDate date) throws SQLException
+	{
+		//sqlSelectBookingsByDateAndRoom.setThing(1, date);
+		sqlSelectBookingsByDateAndRoom.setInt(2, room.getId());
+		return null;
+	}
 }
