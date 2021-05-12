@@ -143,9 +143,9 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
     }
 
     @Override
-    public Collection<CalendarEvent> getEvents(final LocalDateTime date) {
+    public Collection<CalendarEvent> getEvents(final LocalDate date) {
         @SuppressWarnings("rawtypes")
-        final Collection events = indexedEvents.getCollection(date.toLocalDate());
+        final Collection events = indexedEvents.getCollection(date);
         if (events == null)
             return new ArrayList<CalendarEvent>();
         @SuppressWarnings("unchecked")
@@ -167,7 +167,7 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
     }
 
     @Override
-    public List<CalendarEvent> getHolidayEvents(Date date) {
+    public List<CalendarEvent> getHolidayEvents(LocalDate date) {
         Collection<CalendarEvent> events = getEvents(date);
 
         List<CalendarEvent> result = new ArrayList<CalendarEvent>();
@@ -194,8 +194,8 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
                         indexedEvents.remove(key, calendarEvent);
                     }
 
-                    final Collection<Date> dates = CalendarUtil.getDates(calendarEvent.getStart(), calendarEvent.getEnd());
-                    for (final Date date : dates) {
+                    final Collection<LocalDate> dates = CalendarUtil.getDates(calendarEvent.getStart(), calendarEvent.getEnd());
+                    for (final LocalDate date : dates) {
                         indexedEvents.put(date, calendarEvent);
                     }
 

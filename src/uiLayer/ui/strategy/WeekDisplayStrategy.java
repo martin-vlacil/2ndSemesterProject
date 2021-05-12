@@ -23,6 +23,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -49,7 +53,8 @@ class WeekDisplayStrategy implements DisplayStrategy {
 
 	private final ContentPanel parent;
     private final JCalendar calendar;
-	private final SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+	//private final SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+	private final DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 	private final DayPanel[] days = new DayPanel[7];
 
 	private JPanel displayPanel;
@@ -66,13 +71,16 @@ class WeekDisplayStrategy implements DisplayStrategy {
 		UIDefaults uidef = UIManager.getDefaults();
 		int swidth = Integer.parseInt(uidef.get("ScrollBar.width").toString());
 
-		Calendar start = CalendarUtil.getCalendar(new Date(), true);
+		/*Calendar start = CalendarUtil.getCalendar(new Date(), true);
 		
 		start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
 
 		Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
-        end.add(Calendar.DATE,7);
+        end.add(Calendar.DATE,7);*/
 
+		//XXX added Start and end of Week period as LocalDates, stored in the config file.
+		LocalDate start = LocalDate.now().with(DayOfWeek.MONDAY);
+		LocalDate end = LocalDate.now().with(DayOfWeek.MONDAY).plusDays(7);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 
@@ -99,10 +107,10 @@ class WeekDisplayStrategy implements DisplayStrategy {
 		gbc.weightx = 0;
 		gbc.fill = GridBagConstraints.BOTH;
 		contentsPanel.add(new HoursPanel(parent.getOwner()), gbc);
-
-		final Calendar c = CalendarUtil.copyCalendar(start, true);
+		//XXX no need to clone LocalDateTime as it is immutable
+		//final Calendar c = CalendarUtil.copyCalendar(start, true);
 		for (int i = 0; i < 7; i++) {
-			days[i] = new DayPanel(parent.getOwner(), c.getTime(), 0.02f);
+			days[i] = new DayPanel(parent.getOwner(), start, 0.02f);
 			headersPanel.add(days[i].getHeaderPanel());
 			gbc.gridx = i + 1;
 			gbc.gridy = 0;
@@ -111,7 +119,7 @@ class WeekDisplayStrategy implements DisplayStrategy {
 			days[i].getContentPanel().setPreferredSize(new Dimension(30, 1440));
 			contentsPanel.add(days[i].getContentPanel(), gbc);
 			//allDayPanel.add(days[i].getCompleteDayPanel());
-			c.add(Calendar.DATE, 1);
+			start = start.plusDays(1);
 		}
 
 		gbc.gridx = 0;
@@ -160,43 +168,45 @@ class WeekDisplayStrategy implements DisplayStrategy {
 
 	@Override
 	public void moveIntervalLeft() {
-		Calendar start = calendar.getConfig().getIntervalStart();
-        start.setTime(CalendarUtil.createInDays(start.getTime(), -7));
+		//XXX Changed from Calendar to LocalDate, added minus 7 days to move interval
+		LocalDate start = calendar.getConfig().getIntervalStart().minusDays(7).with(DayOfWeek.MONDAY);
+        //start.setTime(CalendarUtil.createInDays(start.getTime(), -7));
         //TODO
-		start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+		//start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
-        end.add(Calendar.DATE,7);
-
+        //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
+        //end.add(Calendar.DATE,7);
+		LocalDate end = start.plusDays(7);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 
-		final Calendar c = CalendarUtil.copyCalendar(start, true);
+		//final Calendar c = CalendarUtil.copyCalendar(start, true);
 		for (int i = 0; i < 7; i++) {
-			days[i].setDate(c.getTime());
-			c.add(Calendar.DATE, 1);
+			days[i].setDate(start);
+			start = start.plusDays(1);
 		}
-
 		parent.validate();
 		parent.repaint();
 	}
 
 	@Override
 	public void moveIntervalRight() {
-        Calendar start = calendar.getConfig().getIntervalStart();
-        start.setTime(CalendarUtil.createInDays(start.getTime(), 7));
+		//XXX changed to LocalDate
+        LocalDate start = calendar.getConfig().getIntervalStart().plusDays(7).with(DayOfWeek.MONDAY);
+        //start.setTime(CalendarUtil.createInDays(start.getTime(), 7));
 	    //TODO
-        start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+        //start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
-        end.add(Calendar.DATE,7);
-
+        //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
+        //end.add(Calendar.DATE,7);
+        LocalDate end = start.plusDays(7);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
-		final Calendar c = CalendarUtil.copyCalendar(start, true);
+		//final Calendar c = CalendarUtil.copyCalendar(start, true);
 		for (int i = 0; i < 7; i++) {
-			days[i].setDate(c.getTime());
-			c.add(Calendar.DATE, 1);
+			days[i].setDate(start);
+			//c.add(Calendar.DATE, 1); XXX changed to localDateTime
+			start = start.plusDays(1);
 		}
 
 		parent.validate();
@@ -205,23 +215,28 @@ class WeekDisplayStrategy implements DisplayStrategy {
 
 	@Override
 	public String getDisplayInterval() {
-		return sdf.format(calendar.getConfig().getIntervalStart().getTime()) + " - " + sdf.format(calendar.getConfig().getIntervalEnd().getTime());
+		return sdf.format(calendar.getConfig().getIntervalStart()) + " - " + sdf.format(calendar.getConfig().getIntervalEnd());
 	}
 
 	@Override
-	public void setIntervalStart(Date date) {
-	    Calendar start = CalendarUtil.getCalendar(date, true);
-		start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
-        Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
-        end.add(Calendar.DATE,7);
+	public void setIntervalStart(LocalDate date) {
+		//XXX converted Date/Calendar to LocalDate
+		LocalDate start = date.with(DayOfWeek.MONDAY);
+	    //Calendar start = CalendarUtil.getCalendar(date, true);
+		//start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+        //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
+        //end.add(Calendar.DATE,7);
+        LocalDate end = start.plusDays(7);
 
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 
-		final Calendar c = CalendarUtil.copyCalendar(start, true);
+		//final Calendar c = CalendarUtil.copyCalendar(start, true);
 		for (int i = 0; i < 7; i++) {
-			days[i].setDate(c.getTime());
-			c.add(Calendar.DATE, 1);
+			//days[i].setDate(c.getTime());
+			//c.add(Calendar.DATE, 1);
+			days[i].setDate(start);
+			start = start.plusDays(1);
 		}
 
 		parent.validate();

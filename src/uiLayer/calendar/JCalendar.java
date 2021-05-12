@@ -41,6 +41,7 @@ import uiLayer.events.IntervalChangedEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
@@ -59,9 +60,9 @@ public class JCalendar extends JPanel {
     private ContentPanel contentPane;
     private Config config;
     private JPopupMenu popupMenu;
-    //XXX hover option removed
+    //XXX hover option removed, Calendar changed to LocalDate
     //private CalendarEventFormat formater;
-    private Calendar selectedDay;
+    private LocalDate selectedDay;
 
     /**
      * Creates a new instance of {@link JCalendar}
@@ -71,7 +72,7 @@ public class JCalendar extends JPanel {
         intervalChangedListener = new ArrayList<IntervalChangedListener>();
         config = new Config();
         //formater = new DefaultCalendarEventFormat();
-        selectedDay = Calendar.getInstance();
+        selectedDay = LocalDate.now();
 
         initGui();
         bindListeners();
@@ -176,7 +177,7 @@ public class JCalendar extends JPanel {
                 strategy.moveIntervalLeft();
                 headerPane.getIntervalLabel().setText(contentPane.getStrategy().getDisplayInterval());
                 final IntervalChangedEvent event = new IntervalChangedEvent(JCalendar.this, strategy.getType(),
-                        config.getIntervalStart().getTime(), config.getIntervalEnd().getTime());
+                        config.getIntervalStart(), config.getIntervalEnd());
                 
                 //XXX check if we need an interval listener changed
                 for (final IntervalChangedListener listener : intervalChangedListener) {
@@ -193,7 +194,7 @@ public class JCalendar extends JPanel {
                 strategy.moveIntervalRight();
                 headerPane.getIntervalLabel().setText(contentPane.getStrategy().getDisplayInterval());
                 final IntervalChangedEvent event = new IntervalChangedEvent(JCalendar.this, strategy.getType(),
-                        config.getIntervalStart().getTime(), config.getIntervalEnd().getTime());
+                        config.getIntervalStart(), config.getIntervalEnd());
 
                 for (final IntervalChangedListener listener : intervalChangedListener) {
                     listener.intervalChanged(event);
@@ -207,20 +208,21 @@ public class JCalendar extends JPanel {
      *
      * @return
      */
-    public Date getSelectedDay() {
-        return selectedDay.getTime();
+    public LocalDate getSelectedDay() {
+        return selectedDay;
     }
 
     /**
      * @param date
      */
-    public void setSelectedDay(final Date date) {
-        selectedDay = CalendarUtil.getCalendar(date, true);
+    public void setSelectedDay(final LocalDate date) {
+        //selectedDay = CalendarUtil.getCalendar(date, true);
+    	selectedDay = date;
         final DisplayStrategy strategy = contentPane.getStrategy();
         strategy.setIntervalStart(date);
         headerPane.getIntervalLabel().setText(strategy.getDisplayInterval());
         final IntervalChangedEvent event = new IntervalChangedEvent(JCalendar.this, strategy.getType(),
-                config.getIntervalStart().getTime(), config.getIntervalEnd().getTime());
+                config.getIntervalStart(), config.getIntervalEnd());
 
         for (final IntervalChangedListener listener : intervalChangedListener) {
             listener.intervalChanged(event);
@@ -242,7 +244,7 @@ public class JCalendar extends JPanel {
      * @param strategyType the {@link Type} of strategy to be used
      * @param displayDate  if not null then this value will be used as a reference for calculating the interval start
      */
-    public void setDisplayStrategy(final Type strategyType, final Date displayDate) {
+    public void setDisplayStrategy(final Type strategyType, final LocalDate displayDate) {
 
         final DisplayStrategy strategy = DisplayStrategyFactory.getStrategy(contentPane, strategyType);
         contentPane.setStrategy(strategy);

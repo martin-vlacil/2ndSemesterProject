@@ -27,7 +27,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -165,13 +167,16 @@ public class DayContentPanel extends JPanel {
                     calendar.repaint();
                     return;
                 }
-                Date startDate = CalendarUtil.pixelToDate(
+                LocalDateTime startDate = CalendarUtil.pixelToDate(
                         owner.getDate(), (int) e.getY(),
                         getHeight());
-                startDate = CalendarUtil.roundDateToHalfAnHour(startDate, false);
-                Date endDate = CalendarUtil.pixelToDate(owner.getDate(),
-                        (int) e.getY(), getHeight());
-                endDate = CalendarUtil.roundDateToHalfAnHour(endDate, true);
+                //startDate = CalendarUtil.roundDateToHalfAnHour(startDate, false);
+                startDate = startDate.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (startDate.getMinute() / 30));
+                
+                //Date endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) e.getY(), getHeight());
+        		LocalDateTime endDate = startDate.plusMinutes(30);
+                //endDate = CalendarUtil.roundDateToHalfAnHour(endDate, true);
+                
 
                 startSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(startDate, getHeight()));
                 endSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(endDate, getHeight()));
@@ -184,9 +189,11 @@ public class DayContentPanel extends JPanel {
                 if (startSelection == null)
                     return;
                 if (e.getY() > startSelection.getY()) {
-                    Date endDate = CalendarUtil.pixelToDate(owner.getDate(),
-                            (int) e.getY(), getHeight());
-                    endDate = CalendarUtil.roundDateToHalfAnHour(endDate, true);
+                    //Date endDate = CalendarUtil.pixelToDate(owner.getDate(),(int) e.getY(), getHeight());
+                    //endDate = CalendarUtil.roundDateToHalfAnHour(endDate, true);
+                	LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(),(int) e.getY(), getHeight());
+                	endDate = endDate.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (endDate.getMinute() / 30));
+                	
                     endSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(endDate, getHeight()));
 
                     calendar.validate();
@@ -395,14 +402,14 @@ public class DayContentPanel extends JPanel {
 
                 int eventYStart = 0;
                 final boolean isSameStartDay = CalendarUtil.isSameDay(
-                        event.getStart(), owner.getDate());
+                        event.getStart(), owner.getDate().atStartOfDay());
                 if (isSameStartDay) {
                     eventYStart = CalendarUtil.secondsToPixels(
                             event.getStart(), getHeight());
                 }
 
                 int eventYEnd = getHeight();
-                if (CalendarUtil.isSameDay(event.getEnd(), owner.getDate())) {
+                if (CalendarUtil.isSameDay(event.getEnd(), owner.getDate().atStartOfDay())) {
                     eventYEnd = CalendarUtil.secondsToPixels(event.getEnd(),
                             getHeight());
                 }

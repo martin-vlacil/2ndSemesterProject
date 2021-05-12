@@ -22,6 +22,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -97,7 +99,7 @@ public class HoursPanel extends JPanel {
 
 		((Graphics2D) g).setStroke(new BasicStroke(2f));
 		g.setColor(owner.getConfig().getTodayHeaderBackgroundColor());
-		int yNow = CalendarUtil.secondsToPixels(new Date(), 1440);
+		int yNow = CalendarUtil.secondsToPixels(LocalDateTime.now(), 1440);
 		g.drawLine(0, yNow, getWidth(), yNow);
 	}
 }

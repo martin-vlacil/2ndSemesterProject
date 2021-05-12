@@ -21,6 +21,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ import uiLayer.ui.strategy.DisplayStrategy.Type;
  */
 public class DayPanel {
 
-	private final SimpleDateFormat sdf = new SimpleDateFormat("EEE dd MMM");
+	private final DateTimeFormatter sdf = DateTimeFormatter.ofPattern("EEE dd MMM");
 	private LocalDate date;
 	private final DayHeaderPanel headerPanel;
 	private final DayContentPanel contentPanel;
@@ -53,7 +54,7 @@ public class DayPanel {
 
 		this.date = date;
 		this.owner = owner;
-		this.headerPanel = new DayHeaderPanel(this, sdf.format(date));
+		this.headerPanel = new DayHeaderPanel(this, date.format(sdf));
 		this.contentPanel = new DayContentPanel(this);
 		//this.completeDayPanel = new DayCompleteContentPanel(this);
 		//XXX disabling header double click for opening day strategy

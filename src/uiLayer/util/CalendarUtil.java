@@ -26,6 +26,7 @@ import java.util.*;
  */
 public class CalendarUtil {
 
+	//XXX CHanged to FIt localDate and localDateTime
     public static boolean isSameDay(final LocalDateTime date1, final LocalDateTime date2) {
         return date1.toLocalDate().equals(date2.toLocalDate());
     }
@@ -37,7 +38,7 @@ public class CalendarUtil {
     /**
      * XXX changed Date to LocalDateTime
      */
-    public static boolean isToday(final LocalDateTime date) {
+    public static boolean isToday(final LocalDate date) {
         /*final Calendar now = Calendar.getInstance();
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -53,7 +54,7 @@ public class CalendarUtil {
         calendar.set(Calendar.MILLISECOND, 0);
 
         return calendar.getTime().equals(now.getTime());*/
-    	return date.toLocalDate().equals(LocalDate.now());
+    	return date.equals(LocalDate.now());
     }
 
     public static Calendar copyCalendar(final Calendar calendar, final boolean stripTime) {
@@ -232,7 +233,9 @@ public class CalendarUtil {
         }
     }
 
-    public static Date roundDateToHalfAnHour(Date date, boolean roundUp) {
+    //XXX delete this
+    /*
+    public static LocalDateTime deprecietad_roundDateToHalfAnHour(LocalDateTime date, boolean roundUp) {
         Calendar c = getCalendar(date, false);
         int time = c.get(Calendar.MINUTE);
 
@@ -246,6 +249,6 @@ public class CalendarUtil {
         c.set(Calendar.SECOND,0);
         c.set(Calendar.MILLISECOND,0);
         return c.getTime();
-    }
+    }*/
 
 }

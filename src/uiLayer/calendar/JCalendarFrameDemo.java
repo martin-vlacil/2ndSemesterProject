@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -342,7 +344,11 @@ public class JCalendarFrameDemo extends JFrame {
 
 	public static void main(final String[] args) throws MalformedObjectNameException, NullPointerException,
 			InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+		
 		Locale.setDefault(Locale.UK);
+		LocalDate start = LocalDate.now().with(DayOfWeek.MONDAY);
+		start = start.plusDays(1);
+		System.out.println(start);
 		final JCalendarFrameDemo frameTest = new JCalendarFrameDemo();
 		frameTest.setVisible(true);
 	}

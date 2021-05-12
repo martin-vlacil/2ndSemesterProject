@@ -15,6 +15,7 @@
  */
 package uiLayer.ui.strategy;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -39,6 +40,6 @@ public interface DisplayStrategy {
 	public void moveIntervalRight();
 
 	public String getDisplayInterval();
-
-	void setIntervalStart(Date date);
+	
+	void setIntervalStart(LocalDate date);
 }

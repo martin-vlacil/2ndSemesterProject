@@ -15,6 +15,7 @@
  */
 package uiLayer.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
@@ -43,11 +44,11 @@ public interface EventCollection {
 
 	void clearSelected(CalendarEvent event, boolean b);
 
-    List<CalendarEvent> getHolidayEvents(Date date);
+    List<CalendarEvent> getHolidayEvents(LocalDate date);
 
 	Collection<CalendarEvent> getSelectedEvents();
 
-	Collection<CalendarEvent> getEvents(LocalDateTime date);
+	Collection<CalendarEvent> getEvents(LocalDate date);
 
     Collection<CalendarEvent> getAllEvents();
 

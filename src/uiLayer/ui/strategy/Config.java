@@ -19,6 +19,7 @@ import uiLayer.model.CalendarEvent;
 import uiLayer.util.CalendarUtil;
 
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,8 +44,8 @@ public class Config {
     private Color dayDisabledBackgroundColor;
     private boolean allDayPanelVisible;
     private Color holidayBgColor;
-    private Calendar intervalStart;
-    private Calendar intervalEnd;
+    private LocalDate intervalStart;
+    private LocalDate intervalEnd;
 
     public Config() {
         lineColor = new Color(220, 220, 220);
@@ -182,19 +183,19 @@ public class Config {
         this.holidayBgColor = holidayBgColor;
     }
 
-    public Calendar getIntervalStart() {
+    public LocalDate getIntervalStart() {
         return intervalStart;
     }
 
-    void setIntervalStart(Calendar intervalStart) {
+    void setIntervalStart(LocalDate intervalStart) {
         this.intervalStart = intervalStart;
     }
 
-    public Calendar getIntervalEnd() {
+    public LocalDate getIntervalEnd() {
         return intervalEnd;
     }
 
-    void setIntervalEnd(Calendar intervalEnd) {
+    void setIntervalEnd(LocalDate intervalEnd) {
         this.intervalEnd = intervalEnd;
     }
 }

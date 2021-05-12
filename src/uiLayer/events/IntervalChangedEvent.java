@@ -16,6 +16,7 @@
 package uiLayer.events;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import uiLayer.calendar.JCalendar;
@@ -23,8 +24,8 @@ import uiLayer.ui.strategy.DisplayStrategy.Type;
 
 /**
  * 
- * @author theodorcostache
- * 
+ * @author theodorcostache, dmai0920_group1
+ * XXX
  */
 public class IntervalChangedEvent implements Serializable {
 
@@ -37,9 +38,9 @@ public class IntervalChangedEvent implements Serializable {
 
 	private Type selectedStrategy;
 
-	private Date intervalStart;
+	private LocalDate intervalStart;
 
-	private Date intervalEnd;
+	private LocalDate intervalEnd;
 
 	/**
 	 * Creates a new instance of {@link IntervalChangedEvent}
@@ -56,8 +57,8 @@ public class IntervalChangedEvent implements Serializable {
 	 * @param intervalStart
 	 * @param intervalEnd
 	 */
-	public IntervalChangedEvent(final JCalendar source, final Type selectedStrategy, final Date intervalStart,
-			final Date intervalEnd) {
+	public IntervalChangedEvent(final JCalendar source, final Type selectedStrategy, final LocalDate intervalStart,
+			final LocalDate intervalEnd) {
 		super();
 		this.source = source;
 		this.selectedStrategy = selectedStrategy;
@@ -98,7 +99,7 @@ public class IntervalChangedEvent implements Serializable {
 	/**
 	 * @return the intervalStart
 	 */
-	public Date getIntervalStart() {
+	public LocalDate getIntervalStart() {
 		return intervalStart;
 	}
 
@@ -106,14 +107,14 @@ public class IntervalChangedEvent implements Serializable {
 	 * @param intervalStart
 	 *            the intervalStart to set
 	 */
-	public void setIntervalStart(final Date intervalStart) {
+	public void setIntervalStart(final LocalDate intervalStart) {
 		this.intervalStart = intervalStart;
 	}
 
 	/**
 	 * @return the intervalEnd
 	 */
-	public Date getIntervalEnd() {
+	public LocalDate getIntervalEnd() {
 		return intervalEnd;
 	}
 
@@ -121,7 +122,7 @@ public class IntervalChangedEvent implements Serializable {
 	 * @param intervalEnd
 	 *            the intervalEnd to set
 	 */
-	public void setIntervalEnd(final Date intervalEnd) {
+	public void setIntervalEnd(final LocalDate intervalEnd) {
 		this.intervalEnd = intervalEnd;
 	}
 
