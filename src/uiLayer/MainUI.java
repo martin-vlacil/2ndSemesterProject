@@ -12,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -20,10 +19,13 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import java.awt.CardLayout;
 
 public class MainUI extends JFrame {
 
 	private JPanel contentPane;
+	private CardLayout cards;
+	private BookingPanel bookingPanel;
 
 	/**
 	 * Launch the application.
@@ -48,6 +50,9 @@ public class MainUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MainUI() {
+		
+		bookingPanel = new BookingPanel();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 871, 500);
 		contentPane = new JPanel();
@@ -222,6 +227,9 @@ public class MainUI extends JFrame {
 		gbc_mainPanel.gridx = 1;
 		gbc_mainPanel.gridy = 0;
 		contentPane.add(mainPanel, gbc_mainPanel);
+		cards = new CardLayout(0, 0);
+		mainPanel.setLayout(cards);
+		mainPanel.add(bookingPanel, "Bookings");
 	}
 
 	
