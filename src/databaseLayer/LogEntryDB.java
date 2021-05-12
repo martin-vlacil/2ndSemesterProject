@@ -24,18 +24,16 @@ public class LogEntryDB implements LogEntryDBIF
 	}
 
 	@Override
-	public LogEntry create(String action, LocalDateTime time) throws SQLException
+	public boolean create(String action, LocalDateTime time) throws SQLException
 	{
-		LogEntry createdLogEntry = null;
+		boolean logEntryCreated = false;
 		
 		sqlInsertLogEntry.setString(1, action);
 		sqlInsertLogEntry.setTimestamp(2, Timestamp.valueOf(time));
 		
-		sqlInsertLogEntry.execute(INSERT_LOG_ENTRY);
+		logEntryCreated = sqlInsertLogEntry.execute(INSERT_LOG_ENTRY);
 		
-		createdLogEntry = new LogEntry(action, time);
-		
-		return createdLogEntry;
+		return logEntryCreated;
 	}
 
 }
