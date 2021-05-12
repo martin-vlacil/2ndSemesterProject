@@ -14,6 +14,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import config.StyleConfig;
 import controlLayer.BookingController;
 import modelLayer.Room;
 import modelLayer.User;
@@ -29,12 +30,12 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
 public class CreateBookingDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private StyleConfig config = new StyleConfig();
 	private User user;
 	private HashMap<String, Room> rooms;
 	private BookingController bookingController;
@@ -68,7 +69,7 @@ public class CreateBookingDialog extends JDialog {
 		setBounds(100, 100, 783, 502);
 		
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(240, 240, 240));
+		contentPanel.setBackground(config.getBackGroundDefaultColor());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{0, 0};
@@ -78,7 +79,7 @@ public class CreateBookingDialog extends JDialog {
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JPanel titlePanel = new JPanel();
-			titlePanel.setBackground(new Color(40, 41, 82));
+			titlePanel.setBackground(config.getBackgroundTitleDefaultColor());
 			GridBagConstraints gbc_titlePanel = new GridBagConstraints();
 			gbc_titlePanel.gridwidth = 2;
 			gbc_titlePanel.insets = new Insets(0, 0, 10, 0);
@@ -246,6 +247,7 @@ public class CreateBookingDialog extends JDialog {
 		{
 			JPanel rightPanel = new JPanel();
 			rightPanel.setPreferredSize(new Dimension(100,100));
+			//TODO maybe add this to the config. idk
 			rightPanel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 			gbc_rightPanel.insets = new Insets(0, 0, 0, 20);
@@ -271,7 +273,7 @@ public class CreateBookingDialog extends JDialog {
 			{
 				JTextArea descriptionTextArea = new JTextArea();
 				descriptionTextArea.setLineWrap(true);
-				descriptionTextArea.setBorder(new LineBorder(new Color(0,0,0)));
+				descriptionTextArea.setBorder(config.getBorderTextArea());
 				descriptionTextArea.setWrapStyleWord(true);
 				GridBagConstraints gbc_descriptionTextArea = new GridBagConstraints();
 				gbc_descriptionTextArea.gridwidth = 2;
@@ -369,7 +371,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				JLabel errorMessageRoom = new JLabel("Room not available");
-				errorMessageRoom.setForeground(Color.RED);
+				errorMessageRoom.setForeground(config.getErrorMessageColor());
 				errorMessageRoom.setBackground(new Color(255, 255, 255));
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
 				gbc_errorMessageRoom.anchor = GridBagConstraints.WEST;
@@ -387,10 +389,10 @@ public class CreateBookingDialog extends JDialog {
 			{
 				JButton saveButton = new JButton("Save");
 				saveButton.setForeground(Color.WHITE);
-				saveButton.setBackground(new Color(86, 197, 104));
-				saveButton.setBorder(new EmptyBorder(5, 30, 5, 30));
+				saveButton.setBackground(config.getButtonColorSaved());
+				saveButton.setBorder(config.getBorderSaveButton());
 				saveButton.setFocusable(false);
-				saveButton.setFont(new Font("Roboto", Font.BOLD, 15));
+				saveButton.setFont(config.getButtonDefaultFont());
 				
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -403,11 +405,11 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setForeground(new Color(149, 149, 149));
-				cancelButton.setBackground(new Color(234, 234, 238));
-				cancelButton.setBorder(new EmptyBorder(5, 30, 5, 30));
+				cancelButton.setForeground(config.getButtonColorCancelForeground());
+				cancelButton.setBackground(config.getButtonColorCancelForeground());
+				cancelButton.setBorder(config.getBorderCancelButton());
 				cancelButton.setFocusable(false);
-				cancelButton.setFont(new Font("Roboto", Font.BOLD, 15));
+				cancelButton.setFont(config.getButtonDefaultFont());
 	
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
