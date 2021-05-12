@@ -20,12 +20,19 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
 
 	private JPanel contentPane;
 	private CardLayout cards;
 	private BookingPanel bookingPanel;
+	private JPanel mainPanel;
+	private JButton bookingButton;
+	private JButton usersButton;
+	private JButton roomsButton;
+	private JButton selectedPageButton;
 
 	/**
 	 * Launch the application.
@@ -135,7 +142,12 @@ public class MainUI extends JFrame {
 		gbc_separator.gridy = 2;
 		sidebarPanel.add(separator, gbc_separator);
 		
-		JButton bookingButton = new JButton("Booking");
+		bookingButton = new JButton("Booking");
+		bookingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectPage("Bookings");
+			}
+		});
 		formatSidebarButton(bookingButton);
 		bookingButton.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_bookingButton = new GridBagConstraints();
@@ -146,7 +158,12 @@ public class MainUI extends JFrame {
 		gbc_bookingButton.gridy = 3;
 		sidebarPanel.add(bookingButton, gbc_bookingButton);
 		
-		JButton usersButton = new JButton("Users");
+		usersButton = new JButton("Users");
+		usersButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectPage("Users");
+			}
+		});
 		GridBagConstraints gbc_usersButton = new GridBagConstraints();
 		gbc_usersButton.insets = new Insets(0, 20, 5, 60);
 		gbc_usersButton.gridwidth = 3;
@@ -157,7 +174,12 @@ public class MainUI extends JFrame {
 		gbc_usersButton.gridy = 4;
 		sidebarPanel.add(usersButton, gbc_usersButton);
 		
-		JButton roomsButton = new JButton("Rooms");
+		roomsButton = new JButton("Rooms");
+		roomsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectPage("Rooms");
+			}
+		});
 		GridBagConstraints gbc_roomsButton = new GridBagConstraints();
 		gbc_roomsButton.insets = new Insets(0, 20, 5, 60);
 		gbc_roomsButton.anchor = GridBagConstraints.NORTH;
@@ -221,7 +243,7 @@ public class MainUI extends JFrame {
 		gbc_logTextArea.gridy = 1;
 		logPanel.add(logTextArea, gbc_logTextArea);
 		
-		JPanel mainPanel = new JPanel();
+		mainPanel = new JPanel();
 		GridBagConstraints gbc_mainPanel = new GridBagConstraints();
 		gbc_mainPanel.fill = GridBagConstraints.BOTH;
 		gbc_mainPanel.gridx = 1;
@@ -230,8 +252,31 @@ public class MainUI extends JFrame {
 		cards = new CardLayout(0, 0);
 		mainPanel.setLayout(cards);
 		mainPanel.add(bookingPanel, "Bookings");
+		formatSelectedSidebarButton(bookingButton);
+		selectedPageButton = bookingButton;
 	}
 
+	
+	private void selectPage(String page)
+	{
+		formatSidebarButton(selectedPageButton);
+		switch(page)
+		{
+		case "Bookings":
+			cards.show(mainPanel, page);
+			selectedPageButton = bookingButton;
+			break;
+		case "Users":
+			cards.show(mainPanel, page);
+			selectedPageButton = usersButton;
+			break;
+		case "Rooms":
+			cards.show(mainPanel, page);
+			selectedPageButton = roomsButton;
+			break;
+		}
+		formatSelectedSidebarButton(selectedPageButton);
+	}
 	
 	private void formatSidebarButton(JButton button)
 	{
@@ -241,5 +286,11 @@ public class MainUI extends JFrame {
 		button.setFocusable(false);
 		button.setFont(new Font("Roboto", Font.BOLD, 15));
 		//button.setContentAreaFilled(false);
+	}
+	
+	private void formatSelectedSidebarButton(JButton button)
+	{
+		button.setForeground(new Color(40, 41, 82));
+		button.setBackground(new Color(234, 234, 238));
 	}
 }
