@@ -17,12 +17,16 @@ public class BookingDB implements BookingDBIF
 	
 	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	private PreparedStatement sqlInsertBooking;
-
+	
+	private static final String SELECT_BOOKINGS_BY_DATE_AND_ROOM = String.format("SELECT * FROM Bookings WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ? AND room_id = ?");
+	private PreparedStatement sqlSelectBookingsByDateAndRoom;
+	
 	public BookingDB() throws SQLException
 	{
 		connection = DBConnection.getInstance().getConnection();
 		
 		sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
+		sqlSelectBookingsByDateAndRoom = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE_AND_ROOM);
 	}
 
 	@Override
@@ -54,5 +58,6 @@ public class BookingDB implements BookingDBIF
 		
 		return null;
 	}
+	
 
 }
