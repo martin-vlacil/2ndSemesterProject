@@ -18,6 +18,7 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
@@ -30,9 +31,19 @@ import javax.swing.ListCellRenderer;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import javax.swing.SpinnerModel;
 
 public class CreateBookingDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4971333530173079875L;
 	private final JPanel contentPanel = new JPanel();
 	private StyleConfig config = new StyleConfig();
 	private User user;
@@ -43,7 +54,6 @@ public class CreateBookingDialog extends JDialog {
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private JTextField fromTimePlaceholder;
 	private JTextField toTimePlaceholder;
 
 	/**
@@ -339,13 +349,20 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(dateLabel, gbc_dateLabel);
 			}
 			{
-				JButton datePlaceholder = new JButton("<DatePlaceHolder>");
-				GridBagConstraints gbc_datePlaceholder = new GridBagConstraints();
-				gbc_datePlaceholder.anchor = GridBagConstraints.WEST;
-				gbc_datePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_datePlaceholder.gridx = 1;
-				gbc_datePlaceholder.gridy = 7;
-				rightPanel.add(datePlaceholder, gbc_datePlaceholder);
+				Calendar yesterday = Calendar.getInstance();
+				yesterday.add(Calendar.DATE, -1);
+				JSpinner datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
+				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
+				datePicker.setEditor(dateEditor); 
+				datePicker.setFocusable(false);
+				datePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_datePicker = new GridBagConstraints();
+				gbc_datePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_datePicker.anchor = GridBagConstraints.NORTH;
+				gbc_datePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_datePicker.gridx = 1;
+				gbc_datePicker.gridy = 7;
+				rightPanel.add(datePicker, gbc_datePicker);
 			}
 			{
 				JLabel fromTimeLabel = new JLabel("From");
@@ -366,27 +383,81 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(toTimeLabel, gbc_toTimeLabel);
 			}
 			{
-				fromTimePlaceholder = new JTextField();
-				GridBagConstraints gbc_fromTimePlaceholder = new GridBagConstraints();
-				gbc_fromTimePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_fromTimePlaceholder.fill = GridBagConstraints.HORIZONTAL;
-				gbc_fromTimePlaceholder.gridx = 1;
-				gbc_fromTimePlaceholder.gridy = 9;
-				rightPanel.add(fromTimePlaceholder, gbc_fromTimePlaceholder);
-				fromTimePlaceholder.setColumns(10);
+				Calendar time = Calendar.getInstance();
+				time.set(Calendar.HOUR, 1);
+				time.set(Calendar.MINUTE, 0);
+				JSpinner startTimePicker = new JSpinner();
+				startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+					@Override
+			        public Object getNextValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, 30);
+			            return calendar.getTime();
+			        }
+					@Override
+			        public Object getPreviousValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, -30);
+			            return calendar.getTime();
+			        }
+			    });
+				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm"); 
+				startTimePicker.setEditor(dateEditor); 
+				startTimePicker.setFocusable(false);
+				startTimePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_startTimePicker = new GridBagConstraints();
+				gbc_startTimePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_startTimePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_startTimePicker.gridx = 1;
+				gbc_startTimePicker.gridy = 9;
+				rightPanel.add(startTimePicker, gbc_startTimePicker);
 			}
 			{
-				toTimePlaceholder = new JTextField();
-				GridBagConstraints gbc_toTimePlaceholder = new GridBagConstraints();
-				gbc_toTimePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_toTimePlaceholder.fill = GridBagConstraints.HORIZONTAL;
-				gbc_toTimePlaceholder.gridx = 2;
-				gbc_toTimePlaceholder.gridy = 9;
-				rightPanel.add(toTimePlaceholder, gbc_toTimePlaceholder);
-				toTimePlaceholder.setColumns(10);
+				//Calendar startTime = Calendar.getInstance(); FIXME
+				//startTime.set(Calendar.HOUR, 0);
+				//startTime.set(Calendar.MINUTE, 0);
+				Calendar time = Calendar.getInstance();
+				time.set(Calendar.HOUR, 8);
+				time.set(Calendar.MINUTE, 0);
+				//Calendar endTime = Calendar.getInstance();
+				//endTime.set(Calendar.HOUR, 8);
+				//endTime.set(Calendar.MINUTE, 0);
+				JSpinner endTimePicker = new JSpinner();
+				endTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+					@Override
+			        public Object getNextValue() {
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, 30);
+			            return calendar.getTime();
+			        }
+					@Override
+			        public Object getPreviousValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, -30);
+			            return calendar.getTime();
+			        }
+			    });
+				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm"); 
+				endTimePicker.setEditor(dateEditor); 
+				endTimePicker.setFocusable(false);
+				endTimePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_endTimePicker = new GridBagConstraints();
+				gbc_endTimePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_endTimePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_endTimePicker.gridx = 2;
+				gbc_endTimePicker.gridy = 9;
+				rightPanel.add(endTimePicker, gbc_endTimePicker);
 			}
 			{
-				JLabel errorMessageRoom = new JLabel("Room not available");
+				JLabel errorMessageRoom = new JLabel(" ");
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
 				errorMessageRoom.setBackground(new Color(255, 255, 255));
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
