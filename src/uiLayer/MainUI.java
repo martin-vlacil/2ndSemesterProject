@@ -14,6 +14,7 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import databaseLayer.LogEntryDB;
@@ -44,7 +45,7 @@ public class MainUI extends JFrame {
 	private JButton usersButton;
 	private JButton roomsButton;
 	private JButton selectedPageButton;
-	private JTextArea logTextArea = new JTextArea();
+	private JTextArea logTextArea;
 
 	/**
 	 * Launch the application.
@@ -251,15 +252,15 @@ public class MainUI extends JFrame {
 		gbc_logLabel.gridy = 0;
 		logPanel.add(logLabel, gbc_logLabel);
 		
-		
+		logTextArea = new JTextArea();
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
 		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
 		logTextArea.setEditable(false);
-		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
 		logTextArea.setBackground(new Color(40, 41, 82));
 		logTextArea.setPreferredSize(sidebarPanel.getSize());
+		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
 		gbc_logTextArea.insets = new Insets(5, 10, 0, 10);
 		gbc_logTextArea.fill = GridBagConstraints.BOTH;
 		gbc_logTextArea.gridx = 0;

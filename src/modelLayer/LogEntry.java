@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
  */
 public class LogEntry
 {
-	private String action;
-	private LocalDateTime time;
+	private String action; //Will contain user name and action description
+	private LocalDateTime time; //The time at which the log is created
 
 	public LogEntry(String action, LocalDateTime time)
 	{

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -25,6 +26,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
+
 import java.awt.Font;
 import javax.swing.JTextArea;
 
@@ -33,7 +36,6 @@ public class CreateBookingDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private StyleConfig config = new StyleConfig();
 	private User user;
-	private HashMap<String, Room> rooms;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
@@ -41,7 +43,6 @@ public class CreateBookingDialog extends JDialog {
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private JTextField roomPlaceholder;
 	private JTextField fromTimePlaceholder;
 	private JTextField toTimePlaceholder;
 
@@ -300,14 +301,33 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(roomLabel, gbc_roomLabel);
 			}
 			{
-				roomPlaceholder = new JTextField();
-				GridBagConstraints gbc_roomPlaceholder = new GridBagConstraints();
-				gbc_roomPlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_roomPlaceholder.fill = GridBagConstraints.HORIZONTAL;
-				gbc_roomPlaceholder.gridx = 1;
-				gbc_roomPlaceholder.gridy = 5;
-				rightPanel.add(roomPlaceholder, gbc_roomPlaceholder);
-				roomPlaceholder.setColumns(10);
+				ArrayList<Room> allRooms = new ArrayList<Room>();
+				try
+				{
+					allRooms = new BookingController().getAllRooms();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+				allRooms.add(0, new Room("", -1, " Select...", -1));
+				JComboBox<Room> comboBox = new JComboBox<Room>();
+				comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
+				ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
+				
+			    comboBox.setRenderer(renderer);
+				comboBox.setPreferredSize(new Dimension(100, 30));
+				comboBox.setEditable(false);
+				comboBox.setFocusable(false);
+				comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
+				comboBox.setForeground(Color.GRAY);
+				
+				GridBagConstraints gbc_comboBox = new GridBagConstraints();
+				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+				gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+				gbc_comboBox.gridx = 1;
+				gbc_comboBox.gridy = 5;
+				rightPanel.add(comboBox, gbc_comboBox);
 			}
 			{
 				JLabel dateLabel = new JLabel("Date");
@@ -449,16 +469,5 @@ public class CreateBookingDialog extends JDialog {
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
 		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
-	}
-	
-	private void getAllRooms(JComboBox<String> box) throws SQLException
-	{
-		ArrayList<Room> allRooms = new BookingController().getAllRooms();
-		for (Room e : allRooms)
-		{
-			box.addItem(e.getName());
-			rooms.put(e.getName(),e);
-		}
-		
 	}
 }

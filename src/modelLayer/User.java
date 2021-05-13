@@ -25,6 +25,10 @@ public class User
 		DEFAULT, SUPER, ADMIN;
 	}
 	
+	/**
+	 * Constructor 1 needs all fields and is used 
+	 * to build objects from the database
+	 */
 	public User(int id, String name, String email, String phone, String position, UserType userType, Organization organization)
 	{
 		this.id = id;
@@ -36,6 +40,11 @@ public class User
 		this.organization = organization;
 	}
 	
+	/**
+	 * Constructor 2 builds a simplified user object
+	 * containing only the relevant contact information
+	 * for a booking.
+	 */
 	public User(int id, String name, String email, String phone)
 	{
 		this.id = id;
