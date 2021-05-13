@@ -1,7 +1,6 @@
 package controlLayer;
 
-import databaseLayer.UserDB;
-import databaseLayer.UserDBIF;
+import databaseLayer.*;
 import modelLayer.User;
 
 /**
@@ -18,6 +17,11 @@ public class UserController
 		userDB = new UserDB();
 	}
 	
+	/**
+	 * This method takes an email, finds the user in the database and checks if the password matches
+	 * @param email, password
+	 * @return
+	 */
 	public User getUser(String email, String password)
 	{
 		User user = null;
