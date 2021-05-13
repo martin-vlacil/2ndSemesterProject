@@ -72,7 +72,8 @@ public class DayContentPanel extends JPanel {
                         .getOwner().getMouseListeners()) {
                     ml.mouseClicked(e);
                 }
-                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+                //if (e.getClickCount() == 1 && e.getButton() == MouseEvent.BUTTON1) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
                     if(startSelection == null || endSelection == null)
                         return;
                     LocalDateTime startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(), getHeight());
