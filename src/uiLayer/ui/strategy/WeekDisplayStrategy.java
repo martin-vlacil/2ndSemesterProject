@@ -80,7 +80,7 @@ class WeekDisplayStrategy implements DisplayStrategy {
 
 		//XXX added Start and end of Week period as LocalDates, stored in the config file.
 		LocalDate start = LocalDate.now().with(DayOfWeek.MONDAY);
-		LocalDate end = LocalDate.now().with(DayOfWeek.MONDAY).plusDays(7);
+		LocalDate end = LocalDate.now().with(DayOfWeek.MONDAY).plusDays(6);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 
@@ -176,7 +176,7 @@ class WeekDisplayStrategy implements DisplayStrategy {
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
         //end.add(Calendar.DATE,7);
-		LocalDate end = start.plusDays(7);
+		LocalDate end = start.plusDays(6);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 
@@ -199,7 +199,7 @@ class WeekDisplayStrategy implements DisplayStrategy {
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
         //end.add(Calendar.DATE,7);
-        LocalDate end = start.plusDays(7);
+        LocalDate end = start.plusDays(6);
         calendar.getConfig().setIntervalStart(start);
         calendar.getConfig().setIntervalEnd(end);
 		//final Calendar c = CalendarUtil.copyCalendar(start, true);
