@@ -12,6 +12,8 @@ import uiLayer.events.IntervalChangedEvent;
 import uiLayer.events.IntervalChangedListener;
 import uiLayer.events.IntervalSelectionEvent;
 import uiLayer.events.IntervalSelectionListener;
+import uiLayer.events.SelectionChangedEvent;
+import uiLayer.events.SelectionChangedListener;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -124,19 +126,13 @@ public class BookingPanel extends JPanel {
 	
 	private void bindListeners()
 	{
-		calendar.addIntervalChangedListener(new IntervalChangedListener() {
+		calendar.addSelectionChangedListener(new SelectionChangedListener() {
 
 			@Override
-			public void intervalChanged(IntervalChangedEvent event) {
+			public void selectionChanged(SelectionChangedEvent event) {
 				initialiseBooking();
 			}
-		});
-		calendar.addIntervalSelectionListener(new IntervalSelectionListener() {
 			
-			@Override
-			public void intervalSelected(IntervalSelectionEvent event) {
-				initialiseBooking();
-			}
 		});
 	}
 }

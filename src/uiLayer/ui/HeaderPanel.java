@@ -16,16 +16,8 @@
 package uiLayer.ui;
 
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-//import java.awt.Image;
-import java.awt.Insets;
-//import java.util.ResourceBundle;
-
-//import javax.imageio.ImageIO;
 import javax.swing.*;
 
-//import calendar.JCalendar;
 
 /**
  * 
@@ -42,13 +34,6 @@ public class HeaderPanel extends JPanel {
 
 	private JLabel intervalLabel;
 
-	/*private JButton dayButton;
-
-	private JButton weekButton;
-
-	private JButton monthButton;
-	*/
-
 	/**
 	 * Creates a new instance of {@link HeaderPanel}
 	 */
@@ -59,27 +44,11 @@ public class HeaderPanel extends JPanel {
 	private void init() {
 
 		this.setOpaque(false);
-
-		//String strDay = ResourceBundle.getBundle("calendar", this.getLocale()).getString("day");
-		//String strWeek = ResourceBundle.getBundle("calendar", this.getLocale()).getString("week");
-		//String strMonth = ResourceBundle.getBundle("calendar", this.getLocale()).getString("month");
-		/*String strDay = "day";
-		String strWeek = "week";
-		String strMonth = "month";
-		
-		dayButton = new JButton();
-		weekButton = new JButton();
-		monthButton = new JButton();
-		*/
+		//XXX Removed model buttons
 		scrollLeftButton = new JButton();
 		scrollRightButton = new JButton();
 
 		intervalLabel = new JLabel();
-		/*
-		dayButton.setText(strDay);
-		weekButton.setText(strWeek);
-		monthButton.setText(strMonth);
-		*/
 		scrollLeftButton.setBorderPainted(false);
 		scrollLeftButton.setFocusPainted(false);
 		scrollLeftButton.setContentAreaFilled(false);
@@ -87,64 +56,13 @@ public class HeaderPanel extends JPanel {
 		scrollRightButton.setBorderPainted(false);
 		scrollRightButton.setFocusPainted(false);
 		scrollRightButton.setContentAreaFilled(false);
-		
-		/*
-		Image left = null;
-		Image right = null;
-		try {
-			left = ImageIO.read(getClass().getClassLoader().getResource("de/costache/calendar/resources/left.png"));
-			right = ImageIO.read(getClass().getClassLoader().getResource("de/costache/calendar/resources/right.png"));
-			scrollLeftButton.setIcon(new ImageIcon(left));
-			scrollRightButton.setIcon(new ImageIcon(right));
-		} catch (final Exception e) {*/
+		//XXX changed layout and removed models
 			scrollLeftButton.setText("<");
 			scrollRightButton.setText(">");
-		//}
-		/*
-		dayButton.setOpaque(false);
-		weekButton.setOpaque(false);
-		monthButton.setOpaque(false);
-		*/
-
-		/*this.setLayout(new GridBagLayout());
-		final GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		//c.anchor = GridBagConstraints.EAST;
-		//c.fill = GridBagConstraints.CENTER;
-		this.add(scrollLeftButton, c);
-		c.gridx = 1;
-		c.gridy = 0;
-		//c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(10, 10, 10, 10);
-		this.add(intervalLabel, c);
-		c.gridx = 2;
-		c.gridy = 0;
-		c.weightx = 1.0;
-		//c.anchor = GridBagConstraints.WEST;
-		this.add(scrollRightButton, c);*/
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		this.add(scrollLeftButton);
 		this.add(intervalLabel);
 		this.add(scrollRightButton);
-		/*c.gridx = 3;
-		c.gridy = 0;
-		c.weightx = 0.0;
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(10, 10, 10, 0);
-		this.add(dayButton, c);
-		c.gridx = 4;
-		c.gridy = 0;
-		c.weightx = 0.0;
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(10, 0, 10, 0);
-		this.add(weekButton, c);
-		c.gridx = 5;
-		c.gridy = 0;
-		c.weightx = 0.0;
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(10, 0, 10, 10);
-		this.add(monthButton, c);*/
 	}
 
 	/**
@@ -160,19 +78,6 @@ public class HeaderPanel extends JPanel {
 	public JButton getScrollRight() {
 		return scrollRightButton;
 	}
-	
-	/*
-	public JButton getDayButton() {
-		return dayButton;
-	}
-
-	public JButton getWeekButton() {
-		return weekButton;
-	}
-
-	public JButton getMonthButton() {
-		return monthButton;
-	}*/
 
 	/**
 	 * @return the intervalLabel
