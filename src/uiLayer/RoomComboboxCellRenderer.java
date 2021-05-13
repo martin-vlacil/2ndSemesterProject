@@ -21,6 +21,12 @@ public class RoomComboboxCellRenderer implements ListCellRenderer<Room>
 		JLabel renderer = (JLabel)defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 		renderer.setFont(config.getLabelDefaultFont());
 		renderer.setText(value.getName());
+		
+		if(index == 0)
+		{
+			renderer.setText(" ");
+		}
+		
 		return renderer;
 	}
 }

@@ -28,6 +28,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class BookingPanel extends JPanel {
@@ -81,9 +82,10 @@ public class BookingPanel extends JPanel {
 		gbc_createBookingButton.gridy = 1;
 		add(createBookingButton, gbc_createBookingButton);
 		
-		Room[] rooms = new BookingController().getAllRooms().toArray(new Room[0]);
+		ArrayList<Room> allRooms = new BookingController().getAllRooms();
+		allRooms.add(0, new Room("", -1, " Select...", -1));
 		JComboBox<Room> comboBox = new JComboBox<Room>();
-		comboBox.setModel(new DefaultComboBoxModel<Room>(rooms));
+		comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 		ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
 		
 	    comboBox.setRenderer(renderer);
