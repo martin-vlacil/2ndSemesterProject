@@ -1,5 +1,8 @@
 package databaseLayer;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import modelLayer.User;
 
 /**
@@ -10,9 +13,14 @@ import modelLayer.User;
 public class UserDB implements UserDBIF
 {
 
-	public UserDB()
+	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = String.format("SELECT * FROM User WHERE email = ? AND password = ?");
+	private PreparedStatement sqlSelectByEmailAndPassword;
+	
+	public UserDB() throws SQLException
 	{
-		// TODO Auto-generated constructor stub
+		//TODO REMOVE COMMENTING
+		//connection = DBConnection.getInstance().getConnection();
+		//sqlSelectByEmailAndPassword = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD);
 	}
 
 	@Override

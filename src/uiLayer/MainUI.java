@@ -51,8 +51,6 @@ public class MainUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		// Remove the system's scale factor on the UI elements
-		System.setProperty("sun.java2d.uiScale", "1.0");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -60,6 +58,7 @@ public class MainUI extends JFrame {
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+					frame.setTitle("IHND Booking System");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -73,6 +72,9 @@ public class MainUI extends JFrame {
 	 */
 	public MainUI() throws SQLException {
 		//TODO PASS USER
+		// Remove the system's scale factor on the UI elements
+		System.setProperty("sun.java2d.uiScale", "1.0");
+		
 		bookingPanel = new BookingPanel(null);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,11 +1,9 @@
 package controlLayer;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import databaseLayer.RoomDB;
-import databaseLayer.RoomDBIF;
+import databaseLayer.*;
 import modelLayer.Room;
 
 /**
@@ -24,6 +22,11 @@ public class RoomController
 		this.rooms = roomDB.getAll();
 	}
 	
+	/**
+	 * This method gets all the rooms in the database
+	 * @return a list of all the rooms
+	 * @throws SQLException
+	 */
 	public ArrayList<Room> getAll() throws SQLException
 	{
 		ArrayList<Room> rooms = new ArrayList<Room>();
@@ -34,6 +37,12 @@ public class RoomController
 		return rooms;
 	}
 
+	/**
+	 * This method goes through the list of all the rooms and returns the one to which the ID matches
+	 * @param id of the room
+	 * @return
+	 * @throws SQLException
+	 */
 	public Room findByID(int id) throws SQLException
 	{
 		Room room = null;

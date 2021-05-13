@@ -2,9 +2,11 @@ package uiLayer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +20,7 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
@@ -30,21 +33,45 @@ import javax.swing.ListCellRenderer;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
+import javax.swing.text.JTextComponent;
+import javax.swing.border.LineBorder;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.VetoableChangeListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CreateBookingDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4971333530173079875L;
 	private final JPanel contentPanel = new JPanel();
+	private JPanel rightPanel;
+	private JPanel leftPanel;
 	private StyleConfig config = new StyleConfig();
 	private User user;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
-	private JTextField textField_2;
+	private JTextField attendeesTextField;
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private JTextField fromTimePlaceholder;
 	private JTextField toTimePlaceholder;
+	private JLabel titleLabel;
+	private JLabel attendeesLabel;
+	private JLabel nameLabel;
+	private JLabel phoneLabel;
+	private JLabel emailLabel;
 
 	/**
 	 * Launch the application.
@@ -61,10 +88,13 @@ public class CreateBookingDialog extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws SQLException 
 	 */
-	public CreateBookingDialog(User user) {
-		setBounds(100, 100, 783, 502);
+	public CreateBookingDialog(User user) throws SQLException {
+		bookingController = new BookingController();
+		this.user = user;
 		
+		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(config.getBackGroundDefaultColor());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -102,7 +132,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 		}
 		{
-			JPanel leftPanel = new JPanel();
+			leftPanel = new JPanel();
 			leftPanel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_leftPanel = new GridBagConstraints();
 			gbc_leftPanel.insets = new Insets(0, 20, 0, 0);
@@ -117,7 +147,8 @@ public class CreateBookingDialog extends JDialog {
 			gbl_leftPanel.rowWeights = new double[]{0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0, 0.0,Double.MIN_VALUE};
 			leftPanel.setLayout(gbl_leftPanel);
 			{
-				JLabel titleLabel = new JLabel("Event Title*");
+				titleLabel = new JLabel("Event Title");
+				titleLabel.setName("title");
 				GridBagConstraints gbc_titleLabel = new GridBagConstraints();
 				gbc_titleLabel.anchor = GridBagConstraints.WEST;
 				gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
@@ -127,6 +158,13 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				titleTextField = new JTextField();
+				titleTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(titleLabel, titleTextField);
+					}
+				});
+				formatTextField(titleTextField);
 				GridBagConstraints gbc_titleTextField = new GridBagConstraints();
 				gbc_titleTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_titleTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -136,6 +174,7 @@ public class CreateBookingDialog extends JDialog {
 				titleTextField.setColumns(10);
 			}
 			{
+		
 				JLabel organizationLabel = new JLabel("Organization");
 				GridBagConstraints gbc_organizationLabel = new GridBagConstraints();
 				gbc_organizationLabel.anchor = GridBagConstraints.WEST;
@@ -146,6 +185,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				organizationDropDownPlaceholder = new JTextField();
+				formatTextField(organizationDropDownPlaceholder);
 				GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
 				gbc_organizationDropDownPlaceholder.insets = new Insets(0, 0, 5, 5);
 				gbc_organizationDropDownPlaceholder.fill = GridBagConstraints.HORIZONTAL;
@@ -155,7 +195,8 @@ public class CreateBookingDialog extends JDialog {
 				organizationDropDownPlaceholder.setColumns(10);
 			}
 			{
-				JLabel attendeesLabel = new JLabel("Number of attendees*");
+				attendeesLabel = new JLabel("Number of attendees*");
+				attendeesLabel.setName("attendees");
 				GridBagConstraints gbc_attendeesLabel = new GridBagConstraints();
 				gbc_attendeesLabel.anchor = GridBagConstraints.WEST;
 				gbc_attendeesLabel.insets = new Insets(0, 0, 5, 5);
@@ -164,27 +205,35 @@ public class CreateBookingDialog extends JDialog {
 				leftPanel.add(attendeesLabel, gbc_attendeesLabel);
 			}
 			{
-				textField_2 = new JTextField();
-				GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-				gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-				gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-				gbc_textField_2.gridx = 1;
-				gbc_textField_2.gridy = 6;
-				leftPanel.add(textField_2, gbc_textField_2);
-				textField_2.setColumns(10);
+				attendeesTextField = new JTextField();
+				attendeesTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(attendeesLabel, attendeesTextField);
+					}
+				});
+				formatTextField(attendeesTextField);
+				GridBagConstraints gbc_attendeesTextField = new GridBagConstraints();
+				gbc_attendeesTextField.insets = new Insets(0, 0, 5, 5);
+				gbc_attendeesTextField.fill = GridBagConstraints.HORIZONTAL;
+				gbc_attendeesTextField.gridx = 1;
+				gbc_attendeesTextField.gridy = 6;
+				leftPanel.add(attendeesTextField, gbc_attendeesTextField);
+				attendeesTextField.setColumns(10);
 			}
 			{
 				JLabel contactLabel = new JLabel("Contact Person Information");
 				contactLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 				GridBagConstraints gbc_contactLabel = new GridBagConstraints();
 				gbc_contactLabel.anchor = GridBagConstraints.WEST;
-				gbc_contactLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_contactLabel.insets = new Insets(10, 0, 5, 5);
 				gbc_contactLabel.gridx = 1;
 				gbc_contactLabel.gridy = 7;
 				leftPanel.add(contactLabel, gbc_contactLabel);
 			}
 			{
-				JLabel nameLabel = new JLabel("First- and Last Name*");
+				nameLabel = new JLabel("First- and Last Name*");
+				nameLabel.setName("contactName");
 				GridBagConstraints gbc_nameLabel = new GridBagConstraints();
 				gbc_nameLabel.anchor = GridBagConstraints.WEST;
 				gbc_nameLabel.insets = new Insets(0, 0, 5, 5);
@@ -194,6 +243,13 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				nameTextField = new JTextField();
+				nameTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(nameLabel, nameTextField);
+					}
+				});
+				formatTextField(nameTextField);
 				GridBagConstraints gbc_nameTextField = new GridBagConstraints();
 				gbc_nameTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -203,7 +259,8 @@ public class CreateBookingDialog extends JDialog {
 				nameTextField.setColumns(10);
 			}
 			{
-				JLabel phoneLabel = new JLabel("Phone number");
+				phoneLabel = new JLabel("Phone number*");
+				phoneLabel.setName("phoneNumber");
 				GridBagConstraints gbc_phoneLabel = new GridBagConstraints();
 				gbc_phoneLabel.anchor = GridBagConstraints.WEST;
 				gbc_phoneLabel.insets = new Insets(0, 0, 5, 5);
@@ -213,6 +270,13 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				phoneTextField = new JTextField();
+				phoneTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(phoneLabel, phoneTextField);
+					}
+				});
+				formatTextField(phoneTextField);
 				GridBagConstraints gbc_phoneTextField = new GridBagConstraints();
 				gbc_phoneTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_phoneTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -222,7 +286,8 @@ public class CreateBookingDialog extends JDialog {
 				phoneTextField.setColumns(10);
 			}
 			{
-				JLabel emailLabel = new JLabel("Email");
+				emailLabel = new JLabel("Email*");
+				emailLabel.setName("email");
 				GridBagConstraints gbc_emailLabel = new GridBagConstraints();
 				gbc_emailLabel.anchor = GridBagConstraints.WEST;
 				gbc_emailLabel.insets = new Insets(0, 0, 5, 5);
@@ -232,6 +297,13 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				emailTextField = new JTextField();
+				emailTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(emailLabel, emailTextField);
+					}
+				});
+				formatTextField(emailTextField);
 				GridBagConstraints gbc_emailTextField = new GridBagConstraints();
 				gbc_emailTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_emailTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -242,7 +314,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 		}
 		{
-			JPanel rightPanel = new JPanel();
+			rightPanel = new JPanel();
 			rightPanel.setPreferredSize(new Dimension(100,100));
 			//TODO maybe add this to the config. idk
 			rightPanel.setBackground(Color.WHITE);
@@ -269,6 +341,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				JTextArea descriptionTextArea = new JTextArea();
+				formatTextField(descriptionTextArea);
 				descriptionTextArea.setLineWrap(true);
 				descriptionTextArea.setBorder(config.getBorderTextArea());
 				descriptionTextArea.setWrapStyleWord(true);
@@ -339,13 +412,20 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(dateLabel, gbc_dateLabel);
 			}
 			{
-				JButton datePlaceholder = new JButton("<DatePlaceHolder>");
-				GridBagConstraints gbc_datePlaceholder = new GridBagConstraints();
-				gbc_datePlaceholder.anchor = GridBagConstraints.WEST;
-				gbc_datePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_datePlaceholder.gridx = 1;
-				gbc_datePlaceholder.gridy = 7;
-				rightPanel.add(datePlaceholder, gbc_datePlaceholder);
+				Calendar yesterday = Calendar.getInstance();
+				yesterday.add(Calendar.DATE, -1);
+				JSpinner datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
+				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
+				datePicker.setEditor(dateEditor); 
+				datePicker.setFocusable(false);
+				datePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_datePicker = new GridBagConstraints();
+				gbc_datePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_datePicker.anchor = GridBagConstraints.NORTH;
+				gbc_datePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_datePicker.gridx = 1;
+				gbc_datePicker.gridy = 7;
+				rightPanel.add(datePicker, gbc_datePicker);
 			}
 			{
 				JLabel fromTimeLabel = new JLabel("From");
@@ -366,27 +446,81 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(toTimeLabel, gbc_toTimeLabel);
 			}
 			{
-				fromTimePlaceholder = new JTextField();
-				GridBagConstraints gbc_fromTimePlaceholder = new GridBagConstraints();
-				gbc_fromTimePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_fromTimePlaceholder.fill = GridBagConstraints.HORIZONTAL;
-				gbc_fromTimePlaceholder.gridx = 1;
-				gbc_fromTimePlaceholder.gridy = 9;
-				rightPanel.add(fromTimePlaceholder, gbc_fromTimePlaceholder);
-				fromTimePlaceholder.setColumns(10);
+				Calendar time = Calendar.getInstance();
+				time.set(Calendar.HOUR, 1);
+				time.set(Calendar.MINUTE, 0);
+				JSpinner startTimePicker = new JSpinner();
+				startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+					@Override
+			        public Object getNextValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, 30);
+			            return calendar.getTime();
+			        }
+					@Override
+			        public Object getPreviousValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, -30);
+			            return calendar.getTime();
+			        }
+			    });
+				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm"); 
+				startTimePicker.setEditor(dateEditor); 
+				startTimePicker.setFocusable(false);
+				startTimePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_startTimePicker = new GridBagConstraints();
+				gbc_startTimePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_startTimePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_startTimePicker.gridx = 1;
+				gbc_startTimePicker.gridy = 9;
+				rightPanel.add(startTimePicker, gbc_startTimePicker);
 			}
 			{
-				toTimePlaceholder = new JTextField();
-				GridBagConstraints gbc_toTimePlaceholder = new GridBagConstraints();
-				gbc_toTimePlaceholder.insets = new Insets(0, 0, 5, 5);
-				gbc_toTimePlaceholder.fill = GridBagConstraints.HORIZONTAL;
-				gbc_toTimePlaceholder.gridx = 2;
-				gbc_toTimePlaceholder.gridy = 9;
-				rightPanel.add(toTimePlaceholder, gbc_toTimePlaceholder);
-				toTimePlaceholder.setColumns(10);
+				//Calendar startTime = Calendar.getInstance(); FIXME
+				//startTime.set(Calendar.HOUR, 0);
+				//startTime.set(Calendar.MINUTE, 0);
+				Calendar time = Calendar.getInstance();
+				time.set(Calendar.HOUR, 8);
+				time.set(Calendar.MINUTE, 0);
+				//Calendar endTime = Calendar.getInstance();
+				//endTime.set(Calendar.HOUR, 8);
+				//endTime.set(Calendar.MINUTE, 0);
+				JSpinner endTimePicker = new JSpinner();
+				endTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+					@Override
+			        public Object getNextValue() {
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, 30);
+			            return calendar.getTime();
+			        }
+					@Override
+			        public Object getPreviousValue() { 
+			            Date nextValue = (Date)super.getValue();
+			            Calendar calendar = Calendar.getInstance();
+			            calendar.setTime(nextValue);
+			            calendar.add(Calendar.MINUTE, -30);
+			            return calendar.getTime();
+			        }
+			    });
+				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm"); 
+				endTimePicker.setEditor(dateEditor); 
+				endTimePicker.setFocusable(false);
+				endTimePicker.setFont(config.getLabelDefaultFont());
+				GridBagConstraints gbc_endTimePicker = new GridBagConstraints();
+				gbc_endTimePicker.insets = new Insets(0, 0, 5, 5);
+				gbc_endTimePicker.fill = GridBagConstraints.HORIZONTAL;
+				gbc_endTimePicker.gridx = 2;
+				gbc_endTimePicker.gridy = 9;
+				rightPanel.add(endTimePicker, gbc_endTimePicker);
 			}
 			{
-				JLabel errorMessageRoom = new JLabel("Room not available");
+				JLabel errorMessageRoom = new JLabel(" ");
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
 				errorMessageRoom.setBackground(new Color(255, 255, 255));
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
@@ -438,29 +572,25 @@ public class CreateBookingDialog extends JDialog {
 		}
 	}
 	
-	
-	private void checkInformation(String field, String fieldValue) 
+	private void formatTextField(JTextComponent component)
 	{
-		if (bookingController.validateInformation(new String[] {field,fieldValue}) == false) 
+		component.setForeground(config.getButtonDefaultForeground());
+		component.setFont(config.getLabelDefaultFont());
+		component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+	}
+	
+	private void checkInformation(JLabel label, JTextField field) 
+	{
+		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == false) 
 		{
-			switch(field) 
-			{
-				case "title":
-					//shows the error field of the title
-					break;
-				case "attendees":
-					//shows the error field of the attendees
-					break;
-				case "contactName":
-					//shows the error field of the contactName
-					break;
-				case "phoneNumber":
-					//shows the error field of the phoneNumber
-					break;
-				case "email":
-					//shows the error field of the email
-					break;
-			}
+				
+			label.setForeground(Color.red);
+			field.setBorder(new LineBorder(Color.RED));
+		}
+		else
+		{
+			label.setForeground(Color.BLACK);
+			field.setBorder(config.getBorderTextFieldDefault());
 		}
 
 	}
