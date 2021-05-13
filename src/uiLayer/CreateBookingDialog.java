@@ -40,6 +40,13 @@ import java.util.Date;
 import java.util.Calendar;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.LineBorder;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.VetoableChangeListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CreateBookingDialog extends JDialog {
 
@@ -55,7 +62,7 @@ public class CreateBookingDialog extends JDialog {
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
-	private JTextField textField_2;
+	private JTextField attendeesTextField;
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
@@ -85,8 +92,9 @@ public class CreateBookingDialog extends JDialog {
 	 */
 	public CreateBookingDialog(User user) throws SQLException {
 		bookingController = new BookingController();
-		setBounds(100, 100, 783, 502);
+		this.user = user;
 		
+		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(config.getBackGroundDefaultColor());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -150,6 +158,12 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				titleTextField = new JTextField();
+				titleTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(titleLabel, titleTextField);
+					}
+				});
 				formatTextField(titleTextField);
 				GridBagConstraints gbc_titleTextField = new GridBagConstraints();
 				gbc_titleTextField.insets = new Insets(0, 0, 5, 5);
@@ -191,15 +205,21 @@ public class CreateBookingDialog extends JDialog {
 				leftPanel.add(attendeesLabel, gbc_attendeesLabel);
 			}
 			{
-				textField_2 = new JTextField();
-				formatTextField(textField_2);
-				GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-				gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-				gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-				gbc_textField_2.gridx = 1;
-				gbc_textField_2.gridy = 6;
-				leftPanel.add(textField_2, gbc_textField_2);
-				textField_2.setColumns(10);
+				attendeesTextField = new JTextField();
+				attendeesTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(attendeesLabel, attendeesTextField);
+					}
+				});
+				formatTextField(attendeesTextField);
+				GridBagConstraints gbc_attendeesTextField = new GridBagConstraints();
+				gbc_attendeesTextField.insets = new Insets(0, 0, 5, 5);
+				gbc_attendeesTextField.fill = GridBagConstraints.HORIZONTAL;
+				gbc_attendeesTextField.gridx = 1;
+				gbc_attendeesTextField.gridy = 6;
+				leftPanel.add(attendeesTextField, gbc_attendeesTextField);
+				attendeesTextField.setColumns(10);
 			}
 			{
 				JLabel contactLabel = new JLabel("Contact Person Information");
@@ -223,6 +243,12 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				nameTextField = new JTextField();
+				nameTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(nameLabel, nameTextField);
+					}
+				});
 				formatTextField(nameTextField);
 				GridBagConstraints gbc_nameTextField = new GridBagConstraints();
 				gbc_nameTextField.insets = new Insets(0, 0, 5, 5);
@@ -244,6 +270,12 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				phoneTextField = new JTextField();
+				phoneTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(phoneLabel, phoneTextField);
+					}
+				});
 				formatTextField(phoneTextField);
 				GridBagConstraints gbc_phoneTextField = new GridBagConstraints();
 				gbc_phoneTextField.insets = new Insets(0, 0, 5, 5);
@@ -265,6 +297,12 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				emailTextField = new JTextField();
+				emailTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						checkInformation(emailLabel, emailTextField);
+					}
+				});
 				formatTextField(emailTextField);
 				GridBagConstraints gbc_emailTextField = new GridBagConstraints();
 				gbc_emailTextField.insets = new Insets(0, 0, 5, 5);
@@ -543,7 +581,7 @@ public class CreateBookingDialog extends JDialog {
 	
 	private void checkInformation(JLabel label, JTextField field) 
 	{
-		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == true) 
+		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == false) 
 		{
 				
 			label.setForeground(Color.red);
