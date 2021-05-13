@@ -319,7 +319,10 @@ public class MainUI extends JFrame {
 	
 	private void updateLog() throws SQLException
 	{
-		String logDB = new LogEntryDB().getLogs();
-		logTextArea.setText(logDB);
+		LogEntry[] logDB = new LogEntryDB().getLogs();
+		for(int i = 0; i < logDB.length; i++)
+		{
+			logTextArea.append(logDB[i].getAction() + "\n");
+		}
 	}
 }

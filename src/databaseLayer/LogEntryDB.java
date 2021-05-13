@@ -2,11 +2,10 @@ package databaseLayer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import modelLayer.LogEntry;
 
@@ -17,11 +16,16 @@ public class LogEntryDB implements LogEntryDBIF
 	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?)");
 	private PreparedStatement sqlInsertLogEntry;
 
+	private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP ? * FROM Log ORDER BY [date] DESC");
+	private PreparedStatement sqlSelectLatestLogs;
+	
+	private final int SELECT_LATEST_AMOUNT = 25;
+	
 	public LogEntryDB() throws SQLException
 	{
-		//TODO REMOVE COMMENTING
-		//connection = DBConnection.getInstance().getConnection();
-		//sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
+		connection = DBConnection.getInstance().getConnection();
+		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
+		sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);
 	}
 
 	@Override
@@ -40,8 +44,27 @@ public class LogEntryDB implements LogEntryDBIF
 	@Override
 	public LogEntry[] getLogs() throws SQLException
 	{
-		LogEntry[] logEntries = new LogEntry[25];
-		//TODO WRITE THE SQL SCRIPT AND ADD IT TO THE STRING
+		LogEntry[] logEntries = new LogEntry[SELECT_LATEST_AMOUNT];
+		
+		sqlSelectLatestLogs.setInt(1, SELECT_LATEST_AMOUNT);
+		ResultSet resultSet = sqlSelectLatestLogs.executeQuery();
+		
+		int index = 0;
+		while(resultSet.next())
+		{
+			logEntries[index] = buildObject(resultSet);
+			index++;
+		}
+
 		return logEntries;
+	}
+	
+	/**
+	 * Builds a Java Object from database information
+	 * @param resultSet
+	 */
+	private LogEntry buildObject(ResultSet resultSet) throws SQLException
+	{
+		return new LogEntry(resultSet.getString("action"), resultSet.getTimestamp("date").toLocalDateTime());
 	}
 }
