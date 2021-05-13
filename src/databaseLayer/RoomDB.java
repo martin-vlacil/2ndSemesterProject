@@ -75,7 +75,7 @@ public class RoomDB implements RoomDBIF
 		return rooms;
 		*/
 		ArrayList<Room> rooms2 = new ArrayList<>();
-		rooms2.add(new Room("1",5,"Conference",1));
+		rooms2.add(new Room("1", 5, "Conference", 1));
 		rooms2.add(new Room("2A", 5, "Small", 0));
 		return rooms2;
 	}
