@@ -2,9 +2,11 @@ package uiLayer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -37,6 +39,8 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.SpinnerModel;
+import javax.swing.border.Border;
+import javax.swing.text.JTextComponent;
 
 public class CreateBookingDialog extends JDialog {
 
@@ -45,6 +49,8 @@ public class CreateBookingDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 4971333530173079875L;
 	private final JPanel contentPanel = new JPanel();
+	private JPanel rightPanel;
+	private JPanel leftPanel;
 	private StyleConfig config = new StyleConfig();
 	private User user;
 	private BookingController bookingController;
@@ -54,7 +60,6 @@ public class CreateBookingDialog extends JDialog {
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private JTextField toTimePlaceholder;
 
 	/**
 	 * Launch the application.
@@ -112,7 +117,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 		}
 		{
-			JPanel leftPanel = new JPanel();
+			leftPanel = new JPanel();
 			leftPanel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_leftPanel = new GridBagConstraints();
 			gbc_leftPanel.insets = new Insets(0, 20, 0, 0);
@@ -137,6 +142,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				titleTextField = new JTextField();
+				formatTextField(titleTextField);
 				GridBagConstraints gbc_titleTextField = new GridBagConstraints();
 				gbc_titleTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_titleTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -156,6 +162,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				organizationDropDownPlaceholder = new JTextField();
+				formatTextField(organizationDropDownPlaceholder);
 				GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
 				gbc_organizationDropDownPlaceholder.insets = new Insets(0, 0, 5, 5);
 				gbc_organizationDropDownPlaceholder.fill = GridBagConstraints.HORIZONTAL;
@@ -175,6 +182,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				textField_2 = new JTextField();
+				formatTextField(textField_2);
 				GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 				gbc_textField_2.insets = new Insets(0, 0, 5, 5);
 				gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
@@ -188,7 +196,7 @@ public class CreateBookingDialog extends JDialog {
 				contactLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 				GridBagConstraints gbc_contactLabel = new GridBagConstraints();
 				gbc_contactLabel.anchor = GridBagConstraints.WEST;
-				gbc_contactLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_contactLabel.insets = new Insets(10, 0, 5, 5);
 				gbc_contactLabel.gridx = 1;
 				gbc_contactLabel.gridy = 7;
 				leftPanel.add(contactLabel, gbc_contactLabel);
@@ -204,6 +212,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				nameTextField = new JTextField();
+				formatTextField(nameTextField);
 				GridBagConstraints gbc_nameTextField = new GridBagConstraints();
 				gbc_nameTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -223,6 +232,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				phoneTextField = new JTextField();
+				formatTextField(phoneTextField);
 				GridBagConstraints gbc_phoneTextField = new GridBagConstraints();
 				gbc_phoneTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_phoneTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -242,6 +252,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				emailTextField = new JTextField();
+				formatTextField(emailTextField);
 				GridBagConstraints gbc_emailTextField = new GridBagConstraints();
 				gbc_emailTextField.insets = new Insets(0, 0, 5, 5);
 				gbc_emailTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -252,7 +263,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 		}
 		{
-			JPanel rightPanel = new JPanel();
+			rightPanel = new JPanel();
 			rightPanel.setPreferredSize(new Dimension(100,100));
 			//TODO maybe add this to the config. idk
 			rightPanel.setBackground(Color.WHITE);
@@ -279,6 +290,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				JTextArea descriptionTextArea = new JTextArea();
+				formatTextField(descriptionTextArea);
 				descriptionTextArea.setLineWrap(true);
 				descriptionTextArea.setBorder(config.getBorderTextArea());
 				descriptionTextArea.setWrapStyleWord(true);
@@ -509,6 +521,12 @@ public class CreateBookingDialog extends JDialog {
 		}
 	}
 	
+	private void formatTextField(JTextComponent component)
+	{
+		component.setForeground(config.getButtonDefaultForeground());
+		component.setFont(config.getLabelDefaultFont());
+		component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+	}
 	
 	private void checkInformation(String field, String fieldValue) 
 	{

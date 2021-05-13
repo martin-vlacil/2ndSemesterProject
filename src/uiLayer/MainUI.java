@@ -60,6 +60,7 @@ public class MainUI extends JFrame {
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+					frame.setTitle("IHND Booking System");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
