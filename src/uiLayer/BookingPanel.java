@@ -8,6 +8,11 @@ import controlLayer.BookingController;
 import modelLayer.Room;
 import modelLayer.User;
 import uiLayer.calendar.JCalendar;
+import uiLayer.events.IntervalChangedEvent;
+import uiLayer.events.IntervalChangedListener;
+import uiLayer.events.IntervalSelectionEvent;
+import uiLayer.events.IntervalSelectionListener;
+
 import java.awt.GridBagLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -102,6 +107,7 @@ public class BookingPanel extends JPanel {
 		gbc_calendar.gridx = 1;
 		gbc_calendar.gridy = 3;
 		add(calendar, gbc_calendar);
+		bindListeners();
 	}
 	
 	private void openCreateBookingDialog()
@@ -127,6 +133,23 @@ public class BookingPanel extends JPanel {
 			box.addItem(e.getName());
 			rooms.add(...)
 		}
-		
 	}*/
+	
+	private void bindListeners()
+	{
+		calendar.addIntervalChangedListener(new IntervalChangedListener() {
+
+			@Override
+			public void intervalChanged(IntervalChangedEvent event) {
+				openCreateBookingDialog();
+			}
+		});
+		calendar.addIntervalSelectionListener(new IntervalSelectionListener() {
+			
+			@Override
+			public void intervalSelected(IntervalSelectionEvent event) {
+				openCreateBookingDialog();
+			}
+		});
+	}
 }

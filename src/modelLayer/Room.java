@@ -6,17 +6,11 @@ package modelLayer;
  */
 public class Room
 {
-	
-	private String number;
+	private String number;//Room number
 	private int capacity;
 	private String name;
 	private int id;
 	
-	/**
-	 * @author Group1 dmai0920
-	 * Defines the only types of Room that are currently available.
-	 */
-
 	public Room(String number, int capacity, String name, int id)
 	{
 		this.number = number;
@@ -67,7 +61,4 @@ public class Room
 	{
 		this.id = id;
 	}
-
-
-	
 }
