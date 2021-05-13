@@ -1,20 +1,16 @@
 package databaseLayer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.time.*;
+import java.util.*;
 
-import modelLayer.Booking;
-import modelLayer.Room;
+import modelLayer.*;
 
+/**
+ * @author Group 1 dmai0920
+ * This is a database class for Booking, the handles its persistence, it is responsible for finding, updating, deleting,
+ * and inserting to the database
+ */
 public class BookingDB implements BookingDBIF
 {
 	private Connection connection;
@@ -33,6 +29,9 @@ public class BookingDB implements BookingDBIF
 		//sqlSelectBookingsByDateAndRoom = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE_AND_ROOM);
 	}
 
+	/*
+	 * Booking interface methods
+	 */
 	@Override
 	public boolean create(Booking booking) throws SQLException
 	{

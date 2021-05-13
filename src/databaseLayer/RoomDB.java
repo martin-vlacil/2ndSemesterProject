@@ -1,14 +1,15 @@
 package databaseLayer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import modelLayer.Room;
 
+/**
+ * @author Group 1 dmai0920
+ * This is a database class for Rooms, the handles its persistence, it is responsible for finding, updating, deleting,
+ * and inserting to the database
+ */
 public class RoomDB implements RoomDBIF
 {
 	

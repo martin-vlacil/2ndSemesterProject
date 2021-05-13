@@ -1,14 +1,15 @@
 package databaseLayer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 import modelLayer.LogEntry;
 
+/**
+ * @author Group 1 dmai0920
+ * This is a database class for LogEntries, the handles its persistence, it is responsible for finding, updating, deleting,
+ * and inserting to the database
+ */
 public class LogEntryDB implements LogEntryDBIF
 {
 	private Connection connection;

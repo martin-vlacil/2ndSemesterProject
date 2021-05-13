@@ -48,6 +48,11 @@ public class BookingController
 		return room;
 	}
 	
+	/**
+	 * 
+	 * @param time
+	 * @return
+	 */
 	public boolean selectStartTime(LocalDateTime time)
 	{
 		boolean startTimeSelected = true;
