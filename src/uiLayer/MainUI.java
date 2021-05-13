@@ -59,6 +59,7 @@ public class MainUI extends JFrame {
 					MainUI frame = new MainUI();
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
+					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,10 +72,9 @@ public class MainUI extends JFrame {
 	 * @throws SQLException 
 	 */
 	public MainUI() throws SQLException {
-		
 		//TODO PASS USER
 		bookingPanel = new BookingPanel(null);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 871, 500);
 		contentPane = new JPanel();
