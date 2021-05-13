@@ -7,6 +7,10 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * @author Group 1 dmai0920
+ * This class serves as a premade configuration of all the colors, fonts and styles of the UI elements
+ */
 public class StyleConfig
 {
 	private Color buttonColorSavedBackground;
