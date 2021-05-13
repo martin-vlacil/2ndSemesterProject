@@ -468,6 +468,6 @@ public class CreateBookingDialog extends JDialog {
 	private void checkRoomAvailability() throws SQLException 
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
-		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
+		bookingController.checkAvailability(null, null, null); //Passing starTime, endTime and room
 	}
 }

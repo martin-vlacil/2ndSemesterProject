@@ -184,7 +184,7 @@ public class BookingController
 		return true;
 	}
 	
-	public String checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
+	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
 	{
 		if (startTime != null && endTime != null && room != null)
 		{
