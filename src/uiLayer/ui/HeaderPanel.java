@@ -15,6 +15,7 @@
  */
 package uiLayer.ui;
 
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 //import java.awt.Image;
@@ -105,21 +106,27 @@ public class HeaderPanel extends JPanel {
 		monthButton.setOpaque(false);
 		*/
 
-		this.setLayout(new GridBagLayout());
+		/*this.setLayout(new GridBagLayout());
 		final GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		c.anchor = GridBagConstraints.CENTER;
-		c.fill = GridBagConstraints.NONE;
+		//c.anchor = GridBagConstraints.EAST;
+		//c.fill = GridBagConstraints.CENTER;
 		this.add(scrollLeftButton, c);
 		c.gridx = 1;
 		c.gridy = 0;
+		//c.anchor = GridBagConstraints.CENTER;
+		c.insets = new Insets(10, 10, 10, 10);
 		this.add(intervalLabel, c);
 		c.gridx = 2;
 		c.gridy = 0;
 		c.weightx = 1.0;
-		c.insets = new Insets(10, 10, 10, 10);
-		this.add(scrollRightButton, c);
+		//c.anchor = GridBagConstraints.WEST;
+		this.add(scrollRightButton, c);*/
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.add(scrollLeftButton);
+		this.add(intervalLabel);
+		this.add(scrollRightButton);
 		/*c.gridx = 3;
 		c.gridy = 0;
 		c.weightx = 0.0;
