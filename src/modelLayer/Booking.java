@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
  */
 public class Booking
 {
-	
 	private String title;
 	private String description;
 	private LocalDateTime startTime;
@@ -18,7 +17,10 @@ public class Booking
 	private Room room;
 	private User createdBy;
 	private User contact; //if null, then the creator is the contact
-
+	
+	/**
+	 * Constructor used to build bookings from the database
+	 */
 	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy, int contactID, String contactName, String contactPhoneNumber,
 					String contactEmail)
 	{
@@ -114,11 +116,5 @@ public class Booking
 	{
 		this.contact = contact;
 	}
-
-
-	
-
-	
-	
 	
 }

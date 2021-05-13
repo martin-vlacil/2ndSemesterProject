@@ -6,13 +6,12 @@ package modelLayer;
  * Users
  */
 public class Organization
-{
-	
+{	
 	private String name;
 
-	public Organization()
+	public Organization(String name)
 	{
-
+		this.name = name;
 	}
 
 	/**
