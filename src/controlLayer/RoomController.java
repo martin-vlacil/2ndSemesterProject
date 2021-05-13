@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import databaseLayer.RoomDB;
+import databaseLayer.RoomDBIF;
 import modelLayer.Room;
 
 /**
@@ -14,7 +15,7 @@ import modelLayer.Room;
  */
 public class RoomController
 {
-	private RoomDB roomDB;
+	private RoomDBIF roomDB;
 	private ArrayList<Room> rooms;
 
 	public RoomController() throws SQLException

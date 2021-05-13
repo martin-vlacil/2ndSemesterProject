@@ -63,7 +63,7 @@ public class BookingPanel extends JPanel {
 		JButton createBookingButton = new JButton("Create Booking \uFF0B");
 		createBookingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openCreateBookingDialog();
+				initialiseBooking();
 			}
 		});
 		createBookingButton.setForeground(Color.WHITE);
@@ -108,7 +108,7 @@ public class BookingPanel extends JPanel {
 		bindListeners();
 	}
 	
-	private void openCreateBookingDialog()
+	private void initialiseBooking()
 	{
 		try {
 			CreateBookingDialog dialog = new CreateBookingDialog(null); // TODO change to logged user
@@ -128,14 +128,14 @@ public class BookingPanel extends JPanel {
 
 			@Override
 			public void intervalChanged(IntervalChangedEvent event) {
-				openCreateBookingDialog();
+				initialiseBooking();
 			}
 		});
 		calendar.addIntervalSelectionListener(new IntervalSelectionListener() {
 			
 			@Override
 			public void intervalSelected(IntervalSelectionEvent event) {
-				openCreateBookingDialog();
+				initialiseBooking();
 			}
 		});
 	}
