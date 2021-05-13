@@ -36,7 +36,6 @@ public class CreateBookingDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private StyleConfig config = new StyleConfig();
 	private User user;
-	private HashMap<String, Room> rooms;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
@@ -470,16 +469,5 @@ public class CreateBookingDialog extends JDialog {
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
 		bookingController.checkRoomAvailability(null, null, null); //Passing starTime, endTime and room
-	}
-	
-	private void getAllRooms(JComboBox<String> box) throws SQLException
-	{
-		ArrayList<Room> allRooms = new BookingController().getAllRooms();
-		for (Room e : allRooms)
-		{
-			box.addItem(e.getName());
-			rooms.put(e.getName(),e);
-		}
-		
 	}
 }

@@ -35,7 +35,6 @@ public class BookingPanel extends JPanel {
 
 	private JCalendar calendar;
 	private User loggedUser;
-	//private HashMap<String, Room> rooms; TODO remove if custom renderet was accepted
 	
 	/**
 	 * Create the panel.
@@ -43,8 +42,6 @@ public class BookingPanel extends JPanel {
 	 */
 	public BookingPanel(User user) throws SQLException {
 		this.loggedUser = user;
-		//this.rooms = new HashMap<String, Room>(); TODO remove if custom renderet was accepted
-		
 		
 		this.setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -94,7 +91,6 @@ public class BookingPanel extends JPanel {
 		comboBox.setFocusable(false);
 		comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
 		comboBox.setForeground(Color.GRAY);
-		//getAllRooms(comboBox); TODO remove if custom renderet was accepted
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 3;
@@ -125,17 +121,6 @@ public class BookingPanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	//TODO Remove if custom renderer has been accepted
-	/*private void getAllRooms(JComboBox<String> box) throws SQLException
-	{
-		ArrayList<Room> allRooms = new BookingController().getAllRooms();
-		for (Room e : allRooms)
-		{
-			box.addItem(e.getName());
-			rooms.add(...)
-		}
-	}*/
 	
 	private void bindListeners()
 	{
