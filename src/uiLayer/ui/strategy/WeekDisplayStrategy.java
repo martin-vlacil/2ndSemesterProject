@@ -49,7 +49,7 @@ import uiLayer.util.CalendarUtil;
  * @author theodorcostache
  * 
  */
-class WeekDisplayStrategy implements DisplayStrategy {
+public class WeekDisplayStrategy implements DisplayStrategy {
 
 	private final ContentPanel parent;
     private final JCalendar calendar;

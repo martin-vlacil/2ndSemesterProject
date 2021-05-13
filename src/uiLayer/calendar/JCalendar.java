@@ -24,16 +24,10 @@ import uiLayer.ui.HeaderPanel;
 import uiLayer.ui.strategy.Config;
 import uiLayer.ui.strategy.DisplayStrategy;
 import uiLayer.ui.strategy.DisplayStrategy.Type;
-import uiLayer.ui.strategy.DisplayStrategyFactory;
-import uiLayer.util.CalendarUtil;
 import uiLayer.util.EventCollectionRepository;
 import uiLayer.util.EventRepository;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
 import javax.swing.*;
 
 import uiLayer.events.IntervalChangedEvent;
@@ -244,14 +238,14 @@ public class JCalendar extends JPanel {
      * @param strategyType the {@link Type} of strategy to be used
      * @param displayDate  if not null then this value will be used as a reference for calculating the interval start
      */
-    public void setDisplayStrategy(final Type strategyType, final LocalDate displayDate) {
+    /*public void setDisplayStrategy(final Type strategyType, final LocalDate displayDate) {
 
-        final DisplayStrategy strategy = DisplayStrategyFactory.getStrategy(contentPane, strategyType);
+        //final DisplayStrategy strategy = DisplayStrategyFactory.getStrategy(contentPane, strategyType);
         contentPane.setStrategy(strategy);
         if (displayDate != null) {
             setSelectedDay(displayDate);
         }
-    }
+    }*/
 
     /**
      * Returns a {@link Collection} of selected {@link CalendarEvent}

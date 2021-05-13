@@ -19,8 +19,7 @@ import javax.swing.JPanel;
 
 import uiLayer.calendar.JCalendar;
 import uiLayer.ui.strategy.DisplayStrategy;
-import uiLayer.ui.strategy.DisplayStrategy.Type;
-import uiLayer.ui.strategy.DisplayStrategyFactory;
+import uiLayer.ui.strategy.WeekDisplayStrategy;
 
 /**
  * 
@@ -45,7 +44,7 @@ public class ContentPanel extends JPanel {
 		super(true);
 		setOpaque(false);
 		this.owner = owner;
-		this.strategy = DisplayStrategyFactory.getStrategy(this, Type.WEEK);
+		this.strategy = new WeekDisplayStrategy(this);
 		this.strategy.display();
 	}
 
@@ -56,11 +55,11 @@ public class ContentPanel extends JPanel {
 	/**
 	 * @param strategy
 	 *            the strategy to set
-	 */
+
 	public void setStrategy(final DisplayStrategy strategy) {
 		this.strategy = strategy;
 		this.strategy.display();
-	}
+	}	 */
 
 	/**
 	 * @return the strategy
