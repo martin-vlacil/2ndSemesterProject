@@ -9,5 +9,5 @@ import modelLayer.LogEntry;
 public interface LogEntryDBIF
 {
 	boolean create(String action, LocalDateTime time) throws SQLException;
-	String getLogs() throws SQLException;
+	LogEntry[] getLogs() throws SQLException;
 }

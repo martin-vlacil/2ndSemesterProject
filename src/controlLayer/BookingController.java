@@ -27,6 +27,7 @@ public class BookingController
 	private ArrayList<Room> selectedRooms;
 	private LocalDateTime selectedStartTime;
 	private LocalDateTime selectedEndTime;
+	private ArrayList<Booking> bookingsOnADay;
 
 	public BookingController() throws SQLException
 	{
@@ -34,6 +35,7 @@ public class BookingController
 		logEntryDB = new LogEntryDB();
 		bookingDB = new BookingDB();
 		selectedRooms = new ArrayList<Room>();
+		bookingsOnADay = new ArrayList<>();
 	}
 
 	public Room selectRoom(int roomID) throws SQLException
@@ -87,15 +89,6 @@ public class BookingController
 		}
 		
 		return endTimeSelected;
-	}
-	
-	public User getLoggedUser()
-	{
-		User user = null;
-		
-		//TODO - write method
-		
-		return user;
 	}
 	
 	public boolean confirmBooking(String title, String description, int contactID, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy) throws SQLException
@@ -186,15 +179,24 @@ public class BookingController
 	
 	public String checkRoomAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
 	{
+		ArrayList<Booking> interferingBookings = new ArrayList<>();
 		if (startTime != null && endTime != null && room != null)
 		{
-			Booking booking = bookingDB.checkAvailability(startTime, endTime, room.getId());
-			if (booking != null)
+			interferingBookings = bookingDB.checkAvailability(startTime, endTime, room.getId());
+			if (interferingBookings.size() > 0)
 			{
-				String returnString = "There is an event between " + booking.getStartTime() + " and " + booking.getEndTime(); 
+				String returnString = "Interfering bookings: ";
+				for(Booking booking: interferingBookings)
+				{
+					returnString += booking.getStartTime() + " - " + booking.getEndTime() + "  "; 
+				}
 				return returnString;
 			}
 			
+		}
+		else
+		{
+			//TODO - some exception?
 		}
 		
 		return ""; //Returns nothing. One of the elements is not filled

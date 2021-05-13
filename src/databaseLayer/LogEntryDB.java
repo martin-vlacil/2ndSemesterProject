@@ -38,11 +38,10 @@ public class LogEntryDB implements LogEntryDBIF
 	}
 	
 	@Override
-	public String getLogs() throws SQLException
+	public LogEntry[] getLogs() throws SQLException
 	{
+		LogEntry[] logEntries = new LogEntry[25];
 		//TODO WRITE THE SQL SCRIPT AND ADD IT TO THE STRING
-		String returnString = "";
-		return returnString;
+		return logEntries;
 	}
-
 }

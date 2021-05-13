@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import modelLayer.Booking;
@@ -56,14 +57,14 @@ public class BookingDB implements BookingDBIF
 	
 	//TODO finish
 	@Override
-	public Booking checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException
+	public ArrayList<Booking> checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException
 	{
 		return null;
 	}
 	
 	//TODO finish
 	@Override
-	public List<Booking> getAllForRoomFromDate(Room room, LocalDate date) throws SQLException
+	public ArrayList<Booking> getAllByDateAndRoom(Room room, LocalDate date) throws SQLException
 	{
 		//sqlSelectBookingsByDateAndRoom.setThing(1, date);
 		sqlSelectBookingsByDateAndRoom.setInt(2, room.getId());
