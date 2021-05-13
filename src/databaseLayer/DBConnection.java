@@ -22,12 +22,12 @@ public class DBConnection
 	private static DBConnection dbConnection;
 	
 	//These are the Credentials used to connect to the database
-	private static final String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	private static final String DATABASE_NAME = "dmai0920_1086320";
 	private static final String SERVER_ADDRESS = "hildur.ucn.dk";
 	private static final int    SERVER_PORT = 1433;
 	private static final String USER_NAME = "dmai0920_1086320";
 	private static final String PASSWORD = "Password1!";
+	//FIXME remove all system.out.println, maybe make our own exceptions?
 	
 	/**
 	 * Constructor establishing the connection.
@@ -40,17 +40,10 @@ public class DBConnection
 				SERVER_ADDRESS, SERVER_PORT, DATABASE_NAME, USER_NAME, PASSWORD);
 		try 
 		{
-			Class.forName(DRIVER_CLASS); //FIXME
 			System.out.println("Connection string is: " + connectionString.substring(0, connectionString.length() - PASSWORD.length()) + "....");
 			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Connected");
-		} 
-		catch (ClassNotFoundException e) 
-		{
-			System.err.println("Could not load JDBC driver");
-			e.printStackTrace();
-		} 
-		
+		}
 		catch (SQLException e) 
 		{
 			System.err.println("Could not connect to database " + DATABASE_NAME + "@" + SERVER_ADDRESS + ":" + SERVER_PORT + " as user " + USER_NAME + " using password ******");
