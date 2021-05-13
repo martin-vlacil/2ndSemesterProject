@@ -45,6 +45,7 @@ public class StyleConfig
 	
 	public StyleConfig()
 	{
+		//TODO finish implementing these
 		buttonColorSavedBackground = new Color(86, 197, 104);
 		buttonColorDeleteBackground = null;
 		buttonColorCancelBackground = new Color(200, 200, 200);
@@ -53,7 +54,7 @@ public class StyleConfig
 		buttonColorDeleteForeground = null;
 		buttonColorCancelForeground = new Color(140, 140, 140);
 		buttonDefaultForeground = null;
-		blueColorDefault = null;
+		blueColorDefault = new Color(40, 41, 82);
 		redColorDefault = null;
 		textDefaultColor = new Color(0,0,0);
 		backGroundDefaultColor = new Color(240, 240, 240);
@@ -61,10 +62,10 @@ public class StyleConfig
 		panelDefaultColor = null;
 		buttonDefaultFont = new Font("Roboto", Font.BOLD, 15);
 		buttonBiggerFont = new Font("Roboto", Font.BOLD, 17);
-		labelDefaultFont = null;
-		labelTitleFont = null;
-		labelTitleFontBigger = null;
-		textDefaultSize = null;
+		labelDefaultFont = new Font("Roboto", Font.PLAIN, 13);
+		labelTitleFont = new Font("Roboto", Font.BOLD, 15);
+		labelTitleFontBigger = new Font("Roboto", Font.BOLD, 17);
+		textDefaultSize = new Font("Roboto", Font.PLAIN, 12);
 		textBiggerSize = null;
 		logSize = null;
 		buttonSaveBorder = new EmptyBorder(5, 30, 5, 30);

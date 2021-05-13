@@ -1,5 +1,7 @@
 package controlLayer;
 
+import java.sql.SQLException;
+
 import databaseLayer.*;
 import modelLayer.User;
 
@@ -12,7 +14,7 @@ public class UserController
 {
 	private UserDBIF userDB;
 
-	public UserController()
+	public UserController() throws SQLException
 	{
 		userDB = new UserDB();
 	}
