@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
+
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -20,6 +22,8 @@ import config.StyleConfig;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
 	private JTextField emailTextField;
@@ -36,6 +40,8 @@ public class LoginDialog extends JDialog {
 					LoginDialog dialog = new LoginDialog();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
+					//Centres the dialog
+					dialog.setLocationRelativeTo(null);
 					dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
 					dialog.setTitle("Login - IHND Booking System");
 				} catch (Exception e) {
@@ -129,6 +135,11 @@ public class LoginDialog extends JDialog {
 		passwordTextField.setColumns(10);
 		
 		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openMainUI(); //TODO Validate login info
+			}
+		});
 		loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
 		loginButton.setFocusable(false);
 		loginButton.setBackground(config.getBlueColorDefault());
@@ -139,7 +150,24 @@ public class LoginDialog extends JDialog {
 		gbc_loginButton.gridx = 1;
 		gbc_loginButton.gridy = 5;
 		mainPanel.add(loginButton, gbc_loginButton);
-
 	}
 
+	private void openMainUI()
+	{
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainUI frame = new MainUI();
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+					frame.setVisible(true);
+					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+					frame.setTitle("IHND Booking System");
+					dispose();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}); 
+	}
+	
 }

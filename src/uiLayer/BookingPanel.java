@@ -114,7 +114,7 @@ public class BookingPanel extends JPanel {
 			CreateBookingDialog dialog = new CreateBookingDialog(null); // TODO change to logged user
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-			//Centers the dialog
+			//Centres the dialog
 			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		} catch (Exception e) {
