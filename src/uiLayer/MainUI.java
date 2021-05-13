@@ -1,3 +1,10 @@
+/**
+ * This class is a part of the Booking System
+ * developed for International House North Denmark.
+ * It contains the MainUI which represents the
+ * way the User interacts with the system.
+ */
+
 package uiLayer;
 
 import java.awt.Color;
@@ -78,6 +85,7 @@ public class MainUI extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		//Creates the sidebar containing the menu
 		JPanel sidebarPanel = new JPanel();
 		GridBagConstraints gbc_sidebarPanel = new GridBagConstraints();
 		sidebarPanel.setBackground(new Color(40, 41, 82));
@@ -109,6 +117,7 @@ public class MainUI extends JFrame {
 		gbc_avatarButton.gridy = 0;
 		sidebarPanel.add(avatarButton, gbc_avatarButton);
 		
+		//User name label
 		JLabel userNameLabel = new JLabel("User Name");
 		userNameLabel.setForeground(Color.WHITE);
 		userNameLabel.setFont(new Font("Roboto", Font.BOLD, 15));
@@ -119,6 +128,17 @@ public class MainUI extends JFrame {
 		gbc_userNameLabel.gridy = 0;
 		sidebarPanel.add(userNameLabel, gbc_userNameLabel);
 		
+		//User type label
+		JLabel userTypeLabel = new JLabel("User Type");
+		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
+		userTypeLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_userTypeLabel = new GridBagConstraints();
+		gbc_userTypeLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_userTypeLabel.gridx = 1;
+		gbc_userTypeLabel.gridy = 1;
+		sidebarPanel.add(userTypeLabel, gbc_userTypeLabel);
+		
+		//Logout button
 		JButton logOutButton = new JButton("Log Out");
 		formatSidebarButton(logOutButton);
 		GridBagConstraints gbc_logOutButton = new GridBagConstraints();
@@ -130,15 +150,7 @@ public class MainUI extends JFrame {
 		gbc_logOutButton.gridy = 0;
 		sidebarPanel.add(logOutButton, gbc_logOutButton);
 		
-		JLabel userTypeLabel = new JLabel("User Type");
-		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-		userTypeLabel.setForeground(Color.WHITE);
-		GridBagConstraints gbc_userTypeLabel = new GridBagConstraints();
-		gbc_userTypeLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_userTypeLabel.gridx = 1;
-		gbc_userTypeLabel.gridy = 1;
-		sidebarPanel.add(userTypeLabel, gbc_userTypeLabel);
-		
+		//Line that separates User section from Pages
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.BOTH;
@@ -149,6 +161,7 @@ public class MainUI extends JFrame {
 		gbc_separator.gridy = 2;
 		sidebarPanel.add(separator, gbc_separator);
 		
+		//Booking page button
 		bookingButton = new JButton("Booking");
 		bookingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,6 +178,7 @@ public class MainUI extends JFrame {
 		gbc_bookingButton.gridy = 3;
 		sidebarPanel.add(bookingButton, gbc_bookingButton);
 		
+		//User page button
 		usersButton = new JButton("Users");
 		usersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,6 +195,7 @@ public class MainUI extends JFrame {
 		gbc_usersButton.gridy = 4;
 		sidebarPanel.add(usersButton, gbc_usersButton);
 		
+		//Room page button
 		roomsButton = new JButton("Rooms");
 		roomsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,6 +213,7 @@ public class MainUI extends JFrame {
 		gbc_roomsButton.gridy = 5;
 		sidebarPanel.add(roomsButton, gbc_roomsButton);
 		
+		//Line that separates Pages section from Logs
 		JSeparator logSeparator = new JSeparator();
 		GridBagConstraints gbc_logSeparator = new GridBagConstraints();
 		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
@@ -263,7 +279,6 @@ public class MainUI extends JFrame {
 		selectedPageButton = bookingButton;
 	}
 
-	
 	private void selectPage(String page)
 	{
 		formatSidebarButton(selectedPageButton);
