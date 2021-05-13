@@ -1,6 +1,7 @@
 package uiLayer;
 
 import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import controlLayer.BookingController;
@@ -15,7 +16,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import java.awt.Dialog.ModalityType;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -23,16 +23,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class BookingPanel extends JPanel {
 
 	private JCalendar calendar;
 	private User loggedUser;
-	private HashMap<String, Room> rooms;
+	//private HashMap<String, Room> rooms; TODO remove if custom renderet was accepted
 	
 	/**
 	 * Create the panel.
@@ -40,7 +37,7 @@ public class BookingPanel extends JPanel {
 	 */
 	public BookingPanel(User user) throws SQLException {
 		this.loggedUser = user;
-		this.rooms = new HashMap<String, Room>();
+		//this.rooms = new HashMap<String, Room>(); TODO remove if custom renderet was accepted
 		
 		
 		this.setBackground(Color.WHITE);
@@ -79,15 +76,18 @@ public class BookingPanel extends JPanel {
 		gbc_createBookingButton.gridy = 1;
 		add(createBookingButton, gbc_createBookingButton);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {" Select..."}));
+		Room[] rooms = new BookingController().getAllRooms().toArray(new Room[0]);
+		JComboBox<Room> comboBox = new JComboBox<Room>();
+		comboBox.setModel(new DefaultComboBoxModel<Room>(rooms));
+		ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
+		
+	    comboBox.setRenderer(renderer);
 		comboBox.setPreferredSize(new Dimension(100, 30));
 		comboBox.setEditable(false);
 		comboBox.setFocusable(false);
 		comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
 		comboBox.setForeground(Color.GRAY);
-		getAllRooms(comboBox);
-		
+		//getAllRooms(comboBox); TODO remove if custom renderet was accepted
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 3;
@@ -110,7 +110,7 @@ public class BookingPanel extends JPanel {
 			CreateBookingDialog dialog = new CreateBookingDialog(null); // TODO change to logged user
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-			//Centres the dialog
+			//Centers the dialog
 			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -118,15 +118,15 @@ public class BookingPanel extends JPanel {
 		}
 	}
 	
-	//TODO WRITE COMMENT
-	private void getAllRooms(JComboBox<String> box) throws SQLException
+	//TODO Remove if custom renderer has been accepted
+	/*private void getAllRooms(JComboBox<String> box) throws SQLException
 	{
 		ArrayList<Room> allRooms = new BookingController().getAllRooms();
 		for (Room e : allRooms)
 		{
 			box.addItem(e.getName());
-			rooms.put(e.getName(),e);
+			rooms.add(...)
 		}
 		
-	}
+	}*/
 }
