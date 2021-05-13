@@ -7,9 +7,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class StyleConfig {
-
-	
+public class StyleConfig
+{
 	private Color buttonColorSavedBackground;
 	private Color buttonColorDeleteBackground;
 	private Color buttonColorCancelBackground;
@@ -40,14 +39,15 @@ public class StyleConfig {
 	private Border textAreaBorder;
 	private Border textFieldDefaultBorder;
 	
-	public StyleConfig() {
+	public StyleConfig()
+	{
 		buttonColorSavedBackground = new Color(86, 197, 104);
 		buttonColorDeleteBackground = null;
-		buttonColorCancelBackground = new Color(234, 234, 238);
+		buttonColorCancelBackground = new Color(200, 200, 200);
 		buttonColorDefaultBackground = null;
 		buttonColorSaveForeground = Color.WHITE;
 		buttonColorDeleteForeground = null;
-		buttonColorCancelForeground = new Color(149, 149, 149);
+		buttonColorCancelForeground = new Color(140, 140, 140);
 		buttonDefaultForeground = null;
 		blueColorDefault = null;
 		redColorDefault = null;
@@ -133,7 +133,7 @@ public class StyleConfig {
 		return buttonColorDeleteBackground;
 	}
 
-	public Color getButtonColorCancel() {
+	public Color getButtonColorCancelBackground() {
 		return buttonColorCancelBackground;
 	}
 

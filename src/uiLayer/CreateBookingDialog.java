@@ -5,14 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import config.StyleConfig;
 import controlLayer.BookingController;
@@ -384,7 +380,7 @@ public class CreateBookingDialog extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			buttonPane.setBackground(new Color(240, 240, 240));
+			buttonPane.setBackground(config.getBackGroundDefaultColor());
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton saveButton = new JButton("Save");
@@ -406,7 +402,7 @@ public class CreateBookingDialog extends JDialog {
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setForeground(config.getButtonColorCancelForeground());
-				cancelButton.setBackground(config.getButtonColorCancelForeground());
+				cancelButton.setBackground(config.getButtonColorCancelBackground());
 				cancelButton.setBorder(config.getBorderCancelButton());
 				cancelButton.setFocusable(false);
 				cancelButton.setFont(config.getButtonDefaultFont());
