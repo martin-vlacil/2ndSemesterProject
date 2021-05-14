@@ -23,6 +23,7 @@ import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -109,9 +110,11 @@ public class BookingPanel extends JPanel {
 	private void initialiseBooking()
 	{
 		try {
-			CreateBookingDialog dialog = new CreateBookingDialog(loggedUser); // TODO change to logged user
+			CreateBookingDialog dialog = new CreateBookingDialog(loggedUser);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
+			dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+			dialog.setTitle("Create Booking - IHND Booking System");
 			//Centres the dialog
 			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
@@ -131,6 +134,8 @@ public class BookingPanel extends JPanel {
 					CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
+					dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+					dialog.setTitle("Create Booking - IHND Booking System");
 					//Centres the dialog
 					dialog.setLocationRelativeTo(null);
 					dialog.setVisible(true);

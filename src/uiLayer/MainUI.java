@@ -147,6 +147,12 @@ public class MainUI extends JFrame {
 		
 		//Logout button
 		JButton logOutButton = new JButton("Log Out");
+		logOutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				LoginDialog.main(null);
+			}
+		});
 		formatSidebarButton(logOutButton);
 		GridBagConstraints gbc_logOutButton = new GridBagConstraints();
 		gbc_logOutButton.anchor = GridBagConstraints.WEST;
