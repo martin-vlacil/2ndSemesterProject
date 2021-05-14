@@ -257,9 +257,8 @@ public class MainUI extends JFrame {
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
 		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
-		//logTextArea.setEditable(false);
+		logTextArea.setEditable(false);
 		logTextArea.setBackground(new Color(40, 41, 82));
-		//logTextArea.setPreferredSize(sidebarPanel.getSize());
 		
 		JScrollPane scrollPanel = new JScrollPane(logTextArea);
 		scrollPanel.setBorder(new EmptyBorder(0, 0, 0 ,0));
