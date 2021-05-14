@@ -28,6 +28,8 @@ public class StyleConfig
 	private Color backgroundTitleDefaultColor;
 	private Color textDefaultColor;
 	private Color errorMessageColor;
+	private Color separatorColor;
+	private Color selectedSidebarButtonColor;
 	private Font buttonDefaultFont;
 	private Font buttonBiggerFont;
 	private Font labelDefaultFont;
@@ -42,6 +44,8 @@ public class StyleConfig
 	private Border buttonDefaultBorder;
 	private Border textAreaBorder;
 	private Border textFieldDefaultBorder;
+	private Border emptyBorderZeros;
+	private Border sidebarButtonBorder;
 	
 	public StyleConfig()
 	{
@@ -58,7 +62,6 @@ public class StyleConfig
 		redColorDefault = null;
 		textDefaultColor = new Color(0,0,0);
 		backGroundDefaultColor = new Color(240, 240, 240);
-		backgroundTitleDefaultColor = new Color(40, 41, 82);
 		panelDefaultColor = null;
 		buttonDefaultFont = new Font("Roboto", Font.BOLD, 15);
 		buttonBiggerFont = new Font("Roboto", Font.BOLD, 17);
@@ -68,16 +71,40 @@ public class StyleConfig
 		textDefaultSize = new Font("Roboto", Font.PLAIN, 12);
 		textBiggerSize = null;
 		logSize = null;
+		emptyBorderZeros = new EmptyBorder(0, 0, 0, 0);
 		buttonSaveBorder = new EmptyBorder(5, 30, 5, 30);
 		buttonCancelBorder = new EmptyBorder(5, 30, 5, 30);
 		buttonDeleteBorder = null;
 		buttonDefaultBorder = null;
+		sidebarButtonBorder = new EmptyBorder(15, 10, 15, 10);
 		textAreaBorder = new LineBorder(new Color(0,0,0));
 		textFieldDefaultBorder = new LineBorder(new Color(0,0,0));
 		errorMessageColor = Color.RED;
+		separatorColor = new Color(196, 196, 196);
+		selectedSidebarButtonColor = new Color(234, 234, 238);
 		
 	}
 
+	public Color getSelectedSidebarButtonColor()
+	{
+		return selectedSidebarButtonColor;
+	}
+	
+	public Border getSidebarButtonBorder()
+	{
+		return sidebarButtonBorder;
+	}
+	
+	public Border getEmptyBorderZeros()
+	{
+		return emptyBorderZeros;
+	}
+	
+	public Color getSeparatorColor()
+	{
+		return separatorColor;
+	}
+	
 	public Color getErrorMessageColor() {
 		return errorMessageColor;
 	}

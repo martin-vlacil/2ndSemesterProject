@@ -2,7 +2,6 @@ package uiLayer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -20,12 +19,9 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -44,11 +40,6 @@ import java.util.Date;
 import java.util.Calendar;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.LineBorder;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.VetoableChangeListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -70,7 +61,6 @@ public class CreateBookingDialog extends JDialog {
 	private JTextField nameTextField;
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private JTextField toTimePlaceholder;
 	private JLabel titleLabel;
 	private JLabel attendeesLabel;
 	private JLabel nameLabel;
@@ -83,7 +73,7 @@ public class CreateBookingDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) { TODO remove
 		try {
 			CreateBookingDialog dialog = new CreateBookingDialog(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -91,7 +81,7 @@ public class CreateBookingDialog extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
@@ -251,6 +241,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				nameTextField = new JTextField();
+				nameTextField.setText(user.getName());
 				nameTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
@@ -278,6 +269,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				phoneTextField = new JTextField();
+				phoneTextField.setText(user.getPhone());
 				phoneTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
@@ -305,6 +297,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				emailTextField = new JTextField();
+				emailTextField.setText(user.getEmail());
 				emailTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
