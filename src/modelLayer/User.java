@@ -22,7 +22,19 @@ public class User
 	 */
 	public enum UserType
 	{
-		DEFAULT, SUPER, ADMIN;
+		DEFAULT("Default"), SUPER("Super"), ADMIN("Admin");
+		
+		private String typeName;
+		
+		UserType(String typeName)
+		{
+			this.typeName = typeName;
+		}
+
+		public String getType()
+		{
+			return this.typeName;
+		}
 	}
 	
 	/**
