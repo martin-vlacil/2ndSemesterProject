@@ -104,7 +104,7 @@ public class CreateBookingDialog extends JDialog {
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JPanel titlePanel = new JPanel();
-			titlePanel.setBackground(config.getBackgroundTitleDefaultColor());
+			titlePanel.setBackground(config.getBlueColorDefault());
 			GridBagConstraints gbc_titlePanel = new GridBagConstraints();
 			gbc_titlePanel.gridwidth = 2;
 			gbc_titlePanel.insets = new Insets(0, 0, 10, 0);
