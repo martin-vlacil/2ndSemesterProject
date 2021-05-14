@@ -37,6 +37,7 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
@@ -94,6 +95,7 @@ public class CreateBookingDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 * @throws SQLException 
+	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user) throws SQLException {
 		bookingController = new BookingController();
@@ -422,6 +424,7 @@ public class CreateBookingDialog extends JDialog {
 				datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
 				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
 				datePicker.setEditor(dateEditor); 
+				((DefaultEditor) datePicker.getEditor()).getTextField().setEditable(false);
 				datePicker.setFocusable(false);
 				datePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_datePicker = new GridBagConstraints();
@@ -473,8 +476,9 @@ public class CreateBookingDialog extends JDialog {
 			            return calendar.getTime();
 			        }
 			    });
-				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm"); 
+				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");			
 				startTimePicker.setEditor(dateEditor); 
+				((DefaultEditor) startTimePicker.getEditor()).getTextField().setEditable(false);
 				startTimePicker.setFocusable(false);
 				startTimePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_startTimePicker = new GridBagConstraints();
@@ -515,6 +519,7 @@ public class CreateBookingDialog extends JDialog {
 			    });
 				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm"); 
 				endTimePicker.setEditor(dateEditor); 
+				((DefaultEditor) endTimePicker.getEditor()).getTextField().setEditable(false);
 				endTimePicker.setFocusable(false);
 				endTimePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_endTimePicker = new GridBagConstraints();
