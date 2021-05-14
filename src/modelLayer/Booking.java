@@ -33,6 +33,17 @@ public class Booking
 		this.createdBy = createdBy;
 		this.contact = new User(contactID, contactName, contactPhoneNumber, contactEmail);
 	}
+	
+	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy)
+	{
+		this.title = title;
+		this.description = description;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.numberOfParticipants = numberOfParticipants;
+		this.room = room;
+		this.createdBy = createdBy;
+	}
 
 	/**
 	 * Getters and Setters for all class fields
