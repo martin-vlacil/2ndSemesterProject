@@ -24,10 +24,9 @@ public class LogEntryDB implements LogEntryDBIF
 	
 	public LogEntryDB() throws SQLException
 	{
-		//TODO commented out, not implemented functionality
-		/*connection = DBConnection.getInstance().getConnection();
+		connection = DBConnection.getInstance().getConnection();
 		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
-		sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);*/
+		sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);
 	}
 
 	@Override
