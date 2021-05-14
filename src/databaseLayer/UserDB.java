@@ -76,7 +76,11 @@ public class UserDB implements UserDBIF
 	{
 		sqlSelectUserTypeByID.setInt(1, rs.getInt("type_id"));
 		ResultSet userTypeRs = sqlSelectUserTypeByID.executeQuery();
-		UserType userType = UserType.valueOf(userTypeRs.getString("type"));
+		UserType userType = UserType.DEFAULT;
+		if(userTypeRs.next())
+		{
+			userType = UserType.valueOf(userTypeRs.getString("type").toUpperCase());
+		}
 		
 		Organization organization = organizationDB.getOrganizationByID(rs.getInt("organisation_id"));
 		
