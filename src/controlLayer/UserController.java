@@ -23,13 +23,10 @@ public class UserController
 	 * This method takes an email, finds the user in the database and checks if the password matches
 	 * @param email, password
 	 * @return
+	 * @throws SQLException 
 	 */
-	public User getUser(String email, String password)
+	public User getUser(String email, String password) throws SQLException
 	{
-		User user = null;
-		
-		//TODO - write method
-		
-		return user;
+		return userDB.getUser(email, password);
 	}
 }

@@ -1,5 +1,6 @@
 package databaseLayer;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,15 +11,15 @@ import modelLayer.User.UserType;
 
 public class OrganizationDB implements OrganizationDBIF
 {
+	private Connection connection;
 	
 	private static final String SELECT_BY_ID = String.format("SELECT * FROM Organisation WHERE id = ?");
 	private PreparedStatement sqlSelectByID;
 
-	public OrganizationDB()
+	public OrganizationDB() throws SQLException
 	{
-		//TODO REMOVE COMMENTING
-		//connection = DBConnection.getInstance().getConnection();
-		//sqlSelectByID = connection.prepareStatement(SELECT_BY_ID);
+		connection = DBConnection.getInstance().getConnection();
+		sqlSelectByID = connection.prepareStatement(SELECT_BY_ID);
 	}
 
 	@Override
