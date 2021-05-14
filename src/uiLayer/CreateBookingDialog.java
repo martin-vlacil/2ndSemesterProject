@@ -20,6 +20,7 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -581,7 +582,28 @@ public class CreateBookingDialog extends JDialog {
 		this(user);
 		if (startInterval.compareTo(LocalDateTime.now()) >= 0)
 		{
-			startTimePicker.setValue(endInterval.toLocalTime());
+			//startTimePicker.setValue(endInterval.toLocalTime());
+			Calendar time = Calendar.getInstance();
+			time.set(Calendar.HOUR, endInterval.getHour());
+			time.set(Calendar.MINUTE, endInterval.getMinute());
+			startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+				@Override
+		        public Object getNextValue() {
+		            Date nextValue = (Date)super.getValue();
+		            Calendar calendar = Calendar.getInstance();
+		            calendar.setTime(nextValue);
+		            calendar.add(Calendar.MINUTE, 30);
+		            return calendar.getTime();
+		        }
+				@Override
+		        public Object getPreviousValue() { 
+		            Date nextValue = (Date)super.getValue();
+		            Calendar calendar = Calendar.getInstance();
+		            calendar.setTime(nextValue);
+		            calendar.add(Calendar.MINUTE, -30);
+		            return calendar.getTime();
+		        }
+		    });
 			endTimePicker.setValue(endInterval.toLocalTime());
 			datePicker.setValue(startInterval.toLocalDate());;
 		}
