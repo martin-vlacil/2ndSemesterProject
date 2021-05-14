@@ -1,5 +1,7 @@
 package databaseLayer;
 
+import java.sql.SQLException;
+
 import modelLayer.User;
 
 /**
@@ -14,5 +16,5 @@ public interface UserDBIF
 	 * @param email, password
 	 * @return the logged user
 	 */
-	User getUser(String email, String password);
+	User getUser(String email, String password) throws SQLException;
 }
