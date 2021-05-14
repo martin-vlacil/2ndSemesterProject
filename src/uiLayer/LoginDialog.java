@@ -112,7 +112,7 @@ public class LoginDialog extends JDialog {
 		gbl_mainPanel.rowWeights = new double[]{0.1, 0.0, 0.0, 0.0, 0.0, 0.1, Double.MIN_VALUE};
 		mainPanel.setLayout(gbl_mainPanel);
 		
-		JLabel emailLabel = new JLabel("Email");
+		JLabel emailLabel = new JLabel("Email (Miguel@Olivera.dk)");
 		GridBagConstraints gbc_emailLabel = new GridBagConstraints();
 		gbc_emailLabel.anchor = GridBagConstraints.WEST;
 		gbc_emailLabel.insets = new Insets(0, 0, 5, 5);
@@ -132,7 +132,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(emailTextField, gbc_emailTextField);
 		emailTextField.setColumns(10);
 		
-		JLabel passwordLabel = new JLabel("Password");
+		JLabel passwordLabel = new JLabel("Password (password1)");
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
 		gbc_passwordLabel.anchor = GridBagConstraints.WEST;
 		gbc_passwordLabel.insets = new Insets(30, 0, 5, 5);
@@ -173,7 +173,7 @@ public class LoginDialog extends JDialog {
 
 	private void openMainUI()
 	{
-		User loggedUser = null;
+		User loggedUser;
 		
 		try
 		{
@@ -182,6 +182,7 @@ public class LoginDialog extends JDialog {
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			return;
 		}
 		
 		if(loggedUser == null)
@@ -194,7 +195,7 @@ public class LoginDialog extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainUI frame = new MainUI();
+					MainUI frame = new MainUI(loggedUser);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.setVisible(true);
 					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());

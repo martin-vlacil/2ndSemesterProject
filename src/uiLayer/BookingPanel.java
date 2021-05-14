@@ -109,7 +109,7 @@ public class BookingPanel extends JPanel {
 	private void initialiseBooking()
 	{
 		try {
-			CreateBookingDialog dialog = new CreateBookingDialog(null); // TODO change to logged user
+			CreateBookingDialog dialog = new CreateBookingDialog(loggedUser); // TODO change to logged user
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 			//Centres the dialog
@@ -128,7 +128,7 @@ public class BookingPanel extends JPanel {
 			public void intervalSelected(IntervalSelectionEvent event) {
 
 				try {
-					CreateBookingDialog dialog = new CreateBookingDialog(null, event.getIntervalStart(), event.getIntervalEnd()); // TODO change to logged user
+					CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd());
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 					//Centres the dialog

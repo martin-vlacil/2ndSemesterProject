@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
+import modelLayer.User;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -48,9 +49,9 @@ public class MainUI extends JFrame {
 	private JTextArea logTextArea;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	 * Launch the application. TODO remove not needed main methods
+	 */ 
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -64,16 +65,15 @@ public class MainUI extends JFrame {
 				}
 			}
 		}); 
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public MainUI() throws SQLException {
-		//TODO PASS USER
+	public MainUI(User loggedUser) throws SQLException {
 		
-		bookingPanel = new BookingPanel(null);
+		bookingPanel = new BookingPanel(loggedUser);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 871, 500);
@@ -120,6 +120,7 @@ public class MainUI extends JFrame {
 		
 		//User name label
 		JLabel userNameLabel = new JLabel("User Name");
+		userNameLabel.setText(loggedUser.getName());
 		userNameLabel.setForeground(Color.WHITE);
 		userNameLabel.setFont(new Font("Roboto", Font.BOLD, 15));
 		GridBagConstraints gbc_userNameLabel = new GridBagConstraints();
@@ -131,6 +132,7 @@ public class MainUI extends JFrame {
 		
 		//User type label
 		JLabel userTypeLabel = new JLabel("User Type");
+		userTypeLabel.setText(loggedUser.getUserType().getType());
 		userTypeLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
 		userTypeLabel.setForeground(Color.WHITE);
 		GridBagConstraints gbc_userTypeLabel = new GridBagConstraints();
