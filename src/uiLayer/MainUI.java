@@ -257,15 +257,18 @@ public class MainUI extends JFrame {
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
 		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
-		logTextArea.setEditable(false);
+		//logTextArea.setEditable(false);
 		logTextArea.setBackground(new Color(40, 41, 82));
-		logTextArea.setPreferredSize(sidebarPanel.getSize());
-		GridBagConstraints gbc_logTextArea = new GridBagConstraints();
-		gbc_logTextArea.insets = new Insets(5, 10, 0, 10);
-		gbc_logTextArea.fill = GridBagConstraints.BOTH;
-		gbc_logTextArea.gridx = 0;
-		gbc_logTextArea.gridy = 1;
-		logPanel.add(logTextArea, gbc_logTextArea);
+		//logTextArea.setPreferredSize(sidebarPanel.getSize());
+		
+		JScrollPane scrollPanel = new JScrollPane(logTextArea);
+		scrollPanel.setBorder(new EmptyBorder(0, 0, 0 ,0));
+		GridBagConstraints gbc_scrollPanel = new GridBagConstraints();
+		gbc_scrollPanel.insets = new Insets(5, 10, 0, 10);
+		gbc_scrollPanel.fill = GridBagConstraints.BOTH;
+		gbc_scrollPanel.gridx = 0;
+		gbc_scrollPanel.gridy = 1;
+		logPanel.add(scrollPanel, gbc_scrollPanel);
 		
 		mainPanel = new JPanel();
 		GridBagConstraints gbc_mainPanel = new GridBagConstraints();
