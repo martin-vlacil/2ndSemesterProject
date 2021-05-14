@@ -166,12 +166,15 @@ public class MainUI extends JFrame {
 		//Line that separates User section from Pages
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.fill = GridBagConstraints.BOTH;
 		separator.setForeground(config.getSeparatorColor());
+		separator.setBackground(config.getSeparatorColor());
+		//separator.setPreferredSize(new Dimension(5, 4));
 		separator.setOpaque(true);
 		gbc_separator.gridwidth = 3;
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 2;
+		gbc_separator.fill = GridBagConstraints.BOTH;
+		//gbc_separator.weighty = 1;
 		sidebarPanel.add(separator, gbc_separator);
 		
 		//Booking page button
@@ -232,7 +235,7 @@ public class MainUI extends JFrame {
 		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
 		logSeparator.setForeground(config.getSeparatorColor());
 		logSeparator.setOpaque(true);
-		logSeparator.setPreferredSize(new Dimension(logSeparator.getWidth(), 4));
+		logSeparator.setPreferredSize(new Dimension(sidebarPanel.getWidth(), 4));
 		gbc_logSeparator.fill = GridBagConstraints.HORIZONTAL;
 		gbc_logSeparator.gridwidth = 3;
 		gbc_logSeparator.gridx = 0;
@@ -329,6 +332,7 @@ public class MainUI extends JFrame {
 	{
 		button.setForeground(config.getBlueColorDefault());
 		button.setBackground(config.getSelectedSidebarButtonColor());
+		button.setOpaque(true);
 	}
 	
 	private void updateLog() throws SQLException

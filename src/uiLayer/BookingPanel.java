@@ -70,6 +70,7 @@ public class BookingPanel extends JPanel {
 		createBookingButton.setBorder(new EmptyBorder(8, 10, 8, 10));
 		createBookingButton.setFocusable(false);
 		createBookingButton.setFont(new Font("Roboto", Font.BOLD, 15));
+		createBookingButton.setOpaque(true);
 		GridBagConstraints gbc_createBookingButton = new GridBagConstraints();
 		gbc_createBookingButton.gridheight = 2;
 		gbc_createBookingButton.anchor = GridBagConstraints.WEST;

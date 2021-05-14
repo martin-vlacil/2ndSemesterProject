@@ -358,6 +358,7 @@ public class CreateBookingDialog extends JDialog {
 				JButton attachmentButton = new JButton("Add Attachment");
 				attachmentButton.setEnabled(false);
 				attachmentButton.setBackground(new Color(192, 192, 192));
+				attachmentButton.setOpaque(true);
 				GridBagConstraints gbc_attachmentButton = new GridBagConstraints();
 				gbc_attachmentButton.anchor = GridBagConstraints.EAST;
 				gbc_attachmentButton.insets = new Insets(0, 0, 5, 5);
@@ -590,7 +591,7 @@ public class CreateBookingDialog extends JDialog {
 				saveButton.setBorder(config.getBorderSaveButton());
 				saveButton.setFocusable(false);
 				saveButton.setFont(config.getButtonDefaultFont());
-				
+				saveButton.setOpaque(true);
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//TODO create booking
@@ -607,7 +608,7 @@ public class CreateBookingDialog extends JDialog {
 				cancelButton.setBorder(config.getBorderCancelButton());
 				cancelButton.setFocusable(false);
 				cancelButton.setFont(config.getButtonDefaultFont());
-	
+				cancelButton.setOpaque(true);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

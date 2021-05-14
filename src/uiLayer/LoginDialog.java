@@ -33,7 +33,7 @@ import java.awt.event.ActionEvent;
 public class LoginDialog extends JDialog {
 	private JTextField emailTextField;
 	private JPasswordField passwordTextField;
-	private final StyleConfig config;
+	private final StyleConfig configg;
 	private UserController userController;
 
 	/**
@@ -73,7 +73,7 @@ public class LoginDialog extends JDialog {
 			error.printStackTrace();
 		}
 		
-		config = new StyleConfig();
+		configg = new StyleConfig();
 		
 		setBounds(100, 100, 931, 601);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -84,7 +84,7 @@ public class LoginDialog extends JDialog {
 		getContentPane().setLayout(gridBagLayout);
 		
 		JPanel titlePanel = new JPanel();
-		titlePanel.setBackground(config.getBlueColorDefault());
+		titlePanel.setBackground(configg.getBlueColorDefault());
 		GridBagConstraints gbc_titlePanel = new GridBagConstraints();
 		gbc_titlePanel.insets = new Insets(0, 0, 5, 0);
 		gbc_titlePanel.fill = GridBagConstraints.BOTH;
@@ -121,7 +121,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(emailLabel, gbc_emailLabel);
 		
 		emailTextField = new JTextField();
-		emailTextField.setForeground(config.getButtonDefaultForeground());
+		emailTextField.setForeground(configg.getButtonDefaultForeground());
 		emailTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		emailTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 		GridBagConstraints gbc_emailTextField = new GridBagConstraints();
@@ -141,7 +141,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(passwordLabel, gbc_passwordLabel);
 		
 		passwordTextField = new JPasswordField();
-		passwordTextField.setForeground(config.getButtonDefaultForeground());
+		passwordTextField.setForeground(configg.getButtonDefaultForeground());
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 		GridBagConstraints gbc_passwordTextField = new GridBagConstraints();
@@ -161,9 +161,11 @@ public class LoginDialog extends JDialog {
 		});
 		loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
 		loginButton.setFocusable(false);
-		loginButton.setBackground(config.getBlueColorDefault());
-		loginButton.setFont(config.getButtonDefaultFont());
+		loginButton.setBackground(configg.getBlueColorDefault());
+		//loginButton.setBackground(new Color(40, 41, 82));
+		loginButton.setFont(configg.getButtonDefaultFont());
 		loginButton.setForeground(Color.WHITE);
+		loginButton.setOpaque(true);
 		GridBagConstraints gbc_loginButton = new GridBagConstraints();
 		gbc_loginButton.insets = new Insets(0, 0, 0, 5);
 		gbc_loginButton.gridx = 1;
