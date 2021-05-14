@@ -1,5 +1,6 @@
 package databaseLayer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modelLayer.User;
@@ -17,4 +18,20 @@ public interface UserDBIF
 	 * @return the logged user
 	 */
 	User getUser(String email, String password) throws SQLException;
+	
+	/**
+	 * This method is used to create a User object from the databse
+	 * @param id of the user
+	 * @return the created user
+	 * @throws SQLException
+	 */
+	User getUserByID(int id) throws SQLException;
+	
+	/**
+	 * A helper method for creating the user
+	 * @param rs from the database
+	 * @return the created user
+	 * @throws SQLException
+	 */
+	User buildObject(ResultSet rs) throws SQLException;
 }

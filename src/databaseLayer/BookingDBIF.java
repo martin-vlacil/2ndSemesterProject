@@ -1,5 +1,6 @@
 package databaseLayer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
 import java.util.*;
@@ -35,5 +36,14 @@ public interface BookingDBIF
 	 * @return a list of bookings for that day on that room
 	 * @throws SQLException
 	 */
-	ArrayList<Booking> getAllByDateAndRoom(Room room, LocalDate date) throws SQLException;
+	ArrayList<Booking> getAllByDate(LocalDate date) throws SQLException;
+	
+	/**
+	 * This method is used for creating the Booking objects from the Result set
+	 * to return them to the controller
+	 * @param rs - result set of the found rows
+	 * @return the created booking object
+	 * @throws SQLException 
+	 */
+	Booking buildObject(ResultSet rs) throws SQLException;
 }

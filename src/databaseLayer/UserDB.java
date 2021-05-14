@@ -16,7 +16,6 @@ import modelLayer.User.UserType;
  */
 public class UserDB implements UserDBIF
 {
-	//FIXME Martin: Join tables
 	private OrganizationDBIF organizationDB = new OrganizationDB();
 	
 	private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = String.format("SELECT * FROM User WHERE email = ? AND password = ?");
@@ -25,12 +24,16 @@ public class UserDB implements UserDBIF
 	private static final String SELECT_USERTYPE_BY_ID = String.format("SELECT * FROM UserType WHERE id = ?");
 	private PreparedStatement sqlSelectUserTypeByID;
 	
+	private static final String SELECT_USER_BY_ID = String.format("SELECT * FROM User WHERE id = ?");
+	private PreparedStatement sqlSelectUserByID;
+	
 	public UserDB() throws SQLException
 	{
 		//TODO REMOVE COMMENTING nad maybe try catch the preparing statements
 		//connection = DBConnection.getInstance().getConnection();
 		//sqlSelectByEmailAndPassword = connection.prepareStatement(SELECT_USER_BY_EMAIL_AND_PASSWORD);
-		//sqlSelectYSerTypeByID = connection.prepareStatement(SELECT_USERTYPE_BY_ID);
+		//sqlSelectUserTypeByID = connection.prepareStatement(SELECT_USERTYPE_BY_ID);
+		//sqlSelectUserByID = connection.prepareStatement(SELECT_USER_BY_ID);
 	}
 
 	@Override
@@ -50,19 +53,31 @@ public class UserDB implements UserDBIF
 		
 		return user;
 	}
-
-	/**
-	 * Builds a Java Object from database information
-	 * @param resultSet
-	 */
-	private User buildObject(ResultSet resultSet) throws SQLException
+	
+	public User getUserByID(int id) throws SQLException
 	{
-		sqlSelectUserTypeByID.setInt(1, resultSet.getInt("type_id"));
-		ResultSet rs = sqlSelectUserTypeByID.executeQuery();
-		UserType userType = UserType.valueOf(rs.getString("type"));
+		User user = null;
 		
-		Organization organization = organizationDB.getOrganizationByID(resultSet.getInt("organisation_id"));
+		sqlSelectUserByID.setInt(1, id);
 		
-		return new User(resultSet.getInt("id"), (resultSet.getString("first_name") + resultSet.getString("last_name")), resultSet.getString("email"), resultSet.getString("phone"), resultSet.getString("position"), userType, organization);
+		ResultSet rs = sqlSelectUserByID.executeQuery();
+		
+		if(rs.next())
+		{
+			user = buildObject(rs);
+		}
+		
+		return user;
+	}
+
+	public User buildObject(ResultSet rs) throws SQLException
+	{
+		sqlSelectUserTypeByID.setInt(1, rs.getInt("type_id"));
+		ResultSet userTypeRs = sqlSelectUserTypeByID.executeQuery();
+		UserType userType = UserType.valueOf(userTypeRs.getString("type"));
+		
+		Organization organization = organizationDB.getOrganizationByID(rs.getInt("organisation_id"));
+		
+		return new User(rs.getInt("id"), (rs.getString("first_name") + " " +  rs.getString("last_name")), rs.getString("email"), rs.getString("phone"), rs.getString("position"), userType, organization);
 	}
 }

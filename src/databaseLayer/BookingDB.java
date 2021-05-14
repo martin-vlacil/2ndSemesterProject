@@ -2,8 +2,11 @@ package databaseLayer;
 
 import java.sql.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import controlLayer.BookingController;
+import controlLayer.RoomController;
 import modelLayer.*;
 
 /**
@@ -13,16 +16,24 @@ import modelLayer.*;
  */
 public class BookingDB implements BookingDBIF
 {
+	RoomController roomCtr;
+	UserDBIF userDB;
+	
 	private Connection connection;
 	
 	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	private PreparedStatement sqlInsertBooking;
 	
-	private static final String SELECT_BOOKINGS_BY_DATE_AND_ROOM = String.format("SELECT * FROM Bookings WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ? AND room_id = ?");
-	private PreparedStatement sqlSelectBookingsByDateAndRoom;
+	private static final String SELECT_BOOKINGS_BY_DATE = String.format("SELECT title, description, start_time, end_time, number_of_participants, contact_id, [user_id], room_id, [User].first_name AS user_first_name, [User].last_name AS user_last_name, [User].email AS user_email, [User].phone AS user_phone, [User].position AS user_position, ContactPerson.[name] AS contact_name, ContactPerson.email AS contact_email, ContactPerson.phone AS contact_phone FROM Booking  \r\n"
+					+ "LEFT JOIN [User] ON Booking.user_id = [User].id \r\n"
+					+ "LEFT JOIN ContactPerson ON Booking.contact_id = ContactPerson.id\r\n"
+					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ?");
+	private PreparedStatement sqlSelectBookingsByDate;
 	
 	public BookingDB() throws SQLException
 	{
+		roomCtr = new RoomController();
+		userDB = new UserDB();
 		//TODO REMOVE COMMENTING
 		//connection = DBConnection.getInstance().getConnection();
 		//sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
@@ -63,10 +74,40 @@ public class BookingDB implements BookingDBIF
 	
 	//TODO finish
 	@Override
-	public ArrayList<Booking> getAllByDateAndRoom(Room room, LocalDate date) throws SQLException
+	public ArrayList<Booking> getAllByDate(LocalDate date) throws SQLException
 	{
-		//sqlSelectBookingsByDateAndRoom.setThing(1, date);
-		sqlSelectBookingsByDateAndRoom.setInt(2, room.getId());
-		return null;
+		ArrayList<Booking> bookingsOfTheDay = new ArrayList<>();
+		String sqlDate = date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+		sqlSelectBookingsByDate.setString(1, sqlDate);
+		
+		ResultSet rs = sqlSelectBookingsByDate.executeQuery();
+		
+		while(rs.next())
+		{
+			Booking booking = buildObject(rs);
+			bookingsOfTheDay.add(booking);
+		}
+		
+		return bookingsOfTheDay;
+	}
+
+	@Override
+	public Booking buildObject(ResultSet rs) throws SQLException
+	{
+		User user = userDB.getUserByID(rs.getInt("user_id"));
+		
+		if(rs.getInt("contact_id") != 0)
+		{
+			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
+							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
+											user, rs.getInt("contact_id"), rs.getString("contact_name"), rs.getString("contact_email"), rs.getString("contact_phone"));
+		}
+		else
+		{
+			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
+							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
+							user);
+		}
 	}
 }
