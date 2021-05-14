@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
@@ -94,6 +96,7 @@ public class CreateBookingDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 * @throws SQLException 
+	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user) throws SQLException {
 		bookingController = new BookingController();
@@ -422,6 +425,7 @@ public class CreateBookingDialog extends JDialog {
 				datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
 				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
 				datePicker.setEditor(dateEditor); 
+				((DefaultEditor) datePicker.getEditor()).getTextField().setEditable(false);
 				datePicker.setFocusable(false);
 				datePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_datePicker = new GridBagConstraints();
@@ -473,8 +477,9 @@ public class CreateBookingDialog extends JDialog {
 			            return calendar.getTime();
 			        }
 			    });
-				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm"); 
+				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");			
 				startTimePicker.setEditor(dateEditor); 
+				((DefaultEditor) startTimePicker.getEditor()).getTextField().setEditable(false);
 				startTimePicker.setFocusable(false);
 				startTimePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_startTimePicker = new GridBagConstraints();
@@ -515,6 +520,7 @@ public class CreateBookingDialog extends JDialog {
 			    });
 				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm"); 
 				endTimePicker.setEditor(dateEditor); 
+				((DefaultEditor) endTimePicker.getEditor()).getTextField().setEditable(false);
 				endTimePicker.setFocusable(false);
 				endTimePicker.setFont(config.getLabelDefaultFont());
 				GridBagConstraints gbc_endTimePicker = new GridBagConstraints();
@@ -584,9 +590,11 @@ public class CreateBookingDialog extends JDialog {
 		{
 			//startTimePicker.setValue(endInterval.toLocalTime());
 			Calendar time = Calendar.getInstance();
-			time.set(Calendar.HOUR, endInterval.getHour());
-			time.set(Calendar.MINUTE, endInterval.getMinute());
-			startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+			
+			time.set(Calendar.HOUR, startInterval.getHour());
+			time.set(Calendar.MINUTE, startInterval.getMinute());
+			startTimePicker.setValue(time.getTime());
+			/*startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 				@Override
 		        public Object getNextValue() {
 		            Date nextValue = (Date)super.getValue();
@@ -603,9 +611,11 @@ public class CreateBookingDialog extends JDialog {
 		            calendar.add(Calendar.MINUTE, -30);
 		            return calendar.getTime();
 		        }
-		    });
-			endTimePicker.setValue(endInterval.toLocalTime());
-			datePicker.setValue(startInterval.toLocalDate());;
+		    });*/
+			time.set(Calendar.HOUR, endInterval.getHour());
+			time.set(Calendar.MINUTE, endInterval.getMinute());
+			endTimePicker.setValue(time.getTime());
+			datePicker.setValue(Date.from(startInterval.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		}
 	}
 	
