@@ -465,7 +465,19 @@ public class CreateBookingDialog extends JDialog {
 			            Date nextValue = (Date)super.getValue();
 			            Calendar calendar = Calendar.getInstance();
 			            calendar.setTime(nextValue);
-			            calendar.add(Calendar.MINUTE, 30);
+			            
+
+			            Date time = new Date();
+			            time.setTime(77400000);
+			            if (calendar.getTime().after(time))
+			            {
+			            	calendar.add(Calendar.MINUTE, 840);
+			            }
+			            else
+			            {
+			            	calendar.add(Calendar.MINUTE, 30);
+			            } 
+			            
 			            return calendar.getTime();
 			        }
 					@Override
@@ -473,7 +485,18 @@ public class CreateBookingDialog extends JDialog {
 			            Date nextValue = (Date)super.getValue();
 			            Calendar calendar = Calendar.getInstance();
 			            calendar.setTime(nextValue);
-			            calendar.add(Calendar.MINUTE, -30);
+			            
+			            Date time = new Date();
+			            time.setTime(45000000);
+			            if (calendar.getTime().before(time))
+			            {
+			            	calendar.add(Calendar.MINUTE, -840);
+			            }
+			            else
+			            {
+			            	calendar.add(Calendar.MINUTE, -30);
+			            } 
+			            
 			            return calendar.getTime();
 			        }
 			    });
@@ -506,11 +529,12 @@ public class CreateBookingDialog extends JDialog {
 			            Date nextValue = (Date)super.getValue();
 			            Calendar calendar = Calendar.getInstance();
 			            calendar.setTime(nextValue);
-			            Date lastTime = new Date();
-			            lastTime.setTime(79200000);
-			            if (calendar.getTime().after(lastTime))
+			            
+			            Date time = new Date();
+			            time.setTime(77400000);
+			            if (calendar.getTime().after(time))
 			            {
-			            	calendar.add(Calendar.HOUR, 13);
+			            	calendar.add(Calendar.MINUTE, 840);
 			            }
 			            else
 			            {
@@ -524,11 +548,11 @@ public class CreateBookingDialog extends JDialog {
 			            Calendar calendar = Calendar.getInstance();
 			            calendar.setTime(nextValue);
 
-			            Date firstTime = new Date();
-			            firstTime.setTime(43200000);
-			            if (calendar.getTime().after(firstTime))
+			            Date time = new Date();
+			            time.setTime(45000000);
+			            if (calendar.getTime().before(time))
 			            {
-			            	calendar.add(Calendar.HOUR, -13);
+			            	calendar.add(Calendar.MINUTE, -840);
 			            }
 			            else
 			            {
