@@ -72,8 +72,6 @@ public class MainUI extends JFrame {
 	 */
 	public MainUI() throws SQLException {
 		//TODO PASS USER
-		// Remove the system's scale factor on the UI elements
-		System.setProperty("sun.java2d.uiScale", "1.0");
 		
 		bookingPanel = new BookingPanel(null);
 

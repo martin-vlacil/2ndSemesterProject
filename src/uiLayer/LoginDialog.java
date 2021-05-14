@@ -42,6 +42,8 @@ public class LoginDialog extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// Remove the system's scale factor on the UI elements
+					System.setProperty("sun.java2d.uiScale", "1.0");
 					LoginDialog dialog = new LoginDialog();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
