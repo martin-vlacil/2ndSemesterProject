@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -584,9 +585,11 @@ public class CreateBookingDialog extends JDialog {
 		{
 			//startTimePicker.setValue(endInterval.toLocalTime());
 			Calendar time = Calendar.getInstance();
-			time.set(Calendar.HOUR, endInterval.getHour());
-			time.set(Calendar.MINUTE, endInterval.getMinute());
-			startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+			
+			time.set(Calendar.HOUR, startInterval.getHour());
+			time.set(Calendar.MINUTE, startInterval.getMinute());
+			startTimePicker.setValue(time.getTime());
+			/*startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 				@Override
 		        public Object getNextValue() {
 		            Date nextValue = (Date)super.getValue();
@@ -603,9 +606,11 @@ public class CreateBookingDialog extends JDialog {
 		            calendar.add(Calendar.MINUTE, -30);
 		            return calendar.getTime();
 		        }
-		    });
-			endTimePicker.setValue(endInterval.toLocalTime());
-			datePicker.setValue(startInterval.toLocalDate());;
+		    });*/
+			time.set(Calendar.HOUR, endInterval.getHour());
+			time.set(Calendar.MINUTE, endInterval.getMinute());
+			endTimePicker.setValue(time.getTime());
+			datePicker.setValue(Date.from(startInterval.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		}
 	}
 	
