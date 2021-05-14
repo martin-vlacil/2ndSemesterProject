@@ -5,7 +5,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import controlLayer.BookingController;
 import controlLayer.RoomController;
 import modelLayer.*;
 
@@ -32,12 +31,9 @@ public class BookingDB implements BookingDBIF
 	
 	public BookingDB() throws SQLException
 	{
-		roomCtr = new RoomController();
-		userDB = new UserDB();
-		//TODO REMOVE COMMENTING
-		//connection = DBConnection.getInstance().getConnection();
-		//sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
-		//sqlSelectBookingsByDateAndRoom = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE_AND_ROOM);
+		connection = DBConnection.getInstance().getConnection();
+		sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
+		sqlSelectBookingsByDate = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE);
 	}
 
 	/*

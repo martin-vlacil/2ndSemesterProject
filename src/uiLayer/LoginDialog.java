@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import config.StyleConfig;
+import controlLayer.UserController;
 import databaseLayer.UserDB;
 import databaseLayer.UserDBIF;
 import modelLayer.User;
@@ -33,7 +34,7 @@ public class LoginDialog extends JDialog {
 	private JTextField emailTextField;
 	private JPasswordField passwordTextField;
 	private final StyleConfig config;
-	private UserDBIF userDB;
+	private UserController userController;
 
 	/**
 	 * Launch the application.
@@ -60,16 +61,16 @@ public class LoginDialog extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws SQLException 
 	 */
 	public LoginDialog() {
-		
 		try
 		{
-			userDB = new UserDB();
+			userController = new UserController();
 		}
-		catch (SQLException e1)
+		catch (SQLException error)
 		{
-			e1.printStackTrace();
+			error.printStackTrace();
 		}
 		
 		config = new StyleConfig();
@@ -153,15 +154,9 @@ public class LoginDialog extends JDialog {
 		
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try
-				{
-					openMainUI();
-				}
-				catch (SQLException error)
-				{
-					error.printStackTrace();
-				}
+			public void actionPerformed(ActionEvent e)
+			{
+				openMainUI();
 			}
 		});
 		loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
@@ -176,9 +171,26 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(loginButton, gbc_loginButton);
 	}
 
-	private void openMainUI() throws SQLException
+	private void openMainUI()
 	{
-		//User loggedUser = userDB.getUser(emailTextField.getText(), String.valueOf(passwordTextField.getPassword())); TODO uncomment when DB connection is done and check if it found a user
+		User loggedUser = null;
+		
+		try
+		{
+			loggedUser = userController.getUser(emailTextField.getText(), String.valueOf(passwordTextField.getPassword()));
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(loggedUser == null)
+		{
+			//TODO Implement a proper error
+			System.out.println("User not found");
+			return;
+		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
