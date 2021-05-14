@@ -20,6 +20,7 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +73,9 @@ public class CreateBookingDialog extends JDialog {
 	private JLabel nameLabel;
 	private JLabel phoneLabel;
 	private JLabel emailLabel;
+	private JSpinner startTimePicker;
+	private JSpinner endTimePicker;
+	private JSpinner datePicker;
 
 	/**
 	 * Launch the application.
@@ -414,7 +418,7 @@ public class CreateBookingDialog extends JDialog {
 			{
 				Calendar yesterday = Calendar.getInstance();
 				yesterday.add(Calendar.DATE, -1);
-				JSpinner datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
+				datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
 				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
 				datePicker.setEditor(dateEditor); 
 				datePicker.setFocusable(false);
@@ -449,7 +453,7 @@ public class CreateBookingDialog extends JDialog {
 				Calendar time = Calendar.getInstance();
 				time.set(Calendar.HOUR, 1);
 				time.set(Calendar.MINUTE, 0);
-				JSpinner startTimePicker = new JSpinner();
+				startTimePicker = new JSpinner();
 				startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 			        public Object getNextValue() { 
@@ -489,7 +493,7 @@ public class CreateBookingDialog extends JDialog {
 				//Calendar endTime = Calendar.getInstance();
 				//endTime.set(Calendar.HOUR, 8);
 				//endTime.set(Calendar.MINUTE, 0);
-				JSpinner endTimePicker = new JSpinner();
+				endTimePicker = new JSpinner();
 				endTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 			        public Object getNextValue() {
@@ -569,6 +573,17 @@ public class CreateBookingDialog extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+	}
+	
+	public CreateBookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval) throws SQLException
+	{
+		this(user);
+		if (startInterval.compareTo(LocalDateTime.now()) >= 0)
+		{
+			startTimePicker.setValue(endInterval.toLocalTime());
+			endTimePicker.setValue(endInterval.toLocalTime());
+			datePicker.setValue(startInterval.toLocalDate());;
 		}
 	}
 	

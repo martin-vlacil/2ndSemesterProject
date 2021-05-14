@@ -8,12 +8,8 @@ import controlLayer.BookingController;
 import modelLayer.Room;
 import modelLayer.User;
 import uiLayer.calendar.JCalendar;
-import uiLayer.events.IntervalChangedEvent;
-import uiLayer.events.IntervalChangedListener;
 import uiLayer.events.IntervalSelectionEvent;
 import uiLayer.events.IntervalSelectionListener;
-import uiLayer.events.SelectionChangedEvent;
-import uiLayer.events.SelectionChangedListener;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -126,11 +122,21 @@ public class BookingPanel extends JPanel {
 	
 	private void bindListeners()
 	{
-		calendar.addSelectionChangedListener(new SelectionChangedListener() {
+		calendar.addIntervalSelectionListener(new IntervalSelectionListener() {
 
 			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				initialiseBooking();
+			public void intervalSelected(IntervalSelectionEvent event) {
+
+				try {
+					CreateBookingDialog dialog = new CreateBookingDialog(null, event.getIntervalStart(), event.getIntervalEnd()); // TODO change to logged user
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
+					//Centres the dialog
+					dialog.setLocationRelativeTo(null);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 		});
