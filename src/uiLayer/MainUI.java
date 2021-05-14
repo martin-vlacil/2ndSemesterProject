@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import config.StyleConfig;
 import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
@@ -38,6 +39,8 @@ import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
 
+	private StyleConfig config;
+	
 	private JPanel contentPane;
 	private CardLayout cards;
 	private BookingPanel bookingPanel;
@@ -72,6 +75,7 @@ public class MainUI extends JFrame {
 	 * @throws SQLException 
 	 */
 	public MainUI(User loggedUser) throws SQLException {
+		config = new StyleConfig();
 		
 		bookingPanel = new BookingPanel(loggedUser);
 
@@ -89,7 +93,7 @@ public class MainUI extends JFrame {
 		//Creates the sidebar containing the menu
 		JPanel sidebarPanel = new JPanel();
 		GridBagConstraints gbc_sidebarPanel = new GridBagConstraints();
-		sidebarPanel.setBackground(new Color(40, 41, 82));
+		sidebarPanel.setBackground(config.getBlueColorDefault());
 		sidebarPanel.setPreferredSize(new Dimension(140, 0));
 		
 		gbc_sidebarPanel.fill = GridBagConstraints.BOTH;
@@ -157,7 +161,7 @@ public class MainUI extends JFrame {
 		JSeparator separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		gbc_separator.fill = GridBagConstraints.BOTH;
-		separator.setForeground(new Color(196, 196, 196));
+		separator.setForeground(config.getSeparatorColor());
 		separator.setOpaque(true);
 		gbc_separator.gridwidth = 3;
 		gbc_separator.gridx = 0;
@@ -220,7 +224,7 @@ public class MainUI extends JFrame {
 		JSeparator logSeparator = new JSeparator();
 		GridBagConstraints gbc_logSeparator = new GridBagConstraints();
 		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
-		logSeparator.setForeground(new Color(196, 196, 196));
+		logSeparator.setForeground(config.getSeparatorColor());
 		logSeparator.setOpaque(true);
 		logSeparator.setPreferredSize(new Dimension(logSeparator.getWidth(), 4));
 		gbc_logSeparator.fill = GridBagConstraints.HORIZONTAL;
@@ -231,7 +235,7 @@ public class MainUI extends JFrame {
 		
 		JPanel logPanel = new JPanel();
 		GridBagConstraints gbc_logPanel = new GridBagConstraints();
-		logPanel.setBackground(new Color(40, 41, 82));
+		logPanel.setBackground(config.getBlueColorDefault());
 		gbc_logPanel.gridwidth = 3;
 		gbc_logPanel.fill = GridBagConstraints.BOTH;
 		gbc_logPanel.gridx = 0;
@@ -260,10 +264,10 @@ public class MainUI extends JFrame {
 		logTextArea.setForeground(Color.WHITE);
 		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15));
 		logTextArea.setEditable(false);
-		logTextArea.setBackground(new Color(40, 41, 82));
+		logTextArea.setBackground(config.getBlueColorDefault());
 		
 		JScrollPane scrollPanel = new JScrollPane(logTextArea);
-		scrollPanel.setBorder(new EmptyBorder(0, 0, 0 ,0));
+		scrollPanel.setBorder(config.getEmptyBorderZeros());
 		GridBagConstraints gbc_scrollPanel = new GridBagConstraints();
 		gbc_scrollPanel.insets = new Insets(5, 10, 0, 10);
 		gbc_scrollPanel.fill = GridBagConstraints.BOTH;
@@ -308,17 +312,17 @@ public class MainUI extends JFrame {
 	private void formatSidebarButton(JButton button)
 	{
 		button.setForeground(Color.WHITE);
-		button.setBackground(new Color(40, 41, 82));
-		button.setBorder(new EmptyBorder(15, 10, 15, 10));
+		button.setBackground(config.getBlueColorDefault());
+		button.setBorder(config.getSidebarButtonBorder());
 		button.setFocusable(false);
-		button.setFont(new Font("Roboto", Font.BOLD, 15));
+		button.setFont(config.getButtonDefaultFont());
 		//button.setContentAreaFilled(false);
 	}
 	
 	private void formatSelectedSidebarButton(JButton button)
 	{
-		button.setForeground(new Color(40, 41, 82));
-		button.setBackground(new Color(234, 234, 238));
+		button.setForeground(config.getBlueColorDefault());
+		button.setBackground(config.getSelectedSidebarButtonColor());
 	}
 	
 	private void updateLog() throws SQLException
