@@ -78,7 +78,6 @@ public class DayContentPanel extends JPanel {
                         return;
                     LocalDateTime startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(), getHeight());
                     LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(), getHeight());
-                    System.out.println("Start date " + startDate + "\n end date " + endDate);
                     EventRepository.get().triggerIntervalSelection(calendar,
                             startDate, endDate);
                 }

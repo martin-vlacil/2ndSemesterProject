@@ -60,8 +60,8 @@ public class Config {
         eventDefaultBackgroundColor = new Color(135, 184, 217, 128);
         eventDefaultForegroundColor = Color.DARK_GRAY;
 
-        workingHoursStart = 8;
-        workingHoursEnd = 17;
+        workingHoursStart = 15;
+        workingHoursEnd = 23;
 
         outsideWorkingHoursColor = new Color(148, 197, 217, 40);
         dayDisabledBackgroundColor = new Color(148, 197, 217, 128);

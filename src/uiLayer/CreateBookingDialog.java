@@ -449,7 +449,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				Calendar time = Calendar.getInstance();
-				time.set(Calendar.HOUR, 1);
+				time.set(Calendar.HOUR_OF_DAY, 13);
 				time.set(Calendar.MINUTE, 0);
 				startTimePicker = new JSpinner();
 				startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
@@ -510,7 +510,7 @@ public class CreateBookingDialog extends JDialog {
 				//startTime.set(Calendar.HOUR, 0);
 				//startTime.set(Calendar.MINUTE, 0);
 				Calendar time = Calendar.getInstance();
-				time.set(Calendar.HOUR, 8);
+				time.set(Calendar.HOUR_OF_DAY, 20);
 				time.set(Calendar.MINUTE, 0);
 				//Calendar endTime = Calendar.getInstance();
 				//endTime.set(Calendar.HOUR, 8);
@@ -626,8 +626,9 @@ public class CreateBookingDialog extends JDialog {
 		{
 			//startTimePicker.setValue(endInterval.toLocalTime());
 			Calendar time = Calendar.getInstance();
-			
-			time.set(Calendar.HOUR, startInterval.getHour());
+			System.out.println(" " +  startInterval.getHour() + ": " + startInterval.getMinute());
+			time.set(Calendar.HOUR_OF_DAY, startInterval.getHour());
+			System.out.println(" " + time.getTime());
 			time.set(Calendar.MINUTE, startInterval.getMinute());
 			startTimePicker.setValue(time.getTime());
 			/*startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
@@ -648,7 +649,7 @@ public class CreateBookingDialog extends JDialog {
 		            return calendar.getTime();
 		        }
 		    });*/
-			time.set(Calendar.HOUR, endInterval.getHour());
+			time.set(Calendar.HOUR_OF_DAY, endInterval.getHour());
 			time.set(Calendar.MINUTE, endInterval.getMinute());
 			endTimePicker.setValue(time.getTime());
 			datePicker.setValue(Date.from(startInterval.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
