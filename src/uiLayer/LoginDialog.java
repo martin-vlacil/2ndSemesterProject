@@ -18,17 +18,22 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import config.StyleConfig;
+import databaseLayer.UserDB;
+import databaseLayer.UserDBIF;
+import modelLayer.User;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
 	private JTextField emailTextField;
 	private JPasswordField passwordTextField;
 	private final StyleConfig config;
+	private UserDBIF userDB;
 
 	/**
 	 * Launch the application.
@@ -55,6 +60,16 @@ public class LoginDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public LoginDialog() {
+		
+		try
+		{
+			userDB = new UserDB();
+		}
+		catch (SQLException e1)
+		{
+			e1.printStackTrace();
+		}
+		
 		config = new StyleConfig();
 		
 		setBounds(100, 100, 931, 601);
@@ -137,7 +152,14 @@ public class LoginDialog extends JDialog {
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openMainUI(); //TODO Validate login info
+				try
+				{
+					openMainUI();
+				}
+				catch (SQLException error)
+				{
+					error.printStackTrace();
+				}
 			}
 		});
 		loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
@@ -152,8 +174,9 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(loginButton, gbc_loginButton);
 	}
 
-	private void openMainUI()
+	private void openMainUI() throws SQLException
 	{
+		//User loggedUser = userDB.getUser(emailTextField.getText(), String.valueOf(passwordTextField.getPassword())); TODO uncomment when DB connection is done and check if it found a user
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
