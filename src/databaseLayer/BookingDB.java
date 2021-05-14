@@ -68,7 +68,7 @@ public class BookingDB implements BookingDBIF
 		return null;
 	}
 	
-	//TODO finish
+	//TODO update the method in DCD
 	@Override
 	public ArrayList<Booking> getAllByDate(LocalDate date) throws SQLException
 	{
@@ -97,7 +97,7 @@ public class BookingDB implements BookingDBIF
 		{
 			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
 							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
-											user, rs.getInt("contact_id"), rs.getString("contact_name"), rs.getString("contact_email"), rs.getString("contact_phone"));
+							user, rs.getInt("contact_id"), rs.getString("contact_name"), rs.getString("contact_email"), rs.getString("contact_phone"));
 		}
 		else
 		{
