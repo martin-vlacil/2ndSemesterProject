@@ -2,17 +2,19 @@ package uiLayer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import config.StyleConfig;
+import config.Config;
 import controlLayer.BookingController;
 import modelLayer.Room;
 import modelLayer.User;
@@ -24,6 +26,8 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -54,8 +58,11 @@ public class CreateBookingDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JPanel rightPanel;
 	private JPanel leftPanel;
-	private StyleConfig config = new StyleConfig();
+	private Config config = new Config();
 	private User user;
+	private JComboBox<Room> comboBox;
+	private ArrayList<Room> selectedRooms;
+	private ArrayList<Room> allRooms;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
@@ -71,6 +78,7 @@ public class CreateBookingDialog extends JDialog {
 	private JSpinner startTimePicker;
 	private JSpinner endTimePicker;
 	private JSpinner datePicker;
+	private DefaultListModel<Room> listModel;
 
 
 	/**
@@ -81,6 +89,7 @@ public class CreateBookingDialog extends JDialog {
 	public CreateBookingDialog(User user) throws SQLException {
 		bookingController = new BookingController();
 		this.user = user;
+		selectedRooms = new ArrayList<>();
 		
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
@@ -319,7 +328,7 @@ public class CreateBookingDialog extends JDialog {
 			gbl_rightPanel.columnWidths = new int[]{30, 0,0, 30};
 			gbl_rightPanel.rowHeights = new int[]{30, 0,0,0,0,0,0,0,0,0,0, 30};
 			gbl_rightPanel.columnWeights = new double[]{0.0, 1.0,1.0, 0.0};
-			gbl_rightPanel.rowWeights = new double[]{0.0, 0,1.0,0,0,0,0,0,0,0,0, 0.0};
+			gbl_rightPanel.rowWeights = new double[]{0.0, 0,1.0,0,0,1.0,0,0,0,0,0, 0.0};
 			rightPanel.setLayout(gbl_rightPanel);
 			{
 				JLabel descriptionPanel = new JLabel("Description");
@@ -366,7 +375,7 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(roomLabel, gbc_roomLabel);
 			}
 			{
-				ArrayList<Room> allRooms = new ArrayList<Room>();
+				allRooms = new ArrayList<Room>();
 				try
 				{
 					allRooms = new BookingController().getAllRooms();
@@ -376,7 +385,12 @@ public class CreateBookingDialog extends JDialog {
 					e.printStackTrace();
 				}
 				allRooms.add(0, new Room("", -1, " Select...", -1));
-				JComboBox<Room> comboBox = new JComboBox<Room>();
+				comboBox = new JComboBox<Room>();
+				comboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						addSelectedRoom(((Room)comboBox.getSelectedItem()));
+					}
+				});
 				comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 				ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
 				
@@ -393,6 +407,16 @@ public class CreateBookingDialog extends JDialog {
 				gbc_comboBox.gridx = 1;
 				gbc_comboBox.gridy = 5;
 				rightPanel.add(comboBox, gbc_comboBox);
+			}
+			{
+				listModel = new DefaultListModel<>();
+				JList<Room> listOfSelectedRooms = new JList<>(listModel);
+				GridBagConstraints gbc_list = new GridBagConstraints();
+				gbc_list.insets = new Insets(20, 5, 5, 5);
+				gbc_list.fill = GridBagConstraints.BOTH;
+				gbc_list.gridx = 2;
+				gbc_list.gridy = 5;
+				rightPanel.add(listOfSelectedRooms, gbc_list);
 			}
 			{
 				JLabel dateLabel = new JLabel("Date");
@@ -668,5 +692,32 @@ public class CreateBookingDialog extends JDialog {
 	{
 		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
 		bookingController.checkAvailability(null, null, null); //Passing starTime, endTime and room
+	}
+	
+	private void addSelectedRoom(Room room) {
+		if (!room.getName().equals(" Select..."))
+		{
+			selectedRooms.add(room);
+			listModel.removeAllElements();
+			for (Room e : selectedRooms)
+			{
+				listModel.addElement(e);
+			}
+
+			allRooms.remove(room);
+			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
+		}
+		
+	}
+	
+	private void removeSelectedRoom(Room room) {
+		selectedRooms.remove(room);
+
+		for (Room e : selectedRooms)
+		{
+			listModel.addElement(e);
+		}
+		allRooms.add(room);
+		comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 	}
 }

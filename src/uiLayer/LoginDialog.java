@@ -16,8 +16,9 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
-import config.StyleConfig;
+import config.Config;
 import controlLayer.UserController;
 import modelLayer.User;
 
@@ -32,8 +33,9 @@ import java.awt.event.ActionEvent;
 public class LoginDialog extends JDialog {
 	private JTextField emailTextField;
 	private JPasswordField passwordTextField;
-	private final StyleConfig configg;
+	private final Config configg;
 	private UserController userController;
+	private JPanel errorPanel;
 
 	/**
 	 * Launch the application.
@@ -72,7 +74,7 @@ public class LoginDialog extends JDialog {
 			error.printStackTrace();
 		}
 		
-		configg = new StyleConfig();
+		configg = new Config();
 		
 		setBounds(100, 100, 931, 601);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -106,17 +108,36 @@ public class LoginDialog extends JDialog {
 		getContentPane().add(mainPanel, gbc_mainPanel);
 		GridBagLayout gbl_mainPanel = new GridBagLayout();
 		gbl_mainPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_mainPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_mainPanel.columnWeights = new double[]{0.3, 0.3, 0.3};
-		gbl_mainPanel.rowWeights = new double[]{0.1, 0.0, 0.0, 0.0, 0.0, 0.1, Double.MIN_VALUE};
+		gbl_mainPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_mainPanel.columnWeights = new double[]{0.3, 1.0, 0.3};
+		gbl_mainPanel.rowWeights = new double[]{0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, Double.MIN_VALUE};
 		mainPanel.setLayout(gbl_mainPanel);
+		
+		errorPanel = new JPanel();
+		errorPanel.setVisible(false);
+		errorPanel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_errorPanel = new GridBagConstraints();
+		gbc_errorPanel.insets = new Insets(0, 0, 5, 5);
+		gbc_errorPanel.fill = GridBagConstraints.BOTH;
+		gbc_errorPanel.gridx = 1;
+		gbc_errorPanel.gridy = 1;
+		mainPanel.add(errorPanel, gbc_errorPanel);
+		
+		JPanel errorFrame = new JPanel();
+		errorFrame.setBorder(new LineBorder(Color.red));
+		errorFrame.setBackground(Color.WHITE);
+		errorPanel.add(errorFrame);
+		
+		JLabel errorLabel = new JLabel("The email or the password is incorrect!");
+		errorLabel.setForeground(Color.RED);
+		errorFrame.add(errorLabel);
 		
 		JLabel emailLabel = new JLabel("Email (Miguel@Olivera.dk)");
 		GridBagConstraints gbc_emailLabel = new GridBagConstraints();
 		gbc_emailLabel.anchor = GridBagConstraints.WEST;
 		gbc_emailLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_emailLabel.gridx = 1;
-		gbc_emailLabel.gridy = 1;
+		gbc_emailLabel.gridy = 2;
 		mainPanel.add(emailLabel, gbc_emailLabel);
 		
 		emailTextField = new JTextField("Miguel@Olivera.dk");
@@ -127,7 +148,7 @@ public class LoginDialog extends JDialog {
 		gbc_emailTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_emailTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_emailTextField.gridx = 1;
-		gbc_emailTextField.gridy = 2;
+		gbc_emailTextField.gridy = 3;
 		mainPanel.add(emailTextField, gbc_emailTextField);
 		emailTextField.setColumns(10);
 		
@@ -136,7 +157,7 @@ public class LoginDialog extends JDialog {
 		gbc_passwordLabel.anchor = GridBagConstraints.WEST;
 		gbc_passwordLabel.insets = new Insets(30, 0, 5, 5);
 		gbc_passwordLabel.gridx = 1;
-		gbc_passwordLabel.gridy = 3;
+		gbc_passwordLabel.gridy = 4;
 		mainPanel.add(passwordLabel, gbc_passwordLabel);
 		
 		passwordTextField = new JPasswordField("password1");
@@ -147,7 +168,7 @@ public class LoginDialog extends JDialog {
 		gbc_passwordTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordTextField.gridx = 1;
-		gbc_passwordTextField.gridy = 4;
+		gbc_passwordTextField.gridy = 5;
 		mainPanel.add(passwordTextField, gbc_passwordTextField);
 		passwordTextField.setColumns(10);
 		
@@ -169,7 +190,7 @@ public class LoginDialog extends JDialog {
 		GridBagConstraints gbc_loginButton = new GridBagConstraints();
 		gbc_loginButton.insets = new Insets(0, 0, 0, 5);
 		gbc_loginButton.gridx = 1;
-		gbc_loginButton.gridy = 5;
+		gbc_loginButton.gridy = 6;
 		mainPanel.add(loginButton, gbc_loginButton);
 	}
 
@@ -189,8 +210,10 @@ public class LoginDialog extends JDialog {
 		
 		if(loggedUser == null)
 		{
-			//TODO Implement a proper error
-			System.out.println("User not found");
+			//TODO Set the errorPanel to fixed position
+			passwordTextField.setBorder(new LineBorder(Color.red));
+			emailTextField.setBorder(new LineBorder(Color.red));
+			errorPanel.setVisible(true);
 			return;
 		}
 		

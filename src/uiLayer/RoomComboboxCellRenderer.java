@@ -7,13 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import config.StyleConfig;
+import config.Config;
 import modelLayer.Room;
 
 public class RoomComboboxCellRenderer implements ListCellRenderer<Room>
 {
 	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-	private StyleConfig config = new StyleConfig();
+	private Config config = new Config();
 	
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Room> list, Room value, int index, boolean isSelected, boolean cellHasFocus)

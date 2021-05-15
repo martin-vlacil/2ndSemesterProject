@@ -18,9 +18,6 @@ public class BookingController
 	private RoomController roomCtr;
 	private LogEntryDBIF logEntryDB;
 	private BookingDBIF bookingDB;
-	private ArrayList<Room> selectedRooms;
-	private LocalDateTime selectedStartTime;
-	private LocalDateTime selectedEndTime;
 	private ArrayList<Booking> bookingsOnADay;
 
 	public BookingController() throws SQLException
@@ -28,19 +25,17 @@ public class BookingController
 		roomCtr = new RoomController();
 		logEntryDB = new LogEntryDB();
 		bookingDB = new BookingDB();
-		selectedRooms = new ArrayList<Room>();
 		bookingsOnADay = new ArrayList<>();
 	}
 	
-	//Aleks, if you are bored, you should at least write some methods that are needed :D
 	
 	/**
 	 * 
 	 * @param title, description, contactID, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
-	 * @return true/false if the booking(s) was/were sucessfully created in the database
+	 * @return true/false if the booking(s) was/were successfully created in the database
 	 * @throws SQLException
 	 */
-	public boolean confirmBooking(String title, String description, int contactID, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy) throws SQLException
+	public boolean confirmBooking(String title, String description, int contactID, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy, ArrayList<Room> selectedRooms, LocalDateTime selectedStartTime, LocalDateTime selectedEndTime) throws SQLException
 	{
 		boolean bookingConfirmed = true;
 		
@@ -49,7 +44,7 @@ public class BookingController
 			{	
 				DBConnection.getInstance().startTransaction();
 				
-				Booking booking = new Booking(title, description, this.selectedStartTime, this.selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
+				Booking booking = new Booking(title, description, selectedStartTime, selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
 				if(!bookingDB.create(booking))
 				{
 					bookingConfirmed = false;
@@ -173,4 +168,6 @@ public class BookingController
 	{
 		return roomCtr.getAll();
 	}
+	
+	
 }

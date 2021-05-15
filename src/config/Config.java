@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
  * @author Group 1 dmai0920
  * This class serves as a premade configuration of all the colors, fonts and styles of the UI elements
  */
-public class StyleConfig
+public class Config
 {
 	private Color buttonColorSavedBackground;
 	private Color buttonColorDeleteBackground;
@@ -47,7 +47,7 @@ public class StyleConfig
 	private Border emptyBorderZeros;
 	private Border sidebarButtonBorder;
 	
-	public StyleConfig()
+	public Config()
 	{
 		//TODO finish implementing these
 		buttonColorSavedBackground = new Color(86, 197, 104);

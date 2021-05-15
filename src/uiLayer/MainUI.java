@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import config.StyleConfig;
+import config.Config;
 import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
@@ -38,7 +38,7 @@ import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
 
-	private StyleConfig config;
+	private Config config;
 	
 	private JPanel contentPane;
 	private CardLayout cards;
@@ -56,7 +56,7 @@ public class MainUI extends JFrame {
 	 * @throws SQLException 
 	 */
 	public MainUI(User loggedUser) throws SQLException {
-		config = new StyleConfig();
+		config = new Config();
 		
 		bookingPanel = new BookingPanel(loggedUser);
 
