@@ -9,7 +9,6 @@ package uiLayer;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -150,7 +149,6 @@ public class MainUI extends JFrame {
 		GridBagConstraints gbc_separator = new GridBagConstraints();
 		separator.setForeground(config.getSeparatorColor());
 		separator.setBackground(config.getSeparatorColor());
-		//separator.setPreferredSize(new Dimension(5, 4));
 		separator.setOpaque(true);
 		gbc_separator.gridwidth = 3;
 		gbc_separator.gridx = 0;

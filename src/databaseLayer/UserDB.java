@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import modelLayer.LogEntry;
 import modelLayer.Organization;
 import modelLayer.User;
 import modelLayer.User.UserType;

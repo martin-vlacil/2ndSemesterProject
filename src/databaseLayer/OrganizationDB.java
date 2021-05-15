@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modelLayer.Organization;
-import modelLayer.User;
-import modelLayer.User.UserType;
 
 public class OrganizationDB implements OrganizationDBIF
 {

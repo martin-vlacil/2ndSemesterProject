@@ -19,8 +19,6 @@ import javax.swing.border.EmptyBorder;
 
 import config.StyleConfig;
 import controlLayer.UserController;
-import databaseLayer.UserDB;
-import databaseLayer.UserDBIF;
 import modelLayer.User;
 
 import javax.swing.BorderFactory;
@@ -28,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
@@ -120,7 +119,7 @@ public class LoginDialog extends JDialog {
 		gbc_emailLabel.gridy = 1;
 		mainPanel.add(emailLabel, gbc_emailLabel);
 		
-		emailTextField = new JTextField();
+		emailTextField = new JTextField("Miguel@Olivera.dk");
 		emailTextField.setForeground(configg.getButtonDefaultForeground());
 		emailTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		emailTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
@@ -140,7 +139,7 @@ public class LoginDialog extends JDialog {
 		gbc_passwordLabel.gridy = 3;
 		mainPanel.add(passwordLabel, gbc_passwordLabel);
 		
-		passwordTextField = new JPasswordField();
+		passwordTextField = new JPasswordField("password1");
 		passwordTextField.setForeground(configg.getButtonDefaultForeground());
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
@@ -153,6 +152,7 @@ public class LoginDialog extends JDialog {
 		passwordTextField.setColumns(10);
 		
 		JButton loginButton = new JButton("Login");
+		this.getRootPane().setDefaultButton(loginButton);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{

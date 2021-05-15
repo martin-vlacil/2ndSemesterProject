@@ -36,10 +36,12 @@ import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerDateModel;
+
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.LineBorder;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -229,7 +231,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				nameTextField = new JTextField();
-				nameTextField.setText(user.getName());
+				nameTextField.setText(this.user.getName());
 				nameTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
@@ -257,7 +259,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				phoneTextField = new JTextField();
-				phoneTextField.setText(user.getPhone());
+				phoneTextField.setText(this.user.getPhone());
 				phoneTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
@@ -285,7 +287,7 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				emailTextField = new JTextField();
-				emailTextField.setText(user.getEmail());
+				emailTextField.setText(this.user.getEmail());
 				emailTextField.addKeyListener(new KeyAdapter() {
 					@Override
 					public void keyTyped(KeyEvent e) {
@@ -495,15 +497,9 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(startTimePicker, gbc_startTimePicker);
 			}
 			{
-				//Calendar startTime = Calendar.getInstance(); FIXME
-				//startTime.set(Calendar.HOUR, 0);
-				//startTime.set(Calendar.MINUTE, 0);
 				Calendar time = Calendar.getInstance();
-				time.set(Calendar.HOUR_OF_DAY, 20);
+				time.set(Calendar.HOUR_OF_DAY, 13);
 				time.set(Calendar.MINUTE, 0);
-				//Calendar endTime = Calendar.getInstance();
-				//endTime.set(Calendar.HOUR, 8);
-				//endTime.set(Calendar.MINUTE, 0);
 				endTimePicker = new JSpinner();
 				endTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
