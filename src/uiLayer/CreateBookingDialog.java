@@ -712,7 +712,7 @@ public class CreateBookingDialog extends JDialog {
 	
 	private void removeSelectedRoom(Room room) {
 		selectedRooms.remove(room);
-
+		listModel.removeAllElements();
 		for (Room e : selectedRooms)
 		{
 			listModel.addElement(e);
