@@ -32,6 +32,8 @@ public class BookingController
 		bookingsOnADay = new ArrayList<>();
 	}
 	
+	//Aleks, if you are bored, you should at least write some methods that are needed :D
+	
 	/**
 	 * 
 	 * @param title, description, contactID, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
