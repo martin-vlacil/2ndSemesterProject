@@ -342,6 +342,9 @@ public class JCalendarFrameDemo extends JFrame {
 		});
 	}
 
+	 /*
+	  //XXX REMOVED  
+	  
 	public static void main(final String[] args) throws MalformedObjectNameException, NullPointerException,
 			InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
 		
@@ -352,4 +355,5 @@ public class JCalendarFrameDemo extends JFrame {
 		final JCalendarFrameDemo frameTest = new JCalendarFrameDemo();
 		frameTest.setVisible(true);
 	}
+	*/
 }

@@ -70,18 +70,6 @@ public class CreateBookingDialog extends JDialog {
 	private JSpinner endTimePicker;
 	private JSpinner datePicker;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) { TODO remove
-		try {
-			CreateBookingDialog dialog = new CreateBookingDialog(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	/**
 	 * Create the dialog.

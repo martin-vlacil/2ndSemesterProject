@@ -51,24 +51,6 @@ public class MainUI extends JFrame {
 	private JButton selectedPageButton;
 	private JTextArea logTextArea;
 
-	/**
-	 * Launch the application. TODO remove not needed main methods
-	 */ 
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainUI frame = new MainUI();
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					frame.setVisible(true);
-					frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
-					frame.setTitle("IHND Booking System");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}); 
-	}*/
 
 	/**
 	 * Create the frame.
