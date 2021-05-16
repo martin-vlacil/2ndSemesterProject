@@ -129,18 +129,20 @@ public class BookingController
 		return true;
 	}
 	
+	//TODO FIX, We are not using the DB for this one anymore
 	/**
 	 * This method checks whether or not the chosen times for a room are available
 	 * @param startTime, end time, room
 	 * @return an error message if not, nothing if its ok
 	 * @throws SQLException
 	 */
+	
 	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
 	{
 		ArrayList<Booking> interferingBookings = new ArrayList<>();
 		if (startTime != null && endTime != null && room != null)
 		{
-			interferingBookings = bookingDB.checkAvailability(startTime, endTime, room.getId());
+			//interferingBookings = bookingDB.(startTime, endTime, room.getId());
 			if (interferingBookings.size() > 0)
 			{
 				String returnString = "Interfering bookings: ";
@@ -158,6 +160,8 @@ public class BookingController
 		
 		return ""; //Returns nothing. One of the elements is not filled
 	}
+	
+	
 	
 	/**
 	 * This method gets a list of all the rooms from the database

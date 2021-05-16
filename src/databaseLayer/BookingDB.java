@@ -61,12 +61,14 @@ public class BookingDB implements BookingDBIF
 		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 	}
 	
-	//TODO finish
+	//TODO remove?
+	/*
 	@Override
 	public ArrayList<Booking> checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException
 	{
 		return null;
 	}
+	*/
 	
 	//TODO update the method in DCD
 	@Override

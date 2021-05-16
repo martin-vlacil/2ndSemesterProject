@@ -81,6 +81,10 @@ public class CreateBookingDialog extends JDialog {
 	private JSpinner endTimePicker;
 	private JSpinner datePicker;
 	private DefaultListModel<Room> listModel;
+	private Calendar endTime;
+	private Calendar startTime;
+	private JTextArea descriptionTextArea;
+	private JLabel errorMessageRoom;
 
 
 	/**
@@ -342,7 +346,7 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(descriptionPanel, gbc_descriptionPanel);
 			}
 			{
-				JTextArea descriptionTextArea = new JTextArea();
+				descriptionTextArea = new JTextArea();
 				formatTextField(descriptionTextArea);
 				descriptionTextArea.setLineWrap(true);
 				descriptionTextArea.setBorder(config.getTextAreaBorder());
@@ -475,11 +479,11 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(toTimeLabel, gbc_toTimeLabel);
 			}
 			{
-				Calendar time = Calendar.getInstance();
-				time.set(Calendar.HOUR_OF_DAY, 13);
-				time.set(Calendar.MINUTE, 0);
+				endTime = Calendar.getInstance();
+				endTime.set(Calendar.HOUR_OF_DAY, 13);
+				endTime.set(Calendar.MINUTE, 0);
 				startTimePicker = new JSpinner();
-				startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+				startTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 			        public Object getNextValue() { 
 			            Date nextValue = (Date)super.getValue();
@@ -533,11 +537,11 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(startTimePicker, gbc_startTimePicker);
 			}
 			{
-				Calendar time = Calendar.getInstance();
-				time.set(Calendar.HOUR_OF_DAY, 13);
-				time.set(Calendar.MINUTE, 0);
+				startTime = Calendar.getInstance();
+				startTime.set(Calendar.HOUR_OF_DAY, 13);
+				startTime.set(Calendar.MINUTE, 0);
 				endTimePicker = new JSpinner();
-				endTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+				endTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 			        public Object getNextValue() {
 			            Date nextValue = (Date)super.getValue();
@@ -588,7 +592,7 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(endTimePicker, gbc_endTimePicker);
 			}
 			{
-				JLabel errorMessageRoom = new JLabel(" ");
+				errorMessageRoom = new JLabel(" ");
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
 				errorMessageRoom.setBackground(new Color(255, 255, 255));
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
@@ -614,7 +618,20 @@ public class CreateBookingDialog extends JDialog {
 				saveButton.setOpaque(true);
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//TODO create booking
+						try {
+							if (checkRoomAvailability())
+							{
+								//TODO fix the contact ID?
+								//TODO add startTime and endTime as LocalDateTime
+								bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
+										0, nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText(),
+										Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null);
+							}
+						} 
+						catch (SQLException e1) 
+						{
+							e1.printStackTrace();
+						}
 					}
 				});
 				saveButton.setActionCommand("Save");
@@ -700,10 +717,30 @@ public class CreateBookingDialog extends JDialog {
 
 	}
 	
-	private void checkRoomAvailability() throws SQLException 
+	private boolean checkRoomAvailability() throws SQLException 
 	{
-		//errormessage field = bookingController.checkRoomAvailability(null, null, null);
-		bookingController.checkAvailability(null, null, null); //Passing starTime, endTime and room
+		errorMessageRoom.setVisible(false);
+		String errorMessage = "Interference with the following booking(s):";
+		boolean bookingInterference = false;
+		for (Room r : selectedRooms)
+		{
+			String roomCheck = bookingController.checkAvailability(null, null, r);
+			if (!roomCheck.equals(""))
+			{
+				errorMessage += ("\n" + roomCheck);
+				bookingInterference = true;
+			}
+		}
+		if (bookingInterference)
+		{
+			errorMessageRoom.setText(errorMessage);
+			errorMessageRoom.setVisible(true);
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	
 	private void addSelectedRoom(Room room) {
