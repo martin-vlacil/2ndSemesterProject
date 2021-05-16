@@ -621,11 +621,13 @@ public class CreateBookingDialog extends JDialog {
 						try {
 							if (checkRoomAvailability())
 							{
-								//TODO fix the contact ID?
 								//TODO add startTime and endTime as LocalDateTime
-								bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
+								if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
 										0, nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText(),
-										Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null);
+										Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
+								{
+									dispose();
+								}
 							}
 						} 
 						catch (SQLException e1) 

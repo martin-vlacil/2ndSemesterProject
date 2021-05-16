@@ -22,7 +22,6 @@ public interface BookingDBIF
 	boolean create(Booking booking) throws SQLException;
 	
 	//TODO Remove?
-	
 	/**
 	 * This method checks if the chosen time for a booking is correct - no other bookings for the specified room are made in that time
 	 * @param startTime, endTime, roomID
@@ -39,7 +38,7 @@ public interface BookingDBIF
 	 * @return a list of bookings for that day on that room
 	 * @throws SQLException
 	 */
-	ArrayList<Booking> getAllByDate(LocalDate date) throws SQLException;
+	ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException;
 	
 	/**
 	 * This method is used for creating the Booking objects from the Result set
@@ -49,4 +48,6 @@ public interface BookingDBIF
 	 * @throws SQLException 
 	 */
 	Booking buildObject(ResultSet rs) throws SQLException;
+	
+	
 }

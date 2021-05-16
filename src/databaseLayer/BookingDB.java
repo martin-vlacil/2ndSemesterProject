@@ -61,18 +61,8 @@ public class BookingDB implements BookingDBIF
 		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 	}
 	
-	//TODO remove?
-	/*
 	@Override
-	public ArrayList<Booking> checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException
-	{
-		return null;
-	}
-	*/
-	
-	//TODO update the method in DCD
-	@Override
-	public ArrayList<Booking> getAllByDate(LocalDate date) throws SQLException
+	public ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException
 	{
 		ArrayList<Booking> bookingsOfTheDay = new ArrayList<>();
 		String sqlDate = date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -89,7 +79,7 @@ public class BookingDB implements BookingDBIF
 		
 		return bookingsOfTheDay;
 	}
-
+	
 	@Override
 	public Booking buildObject(ResultSet rs) throws SQLException
 	{

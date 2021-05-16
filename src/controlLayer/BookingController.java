@@ -129,14 +129,17 @@ public class BookingController
 		return true;
 	}
 	
-	//TODO FIX, We are not using the DB for this one anymore
+	
+	
+	//TODO REMOVE
+	
 	/**
 	 * This method checks whether or not the chosen times for a room are available
 	 * @param startTime, end time, room
 	 * @return an error message if not, nothing if its ok
 	 * @throws SQLException
 	 */
-	
+	/*
 	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
 	{
 		ArrayList<Booking> interferingBookings = new ArrayList<>();
@@ -160,7 +163,40 @@ public class BookingController
 		
 		return ""; //Returns nothing. One of the elements is not filled
 	}
+	*/
 	
+	//TODO Comment needed
+	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
+	{
+		//TODO Fix template "%s" signs
+		String problemTemplate = "Room %s is booked by %s from %s until %s. \n";
+		for (Booking booking : bookingsOnADay)
+		{
+			if (booking.getRoom().equals(room))
+			{
+				//TODO Separated the first 2 cases, didnt use "or", it is more readable 
+				//this way -- COMMENT TO THE OTHERS DELETE LATER ON
+				
+				//If the events starts before and ends meanwhile
+				if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) return "";
+				//If the events starts meanwhile and ends after
+				else if(booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) return "";
+				//If the event starts and ends between the two timeslots
+				else if(booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) return "";
+				//If the event starts before the startTime and ends after the endTime
+				else if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) return "";
+			}
+		}
+		
+		return "";
+		
+	}
+	
+	//TODO Comment needed
+	public void getRoomsOfOneDay(LocalDate date) throws SQLException
+	{
+		bookingsOnADay = bookingDB.getAllByDateOfOneDay(date);
+	}
 	
 	
 	/**
