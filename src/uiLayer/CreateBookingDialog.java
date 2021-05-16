@@ -345,7 +345,7 @@ public class CreateBookingDialog extends JDialog {
 				JTextArea descriptionTextArea = new JTextArea();
 				formatTextField(descriptionTextArea);
 				descriptionTextArea.setLineWrap(true);
-				descriptionTextArea.setBorder(config.getBorderTextArea());
+				descriptionTextArea.setBorder(config.getTextAreaBorder());
 				descriptionTextArea.setWrapStyleWord(true);
 				GridBagConstraints gbc_descriptionTextArea = new GridBagConstraints();
 				gbc_descriptionTextArea.gridwidth = 2;
@@ -421,6 +421,8 @@ public class CreateBookingDialog extends JDialog {
 						
 					}
 				});
+				ListCellRenderer<? super Room> renderer = new RoomListCellRenderer();
+				listOfSelectedRooms.setCellRenderer(renderer);
 				GridBagConstraints gbc_list = new GridBagConstraints();
 				gbc_list.insets = new Insets(20, 5, 5, 5);
 				gbc_list.fill = GridBagConstraints.BOTH;
@@ -605,8 +607,8 @@ public class CreateBookingDialog extends JDialog {
 			{
 				JButton saveButton = new JButton("Save");
 				saveButton.setForeground(Color.WHITE);
-				saveButton.setBackground(config.getButtonColorSaved());
-				saveButton.setBorder(config.getBorderSaveButton());
+				saveButton.setBackground(config.getButtonColorSavedBackground());
+				saveButton.setBorder(config.getButtonSaveBorder());
 				saveButton.setFocusable(false);
 				saveButton.setFont(config.getButtonDefaultFont());
 				saveButton.setOpaque(true);
@@ -623,7 +625,7 @@ public class CreateBookingDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setForeground(config.getButtonColorCancelForeground());
 				cancelButton.setBackground(config.getButtonColorCancelBackground());
-				cancelButton.setBorder(config.getBorderCancelButton());
+				cancelButton.setBorder(config.getButtonCancelBorder());
 				cancelButton.setFocusable(false);
 				cancelButton.setFont(config.getButtonDefaultFont());
 				cancelButton.setOpaque(true);
@@ -693,7 +695,7 @@ public class CreateBookingDialog extends JDialog {
 		else
 		{
 			label.setForeground(Color.BLACK);
-			field.setBorder(config.getBorderTextFieldDefault());
+			field.setBorder(config.getTextFieldDefaultBorder());
 		}
 
 	}
