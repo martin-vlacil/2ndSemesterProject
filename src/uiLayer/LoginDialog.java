@@ -26,6 +26,10 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
@@ -231,6 +235,69 @@ public class LoginDialog extends JDialog {
 				}
 			}
 		}); 
+	}
+	
+	
+	private static byte[] encryptionForLife(String password) {
+		String newPWD = "";
+		int firstLetter = 25;
+		boolean wasThereLetter = false;
+		int numberCount = 0;
+		for (int e = 0 ; e < password.length() ; e++)
+		{
+			if ((int) password.charAt(e) >= 97 && (int) password.charAt(e) <= 122)
+			{
+				if (firstLetter == 0 || wasThereLetter == false)
+				{
+					firstLetter = password.charAt(e);
+				}
+				if ((((int) password.charAt(e)) - 34) < 65)
+				{
+					newPWD += (char) ((((((int) password.charAt(e)) - 7)) - ((((int) 'A')) - (((int) password.charAt(e)) - 34))));
+				}
+				else
+				{
+					newPWD += (char) (((int) password.charAt(e)) - 34);
+				}
+				
+			}
+			else if ((int) password.charAt(e) >= 65 && (int) password.charAt(e) <= 90)
+			{
+				if (firstLetter == 0 || wasThereLetter == false)
+				{
+					firstLetter = password.charAt(e);
+				}
+				if ((((int) password.charAt(e)) + 34) > 122)
+				{
+					newPWD += (char) ((((((int) password.charAt(e)) + 7)) - ((((int) password.charAt(e)) - 34) - (((int) 'a')))));
+				}
+				else
+				{
+					newPWD += (char) (((int) password.charAt(e)) + 34);
+				}
+			}
+			else if (Character.isDigit(password.charAt(e)))
+			{
+				newPWD += (Character.getNumericValue(password.charAt(e)) + 1) * (Character.getNumericValue(password.charAt(e)) + 1);
+				newPWD += (char) ++numberCount;
+				newPWD += (Character.getNumericValue(password.charAt(e)) + 1) * (Character.getNumericValue(password.charAt(e)) + 1);
+			}
+			else
+			{
+				newPWD += (char) (((int) password.charAt(e) + firstLetter));
+				wasThereLetter = true;
+			}
+		}
+		SecureRandom random = new SecureRandom();
+		byte[] salt = new byte[16];
+		random.nextBytes(salt);
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+			md.update(salt);
+		} catch (NoSuchAlgorithmException e) {}
+		return md.digest(newPWD.getBytes(StandardCharsets.UTF_8));
+		
 	}
 	
 }
