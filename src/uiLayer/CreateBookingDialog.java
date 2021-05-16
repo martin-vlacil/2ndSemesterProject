@@ -45,6 +45,8 @@ import java.util.Date;
 import java.util.Calendar;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -411,6 +413,14 @@ public class CreateBookingDialog extends JDialog {
 			{
 				listModel = new DefaultListModel<>();
 				JList<Room> listOfSelectedRooms = new JList<>(listModel);
+				listOfSelectedRooms.addListSelectionListener(new ListSelectionListener() {
+					
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						removeSelectedRoom(listOfSelectedRooms.getSelectedValue());
+						
+					}
+				});
 				GridBagConstraints gbc_list = new GridBagConstraints();
 				gbc_list.insets = new Insets(20, 5, 5, 5);
 				gbc_list.fill = GridBagConstraints.BOTH;
@@ -711,13 +721,16 @@ public class CreateBookingDialog extends JDialog {
 	}
 	
 	private void removeSelectedRoom(Room room) {
-		selectedRooms.remove(room);
-		listModel.removeAllElements();
-		for (Room e : selectedRooms)
+		if (selectedRooms.contains(room))
 		{
-			listModel.addElement(e);
+			selectedRooms.remove(room);
+			listModel.removeAllElements();
+			for (Room e : selectedRooms)
+			{
+				listModel.addElement(e);
+			}
+			allRooms.add(room);
+			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 		}
-		allRooms.add(room);
-		comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 	}
 }
