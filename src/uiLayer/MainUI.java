@@ -240,7 +240,7 @@ public class MainUI extends JFrame {
 		logPanel.setLayout(gbl_logPanel);
 		
 		JLabel logLabel = new JLabel("LOG");
-		logLabel.setFont(new Font("Roboto", Font.BOLD, 15)); //TODO - use config
+		logLabel.setFont(config.getLabelTitleFont());
 		logLabel.setForeground(Color.WHITE);
 		logLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_logLabel = new GridBagConstraints();
@@ -253,7 +253,7 @@ public class MainUI extends JFrame {
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
-		logTextArea.setFont(new Font("Roboto", Font.PLAIN, 15)); //TODO - config
+		logTextArea.setFont(config.getLabelTitleFont()); //TODO - config
 		logTextArea.setEditable(false);
 		logTextArea.setBackground(config.getBlueColorDefault());
 		
