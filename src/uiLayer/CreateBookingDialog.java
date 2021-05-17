@@ -621,22 +621,7 @@ public class CreateBookingDialog extends JDialog {
 				saveButton.setOpaque(true);
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						try {
-							if (checkRoomAvailability())
-							{
-								//TODO add startTime and endTime as LocalDateTime
-								if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
-										nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText(),
-										Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
-								{
-									dispose();
-								}
-							}
-						} 
-						catch (SQLException e1) 
-						{
-							e1.printStackTrace();
-						}
+						confirmBooking();
 					}
 				});
 				saveButton.setActionCommand("Save");
@@ -775,6 +760,31 @@ public class CreateBookingDialog extends JDialog {
 			}
 			allRooms.add(room);
 			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
+		}
+	}
+	
+	private void confirmBooking()
+	{
+		try 
+		{
+			if (checkRoomAvailability())
+			{
+				//if the email matches the users email, then contact is null
+				if(emailTextField.getText().equals(user.getEmail()))
+				{
+					//TODO add startTime and endTime as LocalDateTime
+					if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
+									new User(nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText()),
+									Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
+					{
+						dispose();
+					}
+				}
+			}
+		} 
+		catch (SQLException e1) 
+		{
+			e1.printStackTrace();
 		}
 	}
 }

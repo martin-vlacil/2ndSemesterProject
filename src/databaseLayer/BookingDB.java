@@ -23,9 +23,9 @@ public class BookingDB implements BookingDBIF
 	private static final String INSERT_BOOKING = String.format("INSERT INTO Booking VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 	private PreparedStatement sqlInsertBooking;
 	
-	private static final String SELECT_BOOKINGS_BY_DATE = String.format("SELECT title, description, start_time, end_time, number_of_participants, contact_id, [user_id], room_id, [User].first_name AS user_first_name, [User].last_name AS user_last_name, [User].email AS user_email, [User].phone AS user_phone, [User].position AS user_position, ContactPerson.[name] AS contact_name, ContactPerson.email AS contact_email, ContactPerson.phone AS contact_phone FROM Booking  \r\n"
+	private static final String SELECT_BOOKINGS_BY_DATE = String.format("SELECT title, description, start_time, end_time, number_of_participants, contact_email, [user_id], room_id, [User].first_name AS user_first_name, [User].last_name AS user_last_name, [User].email AS user_email, [User].phone AS user_phone, [User].position AS user_position, ContactPerson.[name] AS contact_name, ContactPerson.phone AS contact_phone FROM Booking  \r\n"
 					+ "LEFT JOIN [User] ON Booking.user_id = [User].id \r\n"
-					+ "LEFT JOIN ContactPerson ON Booking.contact_id = ContactPerson.id\r\n"
+					+ "LEFT JOIN ContactPerson ON Booking.contact_email = ContactPerson.email\r\n"
 					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ?");
 	private PreparedStatement sqlSelectBookingsByDate;
 	
@@ -49,11 +49,11 @@ public class BookingDB implements BookingDBIF
 		sqlInsertBooking.setInt(5, booking.getNumberOfParticipants());
 		if(booking.getContact() == null)
 		{
-			sqlInsertBooking.setNull(6, Types.INTEGER);
+			sqlInsertBooking.setNull(6, Types.VARCHAR);
 		}
 		else
 		{
-			sqlInsertBooking.setInt(6, booking.getContact().getId());
+			sqlInsertBooking.setString(6, booking.getContact().getEmail());
 		}
 		sqlInsertBooking.setInt(7, booking.getCreatedBy().getId());
 		sqlInsertBooking.setInt(8, booking.getRoom().getId());
@@ -86,12 +86,14 @@ public class BookingDB implements BookingDBIF
 		User user = userDB.getUserByID(rs.getInt("user_id"));
 		
 		String contactEmail = rs.getString("contact_email");
-		
+
 		if(rs.wasNull())
 		{
+			User contactUser = new User(rs.getString("contact_name"), contactEmail, rs.getString("contact_phone"));
+			
 			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
 							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
-							user, rs.getString("contact_name"), contactEmail, rs.getString("contact_phone"));
+							user, contactUser);
 		}
 		else
 		{
