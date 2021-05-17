@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -41,8 +40,7 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.SpinnerDateModel;
 
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -85,6 +83,7 @@ public class CreateBookingDialog extends JDialog {
 	private Calendar startTime;
 	private JTextArea descriptionTextArea;
 	private JLabel errorMessageRoom;
+	private HashMap<JTextField, Boolean> fields;
 
 
 	/**
@@ -93,9 +92,12 @@ public class CreateBookingDialog extends JDialog {
 	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user) throws SQLException {
+		fields = new HashMap<>();
 		bookingController = new BookingController();
 		this.user = user;
 		selectedRooms = new ArrayList<>();
+		
+
 		
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
@@ -621,7 +623,9 @@ public class CreateBookingDialog extends JDialog {
 				saveButton.setOpaque(true);
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						confirmBooking();
+						checkUnvalidatedFields();
+						//confirmBooking();
+						// () [] 1234597890 ,.-?:-"!/(ˇ%       some characters if you need copying
 					}
 				});
 				saveButton.setActionCommand("Save");
@@ -645,6 +649,9 @@ public class CreateBookingDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	
+		//initializeHashMap();
+		
 	}
 	
 	public CreateBookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval) throws SQLException
@@ -684,6 +691,21 @@ public class CreateBookingDialog extends JDialog {
 		}
 	}
 	
+	/**
+	private void initializeHashMap()
+	{
+		fields = new HashMap<>();
+		
+		for(Component textField: leftPanel.getComponents())
+		{
+			if(textField instanceof JTextField)
+			{
+				fields.put((JTextField)textField, false);
+			}
+		}
+	}
+	**/
+	
 	private void formatTextField(JTextComponent component)
 	{
 		component.setForeground(config.getButtonDefaultForeground());
@@ -696,13 +718,15 @@ public class CreateBookingDialog extends JDialog {
 		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == false) 
 		{
 				
-			label.setForeground(Color.red);
-			field.setBorder(new LineBorder(Color.RED));
+			label.setForeground(config.getErrorMessageColor());
+			field.setBorder(new LineBorder(config.getErrorMessageColor()));
+			fields.put(field, false);
 		}
 		else
 		{
-			label.setForeground(Color.BLACK);
+			label.setForeground(config.getLabelDefaultForeground());
 			field.setBorder(config.getTextFieldDefaultBorder());
+			fields.put(field, true);
 		}
 
 	}
@@ -763,12 +787,37 @@ public class CreateBookingDialog extends JDialog {
 		}
 	}
 	
+	private void checkUnvalidatedFields()
+	{
+		JLabel label = null;
+		JTextField textField = null;
+		for(Component component: leftPanel.getComponents())
+		{
+			if(component instanceof JLabel)
+			{
+				label = (JLabel)component;
+			}
+			if(component instanceof JTextField)
+			{
+				textField = (JTextField)component;
+				if(!fields.getOrDefault(textField, false))
+				{
+					if(label.getName() != null)
+					{
+						checkInformation(label, textField);
+					}
+				}
+			}
+		}
+	}
+	
 	private void confirmBooking()
 	{
 		try 
 		{
 			if (checkRoomAvailability())
 			{
+				checkUnvalidatedFields();
 				//if the email matches the users email, then contact is null
 				if(emailTextField.getText().equals(user.getEmail()))
 				{

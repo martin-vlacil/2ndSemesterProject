@@ -30,6 +30,7 @@ public class Config
 	private Color errorMessageColor;
 	private Color separatorColor;
 	private Color selectedSidebarButtonColor;
+	private Color labelDefaultForeground;
 	private Font buttonDefaultFont;
 	private Font buttonBiggerFont;
 	private Font labelDefaultFont;
@@ -78,11 +79,17 @@ public class Config
 		buttonDefaultBorder = null;
 		sidebarButtonBorder = new EmptyBorder(15, 10, 15, 10);
 		textAreaBorder = new LineBorder(new Color(0,0,0));
-		textFieldDefaultBorder = new LineBorder(new Color(0,0,0));
+		textFieldDefaultBorder = new LineBorder(new Color(212, 212, 212));
 		errorMessageColor = Color.RED;
 		separatorColor = new Color(196, 196, 196);
 		selectedSidebarButtonColor = new Color(234, 234, 238);
+		labelDefaultForeground = Color.BLACK;
 		
+	}
+	
+	public Color getLabelDefaultForeground()
+	{
+		return labelDefaultForeground;
 	}
 
 	public Color getButtonColorSavedBackground() {
