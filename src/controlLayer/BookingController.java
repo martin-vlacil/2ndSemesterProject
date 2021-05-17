@@ -30,12 +30,12 @@ public class BookingController
 	
 	
 	/**
-	 * 
+	 * TODO - finish desc
 	 * @param title, description, contactID, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
 	 * @return true/false if the booking(s) was/were successfully created in the database
 	 * @throws SQLException
 	 */
-	public boolean confirmBooking(String title, String description, int contactID, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy, ArrayList<Room> selectedRooms, LocalDateTime selectedStartTime, LocalDateTime selectedEndTime) throws SQLException
+	public boolean confirmBooking(String title, String description, String contactName, String contactPhoneNumber, String contactEmail, int numberOfParticipants, User createdBy, ArrayList<Room> selectedRooms, LocalDateTime selectedStartTime, LocalDateTime selectedEndTime) throws SQLException
 	{
 		boolean bookingConfirmed = true;
 		
@@ -44,7 +44,7 @@ public class BookingController
 			{	
 				DBConnection.getInstance().startTransaction();
 				
-				Booking booking = new Booking(title, description, selectedStartTime, selectedEndTime, numberOfParticipants, room, createdBy, contactID, contactName, contactPhoneNumber, contactEmail);
+				Booking booking = new Booking(title, description, selectedStartTime, selectedEndTime, numberOfParticipants, room, createdBy, contactName, contactPhoneNumber, contactEmail);
 				if(!bookingDB.create(booking))
 				{
 					bookingConfirmed = false;

@@ -85,13 +85,13 @@ public class BookingDB implements BookingDBIF
 	{
 		User user = userDB.getUserByID(rs.getInt("user_id"));
 		
-		int contactID = rs.getInt("contact_id");
+		String contactEmail = rs.getString("contact_email");
 		
 		if(rs.wasNull())
 		{
 			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
 							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
-							user, contactID, rs.getString("contact_name"), rs.getString("contact_email"), rs.getString("contact_phone"));
+							user, rs.getString("contact_name"), contactEmail, rs.getString("contact_phone"));
 		}
 		else
 		{

@@ -21,7 +21,7 @@ public class Booking
 	/**
 	 * Constructor used to build bookings from the database
 	 */
-	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy, int contactID, String contactName, String contactPhoneNumber,
+	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy, String contactName, String contactPhoneNumber,
 					String contactEmail)
 	{
 		this.title = title;
@@ -31,7 +31,7 @@ public class Booking
 		this.numberOfParticipants = numberOfParticipants;
 		this.room = room;
 		this.createdBy = createdBy;
-		this.contact = new User(contactID, contactName, contactPhoneNumber, contactEmail);
+		this.contact = new User(contactName, contactPhoneNumber, contactEmail);
 	}
 	
 	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy)

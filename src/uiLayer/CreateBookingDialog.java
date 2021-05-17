@@ -626,7 +626,7 @@ public class CreateBookingDialog extends JDialog {
 							{
 								//TODO add startTime and endTime as LocalDateTime
 								if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
-										0, nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText(),
+										nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText(),
 										Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
 								{
 									dispose();
