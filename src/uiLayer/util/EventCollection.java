@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import modelLayer.Booking;
 //import events.ModelChangedListener;
 import uiLayer.events.SelectionChangedListener;
 import uiLayer.model.CalendarEvent;
@@ -31,26 +32,26 @@ import uiLayer.model.CalendarEvent;
  * 
  */
 public interface EventCollection {
+	//XXX CalendarEvents have been renamed to Booking
+	void add(Booking event);
 
-	void add(CalendarEvent event);
+	void remove(Booking event);
 
-	void remove(CalendarEvent event);
+    void removeAll(List<Booking> calendarEventList);
 
-    void removeAll(List<CalendarEvent> calendarEventList);
+	void addSelected(Booking event);
 
-	void addSelected(CalendarEvent event);
+	void removeSelected(Booking event);
 
-	void removeSelected(CalendarEvent event);
+	void clearSelected(Booking event, boolean b);
 
-	void clearSelected(CalendarEvent event, boolean b);
+    List<Booking> getHolidayEvents(LocalDate date);
 
-    List<CalendarEvent> getHolidayEvents(LocalDate date);
+	Collection<Booking> getSelectedEvents();
 
-	Collection<CalendarEvent> getSelectedEvents();
+	Collection<Booking> getEvents(LocalDate date);
 
-	Collection<CalendarEvent> getEvents(LocalDate date);
-
-    Collection<CalendarEvent> getAllEvents();
+    Collection<Booking> getAllEvents();
 
 	/*void addCollectionChangedListener(ModelChangedListener listener);
 

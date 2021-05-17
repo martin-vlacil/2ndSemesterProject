@@ -21,6 +21,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import modelLayer.Booking;
+
 /**
  * @author theodorcostache
  */
@@ -173,23 +175,31 @@ public class CalendarUtil {
         return c.getTime();*/
         return day.atTime((int) (seconds / 3600), (int) (seconds % 3600) / 60, (int) (seconds % 3600) % 60);
     }
-
-    public static Map<CalendarEvent, List<CalendarEvent>> getConflicting(final Collection<CalendarEvent> calendarEvents) {
-        final List<CalendarEvent> clonedCollection = new ArrayList<CalendarEvent>(calendarEvents);
-
-        final Map<CalendarEvent, List<CalendarEvent>> conflictingEvents = new HashMap<CalendarEvent, List<CalendarEvent>>();
+  //XXX CalendarEvent changed to Booking
+    public static Map<Booking, List<Booking>> getConflicting(final Collection<Booking> calendarEvents) {
+    	//XXX CalendarEvent changed to Booking
+        final List<Booking> clonedCollection = new ArrayList<Booking>(calendarEvents);
+      //XXX CalendarEvent changed to Booking
+        final Map<Booking, List<Booking>> conflictingEvents = new HashMap<Booking, List<Booking>>();
 
         for (int i = 0; i < clonedCollection.size(); i++) {
-            final CalendarEvent event1 = clonedCollection.get(i);
-             conflictingEvents.put(event1, new ArrayList<CalendarEvent>());
+        	//XXX CalendarEvent changed to Booking
+            final Booking event1 = clonedCollection.get(i);
+          //XXX CalendarEvent changed to Booking
+             conflictingEvents.put(event1, new ArrayList<Booking>());
             for (int j = 0; j < clonedCollection.size(); j++) {
-                final CalendarEvent event2 = clonedCollection.get(j);
+            	//XXX CalendarEvent changed to Booking
+                final Booking event2 = clonedCollection.get(j);
+                //XXX Removed
+                /*
                 if (event2.isAllDay() || event2.isHoliday())
                     continue;
-                final LocalDateTime startA = event1.getStart();
-                final LocalDateTime endA = event1.getEnd();
-                final LocalDateTime startB = event2.getStart();
-                final LocalDateTime endB = event2.getEnd();
+                */
+                //XXX getStart() and getEnd() renamed to getStartTime() and getEndTime()
+                final LocalDateTime startA = event1.getStartTime();
+                final LocalDateTime endA = event1.getEndTime();
+                final LocalDateTime startB = event2.getStartTime();
+                final LocalDateTime endB = event2.getEndTime();
 
                 final boolean isStartABeforeEndB = (startA.compareTo(endB)) < 0;
                 final boolean isEndAAfterStartB = (endA.compareTo(startB)) > 0;
@@ -205,25 +215,30 @@ public class CalendarUtil {
 
             Collections.sort(conflictingEvents.get(event1));
         }
-        final Set<CalendarEvent> keys = new HashSet<CalendarEvent>(conflictingEvents.keySet());
-        final Map<CalendarEvent, List<CalendarEvent>> result = new HashMap<CalendarEvent, List<CalendarEvent>>();
-
-        for (final CalendarEvent event : keys) {
-            final Set<CalendarEvent> visitedEvents = new HashSet<CalendarEvent>();
-            final Set<CalendarEvent> tempSet = new HashSet<CalendarEvent>();
+      //XXX CalendarEvents changed to Booking
+        final Set<Booking> keys = new HashSet<Booking>(conflictingEvents.keySet());
+      //XXX CalendarEvents changed to Booking
+        final Map<Booking, List<Booking>> result = new HashMap<Booking, List<Booking>>();
+      //XXX CalendarEvent have been renamed to Booking
+        for (final Booking event : keys) {
+        	//XXX CalendarEvents changed to Booking
+            final Set<Booking> visitedEvents = new HashSet<Booking>();
+          //XXX CalendarEvents changed to Booking
+            final Set<Booking> tempSet = new HashSet<Booking>();
             copyAll(visitedEvents, tempSet, conflictingEvents, event);
-            final List<CalendarEvent> newConflictingEventsList = new ArrayList<CalendarEvent>(tempSet);
+          //XXX CalendarEvents changed to Booking
+            final List<Booking> newConflictingEventsList = new ArrayList<Booking>(tempSet);
             Collections.sort(newConflictingEventsList);
             result.put(event, newConflictingEventsList);
         }
 
         return result;
     }
-
-    private static void copyAll(final Set<CalendarEvent> visitedEvents, final Set<CalendarEvent> tempSet,
-                                final Map<CalendarEvent, List<CalendarEvent>> conflictingEvents, final CalendarEvent event) {
-
-        for (final CalendarEvent ce : conflictingEvents.get(event)) {
+  //XXX CalendarEvents changed to Booking
+    private static void copyAll(final Set<Booking> visitedEvents, final Set<Booking> tempSet,
+                                final Map<Booking, List<Booking>> conflictingEvents, final Booking event) {
+    	//XXX CalendarEvents changed to Booking
+        for (final Booking ce : conflictingEvents.get(event)) {
 
             if (!visitedEvents.contains(ce)) {
                 visitedEvents.add(ce);

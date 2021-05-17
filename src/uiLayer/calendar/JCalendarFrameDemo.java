@@ -250,11 +250,13 @@ public class JCalendarFrameDemo extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
+				/*
 				final Collection<CalendarEvent> selected = jCalendar.getSelectedCalendarEvents();
 				for (final CalendarEvent event : selected)
 				{
 					jCalendar.removeCalendarEvent(event);
 				}
+				*/
 			}
 		});
 

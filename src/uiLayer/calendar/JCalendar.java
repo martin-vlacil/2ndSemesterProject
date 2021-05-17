@@ -28,6 +28,9 @@ import uiLayer.util.EventCollectionRepository;
 import uiLayer.util.EventRepository;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
+import modelLayer.Booking;
+import modelLayer.Room;
+
 import javax.swing.*;
 
 import uiLayer.events.IntervalChangedEvent;
@@ -57,8 +60,10 @@ public class JCalendar extends JPanel {
     //XXX hover option removed, Calendar changed to LocalDate
     //private CalendarEventFormat formater;
     private LocalDate selectedDay;
+    //XXX Added room parameter
+    private Room room;
 
-    /**
+	/**
      * Creates a new instance of {@link JCalendar}
      */
     public JCalendar() {
@@ -67,7 +72,8 @@ public class JCalendar extends JPanel {
         config = new Config();
         //formater = new DefaultCalendarEventFormat();
         selectedDay = LocalDate.now();
-
+        //XXX No room selected when launching.
+        room = null;
         initGui();
         bindListeners();
 		
@@ -252,7 +258,8 @@ public class JCalendar extends JPanel {
      *
      * @return an {@link UnmodifiableCollection}
      */
-    public Collection<CalendarEvent> getSelectedCalendarEvents() {
+    //XXX Changed to booking
+    public Collection<Booking> getSelectedCalendarEvents() {
         return EventCollectionRepository.get(this).getSelectedEvents();
     }
 
@@ -261,7 +268,8 @@ public class JCalendar extends JPanel {
      *
      * @return                an {@link UnmodifiableCollection}
      */
-    public Collection<CalendarEvent> getCalendarEvents() {
+    //XXX CalendarEvent changed to Booking
+    public Collection<Booking> getCalendarEvents() {
         return EventCollectionRepository.get(this).getAllEvents();
     }
 
@@ -325,7 +333,8 @@ public class JCalendar extends JPanel {
      * FIXME	calling the method for adding a calendar event
      * @param event
      */
-    public void addCalendarEvent(final CalendarEvent event) {
+    //XXX CalendarEvent changed to Booking
+    public void addCalendarEvent(final Booking event) {
         EventCollectionRepository.get(this).add(event);
         validate();
         repaint();
@@ -335,7 +344,8 @@ public class JCalendar extends JPanel {
      *  
      * @param event
      */
-    public void removeCalendarEvent(final CalendarEvent event) {
+  //XXX CalendarEvent changed to Booking
+    public void removeCalendarEvent(final Booking event) {
         EventCollectionRepository.get(this).remove(event);
         validate();
         repaint();
@@ -370,5 +380,19 @@ public class JCalendar extends JPanel {
     public void setJPopupMenu(final JPopupMenu popupMenu) {
         this.popupMenu = popupMenu;
     }
+    /**
+     *  XXX Added room getter
+     * @return the room selected
+     */
+    public Room getRoom() {
+		return room;
+	}
+    /**
+     * XXX Added room setters
+     * @param room
+     */
+	public void setRoom(Room room) {
+		this.room = room;
+	}
     
 }
