@@ -34,6 +34,7 @@ import javax.swing.JTextArea;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 public class MainUI extends JFrame {
@@ -57,7 +58,7 @@ public class MainUI extends JFrame {
 	 */
 	public MainUI(User loggedUser) throws SQLException {
 		config = new Config();
-		
+		Locale.setDefault(new Locale("fr", "FR"));
 		bookingPanel = new BookingPanel(loggedUser);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +71,7 @@ public class MainUI extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.1, 1.0};
 		gbl_contentPane.rowWeights = new double[]{Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+		
 		
 		//Creates the sidebar containing the menu
 		JPanel sidebarPanel = new JPanel();

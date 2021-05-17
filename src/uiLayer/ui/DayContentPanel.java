@@ -285,28 +285,16 @@ public class DayContentPanel extends JPanel {
                 * 60;
         final boolean isSelectedStrategyMonth = calendar.getDisplayStrategy() == Type.MONTH;
         //XXX CalendarEvent changed to Booking
-        final List<Booking> holidays = EventCollectionRepository.get(calendar).getHolidayEvents(owner.getDate());
+        //final List<Booking> holidays = EventCollectionRepository.get(calendar).getHolidayEvents(owner.getDate());
 
         if (isEnabled()) {
-            if (!isSelectedStrategyMonth) {
-                if (holidays.size() == 0) {
                     graphics2d.setColor(outsideWorkingHoursColor);
                     graphics2d.fillRect(0, 0, width, workingHoursRectHeight);
                     graphics2d.fillRect(0, workingHoursEndRectYStart, width,
                             workingHoursEndHeight);
-                }
-            }
-
-            if (holidays.size() > 0) {
-                graphics2d.setColor(calendar.getConfig().getHolidayBgColor());
-                graphics2d.fillRect(0, 0, width, height);
-
-            }
         } else {
-            if (isSelectedStrategyMonth) {
                 graphics2d.setColor(dayDisableBackgroundColor);
                 graphics2d.fillRect(0, 0, width, height);
-            }
         }
 
         graphics2d.setColor(config.getLineColor());
