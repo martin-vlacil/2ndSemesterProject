@@ -25,40 +25,7 @@ public class BookingController
 		roomCtr = new RoomController();
 		logEntryDB = new LogEntryDB();
 		bookingDB = new BookingDB();
-		selectedRooms = new ArrayList<Room>();
-	}
-
-	
-	public Room selectRoom(int roomID) throws SQLException
-	{
-		Room room = null;
-		
-		room = roomCtr.findByID(roomID);
-		this.selectedRooms.add(room);
-		
-		return room;
-	}
-	
-	public boolean selectStartTime(LocalDateTime time)
-	{
-		boolean startTimeSelected = true;
-		
-		for(Room currentRoom: selectedRooms)
-		{
-			/*
-			if(!roomCtr.checkAvailability(currentRoom.getId(), time))
-			{
-				startTimeSelected = false;
-			}
-			*/
-		}
-		
-		if(startTimeSelected)
-		{
-			this.selectedStartTime = time;
-		}
-		
-		return startTimeSelected;
+		bookingsOnADay = new ArrayList<>();
 	}
 	
 	
