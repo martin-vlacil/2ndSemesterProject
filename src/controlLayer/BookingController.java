@@ -218,5 +218,12 @@ public class BookingController
 		return roomCtr.getAll();
 	}
 	
+	public ArrayList<Booking> getAllBookingsForAWeek(LocalDateTime currentDate)
+	{
+		ArrayList<Booking> bookings = new ArrayList<>();
+		
+		return bookings;
+	}
+	
 	
 }

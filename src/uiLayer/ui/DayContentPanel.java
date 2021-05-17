@@ -289,19 +289,25 @@ public class DayContentPanel extends JPanel {
 
         if (isEnabled()) {
             if (!isSelectedStrategyMonth) {
+            	//XXX Removed
+            	/*
                 if (holidays.size() == 0) {
                     graphics2d.setColor(outsideWorkingHoursColor);
                     graphics2d.fillRect(0, 0, width, workingHoursRectHeight);
                     graphics2d.fillRect(0, workingHoursEndRectYStart, width,
                             workingHoursEndHeight);
                 }
+                */
             }
-
+            
+            //XXX Removed
+            /*
             if (holidays.size() > 0) {
                 graphics2d.setColor(calendar.getConfig().getHolidayBgColor());
                 graphics2d.fillRect(0, 0, width, height);
 
             }
+            */
         } else {
             if (isSelectedStrategyMonth) {
                 graphics2d.setColor(dayDisableBackgroundColor);
