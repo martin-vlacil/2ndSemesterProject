@@ -5,6 +5,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import controlLayer.BookingController;
+import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
 import uiLayer.calendar.JCalendar;
@@ -27,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -146,5 +148,11 @@ public class BookingPanel extends JPanel {
 			}
 			
 		});
+	}
+	
+	public void getAllBookingsForAWeek(LocalDateTime currentDay) throws SQLException
+	{
+		BookingController bc = new BookingController();
+		bc.getAllBookingsForAWeek(null);
 	}
 }

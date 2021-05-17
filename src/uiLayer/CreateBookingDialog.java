@@ -707,7 +707,7 @@ public class CreateBookingDialog extends JDialog {
 	
 	private void formatTextField(JTextComponent component)
 	{
-		component.setForeground(config.getButtonDefaultForeground());
+		component.setForeground(config.getLabelDefaultForeground());
 		component.setFont(config.getLabelDefaultFont());
 		component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 	}

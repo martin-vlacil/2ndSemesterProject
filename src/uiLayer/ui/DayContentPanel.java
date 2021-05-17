@@ -288,10 +288,12 @@ public class DayContentPanel extends JPanel {
         //final List<Booking> holidays = EventCollectionRepository.get(calendar).getHolidayEvents(owner.getDate());
 
         if (isEnabled()) {
+
                     graphics2d.setColor(outsideWorkingHoursColor);
                     graphics2d.fillRect(0, 0, width, workingHoursRectHeight);
                     graphics2d.fillRect(0, workingHoursEndRectYStart, width,
                             workingHoursEndHeight);
+             
         } else {
                 graphics2d.setColor(dayDisableBackgroundColor);
                 graphics2d.fillRect(0, 0, width, height);
