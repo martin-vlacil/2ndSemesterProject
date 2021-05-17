@@ -100,8 +100,6 @@ public class CreateBookingDialog extends JDialog {
 		this.user = user;
 		selectedRooms = new ArrayList<>();
 		
-
-		
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(config.getBackGroundDefaultColor());
@@ -814,9 +812,10 @@ public class CreateBookingDialog extends JDialog {
 					contactPerson = new User(nameTextField.getText(), phoneTextField.getText(), emailTextField.getText());
 				}
 				
-				//TODO add startTime and endTime as LocalDateTime
+				LocalDateTime bookingStartTime = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
+				LocalDateTime bookingEndTime = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
 				if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
-									contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
+									contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, bookingStartTime, bookingEndTime))
 				{
 					dispose();
 				}
