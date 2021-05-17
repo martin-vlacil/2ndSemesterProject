@@ -16,9 +16,6 @@
 package uiLayer.calendar;
 
 import uiLayer.events.*;
-//import format.CalendarEventFormat;
-import uiLayer.model.CalendarEvent;
-//import model.EventType;
 import uiLayer.ui.ContentPanel;
 import uiLayer.ui.HeaderPanel;
 import uiLayer.ui.strategy.Config;

@@ -24,7 +24,6 @@ import java.util.List;
 import modelLayer.Booking;
 //import events.ModelChangedListener;
 import uiLayer.events.SelectionChangedListener;
-import uiLayer.model.CalendarEvent;
 
 /**
  * 

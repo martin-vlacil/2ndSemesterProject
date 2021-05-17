@@ -17,7 +17,6 @@ package uiLayer.ui;
 
 import uiLayer.ui.strategy.Config;
 import uiLayer.calendar.JCalendar;
-import uiLayer.model.CalendarEvent;
 import uiLayer.ui.strategy.DisplayStrategy.Type;
 import uiLayer.util.*;
 

@@ -17,7 +17,7 @@ package uiLayer.events;
 
 import java.io.Serializable;
 
-import uiLayer.model.CalendarEvent;
+import modelLayer.Booking;
 
 /**
  * 
@@ -30,21 +30,21 @@ public class SelectionChangedEvent implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	CalendarEvent calendarEvent;
+	Booking calendarEvent;
 
 	public SelectionChangedEvent() {
 
 	}
 
-	public SelectionChangedEvent(CalendarEvent calendarEvent) {
+	public SelectionChangedEvent(Booking calendarEvent) {
 		this.calendarEvent = calendarEvent;
 	}
 
-	public CalendarEvent getCalendarEvent() {
+	public Booking getCalendarEvent() {
 		return calendarEvent;
 	}
 
-	public void setCalendarEvent(CalendarEvent calendarEvent) {
+	public void setCalendarEvent(Booking calendarEvent) {
 		this.calendarEvent = calendarEvent;
 	}
 }

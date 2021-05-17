@@ -2,8 +2,6 @@ package modelLayer;
 
 import java.time.LocalDateTime;
 
-import uiLayer.model.CalendarEvent;
-
 /**
  * @author Group1 dmai0920
  * Represents the booking in the system that the user can make

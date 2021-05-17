@@ -16,7 +16,6 @@ import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
 import uiLayer.events.SelectionChangedListener;
-import uiLayer.model.CalendarEvent;
 
 public class NewIndexedEventCollection implements EventCollection {
 

@@ -15,7 +15,6 @@
  */
 package uiLayer.ui.strategy;
 
-import uiLayer.model.CalendarEvent;
 import uiLayer.util.CalendarUtil;
 
 import java.awt.*;

@@ -20,7 +20,6 @@ import uiLayer.calendar.JCalendar;
 //import events.ModelChangedListener;
 import uiLayer.events.SelectionChangedEvent;
 import uiLayer.events.SelectionChangedListener;
-import uiLayer.model.CalendarEvent.Property;
 /**
  * XXX Refactor code without using {@link MultiHashMap}
  */
@@ -236,33 +235,6 @@ class IndexedEventCollection extends Observable implements Observer, EventCollec
         }
     }
     */
-    
-    ///XXX Method added
-    public void updateCalendar(final Booking booking, final Object arg) 
-    {
-            final Booking calendarEvent = (Booking) booking;
-            final Property property = (Property) arg;
-            switch (property) {
-                case START:
-                case END:
-
-                    for (final Object key : new HashSet<Object>(indexedEvents.keySet())) {
-                        indexedEvents.remove(key, calendarEvent);
-                    }
-
-                    final Collection<LocalDate> dates = CalendarUtil.getDates(calendarEvent.getStartTime(), calendarEvent.getEndTime());
-                    for (final LocalDate date : dates) {
-                        indexedEvents.put(date, calendarEvent);
-                    }
-
-                    //notifyObservers(calendarEvent);
-
-                default:
-                    parent.invalidate();
-                    parent.repaint();
-                    break;
-            }
-    	}
     
     
     

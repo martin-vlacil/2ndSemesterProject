@@ -48,8 +48,6 @@ import uiLayer.events.IntervalSelectionListener;
 //import events.ModelChangedListener;
 import uiLayer.events.SelectionChangedEvent;
 import uiLayer.events.SelectionChangedListener;
-import uiLayer.model.CalendarEvent;
-import uiLayer.model.EventType;
 import uiLayer.ui.strategy.DisplayStrategy;
 import uiLayer.ui.strategy.DisplayStrategy.Type;
 import uiLayer.util.CalendarUtil;

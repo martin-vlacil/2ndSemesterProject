@@ -15,8 +15,6 @@
  */
 package uiLayer.util;
 
-import uiLayer.model.CalendarEvent;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
