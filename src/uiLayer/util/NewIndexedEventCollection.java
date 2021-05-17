@@ -26,7 +26,7 @@ public class NewIndexedEventCollection implements EventCollection {
 	
     public NewIndexedEventCollection(final JCalendar parent) {
         this.parent = parent;
-        indexedEvents =  new ArrayListValuedHashMap<LocalDate, Booking>();
+        indexedEvents = new ArrayListValuedHashMap<LocalDate, Booking>();
         this.selectionChangedListeners = new ArrayList<SelectionChangedListener>();
         this.selectedEvents = new HashSet<Booking>();
     }

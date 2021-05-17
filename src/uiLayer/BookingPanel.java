@@ -84,6 +84,18 @@ public class BookingPanel extends JPanel {
 		ArrayList<Room> allRooms = new BookingController().getAllRooms();
 		allRooms.add(0, new Room("", -1, " Select...", -1));
 		JComboBox<Room> comboBox = new JComboBox<Room>();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (((Room)comboBox.getSelectedItem()).getName() != " Select...")
+				{
+					calendar.setRoom(((Room)comboBox.getSelectedItem()));
+				}
+				else
+				{
+					calendar.setRoom(null);
+				}
+			}
+		});
 		comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 		ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
 		
@@ -108,6 +120,7 @@ public class BookingPanel extends JPanel {
 		gbc_calendar.gridy = 3;
 		add(calendar, gbc_calendar);
 		bindListeners();
+		
 	}
 	
 	private void initialiseBooking()
@@ -153,6 +166,10 @@ public class BookingPanel extends JPanel {
 	public void getAllBookingsForAWeek(LocalDateTime currentDay) throws SQLException
 	{
 		BookingController bc = new BookingController();
-		bc.getAllBookingsForAWeek(null);
+		ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(null);
+		for (Booking booking : bookings)
+		{
+			calendar.addCalendarEvent(booking);
+		}
 	}
 }

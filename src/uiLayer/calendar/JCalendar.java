@@ -98,6 +98,8 @@ public class JCalendar extends JPanel {
         c.weighty = 0.9;
         c.insets = new Insets(10, 10, 10, 10);
         add(contentPane, c);
+        
+        
     }
     
     private void initData() {
@@ -390,6 +392,7 @@ public class JCalendar extends JPanel {
      */
 	public void setRoom(Room room) {
 		this.room = room;
+		contentPane.repaint();
 	}
     
 }
