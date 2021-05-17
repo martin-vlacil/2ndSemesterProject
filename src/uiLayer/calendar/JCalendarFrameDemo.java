@@ -130,7 +130,7 @@ public class JCalendarFrameDemo extends JFrame {
 		description.setLineWrap(true);
 		description.setRows(10);
 		*/
-		jCalendar = new JCalendar();
+		jCalendar = new JCalendar(null);
 		jCalendar.setPreferredSize(new Dimension(1024, 768));
 		jCalendar.setJPopupMenu(popup);
 		jCalendar.getConfig().setAllDayPanelVisible(false);

@@ -65,6 +65,7 @@ public class JCalendar extends JPanel {
 
 	/**
      * Creates a new instance of {@link JCalendar}
+     * XXX changed to accept BookingPanel in its constructor.
      */
     public JCalendar(BookingPanel bookingPanel) {
     	this.bookingPanel = bookingPanel;

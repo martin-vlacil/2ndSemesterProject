@@ -138,7 +138,7 @@ public class WeekDisplayStrategy implements DisplayStrategy {
 		content.getViewport().setOpaque(false);
 		content.setBorder(new EmptyBorder(0, 0, 0, 0));
 		content.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		content.getViewport().setViewPosition(new Point(0, 500));
+		content.getViewport().setViewPosition(new Point(0, 850));
 
 		displayPanel.add(content, gbc);
 		gbc.gridx = 0;
