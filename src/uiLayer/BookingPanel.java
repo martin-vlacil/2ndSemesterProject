@@ -121,14 +121,14 @@ public class BookingPanel extends JPanel {
 		gbc_calendar.gridx = 1;
 		gbc_calendar.gridy = 3;
 		add(calendar, gbc_calendar);
-		bindListeners();
+		bindListeners(this);
 		
 	}
 	
 	private void initialiseBooking()
 	{
 		try {
-			CreateBookingDialog dialog = new CreateBookingDialog(loggedUser);
+			CreateBookingDialog dialog = new CreateBookingDialog(loggedUser,this);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 			dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
@@ -141,7 +141,7 @@ public class BookingPanel extends JPanel {
 		}
 	}
 	
-	private void bindListeners()
+	private void bindListeners(BookingPanel panel)
 	{
 		calendar.addIntervalSelectionListener(new IntervalSelectionListener() {
 
@@ -149,7 +149,7 @@ public class BookingPanel extends JPanel {
 			public void intervalSelected(IntervalSelectionEvent event) {
 
 				try {
-					CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd());
+					CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 					dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
@@ -176,5 +176,12 @@ public class BookingPanel extends JPanel {
 			calendar.addCalendarEvent(booking);
 		}
 		
+	}
+	
+	//TODO Comment needed
+	public void getRoomsOfOneDay(LocalDate date) throws SQLException
+	{
+		BookingController bc = new BookingController();
+		bc.getRoomsOfOneDay(date);
 	}
 }

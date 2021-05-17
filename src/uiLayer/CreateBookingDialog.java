@@ -66,6 +66,7 @@ public class CreateBookingDialog extends JDialog {
 	private JComboBox<Room> comboBox;
 	private ArrayList<Room> selectedRooms;
 	private ArrayList<Room> allRooms;
+	private BookingPanel bookingPanel;
 	private BookingController bookingController;
 	private JTextField titleTextField;
 	private JTextField organizationDropDownPlaceholder;
@@ -88,27 +89,28 @@ public class CreateBookingDialog extends JDialog {
 	private JLabel errorMessageRoom;
 	private HashMap<JTextField, Boolean> fields;
 
-
 	/**
 	 * Create the dialog.
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 * @wbp.parser.constructor
 	 */
-	public CreateBookingDialog(User user) throws SQLException {
+	public CreateBookingDialog(User user, BookingPanel panel) throws SQLException {
+		this.bookingPanel = panel;
 		fields = new HashMap<>();
 		bookingController = new BookingController();
 		this.user = user;
 		selectedRooms = new ArrayList<>();
-		
+
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(config.getBackGroundDefaultColor());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0};
-		gbl_contentPanel.rowHeights = new int[]{43, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.2, 0.8};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 1.0};
+		gbl_contentPanel.columnWidths = new int[] { 0, 0 };
+		gbl_contentPanel.rowHeights = new int[] { 43, 0, 0 };
+		gbl_contentPanel.columnWeights = new double[] { 0.2, 0.8 };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 1.0 };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			JPanel titlePanel = new JPanel();
@@ -121,10 +123,10 @@ public class CreateBookingDialog extends JDialog {
 			gbc_titlePanel.gridy = 0;
 			contentPanel.add(titlePanel, gbc_titlePanel);
 			GridBagLayout gbl_titlePanel = new GridBagLayout();
-			gbl_titlePanel.columnWidths = new int[]{0};
-			gbl_titlePanel.rowHeights = new int[]{0};
-			gbl_titlePanel.columnWeights = new double[]{0.0};
-			gbl_titlePanel.rowWeights = new double[]{0.0};
+			gbl_titlePanel.columnWidths = new int[] { 0 };
+			gbl_titlePanel.rowHeights = new int[] { 0 };
+			gbl_titlePanel.columnWeights = new double[] { 0.0 };
+			gbl_titlePanel.rowWeights = new double[] { 0.0 };
 			titlePanel.setLayout(gbl_titlePanel);
 			{
 				JLabel titleLabel = new JLabel("Create Booking");
@@ -147,10 +149,11 @@ public class CreateBookingDialog extends JDialog {
 			gbc_leftPanel.gridy = 1;
 			contentPanel.add(leftPanel, gbc_leftPanel);
 			GridBagLayout gbl_leftPanel = new GridBagLayout();
-			gbl_leftPanel.columnWidths = new int[]{30, 0, 30};
-			gbl_leftPanel.rowHeights = new int[]{30, 0,0,0,0,0,0,0,0,0,0,0,0,0,0, 30};
-			gbl_leftPanel.columnWeights = new double[]{0.0, 1.0, 0.0};
-			gbl_leftPanel.rowWeights = new double[]{0.0, 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0, 0.0,Double.MIN_VALUE};
+			gbl_leftPanel.columnWidths = new int[] { 30, 0, 30 };
+			gbl_leftPanel.rowHeights = new int[] { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
+			gbl_leftPanel.columnWeights = new double[] { 0.0, 1.0, 0.0 };
+			gbl_leftPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+					0.0, 0.0, Double.MIN_VALUE };
 			leftPanel.setLayout(gbl_leftPanel);
 			{
 				titleLabel = new JLabel("Event Title");
@@ -180,7 +183,7 @@ public class CreateBookingDialog extends JDialog {
 				titleTextField.setColumns(10);
 			}
 			{
-		
+
 				JLabel organizationLabel = new JLabel("Organization");
 				GridBagConstraints gbc_organizationLabel = new GridBagConstraints();
 				gbc_organizationLabel.anchor = GridBagConstraints.WEST;
@@ -324,8 +327,8 @@ public class CreateBookingDialog extends JDialog {
 		}
 		{
 			rightPanel = new JPanel();
-			rightPanel.setPreferredSize(new Dimension(100,100));
-			//TODO maybe add this to the config. idk
+			rightPanel.setPreferredSize(new Dimension(100, 100));
+			// TODO maybe add this to the config. idk
 			rightPanel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 			gbc_rightPanel.insets = new Insets(0, 0, 0, 20);
@@ -334,10 +337,10 @@ public class CreateBookingDialog extends JDialog {
 			gbc_rightPanel.gridy = 1;
 			contentPanel.add(rightPanel, gbc_rightPanel);
 			GridBagLayout gbl_rightPanel = new GridBagLayout();
-			gbl_rightPanel.columnWidths = new int[]{30, 0,0, 30};
-			gbl_rightPanel.rowHeights = new int[]{30, 0,0,0,0,0,0,0,0,0,0, 30};
-			gbl_rightPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0};
-			gbl_rightPanel.rowWeights = new double[]{0.0, 0,1.0,0,0,0.0,0,0,0,0,0, 0.0};
+			gbl_rightPanel.columnWidths = new int[] { 30, 0, 0, 30 };
+			gbl_rightPanel.rowHeights = new int[] { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
+			gbl_rightPanel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0 };
+			gbl_rightPanel.rowWeights = new double[] { 0.0, 0, 1.0, 0, 0, 0.0, 0, 0, 0, 0, 0, 0.0 };
 			rightPanel.setLayout(gbl_rightPanel);
 			{
 				JLabel descriptionPanel = new JLabel("Description");
@@ -385,31 +388,28 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				allRooms = new ArrayList<Room>();
-				try
-				{
+				try {
 					allRooms = new BookingController().getAllRooms();
-				}
-				catch (SQLException e)
-				{
+				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 				allRooms.add(0, new Room("", -1, " Select...", -1));
 				comboBox = new JComboBox<Room>();
 				comboBox.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						addSelectedRoom(((Room)comboBox.getSelectedItem()));
+						addSelectedRoom(((Room) comboBox.getSelectedItem()));
 					}
 				});
 				comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 				ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
-				
-			    comboBox.setRenderer(renderer);
+
+				comboBox.setRenderer(renderer);
 				comboBox.setPreferredSize(new Dimension(100, 30));
 				comboBox.setEditable(false);
 				comboBox.setFocusable(false);
 				comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
 				comboBox.setForeground(Color.GRAY);
-				
+
 				GridBagConstraints gbc_comboBox = new GridBagConstraints();
 				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 				gbc_comboBox.anchor = GridBagConstraints.NORTHWEST;
@@ -422,11 +422,11 @@ public class CreateBookingDialog extends JDialog {
 				listModel = new DefaultListModel<>();
 				JList<Room> listOfSelectedRooms = new JList<>(listModel);
 				listOfSelectedRooms.addListSelectionListener(new ListSelectionListener() {
-					
+
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
 						removeSelectedRoom(listOfSelectedRooms.getSelectedValue());
-						
+
 					}
 				});
 				ListCellRenderer<? super Room> renderer = new RoomListCellRenderer();
@@ -452,9 +452,40 @@ public class CreateBookingDialog extends JDialog {
 			{
 				Calendar yesterday = Calendar.getInstance();
 				yesterday.add(Calendar.DATE, -1);
-				datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)); 
-				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy"); 
-				datePicker.setEditor(dateEditor); 
+				datePicker = new JSpinner(
+						new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH) {
+					@Override
+					public Object getNextValue() {
+						LocalDateTime bookingDate = LocalDateTime.ofInstant(yesterday.toInstant(), ZoneId.systemDefault());
+						try
+						{
+							bookingPanel.getRoomsOfOneDay(bookingDate.toLocalDate());
+						}
+						catch (SQLException e)
+						{
+							e.printStackTrace();
+						}
+						//TODO Fix the return
+						return null;
+					}
+
+					@Override
+					public Object getPreviousValue() {
+						LocalDateTime bookingDate = LocalDateTime.ofInstant(yesterday.toInstant(), ZoneId.systemDefault());
+						try
+						{
+							bookingPanel.getRoomsOfOneDay(bookingDate.toLocalDate());
+						}
+						catch (SQLException e)
+						{
+							e.printStackTrace();
+						}
+						//TODO FIX the return
+						return datePicker.getModel().getPreviousValue();
+					}
+				});
+				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy");
+				datePicker.setEditor(dateEditor);
 				((DefaultEditor) datePicker.getEditor()).getTextField().setEditable(false);
 				datePicker.setFocusable(false);
 				datePicker.setFont(config.getLabelDefaultFont());
@@ -491,47 +522,41 @@ public class CreateBookingDialog extends JDialog {
 				startTimePicker = new JSpinner();
 				startTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
-			        public Object getNextValue() { 
-			            Date nextValue = (Date)super.getValue();
-			            Calendar calendar = Calendar.getInstance();
-			            calendar.setTime(nextValue);
-			            
+					public Object getNextValue() {
+						Date nextValue = (Date) super.getValue();
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(nextValue);
 
-			            Date time = new Date();
-			            time.setTime(77400000);
-			            if (calendar.getTime().after(time))
-			            {
-			            	calendar.add(Calendar.MINUTE, 840);
-			            }
-			            else
-			            {
-			            	calendar.add(Calendar.MINUTE, 30);
-			            } 
-			            
-			            return calendar.getTime();
-			        }
+						Date time = new Date();
+						time.setTime(77400000);
+						if (calendar.getTime().after(time)) {
+							calendar.add(Calendar.MINUTE, 840);
+						} else {
+							calendar.add(Calendar.MINUTE, 30);
+						}
+
+						return calendar.getTime();
+					}
+
 					@Override
-			        public Object getPreviousValue() { 
-			            Date nextValue = (Date)super.getValue();
-			            Calendar calendar = Calendar.getInstance();
-			            calendar.setTime(nextValue);
-			            
-			            Date time = new Date();
-			            time.setTime(45000000);
-			            if (calendar.getTime().before(time))
-			            {
-			            	calendar.add(Calendar.MINUTE, -840);
-			            }
-			            else
-			            {
-			            	calendar.add(Calendar.MINUTE, -30);
-			            } 
-			            
-			            return calendar.getTime();
-			        }
-			    });
-				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");			
-				startTimePicker.setEditor(dateEditor); 
+					public Object getPreviousValue() {
+						Date nextValue = (Date) super.getValue();
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(nextValue);
+
+						Date time = new Date();
+						time.setTime(45000000);
+						if (calendar.getTime().before(time)) {
+							calendar.add(Calendar.MINUTE, -840);
+						} else {
+							calendar.add(Calendar.MINUTE, -30);
+						}
+
+						return calendar.getTime();
+					}
+				});
+				DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
+				startTimePicker.setEditor(dateEditor);
 				((DefaultEditor) startTimePicker.getEditor()).getTextField().setEditable(false);
 				startTimePicker.setFocusable(false);
 				startTimePicker.setFont(config.getLabelDefaultFont());
@@ -549,44 +574,39 @@ public class CreateBookingDialog extends JDialog {
 				endTimePicker = new JSpinner();
 				endTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
-			        public Object getNextValue() {
-			            Date nextValue = (Date)super.getValue();
-			            Calendar calendar = Calendar.getInstance();
-			            calendar.setTime(nextValue);
-			            
-			            Date time = new Date();
-			            time.setTime(77400000);
-			            if (calendar.getTime().after(time))
-			            {
-			            	calendar.add(Calendar.MINUTE, 840);
-			            }
-			            else
-			            {
-			            	calendar.add(Calendar.MINUTE, 30);
-			            }
-			            return calendar.getTime();
-			        }
-					@Override
-			        public Object getPreviousValue() { 
-			            Date nextValue = (Date)super.getValue();
-			            Calendar calendar = Calendar.getInstance();
-			            calendar.setTime(nextValue);
+					public Object getNextValue() {
+						Date nextValue = (Date) super.getValue();
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(nextValue);
 
-			            Date time = new Date();
-			            time.setTime(45000000);
-			            if (calendar.getTime().before(time))
-			            {
-			            	calendar.add(Calendar.MINUTE, -840);
-			            }
-			            else
-			            {
-			            	calendar.add(Calendar.MINUTE, -30);
-			            }
-			            return calendar.getTime();
-			        }
-			    });
-				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm"); 
-				endTimePicker.setEditor(dateEditor); 
+						Date time = new Date();
+						time.setTime(77400000);
+						if (calendar.getTime().after(time)) {
+							calendar.add(Calendar.MINUTE, 840);
+						} else {
+							calendar.add(Calendar.MINUTE, 30);
+						}
+						return calendar.getTime();
+					}
+
+					@Override
+					public Object getPreviousValue() {
+						Date nextValue = (Date) super.getValue();
+						Calendar calendar = Calendar.getInstance();
+						calendar.setTime(nextValue);
+
+						Date time = new Date();
+						time.setTime(45000000);
+						if (calendar.getTime().before(time)) {
+							calendar.add(Calendar.MINUTE, -840);
+						} else {
+							calendar.add(Calendar.MINUTE, -30);
+						}
+						return calendar.getTime();
+					}
+				});
+				DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
+				endTimePicker.setEditor(dateEditor);
 				((DefaultEditor) endTimePicker.getEditor()).getTextField().setEditable(false);
 				endTimePicker.setFocusable(false);
 				endTimePicker.setFont(config.getLabelDefaultFont());
@@ -648,185 +668,150 @@ public class CreateBookingDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-	
-		//initializeHashMap();
-		
+
+		// initializeHashMap();
+
 	}
-	
-	public CreateBookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval) throws SQLException
-	{
-		this(user);
-		if (startInterval.compareTo(LocalDateTime.now()) >= 0)
-		{
+
+	public CreateBookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval, BookingPanel panel)
+			throws SQLException {
+		this(user, panel);
+		if (startInterval.compareTo(LocalDateTime.now()) >= 0) {
 			startTimePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
 			endTimePicker.setValue(Date.from(endInterval.atZone(ZoneId.systemDefault()).toInstant()));
 			datePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
 		}
 	}
-	
+
 	/**
-	private void initializeHashMap()
-	{
-		fields = new HashMap<>();
-		
-		for(Component textField: leftPanel.getComponents())
-		{
-			if(textField instanceof JTextField)
-			{
-				fields.put((JTextField)textField, false);
-			}
-		}
-	}
-	**/
-	
-	private void formatTextField(JTextComponent component)
-	{
+	 * private void initializeHashMap() { fields = new HashMap<>();
+	 * 
+	 * for(Component textField: leftPanel.getComponents()) { if(textField instanceof
+	 * JTextField) { fields.put((JTextField)textField, false); } } }
+	 **/
+
+	private void formatTextField(JTextComponent component) {
 		component.setForeground(config.getLabelDefaultForeground());
 		component.setFont(config.getLabelDefaultFont());
 		component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 	}
-	
-	private boolean checkInformation(JLabel label, JTextField field) 
-	{
+
+	private boolean checkInformation(JLabel label, JTextField field) {
 		boolean informationCorrect = false;
-		
-		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == false) 
-		{	
+
+		if (bookingController.validateInformation(new String[] { label.getName(), field.getText() }) == false) {
 			label.setForeground(config.getErrorMessageColor());
 			field.setBorder(new LineBorder(config.getErrorMessageColor()));
 			fields.put(field, false);
-		}
-		else
-		{
+		} else {
 			label.setForeground(config.getLabelDefaultForeground());
 			field.setBorder(config.getTextFieldDefaultBorder());
 			fields.put(field, true);
 			informationCorrect = true;
 		}
-		
+
 		return informationCorrect;
 	}
-	
-	private boolean checkRoomAvailability() throws SQLException 
-	{
+
+	private boolean checkRoomAvailability() throws SQLException {
 		errorMessageRoom.setVisible(false);
 		String errorMessage = "Interference with the following booking(s):";
 		boolean bookingInterference = false;
-		for (Room r : selectedRooms)
-		{
+		for (Room r : selectedRooms) {
 			String roomCheck = bookingController.checkAvailability(null, null, r);
-			if (!roomCheck.equals(""))
-			{
+			if (!roomCheck.equals("")) {
 				errorMessage += ("\n" + roomCheck);
 				bookingInterference = true;
 			}
 		}
-		if (bookingInterference)
-		{
+		if (bookingInterference) {
 			errorMessageRoom.setText(errorMessage);
 			errorMessageRoom.setVisible(true);
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}
-	
+
 	private void addSelectedRoom(Room room) {
-		if (!room.getName().equals(" Select..."))
-		{
+		if (!room.getName().equals(" Select...")) {
 			selectedRooms.add(room);
 			listModel.removeAllElements();
-			for (Room e : selectedRooms)
-			{
+			for (Room e : selectedRooms) {
 				listModel.addElement(e);
 			}
 
 			allRooms.remove(room);
 			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 		}
-		
+
 	}
-	
+
 	private void removeSelectedRoom(Room room) {
-		if (selectedRooms.contains(room))
-		{
+		if (selectedRooms.contains(room)) {
 			selectedRooms.remove(room);
 			listModel.removeAllElements();
-			for (Room e : selectedRooms)
-			{
+			for (Room e : selectedRooms) {
 				listModel.addElement(e);
 			}
 			allRooms.add(room);
 			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
 		}
 	}
-	
-	private boolean checkUnvalidatedFields()
-	{
+
+	private boolean checkUnvalidatedFields() {
 		boolean informationCorrect = true;
 		JLabel label = null;
 		JTextField textField = null;
-		
-		for(Component component: leftPanel.getComponents())
-		{
-			if(component instanceof JLabel)
-			{
-				label = (JLabel)component;
+
+		for (Component component : leftPanel.getComponents()) {
+			if (component instanceof JLabel) {
+				label = (JLabel) component;
 			}
-			if(component instanceof JTextField)
-			{
-				textField = (JTextField)component;
-				if(!fields.getOrDefault(textField, false))
-				{
-					if(label.getName() != null)
-					{
-						if(!checkInformation(label, textField))
-						{
+			if (component instanceof JTextField) {
+				textField = (JTextField) component;
+				if (!fields.getOrDefault(textField, false)) {
+					if (label.getName() != null) {
+						if (!checkInformation(label, textField)) {
 							informationCorrect = false;
 						}
 					}
 				}
 			}
 		}
-		
+
 		return informationCorrect;
 	}
-	
-	private void confirmBooking()
-	{
-		try 
-		{
-			if (checkRoomAvailability())
-			{
-				if(!checkUnvalidatedFields())
-				{
-					JOptionPane.showMessageDialog(null , "Some of the information is not correct.", "Invalid information", JOptionPane.ERROR_MESSAGE);
+
+	private void confirmBooking() {
+		try {
+			if (checkRoomAvailability()) {
+				if (!checkUnvalidatedFields()) {
+					JOptionPane.showMessageDialog(null, "Some of the information is not correct.",
+							"Invalid information", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				//if the email matches the users email, then contact is null
+				// if the email matches the users email, then contact is null
 				User contactPerson = null;
-				if(!emailTextField.getText().equalsIgnoreCase(user.getEmail()))
-				{
-					contactPerson = new User(nameTextField.getText(), phoneTextField.getText(), emailTextField.getText());
+				if (!emailTextField.getText().equalsIgnoreCase(user.getEmail())) {
+					contactPerson = new User(nameTextField.getText(), phoneTextField.getText(),
+							emailTextField.getText());
 				}
-				
+
 				LocalDateTime bookingStartTime = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
 				LocalDateTime bookingEndTime = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
 				if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
-									contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, bookingStartTime, bookingEndTime))
-				{
+						contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms,
+						bookingStartTime, bookingEndTime)) {
+					bookingPanel.getAllBookingsForAWeek(bookingStartTime);
+					MainUI.updateLog();
 					dispose();
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null , "Failed to confirm your booking.", "Failed confirmation", JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Failed to confirm your booking.", "Failed confirmation",
+							JOptionPane.WARNING_MESSAGE);
 				}
 			}
-		} 
-		catch (SQLException e1) 
-		{
+		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 	}

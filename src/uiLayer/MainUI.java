@@ -50,7 +50,7 @@ public class MainUI extends JFrame {
 	private JButton usersButton;
 	private JButton roomsButton;
 	private JButton selectedPageButton;
-	private JTextArea logTextArea;
+	private static JTextArea logTextArea;
 
 
 	/**
@@ -318,7 +318,7 @@ public class MainUI extends JFrame {
 		button.setOpaque(true);
 	}
 	
-	private void updateLog() throws SQLException
+	public static void updateLog() throws SQLException
 	{
 		LogEntry[] logDB = new LogEntryDB().getLogs();
 		for(int i = 0; i < logDB.length; i++)

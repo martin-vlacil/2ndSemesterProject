@@ -38,6 +38,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 
@@ -189,7 +190,7 @@ public class JCalendar extends JPanel {
                 //XXX New code
                 try 
                 {
-					bookingPanel.getAllBookingsForAWeek(null);
+					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
 				} 
                 catch (SQLException e1) 
                 {
@@ -212,6 +213,17 @@ public class JCalendar extends JPanel {
                 for (final IntervalChangedListener listener : intervalChangedListener) {
                     listener.intervalChanged(event);
                 }
+
+                //XXX New code
+                try 
+                {
+					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
+				} 
+                catch (SQLException e1) 
+                {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
     }
