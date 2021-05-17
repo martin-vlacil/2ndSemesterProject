@@ -41,6 +41,14 @@ public interface BookingDBIF
 	ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException;
 	
 	/**
+	 * TODO - comment
+	 * @param startTime, endTime
+	 * @return 
+	 * @throws SQLException
+	 */
+	ArrayList<Booking> getAllByTimeInterval(LocalDate startDate, LocalDate endTime) throws SQLException;
+	
+	/**
 	 * This method is used for creating the Booking objects from the Result set
 	 * to return them to the controller
 	 * @param rs - result set of the found rows

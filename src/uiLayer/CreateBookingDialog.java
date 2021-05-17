@@ -808,15 +808,21 @@ public class CreateBookingDialog extends JDialog {
 					return;
 				}
 				//if the email matches the users email, then contact is null
-				if(emailTextField.getText().equals(user.getEmail()))
+				User contactPerson = null;
+				if(!emailTextField.getText().equalsIgnoreCase(user.getEmail()))
 				{
-					//TODO add startTime and endTime as LocalDateTime
-					if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
-									new User(nameTextField.getText(),  phoneTextField.getText(), emailTextField.getText()),
-									Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
-					{
-						dispose();
-					}
+					contactPerson = new User(nameTextField.getText(), phoneTextField.getText(), emailTextField.getText());
+				}
+				
+				//TODO add startTime and endTime as LocalDateTime
+				if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
+									contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, null, null))
+				{
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null , "Failed to confirm your booking.", "Failed confirmation", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		} 

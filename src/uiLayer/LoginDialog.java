@@ -136,6 +136,7 @@ public class LoginDialog extends JDialog {
 		errorLabel.setForeground(Color.RED);
 		errorFrame.add(errorLabel);
 		
+		//TODO remove miguel
 		JLabel emailLabel = new JLabel("Email (Miguel@Olivera.dk)");
 		GridBagConstraints gbc_emailLabel = new GridBagConstraints();
 		gbc_emailLabel.anchor = GridBagConstraints.WEST;
@@ -144,6 +145,7 @@ public class LoginDialog extends JDialog {
 		gbc_emailLabel.gridy = 2;
 		mainPanel.add(emailLabel, gbc_emailLabel);
 		
+		//TODO - remove miguel
 		emailTextField = new JTextField("Miguel@Olivera.dk");
 		emailTextField.setForeground(config.getLabelDefaultForeground());
 		emailTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -156,6 +158,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(emailTextField, gbc_emailTextField);
 		emailTextField.setColumns(10);
 		
+		//TODO - remove password
 		JLabel passwordLabel = new JLabel("Password (password1)");
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
 		gbc_passwordLabel.anchor = GridBagConstraints.WEST;
@@ -164,6 +167,7 @@ public class LoginDialog extends JDialog {
 		gbc_passwordLabel.gridy = 4;
 		mainPanel.add(passwordLabel, gbc_passwordLabel);
 		
+		//TODO - remove pass
 		passwordTextField = new JPasswordField("password1");
 		passwordTextField.setForeground(config.getLabelDefaultForeground());
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -189,7 +193,7 @@ public class LoginDialog extends JDialog {
 		loginButton.setBackground(config.getBlueColorDefault());
 		//loginButton.setBackground(new Color(40, 41, 82));
 		loginButton.setFont(config.getButtonDefaultFont());
-		loginButton.setForeground(Color.WHITE);
+		loginButton.setForeground(config.getButtonDefaultForeground());
 		loginButton.setOpaque(true);
 		GridBagConstraints gbc_loginButton = new GridBagConstraints();
 		gbc_loginButton.insets = new Insets(0, 0, 0, 5);
@@ -215,8 +219,8 @@ public class LoginDialog extends JDialog {
 		if(loggedUser == null)
 		{
 			//TODO Set the errorPanel to fixed position
-			passwordTextField.setBorder(new LineBorder(Color.red));
-			emailTextField.setBorder(new LineBorder(Color.red));
+			passwordTextField.setBorder(new LineBorder(config.getErrorMessageColor()));
+			emailTextField.setBorder(new LineBorder(config.getErrorMessageColor()));
 			errorPanel.setVisible(true);
 			return;
 		}
@@ -237,7 +241,7 @@ public class LoginDialog extends JDialog {
 		}); 
 	}
 	
-	
+	/**
 	private static byte[] encryptionForLife(String password) {
 		String newPWD = "";
 		int firstLetter = 25;
@@ -299,5 +303,6 @@ public class LoginDialog extends JDialog {
 		return md.digest(newPWD.getBytes(StandardCharsets.UTF_8));
 		
 	}
+	**/
 	
 }

@@ -218,11 +218,18 @@ public class BookingController
 		return roomCtr.getAll();
 	}
 	
-	public ArrayList<Booking> getAllBookingsForAWeek(LocalDateTime currentDate)
+	/**
+	 * TODO - write comment
+	 * @param currentDate
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Booking> getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException
 	{
-		ArrayList<Booking> bookings = new ArrayList<>();
+		LocalDate startDate = currentDate.with(DayOfWeek.MONDAY).toLocalDate();
+		LocalDate endDate = startDate.plusDays(6);
 		
-		return bookings;
+		return bookingDB.getAllByTimeInterval(startDate, endDate);	
 	}
 	
 	

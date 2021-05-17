@@ -29,11 +29,17 @@ public class BookingDB implements BookingDBIF
 					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ?");
 	private PreparedStatement sqlSelectBookingsByDate;
 	
+	private static final String SELECT_BOOKINGS_IN_TIME_INTERVAL = String.format("SELECT * FROM Booking "
+					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ?"
+					+ "AND CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, end_time))) <= ?");
+	private PreparedStatement sqlSelectBookingsInTimeInterval;
+	
 	public BookingDB() throws SQLException
 	{
 		connection = DBConnection.getInstance().getConnection();
 		sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 		sqlSelectBookingsByDate = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE);
+		sqlSelectBookingsInTimeInterval = connection.prepareStatement(SELECT_BOOKINGS_IN_TIME_INTERVAL);
 	}
 
 	/*
@@ -101,5 +107,27 @@ public class BookingDB implements BookingDBIF
 							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
 							user);
 		}
+	}
+
+	@Override
+	public ArrayList<Booking> getAllByTimeInterval(LocalDate startDate, LocalDate endDate) throws SQLException
+	{
+		ArrayList<Booking> bookingsOfTheWeek = new ArrayList<>();
+		
+		String sqlStartDate = startDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		String sqlEndDate = endDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		
+		sqlSelectBookingsInTimeInterval.setString(1, sqlStartDate);
+		sqlSelectBookingsInTimeInterval.setString(2, sqlEndDate);
+		
+		ResultSet rs = sqlSelectBookingsInTimeInterval.executeQuery();
+		
+		while(rs.next())
+		{
+			Booking booking = buildObject(rs);
+			bookingsOfTheWeek.add(booking);
+		}
+		
+		return bookingsOfTheWeek;
 	}
 }
