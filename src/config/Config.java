@@ -53,11 +53,11 @@ public class Config
 		buttonColorSavedBackground = new Color(86, 197, 104);
 		buttonColorDeleteBackground = new Color(235, 87, 87);
 		buttonColorCancelBackground = new Color(200, 200, 200);
-		buttonColorDefaultBackground = null;
+		buttonColorDefaultBackground = new Color(40,41,81);
 		buttonColorSaveForeground = Color.WHITE;
 		buttonColorDeleteForeground = Color.WHITE;
 		buttonColorCancelForeground = new Color(140, 140, 140);
-		buttonDefaultForeground = null;
+		buttonDefaultForeground = Color.WHITE;
 		blueColorDefault = new Color(40, 41, 82);
 		redColorDefault = null;
 		textDefaultColor = new Color(0,0,0);
