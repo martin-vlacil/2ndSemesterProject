@@ -145,7 +145,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(emailLabel, gbc_emailLabel);
 		
 		emailTextField = new JTextField("Miguel@Olivera.dk");
-		emailTextField.setForeground(config.getButtonDefaultForeground());
+		emailTextField.setForeground(config.getLabelDefaultForeground());
 		emailTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		emailTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 		GridBagConstraints gbc_emailTextField = new GridBagConstraints();
@@ -165,7 +165,7 @@ public class LoginDialog extends JDialog {
 		mainPanel.add(passwordLabel, gbc_passwordLabel);
 		
 		passwordTextField = new JPasswordField("password1");
-		passwordTextField.setForeground(config.getButtonDefaultForeground());
+		passwordTextField.setForeground(config.getLabelDefaultForeground());
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
 		passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 		GridBagConstraints gbc_passwordTextField = new GridBagConstraints();
