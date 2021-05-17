@@ -26,7 +26,6 @@ public class Config
 	private Color backGroundDefaultColor;
 	private Color panelDefaultColor;
 	private Color backgroundTitleDefaultColor;
-	private Color textDefaultColor;
 	private Color errorMessageColor;
 	private Color separatorColor;
 	private Color selectedSidebarButtonColor;
@@ -38,11 +37,10 @@ public class Config
 	private Font labelTitleFontBigger;
 	private Font textDefaultSize;
 	private Font textBiggerSize;
-	private Font logSize;
+	private Font logTextSize;
 	private Border buttonSaveBorder;
 	private Border buttonCancelBorder;
 	private Border buttonDeleteBorder;
-	private Border buttonDefaultBorder;
 	private Border textAreaBorder;
 	private Border textFieldDefaultBorder;
 	private Border emptyBorderZeros;
@@ -60,23 +58,21 @@ public class Config
 		buttonColorCancelForeground = new Color(140, 140, 140);
 		buttonDefaultForeground = Color.WHITE;
 		blueColorDefault = new Color(40, 41, 82);
-		redColorDefault = null;
-		textDefaultColor = new Color(0,0,0);
+		redColorDefault = new Color(214, 65, 65);
 		backGroundDefaultColor = new Color(240, 240, 240);
-		panelDefaultColor = null;
+		panelDefaultColor = new Color(240, 240, 240);
 		buttonDefaultFont = new Font("Roboto", Font.BOLD, 15);
 		buttonBiggerFont = new Font("Roboto", Font.BOLD, 17);
 		labelDefaultFont = new Font("Roboto", Font.PLAIN, 13);
 		labelTitleFont = new Font("Roboto", Font.BOLD, 15);
 		labelTitleFontBigger = new Font("Roboto", Font.BOLD, 17);
 		textDefaultSize = new Font("Roboto", Font.PLAIN, 12);
-		textBiggerSize = null;
-		logSize = null;
+		textBiggerSize = new Font("Roboto", Font.PLAIN, 18);
+		logTextSize = new Font("Roboto", Font.PLAIN, 14);
 		emptyBorderZeros = new EmptyBorder(0, 0, 0, 0);
 		buttonSaveBorder = new EmptyBorder(5, 30, 5, 30);
 		buttonCancelBorder = new EmptyBorder(5, 30, 5, 30);
 		buttonDeleteBorder = new LineBorder(new Color(240, 0, 0), 2);
-		buttonDefaultBorder = null;
 		sidebarButtonBorder = new EmptyBorder(15, 10, 15, 10);
 		textAreaBorder = new LineBorder(new Color(0,0,0));
 		textFieldDefaultBorder = new LineBorder(new Color(212, 212, 212));
@@ -196,14 +192,6 @@ public class Config
 		this.backgroundTitleDefaultColor = backgroundTitleDefaultColor;
 	}
 
-	public Color getTextDefaultColor() {
-		return textDefaultColor;
-	}
-
-	public void setTextDefaultColor(Color textDefaultColor) {
-		this.textDefaultColor = textDefaultColor;
-	}
-
 	public Color getErrorMessageColor() {
 		return errorMessageColor;
 	}
@@ -285,11 +273,11 @@ public class Config
 	}
 
 	public Font getLogSize() {
-		return logSize;
+		return logTextSize;
 	}
 
 	public void setLogSize(Font logSize) {
-		this.logSize = logSize;
+		this.logTextSize = logSize;
 	}
 
 	public Border getButtonSaveBorder() {
@@ -314,14 +302,6 @@ public class Config
 
 	public void setButtonDeleteBorder(Border buttonDeleteBorder) {
 		this.buttonDeleteBorder = buttonDeleteBorder;
-	}
-
-	public Border getButtonDefaultBorder() {
-		return buttonDefaultBorder;
-	}
-
-	public void setButtonDefaultBorder(Border buttonDefaultBorder) {
-		this.buttonDefaultBorder = buttonDefaultBorder;
 	}
 
 	public Border getTextAreaBorder() {
