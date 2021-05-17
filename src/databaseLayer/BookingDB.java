@@ -29,8 +29,8 @@ public class BookingDB implements BookingDBIF
 					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ?");
 	private PreparedStatement sqlSelectBookingsByDate;
 	
-	private static final String SELECT_BOOKINGS_IN_TIME_INTERVAL = String.format("SELECT * FROM Booking "
-					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ?"
+	private static final String SELECT_BOOKINGS_IN_TIME_INTERVAL = String.format("SELECT * FROM Booking \r\n"
+					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ? \r\n"
 					+ "AND CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, end_time))) <= ?");
 	private PreparedStatement sqlSelectBookingsInTimeInterval;
 	

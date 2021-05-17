@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -110,7 +111,8 @@ public class BookingPanel extends JPanel {
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
 		add(comboBox, gbc_comboBox);
-		calendar = new JCalendar();
+		calendar = new JCalendar(this);
+		getAllBookingsForAWeek(LocalDateTime.now());
 		calendar.setPreferredSize(new Dimension(-1, -1));
 		calendar.getConfig().setAllDayPanelVisible(false);
 		GridBagConstraints gbc_calendar = new GridBagConstraints();
@@ -163,13 +165,16 @@ public class BookingPanel extends JPanel {
 		});
 	}
 	
-	public void getAllBookingsForAWeek(LocalDateTime currentDay) throws SQLException
+	public void getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException
 	{
+		
 		BookingController bc = new BookingController();
-		ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(null);
+		ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(currentDate);
 		for (Booking booking : bookings)
 		{
+			System.out.println(booking.getTitle());
 			calendar.addCalendarEvent(booking);
 		}
+		
 	}
 }

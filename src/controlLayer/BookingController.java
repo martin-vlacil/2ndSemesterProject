@@ -187,13 +187,13 @@ public class BookingController
 				//this way -- COMMENT TO THE OTHERS DELETE LATER ON
 				
 				//If the events starts before and ends meanwhile
-				if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) return "";
+				if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
 				//If the events starts meanwhile and ends after
-				else if(booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) return "";
+				else if(booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
 				//If the event starts and ends between the two timeslots
-				else if(booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) return "";
+				else if(booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
 				//If the event starts before the startTime and ends after the endTime
-				else if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) return "";
+				else if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
 			}
 		}
 		

@@ -15,6 +15,7 @@
  */
 package uiLayer.calendar;
 
+import uiLayer.BookingPanel;
 import uiLayer.events.*;
 import uiLayer.ui.ContentPanel;
 import uiLayer.ui.HeaderPanel;
@@ -35,6 +36,7 @@ import uiLayer.events.IntervalChangedEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
@@ -59,12 +61,13 @@ public class JCalendar extends JPanel {
     private LocalDate selectedDay;
     //XXX Added room parameter
     private Room room;
+    private BookingPanel bookingPanel;
 
 	/**
      * Creates a new instance of {@link JCalendar}
      */
-    public JCalendar() {
-    	
+    public JCalendar(BookingPanel bookingPanel) {
+    	this.bookingPanel = bookingPanel;
         intervalChangedListener = new ArrayList<IntervalChangedListener>();
         config = new Config();
         //formater = new DefaultCalendarEventFormat();
@@ -182,6 +185,16 @@ public class JCalendar extends JPanel {
                 for (final IntervalChangedListener listener : intervalChangedListener) {
                     listener.intervalChanged(event);
                 }
+                //XXX New code
+                try 
+                {
+					bookingPanel.getAllBookingsForAWeek(null);
+				} 
+                catch (SQLException e1) 
+                {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
             }
         });
