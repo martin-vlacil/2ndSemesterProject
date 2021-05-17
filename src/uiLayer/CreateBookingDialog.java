@@ -333,8 +333,8 @@ public class CreateBookingDialog extends JDialog {
 			GridBagLayout gbl_rightPanel = new GridBagLayout();
 			gbl_rightPanel.columnWidths = new int[]{30, 0,0, 30};
 			gbl_rightPanel.rowHeights = new int[]{30, 0,0,0,0,0,0,0,0,0,0, 30};
-			gbl_rightPanel.columnWeights = new double[]{0.0, 1.0,1.0, 0.0};
-			gbl_rightPanel.rowWeights = new double[]{0.0, 0,1.0,0,0,1.0,0,0,0,0,0, 0.0};
+			gbl_rightPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0};
+			gbl_rightPanel.rowWeights = new double[]{0.0, 0,1.0,0,0,0.0,0,0,0,0,0, 0.0};
 			rightPanel.setLayout(gbl_rightPanel);
 			{
 				JLabel descriptionPanel = new JLabel("Description");
@@ -374,7 +374,7 @@ public class CreateBookingDialog extends JDialog {
 			{
 				JLabel roomLabel = new JLabel("Room");
 				GridBagConstraints gbc_roomLabel = new GridBagConstraints();
-				gbc_roomLabel.anchor = GridBagConstraints.WEST;
+				gbc_roomLabel.anchor = GridBagConstraints.SOUTHWEST;
 				gbc_roomLabel.insets = new Insets(0, 0, 5, 5);
 				gbc_roomLabel.gridx = 1;
 				gbc_roomLabel.gridy = 4;
@@ -409,6 +409,7 @@ public class CreateBookingDialog extends JDialog {
 				
 				GridBagConstraints gbc_comboBox = new GridBagConstraints();
 				gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+				gbc_comboBox.anchor = GridBagConstraints.NORTHWEST;
 				gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 				gbc_comboBox.gridx = 1;
 				gbc_comboBox.gridy = 5;
@@ -429,16 +430,18 @@ public class CreateBookingDialog extends JDialog {
 				listOfSelectedRooms.setCellRenderer(renderer);
 				GridBagConstraints gbc_list = new GridBagConstraints();
 				gbc_list.insets = new Insets(20, 5, 5, 5);
+				gbc_list.anchor = GridBagConstraints.NORTHEAST;
 				gbc_list.fill = GridBagConstraints.BOTH;
 				gbc_list.gridx = 2;
-				gbc_list.gridy = 5;
+				gbc_list.gridy = 4;
+				gbc_list.gridheight = 3;
 				rightPanel.add(listOfSelectedRooms, gbc_list);
 			}
 			{
 				JLabel dateLabel = new JLabel("Date");
 				GridBagConstraints gbc_dateLabel = new GridBagConstraints();
-				gbc_dateLabel.anchor = GridBagConstraints.WEST;
 				gbc_dateLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_dateLabel.anchor = GridBagConstraints.NORTHWEST;
 				gbc_dateLabel.gridx = 1;
 				gbc_dateLabel.gridy = 6;
 				rightPanel.add(dateLabel, gbc_dateLabel);
