@@ -58,7 +58,7 @@ public class MainUI extends JFrame {
 	 */
 	public MainUI(User loggedUser) throws SQLException {
 		config = new Config();
-		Locale.setDefault(new Locale("fr", "FR"));
+		Locale.setDefault(Locale.UK);
 		bookingPanel = new BookingPanel(loggedUser);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
