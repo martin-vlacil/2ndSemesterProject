@@ -31,7 +31,7 @@ public class BookingController
 	
 	/**
 	 * TODO - finish desc
-	 * @param title, description, contactID, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
+	 * @param title, description, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
 	 * @return true/false if the booking(s) was/were successfully created in the database
 	 * @throws SQLException
 	 */

@@ -26,6 +26,7 @@ import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -623,9 +624,7 @@ public class CreateBookingDialog extends JDialog {
 				saveButton.setOpaque(true);
 				saveButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						checkUnvalidatedFields();
-						//confirmBooking();
-						// () [] 1234597890 ,.-?:-"!/(ˇ%       some characters if you need copying
+						confirmBooking();
 					}
 				});
 				saveButton.setActionCommand("Save");
@@ -713,11 +712,12 @@ public class CreateBookingDialog extends JDialog {
 		component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
 	}
 	
-	private void checkInformation(JLabel label, JTextField field) 
+	private boolean checkInformation(JLabel label, JTextField field) 
 	{
+		boolean informationCorrect = false;
+		
 		if (bookingController.validateInformation(new String[] {label.getName(),field.getText()}) == false) 
-		{
-				
+		{	
 			label.setForeground(config.getErrorMessageColor());
 			field.setBorder(new LineBorder(config.getErrorMessageColor()));
 			fields.put(field, false);
@@ -727,8 +727,10 @@ public class CreateBookingDialog extends JDialog {
 			label.setForeground(config.getLabelDefaultForeground());
 			field.setBorder(config.getTextFieldDefaultBorder());
 			fields.put(field, true);
+			informationCorrect = true;
 		}
-
+		
+		return informationCorrect;
 	}
 	
 	private boolean checkRoomAvailability() throws SQLException 
@@ -787,10 +789,12 @@ public class CreateBookingDialog extends JDialog {
 		}
 	}
 	
-	private void checkUnvalidatedFields()
+	private boolean checkUnvalidatedFields()
 	{
+		boolean informationCorrect = true;
 		JLabel label = null;
 		JTextField textField = null;
+		
 		for(Component component: leftPanel.getComponents())
 		{
 			if(component instanceof JLabel)
@@ -804,11 +808,16 @@ public class CreateBookingDialog extends JDialog {
 				{
 					if(label.getName() != null)
 					{
-						checkInformation(label, textField);
+						if(!checkInformation(label, textField))
+						{
+							informationCorrect = false;
+						}
 					}
 				}
 			}
 		}
+		
+		return informationCorrect;
 	}
 	
 	private void confirmBooking()
@@ -817,7 +826,11 @@ public class CreateBookingDialog extends JDialog {
 		{
 			if (checkRoomAvailability())
 			{
-				checkUnvalidatedFields();
+				if(!checkUnvalidatedFields())
+				{
+					JOptionPane.showMessageDialog(null , "Some of the information is not correct.", "Invalid information", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				//if the email matches the users email, then contact is null
 				if(emailTextField.getText().equals(user.getEmail()))
 				{
