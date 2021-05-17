@@ -21,7 +21,9 @@ import modelLayer.User;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -658,35 +660,9 @@ public class CreateBookingDialog extends JDialog {
 		this(user);
 		if (startInterval.compareTo(LocalDateTime.now()) >= 0)
 		{
-			//startTimePicker.setValue(endInterval.toLocalTime());
-			Calendar time = Calendar.getInstance();
-			System.out.println(" " +  startInterval.getHour() + ": " + startInterval.getMinute());
-			time.set(Calendar.HOUR_OF_DAY, startInterval.getHour());
-			System.out.println(" " + time.getTime());
-			time.set(Calendar.MINUTE, startInterval.getMinute());
-			startTimePicker.setValue(time.getTime());
-			/*startTimePicker.setModel(new SpinnerDateModel(time.getTime(), null, null, Calendar.HOUR_OF_DAY) {
-				@Override
-		        public Object getNextValue() {
-		            Date nextValue = (Date)super.getValue();
-		            Calendar calendar = Calendar.getInstance();
-		            calendar.setTime(nextValue);
-		            calendar.add(Calendar.MINUTE, 30);
-		            return calendar.getTime();
-		        }
-				@Override
-		        public Object getPreviousValue() { 
-		            Date nextValue = (Date)super.getValue();
-		            Calendar calendar = Calendar.getInstance();
-		            calendar.setTime(nextValue);
-		            calendar.add(Calendar.MINUTE, -30);
-		            return calendar.getTime();
-		        }
-		    });*/
-			time.set(Calendar.HOUR_OF_DAY, endInterval.getHour());
-			time.set(Calendar.MINUTE, endInterval.getMinute());
-			endTimePicker.setValue(time.getTime());
-			datePicker.setValue(Date.from(startInterval.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			startTimePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
+			endTimePicker.setValue(Date.from(endInterval.atZone(ZoneId.systemDefault()).toInstant()));
+			datePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
 		}
 	}
 	
