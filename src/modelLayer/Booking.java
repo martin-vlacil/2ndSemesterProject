@@ -2,13 +2,19 @@ package modelLayer;
 
 import java.time.LocalDateTime;
 
+import uiLayer.model.CalendarEvent;
+
 /**
  * @author Group1 dmai0920
  * Represents the booking in the system that the user can make
  * for a room.
  */
-public class Booking
+public class Booking implements Comparable<Booking>
 {
+	
+
+    private boolean selected;
+	
 	private String title;
 	private String description;
 	private LocalDateTime startTime;
@@ -74,6 +80,7 @@ public class Booking
 
 	public void setStartTime(LocalDateTime startTime)
 	{
+		
 		this.startTime = startTime;
 	}
 
@@ -125,6 +132,27 @@ public class Booking
 	public void setContact(User contact)
 	{
 		this.contact = contact;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	public Room getType()
+	{
+		return room;
+	}
+
+	@Override
+	 public int compareTo(final Booking o) {
+        final int comp = startTime.compareTo(o.getStartTime());
+        if (comp == 0)
+            return endTime.compareTo(o.getEndTime());
+        return comp;
 	}
 	
 }
