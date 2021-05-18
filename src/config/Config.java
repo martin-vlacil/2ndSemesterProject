@@ -45,6 +45,8 @@ public class Config
 	private Border textFieldDefaultBorder;
 	private Border emptyBorderZeros;
 	private Border sidebarButtonBorder;
+    private int workingHoursStart;
+    private int workingHoursEnd;
 	
 	public Config()
 	{
@@ -80,6 +82,8 @@ public class Config
 		separatorColor = new Color(196, 196, 196);
 		selectedSidebarButtonColor = new Color(234, 234, 238);
 		labelDefaultForeground = Color.BLACK;
+	    setWorkingHoursStart(15);
+	    setWorkingHoursEnd(23);
 		
 	}
 	
@@ -334,6 +338,22 @@ public class Config
 
 	public void setSidebarButtonBorder(Border sidebarButtonBorder) {
 		this.sidebarButtonBorder = sidebarButtonBorder;
+	}
+
+	public int getWorkingHoursStart() {
+		return workingHoursStart;
+	}
+
+	public void setWorkingHoursStart(int workingHoursStart) {
+		this.workingHoursStart = workingHoursStart;
+	}
+
+	public int getWorkingHoursEnd() {
+		return workingHoursEnd;
+	}
+
+	public void setWorkingHoursEnd(int workingHoursEnd) {
+		this.workingHoursEnd = workingHoursEnd;
 	}
 
 	

@@ -82,8 +82,8 @@ public class CreateBookingDialog extends JDialog {
 	private JSpinner endTimePicker;
 	private JSpinner datePicker;
 	private DefaultListModel<Room> listModel;
-	private Calendar endTime;
 	private Calendar startTime;
+	private Calendar endTime;
 	private JTextArea descriptionTextArea;
 	private JLabel errorMessageRoom;
 	private HashMap<JTextField, Boolean> fields;
@@ -522,11 +522,11 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(toTimeLabel, gbc_toTimeLabel);
 			}
 			{
-				endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR_OF_DAY, 13);
-				endTime.set(Calendar.MINUTE, 0);
+				startTime = Calendar.getInstance();
+				startTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
+				startTime.set(Calendar.MINUTE, 0);
 				startTimePicker = new JSpinner();
-				startTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+				startTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 					public Object getNextValue() {
 						Date nextValue = (Date) super.getValue();
@@ -534,9 +534,10 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(77400000);
+						time.setTime(74000000);
+						System.out.println(calendar.getTimeInMillis());
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 840);
+							calendar.add(Calendar.MINUTE, 920);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
@@ -551,9 +552,9 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(45000000);
+						time.setTime(53000000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -840);
+							calendar.add(Calendar.MINUTE, -920);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}
@@ -574,11 +575,11 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(startTimePicker, gbc_startTimePicker);
 			}
 			{
-				startTime = Calendar.getInstance();
-				startTime.set(Calendar.HOUR_OF_DAY, 13);
-				startTime.set(Calendar.MINUTE, 0);
+				endTime = Calendar.getInstance();
+				endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
+				endTime.set(Calendar.MINUTE, 30);
 				endTimePicker = new JSpinner();
-				endTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
+				endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
 					public Object getNextValue() {
 						Date nextValue = (Date) super.getValue();
@@ -586,9 +587,9 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(77400000);
+						time.setTime(82800000);
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 840);
+							calendar.add(Calendar.MINUTE, 920);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
@@ -602,9 +603,9 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(45000000);
+						time.setTime(53000000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -840);
+							calendar.add(Calendar.MINUTE, -920);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}
