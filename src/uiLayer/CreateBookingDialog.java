@@ -724,7 +724,7 @@ public class CreateBookingDialog extends JDialog {
 		String errorMessage = "Interference with the following booking(s):";
 		boolean bookingInterference = false;
 		for (Room r : selectedRooms) {
-			String roomCheck = bookingController.checkAvailability(null, null, r);
+			String roomCheck = bookingController.checkAvailability(getStartTime(), getEndTime(), r);
 			if (!roomCheck.equals("")) {
 				errorMessage += ("\n" + roomCheck);
 				bookingInterference = true;
@@ -746,9 +746,6 @@ public class CreateBookingDialog extends JDialog {
 			for (Room e : selectedRooms) {
 				listModel.addElement(e);
 			}
-			
-			
-			
 			for (int e = 0; e < comboBox.getItemCount(); e++)
 			{
 				
@@ -758,9 +755,7 @@ public class CreateBookingDialog extends JDialog {
 					break;
 				}
 			}
-			
 		}
-
 	}
 
 	private void removeSelectedRoom(Room room) {
@@ -813,15 +808,8 @@ public class CreateBookingDialog extends JDialog {
 							emailTextField.getText());
 				}
 
-				Date startDate = (Date)startTimePicker.getValue();
-				Date endDate = (Date)endTimePicker.getValue();
-				LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
-				LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
-				
-				LocalDate localDate = ((Date)datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-				LocalDateTime startDateTime = LocalDateTime.of(localDate, bookingStartTime);
-				LocalDateTime endDateTime = LocalDateTime.of(localDate, bookingEndTime);
+				LocalDateTime startDateTime = getStartTime();
+				LocalDateTime endDateTime = getEndTime();
 								
 				if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
 						contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms,
@@ -837,5 +825,23 @@ public class CreateBookingDialog extends JDialog {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	private LocalDateTime getStartTime()
+	{
+		Date startDate = (Date)startTimePicker.getValue();
+		LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
+		LocalDate localDate = ((Date)datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		return LocalDateTime.of(localDate, bookingStartTime);
+	}
+	
+	private LocalDateTime getEndTime()
+	{
+		Date endDate = (Date)endTimePicker.getValue();
+		LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
+		LocalDate localDate = ((Date)datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		return LocalDateTime.of(localDate, bookingEndTime);
 	}
 }
