@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
+import config.Config;
 import controlLayer.BookingController;
 import modelLayer.Booking;
 import modelLayer.Room;
@@ -38,6 +39,7 @@ public class BookingPanel extends JPanel {
 	private JCalendar calendar;
 	private User loggedUser;
 	private JComboBox<Room> comboBox;
+	private Config config;
 	
 	/**
 	 * Create the panel.
@@ -45,6 +47,7 @@ public class BookingPanel extends JPanel {
 	 */
 	public BookingPanel(User user) throws SQLException {
 		this.loggedUser = user;
+		config = new Config();
 		
 		this.setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -150,14 +153,18 @@ public class BookingPanel extends JPanel {
 			public void intervalSelected(IntervalSelectionEvent event) {
 
 				try {
-					CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-					dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
-					dialog.setTitle("Create Booking - IHND Booking System");
-					//Centres the dialog
-					dialog.setLocationRelativeTo(null);
-					dialog.setVisible(true);
+					LocalDateTime bookingStart = event.getIntervalStart();
+					if ((bookingStart.isAfter(LocalDateTime.now()))&&(!bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursStart())))&&(bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursEnd()))))
+					{
+						CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
+						dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+						dialog.setTitle("Create Booking - IHND Booking System");
+						//Centres the dialog
+						dialog.setLocationRelativeTo(null);
+						dialog.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
