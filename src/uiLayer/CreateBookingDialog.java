@@ -535,14 +535,14 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 						
 						Date time = new Date();
-						time.setTime(74000000);
-						System.out.println(calendar.getTimeInMillis());
+						time.setTime(77400000);
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 960);
+							calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
+							calendar.set(Calendar.MINUTE, 00);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
-
+						
 						return calendar.getTime();
 					}
 
@@ -555,11 +555,11 @@ public class CreateBookingDialog extends JDialog {
 						Date time = new Date();
 						time.setTime(52200000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -960);
+							calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
+							calendar.set(Calendar.MINUTE, 00);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}
-
 						return calendar.getTime();
 					}
 				});
@@ -577,9 +577,8 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				endTime = Calendar.getInstance();
-				//TODO Fix the endTime. It say 23:30, it always adds the +30 mins
 				endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
-				endTime.set(Calendar.MINUTE, 30);
+				endTime.set(Calendar.MINUTE, 00);
 				endTimePicker = new JSpinner();
 				endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
 					@Override
@@ -589,9 +588,10 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(82800000);
+						time.setTime(77400000);
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 960);
+							calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
+							calendar.set(Calendar.MINUTE, 00);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
@@ -607,7 +607,8 @@ public class CreateBookingDialog extends JDialog {
 						Date time = new Date();
 						time.setTime(52200000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -960);
+							calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
+							calendar.set(Calendar.MINUTE, 00);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}
