@@ -108,14 +108,6 @@ public class BookingController
 					return false;
 				}
 				break;
-				/*
-				String[] writtenAndAllowed = information[1].split(" ");
-				if (Integer.parseInt(writtenAndAllowed[0]) <= Integer.parseInt(writtenAndAllowed[1]))
-				{
-					return false;
-				}
-				break;
-				*/
 			case "contactName":
 				if (information[1].length() > 25 || information[1].length() < 2)
 				{

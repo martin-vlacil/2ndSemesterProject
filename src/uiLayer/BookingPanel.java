@@ -168,14 +168,14 @@ public class BookingPanel extends JPanel {
 	
 	public void getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException
 	{
-		
+		calendar.removeAllEvents();
 		BookingController bc = new BookingController();
 		ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(currentDate);
 		for (Booking booking : bookings)
 		{
 			calendar.addCalendarEvent(booking);
 		}
-		calendar.removeAllEvents();
+		
 		
 	}
 	
