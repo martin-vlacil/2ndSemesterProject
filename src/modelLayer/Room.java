@@ -16,6 +16,8 @@ public class Room
 	//TODO Somehow keep them always the same color
 	private Color backgroundColor;
 	private Color foregroundColor;
+	private Color[] colors = new Color[] {new Color(40,41,82),new Color(214,65,65)};
+	
 	
 	public Room(String number, int capacity, String name, int id)
 	{
@@ -23,6 +25,11 @@ public class Room
 		this.capacity = capacity;
 		this.name = name;
 		this.id = id;
+		if (id != -1)
+			{
+				backgroundColor = colors[id-1];
+				foregroundColor = Color.WHITE;
+			}
 	}
 
 	/**
