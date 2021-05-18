@@ -17,28 +17,21 @@ package uiLayer.calendar;
 
 import uiLayer.BookingPanel;
 import uiLayer.events.*;
-import uiLayer.ui.ContentPanel;
-import uiLayer.ui.HeaderPanel;
-import uiLayer.ui.strategy.Config;
-import uiLayer.ui.strategy.DisplayStrategy;
-import uiLayer.ui.strategy.DisplayStrategy.Type;
-import uiLayer.util.EventCollectionRepository;
-import uiLayer.util.EventRepository;
+import uiLayer.ui.*;
+import uiLayer.ui.strategy.*;
+import uiLayer.util.*;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
-import modelLayer.Booking;
-import modelLayer.Room;
+import modelLayer.*;
 
 import javax.swing.*;
 
 import uiLayer.events.IntervalChangedEvent;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 

@@ -1,12 +1,8 @@
 package databaseLayer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-import modelLayer.Organization;
-import modelLayer.User;
+import modelLayer.*;
 import modelLayer.User.UserType;
 
 /**
