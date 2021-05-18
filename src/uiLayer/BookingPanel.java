@@ -183,7 +183,7 @@ public class BookingPanel extends JPanel {
 	public void getRoomsOfOneDay(LocalDate date) throws SQLException
 	{
 		BookingController bc = new BookingController();
-		bc.getRoomsOfOneDay(date);
+		bc.getBookingsOfOneDay(date);
 	}
 	
 	public Room getSelectedRoom()

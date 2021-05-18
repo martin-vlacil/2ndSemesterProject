@@ -18,14 +18,12 @@ public class BookingController
 	private RoomController roomCtr;
 	private LogEntryDBIF logEntryDB;
 	private BookingDBIF bookingDB;
-	private ArrayList<Booking> bookingsOnADay;
 
 	public BookingController() throws SQLException
 	{
 		roomCtr = new RoomController();
 		logEntryDB = new LogEntryDB();
 		bookingDB = new BookingDB();
-		bookingsOnADay = new ArrayList<>();
 	}
 	
 	
@@ -187,14 +185,14 @@ public class BookingController
 	{
 		//TODO Fix template "%s" signs
 		// what? ^
-		String problemTemplate = "Room %s is booked by %s from %s until %s. \n";
-		for (Booking booking : bookingsOnADay)
+		String problemTemplate = "\nRoom %s is booked by %s from %s until %s. \n";
+		for (Booking booking : getBookingsOfOneDay(startTime.toLocalDate()))
 		{
-			if (booking.getRoom().equals(room))
+			if (booking.getRoom().getId() == room.getId())
 			{
 				//TODO Separated the first 2 cases, didnt use "or", it is more readable 
 				//this way -- COMMENT TO THE OTHERS DELETE LATER ON
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 				String startTimeString = booking.getStartTime().format(formatter);
 				String endTimeString = booking.getEndTime().format(formatter);
 				String organization = booking.getCreatedBy().getOrganization().getName();
@@ -211,10 +209,15 @@ public class BookingController
 		return "";
 	}
 	
-	//TODO comment + explain why?
-	public void getRoomsOfOneDay(LocalDate date) throws SQLException
+	/**
+	 * Gives all bookings on a given day
+	 * @param date
+	 * @return list of all bookings on a given day
+	 * @throws SQLException
+	 */
+	public ArrayList<Booking> getBookingsOfOneDay(LocalDate date) throws SQLException
 	{
-		bookingsOnADay = bookingDB.getAllByDateOfOneDay(date);
+		return bookingDB.getAllByDateOfOneDay(date);
 	}
 	
 	
