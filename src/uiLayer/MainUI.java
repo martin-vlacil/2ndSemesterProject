@@ -325,9 +325,6 @@ public class MainUI extends JFrame {
 	{
 		logTextArea.setText("");
 		ArrayList<LogEntry> logs = new LogEntryDB().getLogs();
-		for(int i = 0; i < logs.size(); i++)
-		{
-			logTextArea.append(" -" + logs.get(i).getAction() + "\n");
-		}
+		logs.parallelStream().forEach(log -> logTextArea.append(" -" + log.getAction() + "\n"));
 	}
 }
