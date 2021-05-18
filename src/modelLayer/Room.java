@@ -16,6 +16,7 @@ public class Room
 	//TODO Somehow keep them always the same color
 	private Color backgroundColor;
 	private Color foregroundColor;
+	//This will be changed later on when developing Room CRUD
 	private Color[] colors = new Color[] {new Color(40,41,82),new Color(214,65,65)};
 	
 	
@@ -25,6 +26,8 @@ public class Room
 		this.capacity = capacity;
 		this.name = name;
 		this.id = id;
+
+		//This will be changed later on when developing Room CRUD
 		if (id != -1)
 			{
 				backgroundColor = colors[id-1];
