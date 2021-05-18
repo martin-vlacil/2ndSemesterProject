@@ -40,6 +40,11 @@ public class BookingController
 		boolean bookingConfirmed = true;
 		Booking booking = null;
 		
+		if (title.equals(""))
+		{
+			title = "Event by: " + contact.getOrganization().getName();
+		}
+		
 		for(Room room: selectedRooms)
 			try
 			{	
@@ -92,14 +97,18 @@ public class BookingController
 				}
 				break;
 				
-			/*
+			
 			case "attendees":
-				try {
+				try 
+				{
 					Integer.parseInt(information[1]);
-				}catch(Exception e)
+				}
+				catch(Exception e)
 				{
 					return false;
 				}
+				break;
+				/*
 				String[] writtenAndAllowed = information[1].split(" ");
 				if (Integer.parseInt(writtenAndAllowed[0]) <= Integer.parseInt(writtenAndAllowed[1]))
 				{

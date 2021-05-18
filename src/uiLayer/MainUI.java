@@ -330,7 +330,5 @@ public class MainUI extends JFrame {
 		{
 			logTextArea.append(" -" + logs.get(i).getAction() + "\n");
 		}
-		
-		System.out.println("Get here too!");
 	}
 }

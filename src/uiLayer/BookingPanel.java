@@ -175,6 +175,7 @@ public class BookingPanel extends JPanel {
 		{
 			calendar.addCalendarEvent(booking);
 		}
+		calendar.removeAllEvents();
 		
 	}
 	
@@ -188,5 +189,10 @@ public class BookingPanel extends JPanel {
 	public Room getSelectedRoom()
 	{
 		return ((Room)comboBox.getSelectedItem());
+	}
+	
+	public User getUser()
+	{
+		return loggedUser;
 	}
 }

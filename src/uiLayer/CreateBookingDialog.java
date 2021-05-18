@@ -194,6 +194,8 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				organizationDropDownPlaceholder = new JTextField();
+				organizationDropDownPlaceholder.setText(bookingPanel.getUser().getOrganization().getName());
+				organizationDropDownPlaceholder.setEditable(false);
 				formatTextField(organizationDropDownPlaceholder);
 				GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
 				gbc_organizationDropDownPlaceholder.insets = new Insets(0, 0, 5, 5);
@@ -826,9 +828,7 @@ public class CreateBookingDialog extends JDialog {
 						startDateTime, endDateTime)) {
 					bookingPanel.getAllBookingsForAWeek(startDateTime);
 					MainUI.updateLog();
-					System.out.println("Here");
 					dispose();
-					System.out.println("Passed dispoal");
 				} else {
 					JOptionPane.showMessageDialog(null, "Failed to confirm your booking.", "Failed confirmation",
 							JOptionPane.WARNING_MESSAGE);
