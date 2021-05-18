@@ -533,12 +533,12 @@ public class CreateBookingDialog extends JDialog {
 						Date nextValue = (Date) super.getValue();
 						Calendar calendar = Calendar.getInstance();
 						calendar.setTime(nextValue);
-
+						
 						Date time = new Date();
 						time.setTime(74000000);
 						System.out.println(calendar.getTimeInMillis());
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 920);
+							calendar.add(Calendar.MINUTE, 960);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
@@ -553,9 +553,9 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(53000000);
+						time.setTime(52200000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -920);
+							calendar.add(Calendar.MINUTE, -960);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}
@@ -577,7 +577,8 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				endTime = Calendar.getInstance();
-				endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
+				//TODO Fix the endTime. It say 23:30, it always adds the +30 mins
+				endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
 				endTime.set(Calendar.MINUTE, 30);
 				endTimePicker = new JSpinner();
 				endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY) {
@@ -590,7 +591,7 @@ public class CreateBookingDialog extends JDialog {
 						Date time = new Date();
 						time.setTime(82800000);
 						if (calendar.getTime().after(time)) {
-							calendar.add(Calendar.MINUTE, 920);
+							calendar.add(Calendar.MINUTE, 960);
 						} else {
 							calendar.add(Calendar.MINUTE, 30);
 						}
@@ -604,9 +605,9 @@ public class CreateBookingDialog extends JDialog {
 						calendar.setTime(nextValue);
 
 						Date time = new Date();
-						time.setTime(53000000);
+						time.setTime(52200000);
 						if (calendar.getTime().before(time)) {
-							calendar.add(Calendar.MINUTE, -920);
+							calendar.add(Calendar.MINUTE, -960);
 						} else {
 							calendar.add(Calendar.MINUTE, -30);
 						}

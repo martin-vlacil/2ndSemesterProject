@@ -35,14 +35,10 @@ public class DBConnection
 				SERVER_ADDRESS, SERVER_PORT, DATABASE_NAME, USER_NAME, PASSWORD);
 		try 
 		{
-			System.out.println("Connection string is: " + connectionString.substring(0, connectionString.length() - PASSWORD.length()) + "....");
 			connection = DriverManager.getConnection(connectionString);
-			System.out.println("Connected");
 		}
 		catch (SQLException e) 
 		{
-			System.err.println("Could not connect to database " + DATABASE_NAME + "@" + SERVER_ADDRESS + ":" + SERVER_PORT + " as user " + USER_NAME + " using password ******");
-			System.out.println("Connection string was: " + connectionString.substring(0, connectionString.length() - PASSWORD.length()) + "....");
 			e.printStackTrace();
 		}
 	}
