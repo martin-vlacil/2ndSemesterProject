@@ -19,9 +19,11 @@ import uiLayer.events.SelectionChangedListener;
 
 public class NewIndexedEventCollection implements EventCollection {
 
-	private final MultiValuedMap<LocalDate, Booking> indexedEvents;
+	//XXX removed final property
+	private MultiValuedMap<LocalDate, Booking> indexedEvents;
     private final List<SelectionChangedListener> selectionChangedListeners;
-    private final Set<Booking> selectedEvents;
+	//XXX removed final property
+    private Set<Booking> selectedEvents;
     private final JCalendar parent;
 	
     public NewIndexedEventCollection(final JCalendar parent) {
@@ -62,6 +64,17 @@ public class NewIndexedEventCollection implements EventCollection {
             remove(calendarEvent);
         }
 	}
+	
+	//XXX added method
+	@Override
+	public void removeAllEvents() {
+		selectedEvents = new HashSet<Booking>();
+		indexedEvents = new ArrayListValuedHashMap<LocalDate, Booking>();
+		
+		
+	}
+	
+	
 
 	@Override
 	public void addSelected(Booking event) {

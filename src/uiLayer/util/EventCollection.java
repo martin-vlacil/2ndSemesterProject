@@ -37,6 +37,9 @@ public interface EventCollection {
 	void remove(Booking event);
 
     void removeAll(List<Booking> calendarEventList);
+    
+    //XXX added
+    void removeAllEvents();
 
 	void addSelected(Booking event);
 

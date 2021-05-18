@@ -190,6 +190,7 @@ public class JCalendar extends JPanel {
                 //XXX New code
                 try 
                 {
+                	removeAllEvents();
 					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
 				} 
                 catch (SQLException e1) 
@@ -217,7 +218,9 @@ public class JCalendar extends JPanel {
                 //XXX New code
                 try 
                 {
+                	removeAllEvents();
 					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
+					
 				} 
                 catch (SQLException e1) 
                 {
@@ -375,6 +378,16 @@ public class JCalendar extends JPanel {
         validate();
         repaint();
     }
+    
+    
+    
+
+    //XXX Added
+      public void removeAllEvents() {
+          EventCollectionRepository.get(this).removeAllEvents();
+          validate();
+          repaint();
+      }
 
     /**
      * @return

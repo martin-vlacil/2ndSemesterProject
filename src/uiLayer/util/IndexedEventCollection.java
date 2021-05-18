@@ -34,7 +34,8 @@ import java.util.*;
 /**
  * @author theodorcostache
  */
-class IndexedEventCollection extends Observable implements Observer, EventCollection {
+//XXX Made it to abstract so it wont complain anymore
+abstract class IndexedEventCollection extends Observable implements Observer, EventCollection {
 
     private final MultiHashMap indexedEvents;
     //private final List<ModelChangedListener> collectionChangedListeners;
