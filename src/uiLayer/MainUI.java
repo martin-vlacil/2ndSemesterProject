@@ -35,6 +35,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
 
@@ -254,7 +255,7 @@ public class MainUI extends JFrame {
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
 		logTextArea.setForeground(Color.WHITE);
-		logTextArea.setFont(config.getLabelTitleFont()); //TODO - config
+		logTextArea.setFont(new Font("Dialog", Font.BOLD, 13)); //TODO - config
 		logTextArea.setEditable(false);
 		logTextArea.setBackground(config.getBlueColorDefault());
 		
@@ -278,6 +279,8 @@ public class MainUI extends JFrame {
 		mainPanel.add(bookingPanel, "Bookings");
 		formatSelectedSidebarButton(bookingButton);
 		selectedPageButton = bookingButton;
+		
+		updateLog();
 	}
 
 	private void selectPage(String page)
@@ -320,10 +323,14 @@ public class MainUI extends JFrame {
 	
 	public static void updateLog() throws SQLException
 	{
-		LogEntry[] logDB = new LogEntryDB().getLogs();
-		for(int i = 0; i < logDB.length; i++)
+		logTextArea.setText("");
+		ArrayList<LogEntry> logs = new LogEntryDB().getLogs();
+		System.out.println(logs.size());
+		for(int i = 0; i < logs.size(); i++)
 		{
-			logTextArea.append(logDB[i].getAction() + "\n");
+			logTextArea.append(" -" + logs.get(i).getAction() + "\n");
 		}
+		
+		System.out.println("Get here too!");
 	}
 }

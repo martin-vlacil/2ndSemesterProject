@@ -65,7 +65,6 @@ public class CreateBookingDialog extends JDialog {
 	private User user;
 	private JComboBox<Room> comboBox;
 	private ArrayList<Room> selectedRooms;
-	private ArrayList<Room> allRooms;
 	private BookingPanel bookingPanel;
 	private BookingController bookingController;
 	private JTextField titleTextField;
@@ -101,6 +100,7 @@ public class CreateBookingDialog extends JDialog {
 		bookingController = new BookingController();
 		this.user = user;
 		selectedRooms = new ArrayList<>();
+		
 
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
@@ -387,9 +387,10 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(roomLabel, gbc_roomLabel);
 			}
 			{
-				allRooms = new ArrayList<Room>();
+				ArrayList<Room> allRooms = new ArrayList<Room>();
 				try {
 					allRooms = new BookingController().getAllRooms();
+					
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -417,6 +418,7 @@ public class CreateBookingDialog extends JDialog {
 				gbc_comboBox.gridx = 1;
 				gbc_comboBox.gridy = 5;
 				rightPanel.add(comboBox, gbc_comboBox);
+
 			}
 			{
 				listModel = new DefaultListModel<>();
@@ -439,6 +441,8 @@ public class CreateBookingDialog extends JDialog {
 				gbc_list.gridy = 4;
 				gbc_list.gridheight = 3;
 				rightPanel.add(listOfSelectedRooms, gbc_list);
+				
+				addSelectedRoom(bookingPanel.getSelectedRoom());
 			}
 			{
 				JLabel dateLabel = new JLabel("Date");
@@ -740,9 +744,19 @@ public class CreateBookingDialog extends JDialog {
 			for (Room e : selectedRooms) {
 				listModel.addElement(e);
 			}
-
-			allRooms.remove(room);
-			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
+			
+			
+			
+			for (int e = 0; e < comboBox.getItemCount(); e++)
+			{
+				
+				if (comboBox.getItemAt(e).getId() == room.getId())
+				{
+					comboBox.removeItem(comboBox.getItemAt(e));
+					break;
+				}
+			}
+			
 		}
 
 	}
@@ -754,8 +768,7 @@ public class CreateBookingDialog extends JDialog {
 			for (Room e : selectedRooms) {
 				listModel.addElement(e);
 			}
-			allRooms.add(room);
-			comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
+			comboBox.addItem(room);
 		}
 	}
 
@@ -813,7 +826,9 @@ public class CreateBookingDialog extends JDialog {
 						startDateTime, endDateTime)) {
 					bookingPanel.getAllBookingsForAWeek(startDateTime);
 					MainUI.updateLog();
+					System.out.println("Here");
 					dispose();
+					System.out.println("Passed dispoal");
 				} else {
 					JOptionPane.showMessageDialog(null, "Failed to confirm your booking.", "Failed confirmation",
 							JOptionPane.WARNING_MESSAGE);
