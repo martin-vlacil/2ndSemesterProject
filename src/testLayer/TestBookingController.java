@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 import controlLayer.*;
 
 import databaseLayer.BookingDBStub;
-
+import databaseLayer.LogEntryDBStub;
 import modelLayer.*;
 import modelLayer.User.UserType;
 
@@ -20,6 +20,7 @@ class TestBookingController
 	BookingController bookingCtr;
 	RoomController roomCtr;
 	BookingDBStub bookingDBStub;
+	LogEntryDBStub logEntryDBStub;
 	
 	LocalDateTime startTime;
 	LocalDateTime endTime;
@@ -63,7 +64,7 @@ class TestBookingController
 	{
 		//Arrange
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub);
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, shortUser, selectedRooms, startTime, endTime);
@@ -86,7 +87,7 @@ class TestBookingController
 	{
 		//Arrange
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub);
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, longUser, selectedRooms, startTime, endTime);
