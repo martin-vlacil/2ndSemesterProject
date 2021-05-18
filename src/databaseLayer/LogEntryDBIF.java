@@ -2,6 +2,7 @@ package databaseLayer;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import modelLayer.LogEntry;
 
@@ -21,8 +22,8 @@ public interface LogEntryDBIF
 	
 	/**
 	 * This method gets the latest 25 logs of major actions in the system
-	 * @return array of 25 log entries
+	 * @return arrayList of 25 log entries
 	 * @throws SQLException
 	 */
-	LogEntry[] getLogs() throws SQLException;
+	ArrayList<LogEntry>  getLogs() throws SQLException;
 }

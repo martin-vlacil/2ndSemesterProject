@@ -59,7 +59,10 @@ public class BookingController
 					bookingConfirmed = false;
 				}
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				logEntryDB.create(createdBy.getName() + " has booked " + room.getName() + " on " + selectedStartTime.format(formatter), LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
+				logEntryDB.create(createdBy.getName() + " from " + createdBy.getOrganization().getName() + " has booked " 
+				+ room.getName().substring(0,1).toUpperCase() + room.getName().substring(1).toLowerCase() + " on "
+						+ selectedStartTime.format(formatter), LocalDateTime.now()); 
+				//TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
 				
 				DBConnection.getInstance().commitTransaction();
 			}

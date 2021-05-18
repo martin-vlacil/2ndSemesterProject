@@ -37,6 +37,7 @@ public class BookingPanel extends JPanel {
 
 	private JCalendar calendar;
 	private User loggedUser;
+	private JComboBox<Room> comboBox;
 	
 	/**
 	 * Create the panel.
@@ -84,7 +85,7 @@ public class BookingPanel extends JPanel {
 		
 		ArrayList<Room> allRooms = new BookingController().getAllRooms();
 		allRooms.add(0, new Room("", -1, " Select...", -1));
-		JComboBox<Room> comboBox = new JComboBox<Room>();
+		comboBox = new JComboBox<Room>();
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (((Room)comboBox.getSelectedItem()).getName() != " Select...")
@@ -172,7 +173,6 @@ public class BookingPanel extends JPanel {
 		ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(currentDate);
 		for (Booking booking : bookings)
 		{
-			System.out.println(booking.getTitle());
 			calendar.addCalendarEvent(booking);
 		}
 		
@@ -183,5 +183,10 @@ public class BookingPanel extends JPanel {
 	{
 		BookingController bc = new BookingController();
 		bc.getRoomsOfOneDay(date);
+	}
+	
+	public Room getSelectedRoom()
+	{
+		return ((Room)comboBox.getSelectedItem());
 	}
 }
