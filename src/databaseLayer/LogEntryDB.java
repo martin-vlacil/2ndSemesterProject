@@ -19,7 +19,7 @@ public class LogEntryDB implements LogEntryDBIF
 	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?)");
 	private PreparedStatement sqlInsertLogEntry;
 
-	private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP ? * FROM Log ORDER BY [date] DESC");
+	private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP (?) * FROM Log ORDER BY [date] DESC");
 	private PreparedStatement sqlSelectLatestLogs;
 	
 	public LogEntryDB() throws SQLException
@@ -27,7 +27,6 @@ public class LogEntryDB implements LogEntryDBIF
 		connection = DBConnection.getInstance().getConnection();
 		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
 		sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);
-		sqlSelectLatestLogs.setInt(1, new Config().getLogEntryAmount());
 	}
 
 	@Override
@@ -49,6 +48,7 @@ public class LogEntryDB implements LogEntryDBIF
 		ArrayList<LogEntry> logEntries = new ArrayList<>();
 		
 		//sqlSelectLatestLogs.setInt(1, SELECT_LATEST_AMOUNT);
+		sqlSelectLatestLogs.setInt(1, new Config().getLogEntryAmount());
 		ResultSet resultSet = sqlSelectLatestLogs.executeQuery();
 		
 		while(resultSet.next())
