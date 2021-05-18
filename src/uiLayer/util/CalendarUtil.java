@@ -25,110 +25,8 @@ import modelLayer.Booking;
  * @author theodorcostache
  */
 public class CalendarUtil {
-
-	//XXX CHanged to FIt localDate and localDateTime
-    public static boolean isSameDay(final LocalDateTime date1, final LocalDateTime date2) {
-        return date1.toLocalDate().equals(date2.toLocalDate());
-    }
-
-    public static boolean isSameMonth(final Calendar c1, final Calendar c2) {
-        return c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
-    }
-
-    /**
-     * XXX changed Date to LocalDateTime
-     */
-    public static boolean isToday(final LocalDate date) {
-        /*final Calendar now = Calendar.getInstance();
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        now.set(Calendar.HOUR_OF_DAY, 0);
-        now.set(Calendar.MINUTE, 0);
-        now.set(Calendar.SECOND, 0);
-        now.set(Calendar.MILLISECOND, 0);
-
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        return calendar.getTime().equals(now.getTime());*/
-    	return date.equals(LocalDate.now());
-    }
-
-    public static Calendar copyCalendar(final Calendar calendar, final boolean stripTime) {
-        final Calendar c = Calendar.getInstance();
-        c.setTime(calendar.getTime());
-        if (stripTime) {
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0);
-        }
-        return c;
-    }
-
-    public static Calendar getCalendar(final Date date, final boolean stripTime) {
-        final Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        if (stripTime) {
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0);
-        }
-        return c;
-    }
-
-    public static Date createDate(final int year, final int month, final int day, final int hour,
-                                  final int minutes, final int seconds, final int miliseconds) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, day);
-        calendar.set(Calendar.MONTH, month - 1);
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.SECOND, seconds);
-        calendar.set(Calendar.MILLISECOND, miliseconds);
-        return calendar.getTime();
-    }
-
-    /**
-     * XXX changed Date to LocalDateTime
-    public static LocalDateTime stripTime(final LocalDateTime date) {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
-    }
-     */
-/*
- *      * XXX Deleted as part of the Util
-    public static LocalDate createInDays(final LocalDate from, final int amount) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(from);
-        cal.add(Calendar.DATE, amount);
-        return cal.getTime();
-    }
-
-    public static Date createInWeeks(final Date date, final int amount) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.WEEK_OF_YEAR, amount);
-        return cal.getTime();
-    }
-
-    public static Date createInMonths(final Date date, final int amount) {
-        final Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.MONTH, amount);
-        return cal.getTime();
-    }
-      */
+	
+	//XXX deleted unused methods
 
     /**
      * XXX changed from Date to LocalDate/LocalDateTime. gets localdatetime and provides all LocalDates between them.
@@ -245,23 +143,5 @@ public class CalendarUtil {
             }
         }
     }
-
-    //XXX delete this
-    /*
-    public static LocalDateTime deprecietad_roundDateToHalfAnHour(LocalDateTime date, boolean roundUp) {
-        Calendar c = getCalendar(date, false);
-        int time = c.get(Calendar.MINUTE);
-
-        if (time <= 30) {
-            c.set(Calendar.MINUTE, roundUp ? 30 : 0);
-        } else if (time > 30) {
-            c.set(Calendar.MINUTE, roundUp ? 0 : 30);
-            if(roundUp)
-            c.add(Calendar.HOUR, 1);
-        }
-        c.set(Calendar.SECOND,0);
-        c.set(Calendar.MILLISECOND,0);
-        return c.getTime();
-    }*/
 
 }

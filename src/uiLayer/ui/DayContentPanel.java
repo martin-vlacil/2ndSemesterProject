@@ -111,7 +111,7 @@ public class DayContentPanel extends JPanel {
                         e.getX(), e.getY()) : getNotMonthEvent(e.getX(),
                         e.getY());*/
             	//XXX CalendarEvent changed to Booking
-            	final Booking event = getNotMonthEvent(e.getX(), e.getY());
+            	final Booking event = getEvent(e.getX(), e.getY());
             	
                 if (e.getClickCount() == 1) {
 
@@ -167,7 +167,7 @@ public class DayContentPanel extends JPanel {
                         e.getX(), e.getY()) : getNotMonthEvent(e.getX(),
                         e.getY());*/
             	//XXX CalendarEvent changed to Booking
-            	final Booking event = getNotMonthEvent(e.getX(), e.getY());
+            	final Booking event = getEvent(e.getX(), e.getY());
                 if (event != null) {
                     startSelection = null;
                     endSelection = null;
@@ -355,9 +355,9 @@ public class DayContentPanel extends JPanel {
 	                        .darker().darker());
 	                int eventStart = 0;
 	
-	                final boolean isSameStartDay = CalendarUtil.isSameDay(
-	                		//XXX Changed from getStart() to getStartTime()
-	                        event.getStartTime(), owner.getDate().atStartOfDay());
+            		//XXX Changed from getStart() to getStartTime()
+	                //XXX Changed to use LocalDate funcitonality instead of external Util class
+	                final boolean isSameStartDay = event.getStartTime().toLocalDate().isEqual(owner.getDate());
 	                if (isSameStartDay)
 	                {
 	
@@ -368,7 +368,7 @@ public class DayContentPanel extends JPanel {
 	
 	                int eventYEnd = getHeight();
 	        		//XXX Changed from getEnd() to getEndTime()
-	                if (CalendarUtil.isSameDay(event.getEndTime(), owner.getDate().atStartOfDay()))
+	                if (event.getEndTime().toLocalDate().isEqual(owner.getDate()))
 	                {
 	                	//XXX Changed from getEnd() to getEndTime()
 	                    eventYEnd = CalendarUtil.secondsToPixels(event.getEndTime(),
@@ -401,8 +401,8 @@ public class DayContentPanel extends JPanel {
             }
         }
     }
-  //XXX CalendarEvent changed to Booking
-    private Booking getNotMonthEvent(final int x, final int y) {
+  //XXX CalendarEvent changed to Booking, changed name to getEvent from GetNonMonthEvent as month events are displayed differently in the legacy code.
+    private Booking getEvent(final int x, final int y) {
 
         final EventCollection eventsCollection = EventCollectionRepository
                 .get(owner.getOwner());
@@ -422,9 +422,9 @@ public class DayContentPanel extends JPanel {
                     continue;
 				*/
                 int eventYStart = 0;
-                final boolean isSameStartDay = CalendarUtil.isSameDay(
-                		//XXX Changed from getStart() to getStartTime()
-                        event.getStartTime(), owner.getDate().atStartOfDay());
+        		//XXX Changed from getStart() to getStartTime()
+                //XXX 
+                final boolean isSameStartDay = event.getStartTime().toLocalDate().isEqual(owner.getDate());
                 if (isSameStartDay) {
                     eventYStart = CalendarUtil.secondsToPixels(
                     		//XXX Changed from getStart() to getStartTime()
@@ -432,8 +432,9 @@ public class DayContentPanel extends JPanel {
                 }
 
                 int eventYEnd = getHeight();
-              //XXX Changed from getEnd() to getEndTime()
-                if (CalendarUtil.isSameDay(event.getEndTime(), owner.getDate().atStartOfDay())) {
+                //XXX Changed from getEnd() to getEndTime()
+                //XXX Changed to use built in funtionality inseat of CalendarUtil
+                if (event.getEndTime().toLocalDate().isEqual(owner.getDate())) {
                 	//XXX Changed from getEnd() to getEndTime()
                     eventYEnd = CalendarUtil.secondsToPixels(event.getEndTime(),
                             getHeight());
@@ -462,80 +463,4 @@ public class DayContentPanel extends JPanel {
         }
         return null;
     }
-    /* XXX disabled drawing view for month view
-    private void drawCalendarEventsMonth(final Graphics2D graphics2d) {
-
-        final EventCollection eventsCollection = EventCollectionRepository
-                .get(owner.getOwner());
-        final Collection<CalendarEvent> events = eventsCollection
-                .getEvents(owner.getDate());
-        int pos = 2;
-        if (events.size() > 0) {
-            final Config config = owner.getOwner().getConfig();
-            for (final CalendarEvent event : events) {
-                if (event.isHoliday())
-                    continue;
-                Color bgColor = event.getType().getBackgroundColor();
-                bgColor = bgColor == null ? config
-                        .getEventDefaultBackgroundColor() : bgColor;
-                Color fgColor = event.getType().getForegroundColor();
-                fgColor = fgColor == null ? config
-                        .getEventDefaultForegroundColor() : fgColor;
-                graphics2d.setColor(!event.isSelected() ? bgColor : bgColor
-                        .darker().darker());
-                graphics2d.fillRect(2, pos, getWidth() - 4, 15);
-
-                final String eventString = sdf.format(event.getStart()) + " "
-                        + sdf.format(event.getEnd()) + " " + event.getSummary();
-                int fontSize = Math.round(getHeight() * 0.5f);
-                fontSize = fontSize > 9 ? 9 : fontSize;
-
-                final Font font = new Font("Verdana", Font.BOLD, fontSize);
-                final FontMetrics metrics = graphics2d.getFontMetrics(font);
-                graphics2d.setFont(font);
-
-                graphics2d
-                        .setColor(!event.isSelected() ? fgColor : Color.white);
-                GraphicsUtil.drawTrimmedString(graphics2d, eventString, 6, pos
-                        + (13 / 2 + metrics.getHeight() / 2) - 2, getWidth());
-
-                pos += 17;
-            }
-        }
-    }
-
-    private CalendarEvent getEventForMonth(final int x, final int y) {
-
-        final EventCollection eventsCollection = EventCollectionRepository
-                .get(owner.getOwner());
-        final Collection<CalendarEvent> events = eventsCollection
-                .getEvents(owner.getDate());
-
-        int pos = 2;
-        if (events.size() > 0) {
-            for (final CalendarEvent event : events) {
-
-                if(event.isHoliday())
-                    continue;
-
-                final int rectXStart = 2;
-                final int rectYStart = pos;
-
-                final int rectWidth = getWidth() - 4;
-
-                final int rectHeight = 15;
-
-                final Rectangle r = new Rectangle(rectXStart, rectYStart,
-                        rectWidth, rectHeight);
-                if (r.contains(x, y)) {
-                    return event;
-                }
-
-                pos += 17;
-
-            }
-        }
-        return null;
-    }
-*/
 }

@@ -21,6 +21,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.time.LocalDate;
 
 import javax.swing.JPanel;
 
@@ -74,7 +75,7 @@ public class DayHeaderPanel extends JPanel {
 		JCalendar calendar = owner.getOwner();
 		Config config = calendar.getConfig();
 
-		final boolean isToday = CalendarUtil.isToday(owner.getDate());
+		final boolean isToday = owner.getDate().isEqual(LocalDate.now());
 		final Color bgColor = isToday ? config.getTodayHeaderBackgroundColor() : config.getDayHeaderBackgroundColor();
 		final Color fgColor = isToday ? config.getTodayHeaderForegroundColor() : config.getDayHeaderForegroundColor();
 
