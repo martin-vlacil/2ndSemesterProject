@@ -153,8 +153,13 @@ public class BookingPanel extends JPanel {
 			public void intervalSelected(IntervalSelectionEvent event) {
 
 				try {
+					
 					LocalDateTime bookingStart = event.getIntervalStart();
-					if ((bookingStart.isAfter(LocalDateTime.now()))&&(!bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursStart())))&&(bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursEnd()))))
+					//Check 1) if the booking start time is after current time 2) if booking start time is not before workinghours start and
+					// and 3) if booking start time is after working hours end
+					if ((bookingStart.isAfter(LocalDateTime.now()))&&
+							(!bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursStart())))&&
+							(bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursEnd()))))
 					{
 						CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
