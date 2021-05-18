@@ -44,6 +44,7 @@ class TestBookingController
 		bookingCtr = new BookingController();
 		roomCtr = new RoomController();
 		bookingDBStub = new BookingDBStub();
+		logEntryDBStub = new LogEntryDBStub();
 		
 		startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
 		endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
@@ -51,6 +52,7 @@ class TestBookingController
 		shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
 		longUser = new User(2, "ForSomeReasonVeryLongName", "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com", "+451234567891234", "Managing Marketer", UserType.DEFAULT, new Organization(2, "Bauhaus"));
 		selectedRooms = new ArrayList<>();
+
 	}
 	
 	@AfterEach
