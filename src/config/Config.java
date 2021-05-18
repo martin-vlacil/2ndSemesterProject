@@ -1,11 +1,8 @@
 package config;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
 
 /**
  * @author Group 1 dmai0920

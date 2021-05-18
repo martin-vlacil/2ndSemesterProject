@@ -51,6 +51,8 @@ import javax.swing.event.ListSelectionListener;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class CreateBookingDialog extends JDialog {
 
@@ -85,8 +87,8 @@ public class CreateBookingDialog extends JDialog {
 	private Calendar startTime;
 	private Calendar endTime;
 	private JTextArea descriptionTextArea;
-	private JLabel errorMessageRoom;
 	private HashMap<JTextField, Boolean> fields;
+	private JTextArea errorMessageRoom;
 
 	/**
 	 * Create the dialog.
@@ -217,9 +219,8 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				attendeesTextField = new JTextField();
-				attendeesTextField.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyTyped(KeyEvent e) {
+				attendeesTextField.addCaretListener(new CaretListener() {
+					public void caretUpdate(CaretEvent e) {
 						checkInformation(attendeesLabel, attendeesTextField);
 					}
 				});
@@ -342,7 +343,7 @@ public class CreateBookingDialog extends JDialog {
 			gbl_rightPanel.columnWidths = new int[] { 30, 0, 0, 30 };
 			gbl_rightPanel.rowHeights = new int[] { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
 			gbl_rightPanel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0 };
-			gbl_rightPanel.rowWeights = new double[] { 0.0, 0, 1.0, 0, 0, 0.0, 0, 0, 0, 0, 0, 0.0 };
+			gbl_rightPanel.rowWeights = new double[] { 0.0, 0, 1.0, 0, 0, 0.0, 0, 0, 0, 0, 1.0, 0.0 };
 			rightPanel.setLayout(gbl_rightPanel);
 			{
 				JLabel descriptionPanel = new JLabel("Description");
@@ -625,12 +626,17 @@ public class CreateBookingDialog extends JDialog {
 				rightPanel.add(endTimePicker, gbc_endTimePicker);
 			}
 			{
-				errorMessageRoom = new JLabel(" ");
+				errorMessageRoom = new JTextArea();
+				errorMessageRoom.setEditable(false);
+				errorMessageRoom.setLineWrap(true);
+				errorMessageRoom.setWrapStyleWord(true);
+				errorMessageRoom.setOpaque(false);
+				errorMessageRoom.setBorder(BorderFactory.createEmptyBorder());
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
-				errorMessageRoom.setBackground(new Color(255, 255, 255));
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
-				gbc_errorMessageRoom.anchor = GridBagConstraints.WEST;
+				gbc_errorMessageRoom.gridwidth = 2;
 				gbc_errorMessageRoom.insets = new Insets(0, 0, 5, 5);
+				gbc_errorMessageRoom.fill = GridBagConstraints.BOTH;
 				gbc_errorMessageRoom.gridx = 1;
 				gbc_errorMessageRoom.gridy = 10;
 				rightPanel.add(errorMessageRoom, gbc_errorMessageRoom);
@@ -727,7 +733,7 @@ public class CreateBookingDialog extends JDialog {
 		for (Room r : selectedRooms) {
 			String roomCheck = bookingController.checkAvailability(getStartTime(), getEndTime(), r);
 			if (!roomCheck.equals("")) {
-				errorMessage += ("\n" + roomCheck);
+				errorMessage += (roomCheck);
 				bookingInterference = true;
 			}
 		}

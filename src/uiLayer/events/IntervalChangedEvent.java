@@ -17,7 +17,6 @@ package uiLayer.events;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import uiLayer.calendar.JCalendar;
 import uiLayer.ui.strategy.DisplayStrategy.Type;

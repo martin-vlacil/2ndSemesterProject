@@ -17,8 +17,6 @@ package uiLayer.events;
 
 import java.util.EventListener;
 
-import uiLayer.events.IntervalChangedEvent;
-
 /**
  * 
  * @author theodorcostache

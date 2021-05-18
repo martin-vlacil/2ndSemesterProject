@@ -6,23 +6,13 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import controlLayer.BookingController;
-import controlLayer.RoomController;
-import databaseLayer.BookingDBIF;
+import controlLayer.*;
+
 import databaseLayer.BookingDBStub;
-import databaseLayer.RoomDB;
-import databaseLayer.RoomDBIF;
-import databaseLayer.UserDB;
-import databaseLayer.UserDBIF;
-import modelLayer.Booking;
-import modelLayer.Organization;
-import modelLayer.Room;
-import modelLayer.User;
+
+import modelLayer.*;
 import modelLayer.User.UserType;
 
 class TestBookingController
@@ -111,6 +101,15 @@ class TestBookingController
 		assertEquals(longUser, booking.getCreatedBy(), "User doesn't match");
 		assertEquals(selectedRooms.get(0), booking.getRoom(), "Room doesn't match");
 		assertEquals(15, booking.getNumberOfParticipants(),"Number of participants doesn't match");
+	}
+	
+	//CB2 - Booking cancelled
+	
+	
+	//CB3 - The room is chosen for illegal time interval
+	void shouldReturnANullRoomValueIfChosenInWrongTimeInterval()
+	{
+		
 	}
 	
 }

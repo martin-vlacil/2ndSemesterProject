@@ -3,7 +3,6 @@
  * ************************************************************************ */
 package uiLayer.events;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import uiLayer.calendar.JCalendar;
