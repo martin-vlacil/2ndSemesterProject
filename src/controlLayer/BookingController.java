@@ -58,9 +58,8 @@ public class BookingController
 				{
 					bookingConfirmed = false;
 				}
-				
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				logEntryDB.create(createdBy.getName() + " has booked the " + room.getName() + " on " + selectedStartTime.format(formatter), LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
+				logEntryDB.create(createdBy.getName() + " has booked " + room.getName() + " on " + selectedStartTime.format(formatter), LocalDateTime.now()); //TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
 				
 				DBConnection.getInstance().commitTransaction();
 			}
@@ -174,10 +173,16 @@ public class BookingController
 	}
 	*/
 	
-	//TODO Comment needed
+	/**
+	 * A method to check if a certain room is available for booking between start and end time
+	 * @param startTime, endTime, room
+	 * @return the error message
+	 * @throws SQLException
+	 */
 	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
 	{
 		//TODO Fix template "%s" signs
+		// what? ^
 		String problemTemplate = "Room %s is booked by %s from %s until %s. \n";
 		for (Booking booking : bookingsOnADay)
 		{
@@ -185,23 +190,24 @@ public class BookingController
 			{
 				//TODO Separated the first 2 cases, didnt use "or", it is more readable 
 				//this way -- COMMENT TO THE OTHERS DELETE LATER ON
-				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+				String startTimeString = booking.getStartTime().format(formatter);
+				String endTimeString = booking.getEndTime().format(formatter);
+				String organization = booking.getCreatedBy().getOrganization().getName();
 				//If the events starts before and ends meanwhile
-				if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
+				if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) return String.format(problemTemplate, room.getName(), organization, startTimeString, endTimeString);
 				//If the events starts meanwhile and ends after
-				else if(booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
+				else if(booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), organization, startTimeString, endTimeString);
 				//If the event starts and ends between the two timeslots
-				else if(booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
+				else if(booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) return String.format(problemTemplate, room.getName(), organization, startTimeString, endTimeString);
 				//If the event starts before the startTime and ends after the endTime
-				else if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), booking.getCreatedBy().getOrganization().getName(), booking.getStartTime().toString(), booking.getEndTime().toString());
+				else if(booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) return String.format(problemTemplate, room.getName(), organization, startTimeString, endTimeString);
 			}
 		}
-		
 		return "";
-		
 	}
 	
-	//TODO Comment needed
+	//TODO comment + explain why?
 	public void getRoomsOfOneDay(LocalDate date) throws SQLException
 	{
 		bookingsOnADay = bookingDB.getAllByDateOfOneDay(date);

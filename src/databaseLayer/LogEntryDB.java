@@ -37,7 +37,7 @@ public class LogEntryDB implements LogEntryDBIF
 		sqlInsertLogEntry.setString(1, action);
 		sqlInsertLogEntry.setTimestamp(2, Timestamp.valueOf(time));
 		
-		logEntryCreated = sqlInsertLogEntry.execute(INSERT_LOG_ENTRY);
+		logEntryCreated = sqlInsertLogEntry.execute();
 		
 		return logEntryCreated;
 	}

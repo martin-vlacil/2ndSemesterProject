@@ -453,7 +453,7 @@ public class CreateBookingDialog extends JDialog {
 				Calendar yesterday = Calendar.getInstance();
 				yesterday.add(Calendar.DATE, -1);
 				datePicker = new JSpinner(
-						new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH) {
+						new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH)/* {
 					@Override
 					public Object getNextValue() {
 						LocalDateTime bookingDate = LocalDateTime.ofInstant(yesterday.toInstant(), ZoneId.systemDefault());
@@ -483,7 +483,7 @@ public class CreateBookingDialog extends JDialog {
 						//TODO FIX the return
 						return datePicker.getModel().getPreviousValue();
 					}
-				});
+				}*/);
 				DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy");
 				datePicker.setEditor(dateEditor);
 				((DefaultEditor) datePicker.getEditor()).getTextField().setEditable(false);
@@ -798,12 +798,20 @@ public class CreateBookingDialog extends JDialog {
 							emailTextField.getText());
 				}
 
-				LocalDateTime bookingStartTime = LocalDateTime.ofInstant(startTime.toInstant(), ZoneId.systemDefault());
-				LocalDateTime bookingEndTime = LocalDateTime.ofInstant(endTime.toInstant(), ZoneId.systemDefault());
+				Date startDate = (Date)startTimePicker.getValue();
+				Date endDate = (Date)endTimePicker.getValue();
+				LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
+				LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
+				
+				LocalDate localDate = ((Date)datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+				LocalDateTime startDateTime = LocalDateTime.of(localDate, bookingStartTime);
+				LocalDateTime endDateTime = LocalDateTime.of(localDate, bookingEndTime);
+								
 				if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(),
 						contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms,
-						bookingStartTime, bookingEndTime)) {
-					bookingPanel.getAllBookingsForAWeek(bookingStartTime);
+						startDateTime, endDateTime)) {
+					bookingPanel.getAllBookingsForAWeek(startDateTime);
 					MainUI.updateLog();
 					dispose();
 				} else {

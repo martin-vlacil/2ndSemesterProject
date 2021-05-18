@@ -31,6 +31,7 @@ import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
@@ -46,7 +47,9 @@ public class DayContentPanel extends JPanel {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    //XXX Converting from date to local date time
+    //private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     private final DayPanel owner;
     private Point startSelection;
     private Point endSelection;
@@ -339,7 +342,7 @@ public class DayContentPanel extends JPanel {
                 */
             	//XXX added functionality for displaying only events for a certain room
             	JCalendar calendar = this.owner.getOwner();
-            	if ((calendar.getRoom().getId() == event.getRoom().getId()) || (calendar.getRoom() == null))
+            	if ((calendar.getRoom() == null) || (calendar.getRoom().getId() == event.getRoom().getId()))
             	{
 	                Color bgColor = event.getType().getBackgroundColor();
 	                bgColor = bgColor == null ? config
@@ -382,8 +385,8 @@ public class DayContentPanel extends JPanel {
 	                        / conflictingEventsSize - 2, eventYEnd - eventStart,
 	                        12, 12);
 	                //XXX Changed from getEnd() to getEndTime(), the getStart() to getStartTime() and the getSummary() to getTitle()
-	                final String eventString = sdf.format(event.getStartTime()) + " "
-	                        + sdf.format(event.getEndTime()) + " " + event.getTitle();
+	                final String eventString = formatter.format(event.getStartTime()) + " "
+	                        + formatter.format(event.getEndTime()) + " " + event.getTitle();
 	
 	                graphics2d.setFont(new Font("Verdana", Font.BOLD, 9));
 	                graphics2d

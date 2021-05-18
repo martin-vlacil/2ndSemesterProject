@@ -40,6 +40,8 @@ public class BookingDB implements BookingDBIF
 		sqlInsertBooking = connection.prepareStatement(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
 		sqlSelectBookingsByDate = connection.prepareStatement(SELECT_BOOKINGS_BY_DATE);
 		sqlSelectBookingsInTimeInterval = connection.prepareStatement(SELECT_BOOKINGS_IN_TIME_INTERVAL);
+		userDB = new UserDB();
+		roomCtr = new RoomController();
 	}
 
 	/*
@@ -64,7 +66,7 @@ public class BookingDB implements BookingDBIF
 		sqlInsertBooking.setInt(7, booking.getCreatedBy().getId());
 		sqlInsertBooking.setInt(8, booking.getRoom().getId());
 		
-		return sqlInsertBooking.execute(INSERT_BOOKING, Statement.RETURN_GENERATED_KEYS);
+		return (sqlInsertBooking.executeUpdate() > 0);
 	}
 	
 	@Override
@@ -95,17 +97,17 @@ public class BookingDB implements BookingDBIF
 
 		if(rs.wasNull())
 		{
+			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
+							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
+							user);
+		}
+		else
+		{
 			User contactUser = new User(rs.getString("contact_name"), contactEmail, rs.getString("contact_phone"));
 			
 			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
 							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
 							user, contactUser);
-		}
-		else
-		{
-			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
-							rs.getTimestamp("end_time").toLocalDateTime(), rs.getInt("number_of_participants"), roomCtr.findByID(rs.getInt("room_id")),
-							user);
 		}
 	}
 
