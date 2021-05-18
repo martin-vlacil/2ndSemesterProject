@@ -243,9 +243,10 @@ public class BookingController
 		return bookingDB.getAllByTimeInterval(startDate, endDate);	
 	}
 	
-	public void setStub(BookingDBIF bookingDB)
+	public void setStub(BookingDBIF bookingDB, LogEntryDBIF logEntryDB)
 	{
 		this.bookingDB = bookingDB;
+		this.logEntryDB = logEntryDB;
 	}
 	
 	

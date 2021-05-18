@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 import controlLayer.*;
 
 import databaseLayer.BookingDBStub;
-
+import databaseLayer.LogEntryDBStub;
 import modelLayer.*;
 import modelLayer.User.UserType;
 
@@ -20,6 +20,7 @@ class TestBookingController
 	BookingController bookingCtr;
 	RoomController roomCtr;
 	BookingDBStub bookingDBStub;
+	LogEntryDBStub logEntryDBStub;
 	
 	LocalDateTime startTime;
 	LocalDateTime endTime;
@@ -43,6 +44,7 @@ class TestBookingController
 		bookingCtr = new BookingController();
 		roomCtr = new RoomController();
 		bookingDBStub = new BookingDBStub();
+		logEntryDBStub = new LogEntryDBStub();
 		
 		startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
 		endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
@@ -50,6 +52,7 @@ class TestBookingController
 		shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
 		longUser = new User(2, "ForSomeReasonVeryLongName", "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com", "+451234567891234", "Managing Marketer", UserType.DEFAULT, new Organization(2, "Bauhaus"));
 		selectedRooms = new ArrayList<>();
+
 	}
 	
 	@AfterEach
@@ -63,7 +66,7 @@ class TestBookingController
 	{
 		//Arrange
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub);
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, shortUser, selectedRooms, startTime, endTime);
@@ -86,7 +89,7 @@ class TestBookingController
 	{
 		//Arrange
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub);
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, longUser, selectedRooms, startTime, endTime);

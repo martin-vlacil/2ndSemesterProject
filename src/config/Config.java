@@ -44,7 +44,7 @@ public class Config
 	private Border sidebarButtonBorder;
     private int workingHoursStart;
     private int workingHoursEnd;
-	
+	private final int logEntryAmount = 25;
 	public Config()
 	{
 		//TODO finish implementing these
@@ -79,6 +79,7 @@ public class Config
 		separatorColor = new Color(196, 196, 196);
 		selectedSidebarButtonColor = new Color(234, 234, 238);
 		labelDefaultForeground = Color.BLACK;
+		
 	    setWorkingHoursStart(15);
 	    setWorkingHoursEnd(23);
 		
@@ -351,6 +352,10 @@ public class Config
 
 	public void setWorkingHoursEnd(int workingHoursEnd) {
 		this.workingHoursEnd = workingHoursEnd;
+	}
+
+	public int getLogEntryAmount() {
+		return logEntryAmount;
 	}
 
 	

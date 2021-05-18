@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import config.Config;
 import modelLayer.LogEntry;
 
 /**
@@ -18,16 +19,15 @@ public class LogEntryDB implements LogEntryDBIF
 	private static final String INSERT_LOG_ENTRY = String.format("INSERT INTO Log VALUES(?, ?)");
 	private PreparedStatement sqlInsertLogEntry;
 
-	private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP 25 * FROM Log ORDER BY [date] DESC");
+	private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP ? * FROM Log ORDER BY [date] DESC");
 	private PreparedStatement sqlSelectLatestLogs;
-	
-	private final int SELECT_LATEST_AMOUNT = 25;
 	
 	public LogEntryDB() throws SQLException
 	{
 		connection = DBConnection.getInstance().getConnection();
 		sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
 		sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);
+		sqlSelectLatestLogs.setInt(1, new Config().getLogEntryAmount());
 	}
 
 	@Override
