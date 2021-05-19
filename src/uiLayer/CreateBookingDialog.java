@@ -749,10 +749,14 @@ public class CreateBookingDialog extends JDialog {
 	}
 
 	private void addSelectedRoom(Room room) {
-		if (!room.getName().equals(" Select...")) {
+		if (!room.getName().equals(" Select..."))
+		{
 			selectedRooms.add(room);
+			bookingController.addSelectedRoom(room);
+			this.checkInformation(attendeesLabel,attendeesTextField);
 			listModel.removeAllElements();
-			for (Room e : selectedRooms) {
+			for (Room e : selectedRooms)
+			{
 				listModel.addElement(e);
 			}
 			for (int e = 0; e < comboBox.getItemCount(); e++)
@@ -768,10 +772,14 @@ public class CreateBookingDialog extends JDialog {
 	}
 
 	private void removeSelectedRoom(Room room) {
-		if (selectedRooms.contains(room)) {
+		if (selectedRooms.contains(room))
+		{
 			selectedRooms.remove(room);
+			bookingController.removeSelectedRoom(room);
+			this.checkInformation(attendeesLabel,attendeesTextField);
 			listModel.removeAllElements();
-			for (Room e : selectedRooms) {
+			for (Room e : selectedRooms)
+			{
 				listModel.addElement(e);
 			}
 			comboBox.addItem(room);
