@@ -18,9 +18,11 @@ public class BookingController
 	private RoomController roomCtr;
 	private LogEntryDBIF logEntryDB;
 	private BookingDBIF bookingDB;
+	private ArrayList<Room> selectedRooms;
 
 	public BookingController() throws SQLException
 	{
+		selectedRooms = new ArrayList<>();
 		roomCtr = new RoomController();
 		logEntryDB = new LogEntryDB();
 		bookingDB = new BookingDB();
@@ -99,7 +101,23 @@ public class BookingController
 			case "attendees":
 				try 
 				{
-					if (!information[1].equals(""))	Integer.parseInt(information[1]);
+					if (!information[1].equals(""))
+					{
+						int attendees = Integer.parseInt(information[1]);
+						if (attendees == 0)
+						{
+							return false;
+						}
+						if (selectedRooms.isEmpty())
+						{
+							return true;
+						}
+						for (Room room: selectedRooms)
+						{
+							attendees -= room.getCapacity();
+						}
+						return attendees <= 0 ? true : false;
+					}
 				}
 				catch(Exception e)
 				{
@@ -247,6 +265,16 @@ public class BookingController
 	{
 		this.bookingDB = bookingDB;
 		this.logEntryDB = logEntryDB;
+	}
+	
+	public void addSelectedRoom(Room room)
+	{
+		selectedRooms.add(room);
+	}
+	
+	public void removeSelectedRoom(Room room)
+	{
+		selectedRooms.remove(room);
 	}
 	
 	
