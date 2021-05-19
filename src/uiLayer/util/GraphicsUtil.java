@@ -62,8 +62,9 @@ public class GraphicsUtil {
 				wordWidth = fm.stringWidth(word + " ");
 				textTrimmed = true;
 			}
+			//XXX EDITED, IT CAUSED BUGS FOR US
 			word = word.length() > 3 && textTrimmed ? word.substring(0, word.length() - 3) + "..."
-					: word.length() > 2 ? word : "";
+					: word.length() > 0 ? word : "";
 
 			if (textHeight + lineHeight > height) {
 				g.drawString("...", curX, curY);
