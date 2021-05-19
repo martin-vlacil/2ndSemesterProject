@@ -737,7 +737,14 @@ public class CreateBookingDialog extends JDialog {
 		errorMessageRoom.setVisible(false);
 		String errorMessage = "Interference with the following booking(s):";
 		boolean bookingInterference = false;
-		for (Room r : selectedRooms) {
+		if (selectedRooms.isEmpty())
+		{
+			errorMessage = "There are no rooms selected!";
+			bookingInterference = true;
+		}
+		
+		for (Room r : selectedRooms)
+		{
 			String roomCheck = bookingController.checkAvailability(getStartTime(), getEndTime(), r);
 			if (!roomCheck.equals("")) {
 				errorMessage += (roomCheck);
