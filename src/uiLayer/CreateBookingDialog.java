@@ -94,7 +94,6 @@ public class CreateBookingDialog extends JDialog {
 	 * Create the dialog.
 	 * 
 	 * @throws SQLException
-	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user, BookingPanel panel) throws SQLException {
 		this.bookingPanel = panel;
@@ -102,7 +101,6 @@ public class CreateBookingDialog extends JDialog {
 		bookingController = new BookingController();
 		this.user = user;
 		selectedRooms = new ArrayList<>();
-		
 
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
@@ -331,8 +329,7 @@ public class CreateBookingDialog extends JDialog {
 		{
 			rightPanel = new JPanel();
 			rightPanel.setPreferredSize(new Dimension(100, 100));
-			// TODO maybe add this to the config. idk
-			rightPanel.setBackground(Color.WHITE);
+			rightPanel.setBackground(config.getFrontPanelDefaultColor());
 			GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 			gbc_rightPanel.insets = new Insets(0, 0, 0, 20);
 			gbc_rightPanel.fill = GridBagConstraints.BOTH;

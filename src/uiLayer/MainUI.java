@@ -254,8 +254,8 @@ public class MainUI extends JFrame {
 		logTextArea = new JTextArea();
 		logTextArea.setWrapStyleWord(true);
 		logTextArea.setLineWrap(true);
-		logTextArea.setForeground(Color.WHITE);
-		logTextArea.setFont(new Font("Dialog", Font.BOLD, 13)); //TODO - config
+		logTextArea.setForeground(config.getFrontPanelDefaultColor());
+		logTextArea.setFont(config.getLabelTitleFont());
 		logTextArea.setEditable(false);
 		logTextArea.setBackground(config.getBlueColorDefault());
 		
@@ -306,7 +306,7 @@ public class MainUI extends JFrame {
 	
 	private void formatSidebarButton(JButton button)
 	{
-		button.setForeground(Color.WHITE);
+		button.setForeground(config.getButtonDefaultForeground());
 		button.setBackground(config.getBlueColorDefault());
 		button.setBorder(config.getSidebarButtonBorder());
 		button.setFocusable(false);

@@ -122,9 +122,12 @@ public class LoginDialog extends JDialog {
 		errorPanel.setBackground(Color.WHITE);
 		GridBagConstraints gbc_errorPanel = new GridBagConstraints();
 		gbc_errorPanel.insets = new Insets(0, 0, 5, 5);
+		gbc_errorPanel.anchor = GridBagConstraints.NORTH;
 		gbc_errorPanel.fill = GridBagConstraints.BOTH;
-		gbc_errorPanel.gridx = 1;
+		gbc_errorPanel.gridx = 0;
 		gbc_errorPanel.gridy = 1;
+		gbc_errorPanel.gridwidth = 3;
+		gbc_errorPanel.gridheight = 2;
 		mainPanel.add(errorPanel, gbc_errorPanel);
 		
 		JPanel errorFrame = new JPanel();

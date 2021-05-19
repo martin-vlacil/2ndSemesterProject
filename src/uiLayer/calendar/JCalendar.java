@@ -187,7 +187,6 @@ public class JCalendar extends JPanel {
 				} 
                 catch (SQLException e1) 
                 {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -215,7 +214,6 @@ public class JCalendar extends JPanel {
 				} 
                 catch (SQLException e1) 
                 {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
