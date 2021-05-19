@@ -29,9 +29,6 @@ class TestBookingController
 	User longUser;
 	ArrayList<Room> selectedRooms;
 	
-
-
-	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception
 	{
@@ -106,10 +103,11 @@ class TestBookingController
 		assertEquals(15, booking.getNumberOfParticipants(),"Number of participants doesn't match");
 	}
 	
-	//CB2 - Booking cancelled
+	//CB2 - Booking cancelled - Done Ad hoc instead
 	
 	
-	//CB3 - The entire booking interferes with a another booking
+	
+	//CB3 - TC1 The entire booking interferes with a another booking
 	@Test
 	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
 	{
@@ -128,4 +126,176 @@ class TestBookingController
 		assertTrue(problemTemplateLength > 0);
 	}
 	
+	//CB3 - TC2 The endTime is inside another event
+	@Test
+	void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);			
+		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
+		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 15, 0);
+		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 17, 0);
+		
+		//Act
+		String problemTemplate = bookingCtr.checkAvailability(startTime, endTime, room1);
+		int problemTemplateLength = problemTemplate.length();
+		
+		//Assert
+		assertTrue(problemTemplateLength > 0);
+	}
+	
+	//CB3 - TC3 The startTime is inside another event
+	@Test
+	void startTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		
+		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
+		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 17, 0);
+		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
+		
+		//Act
+		String problemTemplate = bookingCtr.checkAvailability(startTime, endTime, room1);
+		int problemTemplateLength = problemTemplate.length();
+		
+		//Assert
+		assertTrue(problemTemplateLength > 0);
+	}
+	
+	//CB4 - TC1 Event title is too long
+	@Test
+	void eventTitleLongerThan50CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "title";
+		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullary";
+		
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		
+		//Assert
+		assertFalse(checkValidity);
+	}
+	
+	//CB4 - TC2 contact name too long
+	@Test
+	void contactNameLongerThan25CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "contactName";
+		eventDetails[1] = "Mette Juul Thorhauge Søren";
+		
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		
+		//Assert
+		assertFalse(checkValidity);
+	}
+
+	//CB4 - TC3 contact name too short
+	@Test
+	void contactNameShorterThan2CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "contactName";
+		eventDetails[1] = "M";
+		
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		
+		//Assert
+		assertFalse(checkValidity);
+	}
+
+	//CB4 - TC4 phone number too long
+	@Test
+	void phoneNumberLongerThan15CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "phoneNumber";
+		eventDetails[1] = "+231343578493011";
+		
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		
+		//Assert
+		assertFalse(checkValidity);
+	}
+	
+	//CB4 - TC5 phone number shorter than 1
+	@Test
+	void phoneNumberShorterThan1ShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "phoneNumber";
+		eventDetails[1] = "";
+			
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+			
+		//Assert
+		assertFalse(checkValidity);
+	}
+	
+	//CB4 - TC6 email does not contain '@'
+	@Test
+	void emailWithoutAtSymbolShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "email";
+		eventDetails[1] = "homeaddress.dk";
+			
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+			
+		//Assert
+		assertFalse(checkValidity);
+	}
+
+	//CB4 - TC7 email longer than 100 characters
+	@Test
+	void emailLongerThan100CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "email";
+		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
+			
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+			
+		//Assert
+		assertFalse(checkValidity);
+	}
+	
+	//CB4 - TC8 email shorter than 2 characters
+	@Test
+	void emailShorterThan2CharactersShouldReturnFalse() throws SQLException
+	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		String[] eventDetails = new String[2];
+		eventDetails[0] = "email";
+		eventDetails[1] = "a";
+			
+		//Act
+		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+			
+		//Assert
+		assertFalse(checkValidity);
+	}
 }
