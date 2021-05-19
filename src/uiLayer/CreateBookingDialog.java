@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 
 import config.Config;
 import controlLayer.BookingController;
+import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
 
@@ -26,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -91,6 +93,7 @@ public class CreateBookingDialog extends JDialog {
 	private JTextArea descriptionTextArea;
 	private HashMap<JTextField, Boolean> fields;
 	private JTextArea errorMessageRoom;
+	private JButton saveButton;
 
 	/**
 	 * Create the dialog.
@@ -655,7 +658,7 @@ public class CreateBookingDialog extends JDialog {
 			buttonPane.setBackground(config.getBackGroundDefaultColor());
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton saveButton = new JButton("Save");
+				saveButton = new JButton("Save");
 				saveButton.setForeground(Color.WHITE);
 				saveButton.setBackground(config.getButtonColorSavedBackground());
 				saveButton.setBorder(config.getButtonSaveBorder());
@@ -688,9 +691,6 @@ public class CreateBookingDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-
-		// initializeHashMap();
-
 	}
 
 	public CreateBookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval, BookingPanel panel)
@@ -702,7 +702,77 @@ public class CreateBookingDialog extends JDialog {
 			datePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
 		}
 	}
-
+	
+	public CreateBookingDialog(Booking booking, BookingPanel panel) throws SQLException
+	{
+		this((booking.getContact() != null) ? booking.getContact() : booking.getCreatedBy(), panel);
+		//Fill fields
+		this.descriptionTextArea.setText(booking.getDescription());
+		this.titleTextField.setText(booking.getTitle());
+		this.attendeesTextField.setText(""+booking.getNumberOfParticipants());
+		this.organizationDropDownPlaceholder.setText(booking.getCreatedBy().getOrganization().getName());
+		//Disable left panel
+		for(Component component : leftPanel.getComponents()) {
+			if (component instanceof JTextField) {
+				((JTextField)component).setEditable(false);
+			}
+		}
+		//Disable right panel
+		for(Component component : rightPanel.getComponents()) {
+			if (component instanceof JTextArea) {
+				((JTextArea)component).setEditable(false);
+			}
+			else if (component instanceof JSpinner || component instanceof JComboBox || component instanceof JList) {
+				component.setVisible(false);
+			}
+		}
+		this.saveButton.setVisible(false);
+		
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		// Replace editable components with JTextFields (JSpinners, JComboBoxes)
+		JTextField selectedRoomField = new JTextField(booking.getRoom().getName());
+		selectedRoomField.setEditable(false);
+		formatTextField(selectedRoomField);
+		GridBagConstraints gbc_selectedRoomField = new GridBagConstraints();
+		gbc_selectedRoomField.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedRoomField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_selectedRoomField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectedRoomField.gridx = 1;
+		gbc_selectedRoomField.gridy = 5;
+		rightPanel.add(selectedRoomField, gbc_selectedRoomField);
+		
+		JTextField selectedDateField = new JTextField(dateFormatter.format(booking.getStartTime()));
+		selectedDateField.setEditable(false);
+		formatTextField(selectedDateField);
+		GridBagConstraints gbc_selectedDateField = new GridBagConstraints();
+		gbc_selectedDateField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectedDateField.anchor = GridBagConstraints.NORTH;
+		gbc_selectedDateField.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedDateField.gridx = 1;
+		gbc_selectedDateField.gridy = 7;
+		rightPanel.add(selectedDateField, gbc_selectedDateField);
+		
+		JTextField selectedStartTimeField = new JTextField(timeFormatter.format(booking.getStartTime()));
+		selectedStartTimeField.setEditable(false);
+		formatTextField(selectedStartTimeField);
+		GridBagConstraints gbc_selectedStartTimeField = new GridBagConstraints();
+		gbc_selectedStartTimeField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectedStartTimeField.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedStartTimeField.gridx = 1;
+		gbc_selectedStartTimeField.gridy = 9;
+		rightPanel.add(selectedStartTimeField, gbc_selectedStartTimeField);
+		
+		JTextField selectedEndTimeField = new JTextField(timeFormatter.format(booking.getEndTime()));
+		selectedEndTimeField.setEditable(false);
+		formatTextField(selectedEndTimeField);
+		GridBagConstraints gbc_selectedEndTimeField = new GridBagConstraints();
+		gbc_selectedEndTimeField.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedEndTimeField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_selectedEndTimeField.gridx = 2;
+		gbc_selectedEndTimeField.gridy = 9;
+		rightPanel.add(selectedEndTimeField, gbc_selectedEndTimeField);
+	}
 	/**
 	 * private void initializeHashMap() { fields = new HashMap<>();
 	 * 
