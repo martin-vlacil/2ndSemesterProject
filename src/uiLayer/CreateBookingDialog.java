@@ -788,12 +788,21 @@ public class CreateBookingDialog extends JDialog {
 
 	private boolean checkInformation(JLabel label, JTextField field) {
 		boolean informationCorrect = false;
-
-		if (bookingController.validateInformation(new String[] { label.getName(), field.getText() }) == false) {
-			label.setForeground(config.getErrorMessageColor());
-			field.setBorder(new LineBorder(config.getErrorMessageColor()));
+		Color returnedValue = bookingController.validateInformation(new String[] { label.getName(), field.getText() });
+		if (returnedValue == config.getErrorMessageColor()) {
+			label.setForeground(returnedValue);
+			field.setBorder(new LineBorder(returnedValue));
 			fields.put(field, false);
-		} else {
+		} 
+		else if(returnedValue == Color.orange)
+		{
+			label.setForeground(Color.yellow.darker());
+			field.setBorder(new LineBorder(Color.yellow.darker()));
+			fields.put(field, false);
+			informationCorrect = true;
+		}
+		else
+		{
 			label.setForeground(config.getLabelDefaultForeground());
 			field.setBorder(config.getTextFieldDefaultBorder());
 			fields.put(field, true);
