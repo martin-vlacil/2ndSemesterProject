@@ -49,7 +49,6 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.*;
 import javax.swing.text.JTextComponent;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -81,6 +80,7 @@ public class CreateBookingDialog extends JDialog {
 	private JTextField phoneTextField;
 	private JTextField emailTextField;
 	private JLabel titleLabel;
+	private JLabel titlePanelLabel;
 	private JLabel attendeesLabel;
 	private JLabel nameLabel;
 	private JLabel phoneLabel;
@@ -135,14 +135,14 @@ public class CreateBookingDialog extends JDialog {
 			gbl_titlePanel.rowWeights = new double[] { 0.0 };
 			titlePanel.setLayout(gbl_titlePanel);
 			{
-				JLabel titleLabel = new JLabel("Create Booking");
-				titleLabel.setForeground(new Color(255, 255, 255));
-				titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				titlePanelLabel = new JLabel("Create Booking");
+				titlePanelLabel.setForeground(new Color(255, 255, 255));
+				titlePanelLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				GridBagConstraints gbc_titleLabel = new GridBagConstraints();
 				gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
 				gbc_titleLabel.gridx = 0;
 				gbc_titleLabel.gridy = 0;
-				titlePanel.add(titleLabel, gbc_titleLabel);
+				titlePanel.add(titlePanelLabel, gbc_titleLabel);
 			}
 		}
 		{
@@ -729,12 +729,12 @@ public class CreateBookingDialog extends JDialog {
 			if (component instanceof JTextArea) {
 				((JTextArea)component).setEditable(false);
 			}
-			else if (component instanceof JSpinner || component instanceof JComboBox || component instanceof JList) {
+			else if (component instanceof JSpinner || component instanceof JComboBox || component instanceof JList || component instanceof JScrollPane) {
 				component.setVisible(false);
 			}
 		}
 		this.saveButton.setVisible(false);
-		
+		this.titlePanelLabel.setText("Viewing " + booking.getTitle());
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		// Replace editable components with JTextFields (JSpinners, JComboBoxes)
