@@ -805,6 +805,8 @@ public class CreateBookingDialog extends JDialog {
 		{
 			label.setForeground(returnedValue);
 			field.setBorder(new LineBorder(returnedValue));
+			label.setToolTipText("Number of attendees accedes room's capacity");
+			field.setToolTipText("Number of attendees accedes room's capacity");
 			fields.put(field, false);
 			informationCorrect = true;
 		}
@@ -812,6 +814,8 @@ public class CreateBookingDialog extends JDialog {
 		{
 			label.setForeground(config.getLabelDefaultForeground());
 			field.setBorder(config.getTextFieldDefaultBorder());
+			label.setToolTipText(null);
+			field.setToolTipText(null);
 			fields.put(field, true);
 			informationCorrect = true;
 		}
