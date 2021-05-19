@@ -80,11 +80,12 @@ public class DayContentPanel extends JPanel {
                 if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
                 //if (e.getButton() == MouseEvent.BUTTON1) {
                     if(startSelection == null || endSelection == null)
-                        return;
+                       return;
                     LocalDateTime startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(), getHeight());
                     LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(), getHeight());
                     EventRepository.get().triggerIntervalSelection(calendar,
                             startDate, endDate);
+                    System.out.println("Is inside");
                 }
             }
 
@@ -112,12 +113,10 @@ public class DayContentPanel extends JPanel {
                         e.getY());*/
             	//XXX CalendarEvent changed to Booking
             	final Booking event = getEvent(e.getX(), e.getY());
-            	
+                final EventCollection events = EventCollectionRepository
+                        .get(calendar);
                 if (e.getClickCount() == 1) {
-
-                    final EventCollection events = EventCollectionRepository
-                            .get(calendar);
-
+                	System.out.println("Inside 1 click");
                     if (!e.isControlDown()) {
                         events.clearSelected(event, true);
                     }
@@ -133,6 +132,16 @@ public class DayContentPanel extends JPanel {
                     calendar.validate();
                     calendar.repaint();
 
+                }
+                //XXX added new code to trigger view booking
+                else if (e.getClickCount() == 2)
+                {
+                	if (event != null)
+                	{
+                        calendar.validate();
+                        calendar.repaint();
+                		EventRepository.get().triggerIntervalSelection(calendar, event, event.getStartTime(), event.getEndTime());
+                	}
                 }
                 if (e.isPopupTrigger() && calendar.getPopupMenu() != null) {
                     calendar.getPopupMenu().show(DayContentPanel.this,

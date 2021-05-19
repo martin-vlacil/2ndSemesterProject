@@ -5,6 +5,7 @@ package uiLayer.events;
 
 import java.time.LocalDateTime;
 
+import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
 
 /**
@@ -16,6 +17,7 @@ public class IntervalSelectionEvent {
 	private JCalendar owner;
 	private LocalDateTime intervalStart;
 	private LocalDateTime intervalEnd;
+	private Booking booking;
 
 	/**
 	 * Creates a new instance of {@link IntervalSelectionEvent}
@@ -93,6 +95,14 @@ public class IntervalSelectionEvent {
 	public String toString() {
 		return "IntervalSelectionEvent [owner=" + owner + ", intervalStart=" + intervalStart + ", intervalEnd="
 				+ intervalEnd + "]";
+	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
 	}
 
 }

@@ -12,6 +12,8 @@ import modelLayer.User;
 import uiLayer.calendar.JCalendar;
 import uiLayer.events.IntervalSelectionEvent;
 import uiLayer.events.IntervalSelectionListener;
+import uiLayer.events.SelectionChangedEvent;
+import uiLayer.events.SelectionChangedListener;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -152,16 +154,31 @@ public class BookingPanel extends JPanel {
 			@Override
 			public void intervalSelected(IntervalSelectionEvent event) {
 
-				try {
-					
-					LocalDateTime bookingStart = event.getIntervalStart();
-					//Check 1) if the booking start time is after current time 2) if booking start time is not before workinghours start and
-					// and 3) if booking start time is after working hours end
-					if ((bookingStart.isAfter(LocalDateTime.now()))&&
-							(!bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursStart())))&&
-							(bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursEnd()))))
+				try
+				{
+					if (event.getBooking() == null)
 					{
-						CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
+						LocalDateTime bookingStart = event.getIntervalStart();
+						// Checking 1) if the booking start time is after current time 2) if booking start time is not before workinghours start and
+						// and 3) if booking start time is after working hours end
+						if ((bookingStart.isAfter(LocalDateTime.now()))&&
+								(!bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursStart())))&&
+								(bookingStart.isBefore(bookingStart.withHour(config.getWorkingHoursEnd()))))
+						{
+							CreateBookingDialog dialog = new CreateBookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(),panel);
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
+							dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+							dialog.setTitle("Create Booking - IHND Booking System");
+							//Centres the dialog
+							dialog.setLocationRelativeTo(null);
+							dialog.setVisible(true);
+						}
+					}
+					else
+					{
+						Booking booking = event.getBooking();
+						CreateBookingDialog dialog = new CreateBookingDialog(booking, panel);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 						dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
@@ -170,12 +187,22 @@ public class BookingPanel extends JPanel {
 						dialog.setLocationRelativeTo(null);
 						dialog.setVisible(true);
 					}
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
 		});
+		calendar.addSelectionChangedListener(new SelectionChangedListener()
+				{
+
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						System.out.println(event.getCalendarEvent().getTitle());
+					}
+			
+				});
 	}
 	
 	public void getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException

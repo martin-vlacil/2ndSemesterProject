@@ -6,6 +6,7 @@ package uiLayer.util;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
 import uiLayer.events.IntervalSelectionEvent;
 import uiLayer.events.IntervalSelectionListener;
@@ -49,6 +50,16 @@ public class EventRepository {
 		if (!intervalSelectionListeners.containsKey(owner))
 			return;
 		final IntervalSelectionEvent selectionEvent = new IntervalSelectionEvent(owner, start, end);
+		for (final IntervalSelectionListener listener : intervalSelectionListeners.get(owner)) {
+			listener.intervalSelected(selectionEvent);
+		}
+	}
+	//XXX added new trigger for accepting a booking action.
+	public void triggerIntervalSelection(final JCalendar owner, Booking booking, final LocalDateTime start, final LocalDateTime end) {
+		if (!intervalSelectionListeners.containsKey(owner))
+			return;
+		final IntervalSelectionEvent selectionEvent = new IntervalSelectionEvent(owner, start, end);
+		selectionEvent.setBooking(booking);
 		for (final IntervalSelectionListener listener : intervalSelectionListeners.get(owner)) {
 			listener.intervalSelected(selectionEvent);
 		}
