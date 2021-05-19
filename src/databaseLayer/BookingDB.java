@@ -29,9 +29,13 @@ public class BookingDB implements BookingDBIF
 					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) = ?");
 	private PreparedStatement sqlSelectBookingsByDate;
 	
-	private static final String SELECT_BOOKINGS_IN_TIME_INTERVAL = String.format("SELECT * FROM Booking \r\n"
-					+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ? \r\n"
-					+ "AND CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, end_time))) <= ?");
+	private static final String SELECT_BOOKINGS_IN_TIME_INTERVAL = String.format("SELECT title, description, start_time, end_time, number_of_participants, contact_email, [user_id], room_id, [User].first_name AS user_first_name, [User].last_name AS user_last_name, [User].email AS user_email, [User].phone AS user_phone, [User].position AS user_position, ContactPerson.[name] AS contact_name, ContactPerson.phone AS contact_phone FROM Booking  \r\n"
+			+ "LEFT JOIN [User] ON Booking.user_id = [User].id \r\n"
+			+ "LEFT JOIN ContactPerson ON Booking.contact_email = ContactPerson.email\r\n"
+			+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ? \r\n"
+			+ "AND CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, end_time))) <= ?"
+			);
+	
 	private PreparedStatement sqlSelectBookingsInTimeInterval;
 	
 	public BookingDB() throws SQLException
@@ -95,6 +99,7 @@ public class BookingDB implements BookingDBIF
 		
 		String contactEmail = rs.getString("contact_email");
 
+		
 		if(rs.wasNull())
 		{
 			return new Booking(rs.getString("title"), rs.getString("description"), rs.getTimestamp("start_time").toLocalDateTime(),
