@@ -178,7 +178,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC2 contact name too long
@@ -195,7 +195,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC3 contact name too short
@@ -212,7 +212,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC4 phone number too long
@@ -229,7 +229,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC5 phone number shorter than 1
@@ -246,7 +246,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC6 email does not contain '@'
@@ -263,7 +263,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC7 email longer than 100 characters
@@ -280,7 +280,7 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC8 email shorter than 2 characters
@@ -297,6 +297,6 @@ class TestBookingController
 		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity == Color.RED);
+		assertTrue(checkValidity == Color.RED);
 	}
 }

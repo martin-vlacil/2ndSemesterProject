@@ -119,7 +119,7 @@ public class BookingController
 						{
 							attendees -= room.getCapacity();
 						}
-						return attendees <= 0 ? Color.black : Color.orange;
+						return attendees <= 0 ? Color.black : new Color(244, 129, 34);
 					}
 				}
 				catch(Exception e)

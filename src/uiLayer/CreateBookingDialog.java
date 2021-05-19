@@ -801,10 +801,10 @@ public class CreateBookingDialog extends JDialog {
 			field.setBorder(new LineBorder(returnedValue));
 			fields.put(field, false);
 		} 
-		else if(returnedValue == Color.orange)
+		else if(returnedValue == new Color(244, 129, 34))
 		{
-			label.setForeground(Color.yellow.darker());
-			field.setBorder(new LineBorder(Color.yellow.darker()));
+			label.setForeground(returnedValue);
+			field.setBorder(new LineBorder(returnedValue));
 			fields.put(field, false);
 			informationCorrect = true;
 		}
