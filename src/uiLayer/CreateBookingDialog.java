@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import config.Config;
 import controlLayer.BookingController;
@@ -45,6 +46,7 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.*;
 import javax.swing.text.JTextComponent;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -629,16 +631,22 @@ public class CreateBookingDialog extends JDialog {
 				errorMessageRoom.setEditable(false);
 				errorMessageRoom.setLineWrap(true);
 				errorMessageRoom.setWrapStyleWord(true);
-				errorMessageRoom.setOpaque(false);
+				errorMessageRoom.setOpaque(true);
+				errorMessageRoom.setBackground(config.getFrontPanelDefaultColor());
 				errorMessageRoom.setBorder(BorderFactory.createEmptyBorder());
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
+				JScrollPane errorMessageScrollPane = new JScrollPane(errorMessageRoom);
+				errorMessageScrollPane.setBorder(BorderFactory.createEmptyBorder());
+				errorMessageScrollPane.setBackground(config.getFrontPanelDefaultColor());
+				errorMessageScrollPane.setOpaque(true);
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
 				gbc_errorMessageRoom.gridwidth = 2;
 				gbc_errorMessageRoom.insets = new Insets(0, 0, 5, 5);
 				gbc_errorMessageRoom.fill = GridBagConstraints.BOTH;
 				gbc_errorMessageRoom.gridx = 1;
 				gbc_errorMessageRoom.gridy = 10;
-				rightPanel.add(errorMessageRoom, gbc_errorMessageRoom);
+				gbc_errorMessageRoom.gridheight = 4;
+				rightPanel.add(errorMessageScrollPane, gbc_errorMessageRoom);
 			}
 		}
 		{
