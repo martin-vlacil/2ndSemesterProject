@@ -2,6 +2,7 @@ package testLayer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -174,10 +175,10 @@ class TestBookingController
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullary";
 		
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC2 contact name too long
@@ -191,10 +192,10 @@ class TestBookingController
 		eventDetails[1] = "Mette Juul Thorhauge Søren";
 		
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC3 contact name too short
@@ -208,10 +209,10 @@ class TestBookingController
 		eventDetails[1] = "M";
 		
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC4 phone number too long
@@ -225,10 +226,10 @@ class TestBookingController
 		eventDetails[1] = "+231343578493011";
 		
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 		
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC5 phone number shorter than 1
@@ -242,10 +243,10 @@ class TestBookingController
 		eventDetails[1] = "";
 			
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC6 email does not contain '@'
@@ -259,10 +260,10 @@ class TestBookingController
 		eventDetails[1] = "homeaddress.dk";
 			
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 
 	//CB4 - TC7 email longer than 100 characters
@@ -276,10 +277,10 @@ class TestBookingController
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
 			
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 	
 	//CB4 - TC8 email shorter than 2 characters
@@ -293,9 +294,9 @@ class TestBookingController
 		eventDetails[1] = "a";
 			
 		//Act
-		Boolean checkValidity = bookingCtr.validateInformation(eventDetails);
+		Color checkValidity = bookingCtr.validateInformation(eventDetails);
 			
 		//Assert
-		assertFalse(checkValidity);
+		assertFalse(checkValidity == Color.RED);
 	}
 }

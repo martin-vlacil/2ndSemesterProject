@@ -20,6 +20,7 @@ import config.Config;
 import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
+import modelLayer.User.UserType;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -180,6 +181,10 @@ public class MainUI extends JFrame {
 		
 		//User page button
 		usersButton = new JButton("Users");
+		if (loggedUser.getUserType() == UserType.DEFAULT)
+		{
+			usersButton.setVisible(false);
+		}
 		usersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectPage("Users");
@@ -197,6 +202,10 @@ public class MainUI extends JFrame {
 		
 		//Room page button
 		roomsButton = new JButton("Rooms");
+		if (loggedUser.getUserType() == UserType.DEFAULT)
+		{
+			roomsButton.setVisible(false);
+		}
 		roomsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectPage("Rooms");
@@ -215,6 +224,11 @@ public class MainUI extends JFrame {
 		
 		//Line that separates Pages section from Logs
 		JSeparator logSeparator = new JSeparator();
+
+		if (loggedUser.getUserType() == UserType.DEFAULT)
+		{
+			logSeparator.setVisible(false);
+		}
 		GridBagConstraints gbc_logSeparator = new GridBagConstraints();
 		gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
 		logSeparator.setForeground(config.getSeparatorColor());
@@ -227,6 +241,10 @@ public class MainUI extends JFrame {
 		sidebarPanel.add(logSeparator, gbc_logSeparator);
 		
 		JPanel logPanel = new JPanel();
+		if (loggedUser.getUserType() == UserType.DEFAULT)
+		{
+			logPanel.setVisible(false);
+		}
 		GridBagConstraints gbc_logPanel = new GridBagConstraints();
 		logPanel.setBackground(config.getBlueColorDefault());
 		gbc_logPanel.gridwidth = 3;

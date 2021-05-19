@@ -20,6 +20,7 @@ import controlLayer.BookingController;
 import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
+import modelLayer.User.UserType;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -200,6 +201,12 @@ public class CreateBookingDialog extends JDialog {
 			{
 				organizationDropDownPlaceholder = new JTextField();
 				organizationDropDownPlaceholder.setText(bookingPanel.getUser().getOrganization().getName());
+
+				if (user.getUserType() == UserType.DEFAULT || user.getUserType() == UserType.SUPER)
+				{
+					organizationDropDownPlaceholder.setEditable(false);
+				}
+				//TODO Make the dropdown for the admin user, so they can choose it. Until that time, it is disabled
 				organizationDropDownPlaceholder.setEditable(false);
 				formatTextField(organizationDropDownPlaceholder);
 				GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
