@@ -109,10 +109,23 @@ class TestBookingController
 	//CB2 - Booking cancelled
 	
 	
-	//CB3 - The room is chosen for illegal time interval
-	void shouldReturnANullRoomValueIfChosenInWrongTimeInterval()
+	//CB3 - The entire booking interferes with a another booking
+	@Test
+	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
 	{
+		//Arrange
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		
+		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
+		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 15, 0);
+		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
+		
+		//Act
+		String problemTemplate = bookingCtr.checkAvailability(startTime, endTime, room1);
+		int problemTemplateLength = problemTemplate.length();
+		
+		//Assert
+		assertTrue(problemTemplateLength > 0);
 	}
 	
 }

@@ -2,9 +2,14 @@ package databaseLayer;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import modelLayer.Booking;
+import modelLayer.Organization;
+import modelLayer.Room;
+import modelLayer.User;
+import modelLayer.User.UserType;
 
 public class BookingDBStub implements BookingDBIF {
 
@@ -21,9 +26,15 @@ public class BookingDBStub implements BookingDBIF {
 	}
 
 	@Override
-	public ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException 
+	{
+		ArrayList<Booking> bookings = new ArrayList<>();
+		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
+		User user = new User(1, "Bob", "bob@bob.bob", "+4512345678", "The builder", UserType.DEFAULT, new Organization(1, "Bob"));
+		Booking booking = new Booking("Test title", "Test desc", LocalDateTime.of(2021, 5, 5, 16, 0), LocalDateTime.of(2021,  5, 5, 21, 0), 15, room1, user);
+		bookings.add(booking);
+		
+		return bookings;
 	}
 
 	@Override
