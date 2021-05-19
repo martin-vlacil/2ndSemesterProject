@@ -1,10 +1,12 @@
 package controlLayer;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import config.Config;
 import databaseLayer.*;
 import modelLayer.*;
 
@@ -84,15 +86,16 @@ public class BookingController
 	 * @param information
 	 * @return true/false whether or not the information is correct
 	 */
-	public boolean validateInformation(String[] information)
+	public Color validateInformation(String[] information)
 	{
+		Config config = new Config();
 		//TODO maybe we can use smth fancy like hashmap? Also Regex at phonenumber and attendees
 		switch(information[0])
 		{
 			case "title":
 				if (information[1].length() > 50)
 				{
-					return false;
+					return config.getErrorMessageColor();
 				}
 				break;
 				
@@ -105,28 +108,29 @@ public class BookingController
 						int attendees = Integer.parseInt(information[1]);
 						if (attendees == 0)
 						{
-							return false;
+							return config.getErrorMessageColor();
 						}
+
 						if (selectedRooms.isEmpty())
 						{
-							return true;
+							return Color.pink;
 						}
 						for (Room room: selectedRooms)
 						{
 							attendees -= room.getCapacity();
 						}
-						return attendees <= 0 ? true : false;
+						return attendees <= 0 ? Color.black : Color.orange;
 					}
 				}
 				catch(Exception e)
 				{
-					return false;
+					return config.getErrorMessageColor();
 				}
 				break;
 			case "contactName":
 				if (information[1].length() > 25 || information[1].length() < 2)
 				{
-					return false;
+					return config.getErrorMessageColor();
 				}	
 				break;
 				
@@ -135,26 +139,28 @@ public class BookingController
 				{
 					if (!Character.isDigit(information[1].charAt(e))) 
 					{
-						return false;
+						return config.getErrorMessageColor();
 					}
 				}
 				if (information[1].length() > 15 || information[1].length() < 1)
 				{
-					return false;
+					return config.getErrorMessageColor();
 				}
 				break;
 				
 			case "email":
 				if (!information[1].contains("@") || information[1].length() > 100 || information[1].length() < 1)
 				{
-					return false;
+					return config.getErrorMessageColor();
 				}
 				break;
 				
-			default: return true;
+			default: return Color.black;
 		}
-		return true;
+		return Color.black;
 	}
+	
+	
 	
 	
 	
