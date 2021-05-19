@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import config.Config;
 import controlLayer.BookingController;
@@ -45,6 +46,7 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.*;
 import javax.swing.text.JTextComponent;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -94,7 +96,6 @@ public class CreateBookingDialog extends JDialog {
 	 * Create the dialog.
 	 * 
 	 * @throws SQLException
-	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user, BookingPanel panel) throws SQLException {
 		this.bookingPanel = panel;
@@ -102,7 +103,6 @@ public class CreateBookingDialog extends JDialog {
 		bookingController = new BookingController();
 		this.user = user;
 		selectedRooms = new ArrayList<>();
-		
 
 		setBounds(100, 100, 783, 502);
 		getContentPane().setLayout(new BorderLayout());
@@ -331,8 +331,7 @@ public class CreateBookingDialog extends JDialog {
 		{
 			rightPanel = new JPanel();
 			rightPanel.setPreferredSize(new Dimension(100, 100));
-			// TODO maybe add this to the config. idk
-			rightPanel.setBackground(Color.WHITE);
+			rightPanel.setBackground(config.getFrontPanelDefaultColor());
 			GridBagConstraints gbc_rightPanel = new GridBagConstraints();
 			gbc_rightPanel.insets = new Insets(0, 0, 0, 20);
 			gbc_rightPanel.fill = GridBagConstraints.BOTH;
@@ -632,16 +631,22 @@ public class CreateBookingDialog extends JDialog {
 				errorMessageRoom.setEditable(false);
 				errorMessageRoom.setLineWrap(true);
 				errorMessageRoom.setWrapStyleWord(true);
-				errorMessageRoom.setOpaque(false);
+				errorMessageRoom.setOpaque(true);
+				errorMessageRoom.setBackground(config.getFrontPanelDefaultColor());
 				errorMessageRoom.setBorder(BorderFactory.createEmptyBorder());
 				errorMessageRoom.setForeground(config.getErrorMessageColor());
+				JScrollPane errorMessageScrollPane = new JScrollPane(errorMessageRoom);
+				errorMessageScrollPane.setBorder(BorderFactory.createEmptyBorder());
+				errorMessageScrollPane.setBackground(config.getFrontPanelDefaultColor());
+				errorMessageScrollPane.setOpaque(true);
 				GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
 				gbc_errorMessageRoom.gridwidth = 2;
 				gbc_errorMessageRoom.insets = new Insets(0, 0, 5, 5);
 				gbc_errorMessageRoom.fill = GridBagConstraints.BOTH;
 				gbc_errorMessageRoom.gridx = 1;
 				gbc_errorMessageRoom.gridy = 10;
-				rightPanel.add(errorMessageRoom, gbc_errorMessageRoom);
+				gbc_errorMessageRoom.gridheight = 4;
+				rightPanel.add(errorMessageScrollPane, gbc_errorMessageRoom);
 			}
 		}
 		{
@@ -732,7 +737,14 @@ public class CreateBookingDialog extends JDialog {
 		errorMessageRoom.setVisible(false);
 		String errorMessage = "Interference with the following booking(s):";
 		boolean bookingInterference = false;
-		for (Room r : selectedRooms) {
+		if (selectedRooms.isEmpty())
+		{
+			errorMessage = "There are no rooms selected!";
+			bookingInterference = true;
+		}
+		
+		for (Room r : selectedRooms)
+		{
 			String roomCheck = bookingController.checkAvailability(getStartTime(), getEndTime(), r);
 			if (!roomCheck.equals("")) {
 				errorMessage += (roomCheck);

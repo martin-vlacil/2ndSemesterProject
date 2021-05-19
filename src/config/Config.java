@@ -22,6 +22,7 @@ public class Config
 	private Color redColorDefault;
 	private Color backGroundDefaultColor;
 	private Color panelDefaultColor;
+	private Color frontPanelDefaultColor;
 	private Color backgroundTitleDefaultColor;
 	private Color errorMessageColor;
 	private Color separatorColor;
@@ -60,6 +61,7 @@ public class Config
 		redColorDefault = new Color(214, 65, 65);
 		backGroundDefaultColor = new Color(240, 240, 240);
 		panelDefaultColor = new Color(240, 240, 240);
+		frontPanelDefaultColor = Color.WHITE;
 		buttonDefaultFont = new Font("Roboto", Font.BOLD, 15);
 		buttonBiggerFont = new Font("Roboto", Font.BOLD, 17);
 		labelDefaultFont = new Font("Roboto", Font.PLAIN, 13);
@@ -83,6 +85,11 @@ public class Config
 	    setWorkingHoursStart(15);
 	    setWorkingHoursEnd(23);
 		
+	}
+	
+	public Color getFrontPanelDefaultColor()
+	{
+		return frontPanelDefaultColor;
 	}
 	
 	public Color getLabelDefaultForeground()

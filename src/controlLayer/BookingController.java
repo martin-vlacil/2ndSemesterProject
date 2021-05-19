@@ -67,7 +67,6 @@ public class BookingController
 				logEntryDB.create(createdBy.getName() + " from " + createdBy.getOrganization().getName() + " has booked " 
 				+ room.getName().substring(0,1).toUpperCase() + room.getName().substring(1).toLowerCase() + " on "
 						+ selectedStartTime.format(formatter), LocalDateTime.now()); 
-				//TODO specify creation message, We can have a class of static final messages and do Log.CREATE_BOOKING
 				
 				DBConnection.getInstance().commitTransaction();
 			}
@@ -248,7 +247,7 @@ public class BookingController
 	}
 	
 	/**
-	 * TODO - write comment
+	 * Get all bookings in the week of a given date
 	 * @param currentDate
 	 * @return
 	 * @throws SQLException
