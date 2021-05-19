@@ -40,7 +40,7 @@ public class BookingController
 		
 		if (title.equals(""))
 		{
-			title = "Event by: " + contact.getOrganization().getName();
+			title = "Event by: " + createdBy.getOrganization().getName();
 		}
 		
 		for(Room room: selectedRooms)
