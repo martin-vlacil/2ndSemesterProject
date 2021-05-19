@@ -85,7 +85,6 @@ public class DayContentPanel extends JPanel {
                     LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(), getHeight());
                     EventRepository.get().triggerIntervalSelection(calendar,
                             startDate, endDate);
-                    System.out.println("Is inside");
                 }
             }
 
@@ -116,7 +115,6 @@ public class DayContentPanel extends JPanel {
                 final EventCollection events = EventCollectionRepository
                         .get(calendar);
                 if (e.getClickCount() == 1) {
-                	System.out.println("Inside 1 click");
                     if (!e.isControlDown()) {
                         events.clearSelected(event, true);
                     }
@@ -138,8 +136,6 @@ public class DayContentPanel extends JPanel {
                 {
                 	if (event != null)
                 	{
-                        calendar.validate();
-                        calendar.repaint();
                 		EventRepository.get().triggerIntervalSelection(calendar, event, event.getStartTime(), event.getEndTime());
                 	}
                 }

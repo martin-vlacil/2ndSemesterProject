@@ -15,6 +15,7 @@ import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
+import uiLayer.events.SelectionChangedEvent;
 import uiLayer.events.SelectionChangedListener;
 
 public class NewIndexedEventCollection implements EventCollection {
@@ -77,20 +78,41 @@ public class NewIndexedEventCollection implements EventCollection {
 	
 
 	@Override
-	public void addSelected(Booking event) {
-		// TODO Auto-generated method stub
+	public void addSelected(Booking calendarEvent) {
+        	selectedEvents.add(calendarEvent);
+            final SelectionChangedEvent event = new SelectionChangedEvent(calendarEvent);
+            for (final SelectionChangedListener listener : selectionChangedListeners) {
+                listener.selectionChanged(event);
+            }
+	}
+
+	@Override
+	public void removeSelected(Booking calendarEvent) {
+        final boolean remove = selectedEvents.remove(calendarEvent);
+        if (remove) {
+            final SelectionChangedEvent event = new SelectionChangedEvent(calendarEvent);
+            for (final SelectionChangedListener listener : selectionChangedListeners) {
+                listener.selectionChanged(event);
+            }
+        }
 
 	}
 
 	@Override
-	public void removeSelected(Booking event) {
-		// TODO Auto-generated method stub
+	public void clearSelected(Booking toIgnore, boolean notifyListeners) {
+        for (final Booking event : selectedEvents) {
+            if (event != toIgnore) {
+                event.setSelected(false);
+            }
+        }
+        selectedEvents.clear();
 
-	}
-
-	@Override
-	public void clearSelected(Booking event, boolean b) {
-		// TODO Auto-generated method stub
+        if (notifyListeners) {
+            final SelectionChangedEvent event = new SelectionChangedEvent(null);
+            for (final SelectionChangedListener listener : selectionChangedListeners) {
+                listener.selectionChanged(event);
+            }
+        }
 
 	}
 
@@ -102,8 +124,7 @@ public class NewIndexedEventCollection implements EventCollection {
 
 	@Override
 	public Collection<Booking> getSelectedEvents() {
-		// TODO Auto-generated method stub
-		return null;
+        return Collections.unmodifiableSet(new HashSet<Booking>(selectedEvents));
 	}
 
 	@Override
@@ -120,8 +141,12 @@ public class NewIndexedEventCollection implements EventCollection {
 
 	@Override
 	public Collection<Booking> getAllEvents() {
-		// TODO Auto-generated method stub
-		return null;
+        Collection<Booking> values = indexedEvents.values();
+        Set<Booking> result = new HashSet<Booking>();
+        for (Booking event : values) {
+            result.add(event);
+        }
+        return result;
 	}
 
 	@Override
