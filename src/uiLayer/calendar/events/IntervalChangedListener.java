@@ -13,36 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui.strategy;
+package uiLayer.calendar.events;
 
-import java.time.LocalDate;
+import java.util.EventListener;
 
 /**
  * 
  * @author theodorcostache
  * 
  */
-public interface DisplayStrategy {
+public interface IntervalChangedListener extends EventListener {
 
-	public enum Type {
-		MONTH, WEEK, DAY
-	}
-
-	public Type getType();
-
-	public void display();
-
-	public void init();
-
-	public void moveIntervalLeft();
-
-	public void moveIntervalRight();
-	
-	///XXX Added month change
-	public void moveMonthIntervalLeft();
-	public void moveMonthIntervalRight();
-
-	public String getDisplayInterval();
-	
-	void setIntervalStart(LocalDate date);
+	public void intervalChanged(IntervalChangedEvent event);
 }

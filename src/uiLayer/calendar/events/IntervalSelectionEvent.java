@@ -1,7 +1,7 @@
 /* ************************************************************************ *
  * Copyright 2011 costache for MSD                                            *
  * ************************************************************************ */
-package uiLayer.events;
+package uiLayer.calendar.events;
 
 import java.time.LocalDateTime;
 

@@ -13,9 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui.strategy;
-
-import uiLayer.util.CalendarUtil;
+package uiLayer.calendar.ui.strategy;
 
 import java.awt.*;
 import java.time.LocalDate;
@@ -23,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import uiLayer.calendar.util.CalendarUtil;
 
 /**
  * @author theodorcostache

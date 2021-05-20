@@ -1,4 +1,4 @@
-package uiLayer.ui;
+package uiLayer.calendar.ui;
 
 /**
  * Copyright 2013 Theodor Costache
@@ -18,8 +18,8 @@ package uiLayer.ui;
 import javax.swing.JPanel;
 
 import uiLayer.calendar.JCalendar;
-import uiLayer.ui.strategy.DisplayStrategy;
-import uiLayer.ui.strategy.WeekDisplayStrategy;
+import uiLayer.calendar.ui.strategy.DisplayStrategy;
+import uiLayer.calendar.ui.strategy.WeekDisplayStrategy;
 
 /**
  * 

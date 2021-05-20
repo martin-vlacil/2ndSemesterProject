@@ -10,10 +10,10 @@ import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
 import uiLayer.calendar.JCalendar;
-import uiLayer.events.IntervalSelectionEvent;
-import uiLayer.events.IntervalSelectionListener;
-import uiLayer.events.SelectionChangedEvent;
-import uiLayer.events.SelectionChangedListener;
+import uiLayer.calendar.events.IntervalSelectionEvent;
+import uiLayer.calendar.events.IntervalSelectionListener;
+import uiLayer.calendar.events.SelectionChangedEvent;
+import uiLayer.calendar.events.SelectionChangedListener;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;

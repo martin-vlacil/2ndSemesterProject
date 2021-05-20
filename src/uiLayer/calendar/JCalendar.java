@@ -16,16 +16,16 @@
 package uiLayer.calendar;
 
 import uiLayer.BookingPanel;
-import uiLayer.events.*;
-import uiLayer.ui.*;
-import uiLayer.ui.strategy.*;
-import uiLayer.util.*;
+import uiLayer.calendar.events.*;
+import uiLayer.calendar.ui.*;
+import uiLayer.calendar.ui.strategy.*;
+import uiLayer.calendar.util.EventCollectionRepository;
+import uiLayer.calendar.util.EventRepository;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
 import modelLayer.Room;
 import modelLayer.Booking;
 import javax.swing.*;
-import uiLayer.events.IntervalChangedEvent;
 
 import java.awt.*;
 import java.awt.event.*;

@@ -1,15 +1,15 @@
 /* ************************************************************************ *
  * Copyright 2011 costache for MSD                                            *
  * ************************************************************************ */
-package uiLayer.util;
+package uiLayer.calendar.util;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
-import uiLayer.events.IntervalSelectionEvent;
-import uiLayer.events.IntervalSelectionListener;
+import uiLayer.calendar.events.IntervalSelectionEvent;
+import uiLayer.calendar.events.IntervalSelectionListener;
 
 /**
  * @author costache

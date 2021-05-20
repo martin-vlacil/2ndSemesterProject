@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui;
+package uiLayer.calendar.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 import javax.swing.JPanel;
 
 import uiLayer.calendar.JCalendar;
-import uiLayer.util.CalendarUtil;
+import uiLayer.calendar.util.CalendarUtil;
 
 /**
  * 

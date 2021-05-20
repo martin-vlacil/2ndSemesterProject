@@ -13,16 +13,38 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.events;
+package uiLayer.calendar.events;
 
-import java.util.EventListener;
+import java.io.Serializable;
+
+import modelLayer.Booking;
 
 /**
  * 
  * @author theodorcostache
  * 
  */
-public interface SelectionChangedListener extends EventListener {
+public class SelectionChangedEvent implements Serializable {
 
-	public void selectionChanged(SelectionChangedEvent event);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Booking calendarEvent;
+
+	public SelectionChangedEvent() {
+
+	}
+
+	public SelectionChangedEvent(Booking calendarEvent) {
+		this.calendarEvent = calendarEvent;
+	}
+
+	public Booking getCalendarEvent() {
+		return calendarEvent;
+	}
+
+	public void setCalendarEvent(Booking calendarEvent) {
+		this.calendarEvent = calendarEvent;
+	}
 }

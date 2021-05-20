@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui;
+package uiLayer.calendar.ui;
 
 import java.awt.FlowLayout;
 import javax.swing.*;

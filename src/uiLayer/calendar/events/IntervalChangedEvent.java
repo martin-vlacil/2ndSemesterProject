@@ -13,13 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.events;
+package uiLayer.calendar.events;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 import uiLayer.calendar.JCalendar;
-import uiLayer.ui.strategy.DisplayStrategy.Type;
+import uiLayer.calendar.ui.strategy.DisplayStrategy.Type;
 
 /**
  * 

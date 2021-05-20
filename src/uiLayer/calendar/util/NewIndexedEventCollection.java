@@ -1,4 +1,4 @@
-package uiLayer.util;
+package uiLayer.calendar.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
 import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
-import uiLayer.events.SelectionChangedEvent;
-import uiLayer.events.SelectionChangedListener;
+import uiLayer.calendar.events.SelectionChangedEvent;
+import uiLayer.calendar.events.SelectionChangedListener;
 
 /**
  * 

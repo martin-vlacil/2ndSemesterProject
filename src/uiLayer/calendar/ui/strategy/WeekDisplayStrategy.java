@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui.strategy;
+package uiLayer.calendar.ui.strategy;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -34,9 +34,9 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import uiLayer.calendar.JCalendar;
-import uiLayer.ui.ContentPanel;
-import uiLayer.ui.DayPanel;
-import uiLayer.ui.HoursPanel;
+import uiLayer.calendar.ui.ContentPanel;
+import uiLayer.calendar.ui.DayPanel;
+import uiLayer.calendar.ui.HoursPanel;
 
 /**
  * 

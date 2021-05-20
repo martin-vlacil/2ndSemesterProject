@@ -13,12 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
-package uiLayer.ui;
+package uiLayer.calendar.ui;
 
-import uiLayer.ui.strategy.Config;
 import uiLayer.calendar.JCalendar;
-import uiLayer.ui.strategy.DisplayStrategy.Type;
-import uiLayer.util.*;
+import uiLayer.calendar.ui.strategy.Config;
+import uiLayer.calendar.ui.strategy.DisplayStrategy.Type;
+import uiLayer.calendar.util.*;
 
 import javax.swing.*;
 
