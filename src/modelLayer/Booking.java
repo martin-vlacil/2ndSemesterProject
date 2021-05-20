@@ -3,155 +3,159 @@ package modelLayer;
 import java.time.LocalDateTime;
 
 /**
- * @author Group1 dmai0920
- * Represents the booking in the system that the user can make
- * for a room.
+ * @author Group1 dmai0920 Represents the booking in the system that the user
+ *         can make for a room.
  */
 public class Booking implements Comparable<Booking>
 {
-	
 
     private boolean selected;
-	
-	private String title;
-	private String description;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
-	private int numberOfParticipants;
-	private Room room;
-	private User createdBy;
-	private User contact; //if null, then the creator is the contact
-	
-	/**
-	 * Constructor used to build bookings from the database
-	 */
-	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy, User contact)
-	{
-		this.title = title;
-		this.description = description;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.numberOfParticipants = numberOfParticipants;
-		this.room = room;
-		this.createdBy = createdBy;
-		this.contact = contact;
-	}
-	
-	public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy)
-	{
-		this.title = title;
-		this.description = description;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.numberOfParticipants = numberOfParticipants;
-		this.room = room;
-		this.createdBy = createdBy;
-	}
+    private String title;
+    private String description;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private int numberOfParticipants;
+    private Room room;
+    private User createdBy;
+    private User contact; // if null, then the creator is the contact
 
-	/**
-	 * Getters and Setters for all class fields
-	 */
-	public String getTitle()
-	{
-		return title;
-	}
+    /**
+     * Constructor used to build bookings from the database
+     */
+    public Booking(String title, String description, LocalDateTime startTime,
+            LocalDateTime endTime, int numberOfParticipants, Room room,
+            User createdBy, User contact)
+    {
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.numberOfParticipants = numberOfParticipants;
+        this.room = room;
+        this.createdBy = createdBy;
+        this.contact = contact;
+    }
 
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
+    public Booking(String title, String description, LocalDateTime startTime,
+            LocalDateTime endTime, int numberOfParticipants, Room room,
+            User createdBy)
+    {
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.numberOfParticipants = numberOfParticipants;
+        this.room = room;
+        this.createdBy = createdBy;
+    }
 
-	public String getDescription()
-	{
-		return description;
-	}
+    /**
+     * Getters and Setters for all class fields
+     */
+    public String getTitle()
+    {
+        return title;
+    }
 
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
 
-	public LocalDateTime getStartTime()
-	{
-		return startTime;
-	}
+    public String getDescription()
+    {
+        return description;
+    }
 
-	public void setStartTime(LocalDateTime startTime)
-	{
-		
-		this.startTime = startTime;
-	}
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
-	public LocalDateTime getEndTime()
-	{
-		return endTime;
-	}
+    public LocalDateTime getStartTime()
+    {
+        return startTime;
+    }
 
-	public void setEndTime(LocalDateTime endTime)
-	{
-		this.endTime = endTime;
-	}
+    public void setStartTime(LocalDateTime startTime)
+    {
 
-	public int getNumberOfParticipants()
-	{
-		return numberOfParticipants;
-	}
+        this.startTime = startTime;
+    }
 
-	public void setNumberOfParticipants(int numberOfParticipants)
-	{
-		this.numberOfParticipants = numberOfParticipants;
-	}
+    public LocalDateTime getEndTime()
+    {
+        return endTime;
+    }
 
-	public Room getRoom()
-	{
-		return room;
-	}
+    public void setEndTime(LocalDateTime endTime)
+    {
+        this.endTime = endTime;
+    }
 
-	public void setRoom(Room room)
-	{
-		this.room = room;
-	}
+    public int getNumberOfParticipants()
+    {
+        return numberOfParticipants;
+    }
 
-	public User getCreatedBy()
-	{
-		return createdBy;
-	}
+    public void setNumberOfParticipants(int numberOfParticipants)
+    {
+        this.numberOfParticipants = numberOfParticipants;
+    }
 
-	public void setCreatedBy(User createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public Room getRoom()
+    {
+        return room;
+    }
 
-	public User getContact()
-	{
-		return contact;
-	}
+    public void setRoom(Room room)
+    {
+        this.room = room;
+    }
 
-	public void setContact(User contact)
-	{
-		this.contact = contact;
-	}
+    public User getCreatedBy()
+    {
+        return createdBy;
+    }
 
-	public boolean isSelected() {
-		return selected;
-	}
+    public void setCreatedBy(User createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-	
-	public Room getType()
-	{
-		return room;
-	}
+    public User getContact()
+    {
+        return contact;
+    }
 
-	//TODO - comment
-	@Override
-	 public int compareTo(final Booking booking) {
+    public void setContact(User contact)
+    {
+        this.contact = contact;
+    }
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
+    }
+
+    public Room getType()
+    {
+        return room;
+    }
+
+    // TODO - comment
+    @Override
+    public int compareTo(final Booking booking)
+    {
         final int comp = startTime.compareTo(booking.getStartTime());
         if (comp == 0)
             return endTime.compareTo(booking.getEndTime());
         return comp;
-	}
-	
+    }
+
 }

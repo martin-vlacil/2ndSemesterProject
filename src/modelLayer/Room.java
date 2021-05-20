@@ -3,90 +3,89 @@ package modelLayer;
 import java.awt.Color;
 
 /**
- * @author Group1 dmai0920
- * Represents the physical Rooms to be booked in the system.
+ * @author Group1 dmai0920 Represents the physical Rooms to be booked in the
+ *         system.
  */
 public class Room
 {
-	private String number;//Room number
-	private int capacity;
-	private String name;
-	private int id;
-	
-	//TODO Somehow keep them always the same color
-	private Color backgroundColor;
-	private Color foregroundColor;
-	//This will be changed later on when developing Room CRUD
-	private Color[] colors = new Color[] {new Color(40,41,82),new Color(214,65,65)};
-	
-	
-	public Room(String number, int capacity, String name, int id)
-	{
-		this.number = number;
-		this.capacity = capacity;
-		this.name = name;
-		this.id = id;
+    private String number;// Room number
+    private int capacity;
+    private String name;
+    private int id;
 
-		//This will be changed later on when developing Room CRUD
-		if (id != -1)
-			{
-				backgroundColor = colors[id-1];
-				foregroundColor = Color.WHITE;
-			}
-	}
+    // TODO Somehow keep them always the same color
+    private Color backgroundColor;
+    private Color foregroundColor;
+    // This will be changed later on when developing Room CRUD
+    private Color[] colors = new Color[]
+    { new Color(40, 41, 82), new Color(214, 65, 65) };
 
-	/**
-	 * Getters and Setters for all class fields
-	 */
-	public String getNumber()
-	{
-		return number;
-	}
+    public Room(String number, int capacity, String name, int id)
+    {
+        this.number = number;
+        this.capacity = capacity;
+        this.name = name;
+        this.id = id;
 
-	public void setNumber(String number)
-	{
-		this.number = number;
-	}
+        // This will be changed later on when developing Room CRUD
+        if (id != -1)
+        {
+            backgroundColor = colors[id - 1];
+            foregroundColor = Color.WHITE;
+        }
+    }
 
-	public int getCapacity()
-	{
-		return capacity;
-	}
+    /**
+     * Getters and Setters for all class fields
+     */
+    public String getNumber()
+    {
+        return number;
+    }
 
-	public void setCapacity(int capacity)
-	{
-		this.capacity = capacity;
-	}
+    public void setNumber(String number)
+    {
+        this.number = number;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public int getCapacity()
+    {
+        return capacity;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public void setCapacity(int capacity)
+    {
+        this.capacity = capacity;
+    }
 
-	public int getId()
-	{
-		return id;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-	
-	
-	//XXX added based on the library
-	public Color getBackgroundColor()
-	{
-		return backgroundColor;
-	}
-	
-	public Color getForegroundColor()
-	{
-		return foregroundColor;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    // XXX added based on the library
+    public Color getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    public Color getForegroundColor()
+    {
+        return foregroundColor;
+    }
 }
