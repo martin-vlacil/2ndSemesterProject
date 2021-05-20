@@ -192,17 +192,7 @@ public class BookingPanel extends JPanel {
 					e.printStackTrace();
 				}
 			}
-			
 		});
-		calendar.addSelectionChangedListener(new SelectionChangedListener()
-				{
-
-					@Override
-					public void selectionChanged(SelectionChangedEvent event) {
-						System.out.println(event.getCalendarEvent().getTitle());
-					}
-			
-				});
 	}
 	
 	public void getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException

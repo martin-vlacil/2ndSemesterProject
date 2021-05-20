@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 /**
  * @author theodorcostache
  */
@@ -342,8 +341,6 @@ public class DayContentPanel extends JPanel {
                 */
             	//XXX added functionality for displaying only events for a certain room
             	JCalendar calendar = this.owner.getOwner();
-            	if ((calendar.getRoom() == null) || (calendar.getRoom().getId() == event.getRoom().getId()))
-            	{
 	                Color bgColor = event.getType().getBackgroundColor();
 	                bgColor = bgColor == null ? config
 	                        .getEventDefaultBackgroundColor() : bgColor;
@@ -400,8 +397,8 @@ public class DayContentPanel extends JPanel {
             	}
             }
         }
-    }
-  //XXX CalendarEvent changed to Booking, changed name to getEvent from GetNonMonthEvent as month events are displayed differently in the legacy code.
+  
+    //XXX CalendarEvent changed to Booking, changed name to getEvent from GetNonMonthEvent as month events are displayed differently in the legacy code.
     private Booking getEvent(final int x, final int y) {
     	
     	//XXX Collection creation moved to custom method
@@ -481,3 +478,4 @@ public class DayContentPanel extends JPanel {
     	return bookings;
     }
 }
+

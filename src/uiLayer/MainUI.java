@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import config.Config;
+import databaseLayer.DBConnection;
 import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
@@ -34,6 +35,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -53,7 +56,6 @@ public class MainUI extends JFrame {
 	private JButton roomsButton;
 	private JButton selectedPageButton;
 	private static JTextArea logTextArea;
-
 
 	/**
 	 * Create the frame.
@@ -75,6 +77,15 @@ public class MainUI extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		this.addWindowListener(new WindowAdapter()
+        {
+			//Close the connection when app is closed. (logout triggers windownClosed)
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                DBConnection.getInstance().disconnect();
+            }
+        });
 		
 		//Creates the sidebar containing the menu
 		JPanel sidebarPanel = new JPanel();
@@ -329,7 +340,6 @@ public class MainUI extends JFrame {
 		button.setBorder(config.getSidebarButtonBorder());
 		button.setFocusable(false);
 		button.setFont(config.getButtonDefaultFont());
-		//button.setContentAreaFilled(false);
 	}
 	
 	private void formatSelectedSidebarButton(JButton button)
