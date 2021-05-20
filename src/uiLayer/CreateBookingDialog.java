@@ -516,36 +516,7 @@ public class CreateBookingDialog extends JDialog
                 Calendar yesterday = Calendar.getInstance();
                 yesterday.add(Calendar.DATE, -1);
                 datePicker = new JSpinner(new SpinnerDateModel(new Date(),
-                        yesterday.getTime(), null,
-                        Calendar.DAY_OF_MONTH)/*
-                                               * {
-                                               * 
-                                               * @Override public Object
-                                               * getNextValue() { LocalDateTime
-                                               * bookingDate =
-                                               * LocalDateTime.ofInstant(
-                                               * yesterday.toInstant(),
-                                               * ZoneId.systemDefault()); try {
-                                               * bookingPanel.getRoomsOfOneDay(
-                                               * bookingDate.toLocalDate()); }
-                                               * catch (SQLException e) {
-                                               * e.printStackTrace(); } //TODO
-                                               * Fix the return return null; }
-                                               * 
-                                               * @Override public Object
-                                               * getPreviousValue() {
-                                               * LocalDateTime bookingDate =
-                                               * LocalDateTime.ofInstant(
-                                               * yesterday.toInstant(),
-                                               * ZoneId.systemDefault()); try {
-                                               * bookingPanel.getRoomsOfOneDay(
-                                               * bookingDate.toLocalDate()); }
-                                               * catch (SQLException e) {
-                                               * e.printStackTrace(); } //TODO
-                                               * FIX the return return
-                                               * datePicker.getModel().
-                                               * getPreviousValue(); } }
-                                               */);
+                        yesterday.getTime(), null, Calendar.DAY_OF_MONTH));
                 DateEditor dateEditor = new JSpinner.DateEditor(datePicker,
                         "dd/MM/yyyy");
                 datePicker.setEditor(dateEditor);

@@ -187,8 +187,8 @@ public class WeekDisplayStrategy implements DisplayStrategy {
 	public void moveIntervalRight() {
 		//XXX changed to LocalDate
         LocalDate start = calendar.getConfig().getIntervalStart().plusDays(7).with(DayOfWeek.MONDAY);
+        //XXX removed code for week strategy
         //start.setTime(CalendarUtil.createInDays(start.getTime(), 7));
-	    //TODO
         //start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);

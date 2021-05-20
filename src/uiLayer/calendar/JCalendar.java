@@ -104,45 +104,6 @@ public class JCalendar extends JPanel
 
     }
 
-    private void initData()
-    {
-        /*
-         * final EventType type1 = new EventType();
-         * 
-         * final EventType type2 = new EventType(); type2.setBackgroundColor(new
-         * Color(255, 103, 0, 128)); //TODO //final EventType type3 = new
-         * EventType(); //type3.setBackgroundColor(new Color(165, 103, 230,
-         * 128));
-         * 
-         * final EventType[] types = new EventType[2]; types[0] = type1;
-         * types[1] = type2; //types[2] = type3;
-         * 
-         * CalendarEvent calendarEvent; for (int i = 0; i < 10000; i++) { int
-         * hour = r.nextInt(19); hour = hour > 17 ? 17 : hour; hour = hour < 8 ?
-         * 8 : hour; final int min = r.nextInt(59); final int day =
-         * r.nextInt(28); final int month = r.nextInt(11); final int year = 2010
-         * + r.nextInt(6); final Date start = CalendarUtil.createDate(year,
-         * month, day, hour, min, 0, 0); final Date end =
-         * CalendarUtil.createDate(year, month, day, hour + 1 + r.nextInt(4),
-         * r.nextInt(59), 0, 0); calendarEvent = new
-         * CalendarEvent(names[r.nextInt(3)], start, end);
-         * calendarEvent.setType(types[r.nextInt(1)]); calendarEvent.setAllDay(i
-         * % 2 == 0); jCalendar.addCalendarEvent(calendarEvent);
-         * 
-         * }
-         * 
-         * Date start = CalendarUtil.createDate(2013, 1, 31, 12, 45, 0, 0); Date
-         * end = CalendarUtil.createDate(2013, 1, 31, 16, 35, 0, 0);
-         * calendarEvent = new CalendarEvent("Overlapping", start, end);
-         * jCalendar.addCalendarEvent(calendarEvent);
-         * 
-         * start = CalendarUtil.createDate(2013, 1, 31, 8, 45, 0, 0); end =
-         * CalendarUtil.createDate(2013, 1, 31, 15, 35, 0, 0); calendarEvent =
-         * new CalendarEvent("Overlapping 2", start, end);
-         * jCalendar.addCalendarEvent(calendarEvent);
-         */
-    }
-
     /**
      * Binds listeners to the components
      */
