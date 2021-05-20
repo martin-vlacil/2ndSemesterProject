@@ -169,7 +169,7 @@ public class BookingPanel extends JPanel {
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 							dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
-							dialog.setTitle("Create Booking - IHND Booking System");
+							dialog.setTitle("View Booking - IHND Booking System");
 							//Centres the dialog
 							dialog.setLocationRelativeTo(null);
 							dialog.setVisible(true);
@@ -182,7 +182,7 @@ public class BookingPanel extends JPanel {
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
 						dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
-						dialog.setTitle("Create Booking - IHND Booking System");
+						dialog.setTitle("View Booking - IHND Booking System");
 						//Centres the dialog
 						dialog.setLocationRelativeTo(null);
 						dialog.setVisible(true);

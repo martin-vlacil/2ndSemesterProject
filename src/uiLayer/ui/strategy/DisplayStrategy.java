@@ -38,6 +38,10 @@ public interface DisplayStrategy {
 	public void moveIntervalLeft();
 
 	public void moveIntervalRight();
+	
+	///XXX Added month change
+	public void moveMonthIntervalLeft();
+	public void moveMonthIntervalRight();
 
 	public String getDisplayInterval();
 	

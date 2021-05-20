@@ -213,6 +213,35 @@ public class WeekDisplayStrategy implements DisplayStrategy {
 		parent.repaint();
 	}
 
+	///XXX Added month change
+	@Override
+	public void moveMonthIntervalLeft() {
+		LocalDate start = calendar.getConfig().getIntervalStart().minusMonths(1).with(DayOfWeek.MONDAY);
+		LocalDate end = start.plusDays(6);
+        calendar.getConfig().setIntervalStart(start);
+        calendar.getConfig().setIntervalEnd(end);
+		for (int i = 0; i < 7; i++) {
+			days[i].setDate(start);
+			start = start.plusDays(1);
+		}
+		parent.validate();
+		parent.repaint();
+	}
+
+	@Override
+	public void moveMonthIntervalRight() {
+        LocalDate start = calendar.getConfig().getIntervalStart().plusMonths(1).plusDays(7).with(DayOfWeek.MONDAY);
+        LocalDate end = start.plusDays(6);
+        calendar.getConfig().setIntervalStart(start);
+        calendar.getConfig().setIntervalEnd(end);
+		for (int i = 0; i < 7; i++) {
+			days[i].setDate(start);
+			start = start.plusDays(1);
+		}
+		parent.validate();
+		parent.repaint();
+	}
+	
 	@Override
 	public String getDisplayInterval() {
 		return sdf.format(calendar.getConfig().getIntervalStart()) + " - " + sdf.format(calendar.getConfig().getIntervalEnd());
