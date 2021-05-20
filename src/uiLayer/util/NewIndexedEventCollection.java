@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.MultiHashMap;
-import org.apache.commons.collections4.MultiMap;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
@@ -17,6 +15,14 @@ import modelLayer.Booking;
 import uiLayer.calendar.JCalendar;
 import uiLayer.events.SelectionChangedEvent;
 import uiLayer.events.SelectionChangedListener;
+
+/**
+ * 
+ * XXX Refactored a full class IndexedEventCollection, that contains all Bookings for certain days
+ * and All selection listeners that handle event and empty field selection. 
+ * @author dmai0920 group 1
+ *
+ */
 
 public class NewIndexedEventCollection implements EventCollection {
 
@@ -150,15 +156,13 @@ public class NewIndexedEventCollection implements EventCollection {
 	}
 
 	@Override
-	public void addSelectionChangedListener(SelectionChangedListener selectionChangedListener) {
-		// TODO Auto-generated method stub
-
+		public void addSelectionChangedListener(SelectionChangedListener listener) {
+        this.selectionChangedListeners.add(listener);
 	}
 
 	@Override
-	public void removeSelectionChangedListener(SelectionChangedListener selectionChangedListener) {
-		// TODO Auto-generated method stub
-
+	public void removeSelectionChangedListener(SelectionChangedListener listener) {
+        this.selectionChangedListeners.remove(listener);
 	}
 
 }
