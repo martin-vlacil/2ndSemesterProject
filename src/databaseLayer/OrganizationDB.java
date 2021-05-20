@@ -6,37 +6,39 @@ import modelLayer.Organization;
 
 public class OrganizationDB implements OrganizationDBIF
 {
-	private Connection connection;
-	
-	private static final String SELECT_BY_ID = String.format("SELECT * FROM Organisation WHERE id = ?");
-	private PreparedStatement sqlSelectByID;
+    private Connection connection;
 
-	public OrganizationDB() throws SQLException
-	{
-		connection = DBConnection.getInstance().getConnection();
-		sqlSelectByID = connection.prepareStatement(SELECT_BY_ID);
-	}
+    private static final String SELECT_BY_ID = String
+            .format("SELECT * FROM Organisation WHERE id = ?");
+    private PreparedStatement sqlSelectByID;
 
-	@Override
-	public Organization getOrganizationByID(int id) throws SQLException
-	{
-		Organization organization = null;
-		
-		sqlSelectByID.setInt(1,  id);
-		
-		ResultSet resultSet = sqlSelectByID.executeQuery();
-		
-		if(resultSet.next())
-		{
-			organization = buildObject(resultSet);
-		}
-		
-		return organization;
-	}
+    public OrganizationDB() throws SQLException
+    {
+        connection = DBConnection.getInstance().getConnection();
+        sqlSelectByID = connection.prepareStatement(SELECT_BY_ID);
+    }
 
-	@Override
-	public Organization buildObject(ResultSet resultSet) throws SQLException
-	{
-		return new Organization(resultSet.getInt("id"), resultSet.getString("name"));
-	}
+    @Override
+    public Organization getOrganizationByID(int id) throws SQLException
+    {
+        Organization organization = null;
+
+        sqlSelectByID.setInt(1, id);
+
+        ResultSet resultSet = sqlSelectByID.executeQuery();
+
+        if (resultSet.next())
+        {
+            organization = buildObject(resultSet);
+        }
+
+        return organization;
+    }
+
+    @Override
+    public Organization buildObject(ResultSet resultSet) throws SQLException
+    {
+        return new Organization(resultSet.getInt("id"),
+                resultSet.getString("name"));
+    }
 }
