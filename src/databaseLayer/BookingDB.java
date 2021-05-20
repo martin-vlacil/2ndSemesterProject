@@ -35,7 +35,6 @@ public class BookingDB implements BookingDBIF
 			+ "WHERE CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, start_time))) >= ? \r\n"
 			+ "AND CONVERT(DATETIME, FLOOR(CONVERT(FLOAT, end_time))) <= ?"
 			);
-	
 	private PreparedStatement sqlSelectBookingsInTimeInterval;
 	
 	public BookingDB() throws SQLException
