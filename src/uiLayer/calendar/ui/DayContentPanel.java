@@ -88,10 +88,11 @@ public class DayContentPanel extends JPanel {
             @Override
             public void mouseReleased(final MouseEvent e) {
 
-                if (e.isPopupTrigger() && calendar.getPopupMenu() != null) {
+            	//XXX removed popup trigger
+                /*if (e.isPopupTrigger() && calendar.getPopupMenu() != null) {
                     calendar.getPopupMenu().show(DayContentPanel.this,
                             e.getX(), e.getY());
-                }
+                }*/
                 for (final MouseListener ml : DayContentPanel.this.owner
                         .getOwner().getMouseListeners()) {
                     ml.mouseReleased(e);
@@ -136,10 +137,11 @@ public class DayContentPanel extends JPanel {
                 		EventRepository.get().triggerIntervalSelection(calendar, event, event.getStartTime(), event.getEndTime());
                 	}
                 }
-                if (e.isPopupTrigger() && calendar.getPopupMenu() != null) {
+            	//XXX removed popup trigger
+                /*if (e.isPopupTrigger() && calendar.getPopupMenu() != null) {
                     calendar.getPopupMenu().show(DayContentPanel.this,
                             e.getX(), e.getY());
-                }
+                }*/
                 for (final MouseListener ml : DayContentPanel.this.owner
                         .getOwner().getMouseListeners()) {
                     ml.mousePressed(e);

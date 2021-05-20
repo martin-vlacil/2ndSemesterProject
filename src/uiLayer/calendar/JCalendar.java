@@ -48,7 +48,8 @@ public class JCalendar extends JPanel {
     private HeaderPanel headerPane;
     private ContentPanel contentPane;
     private Config config;
-    private JPopupMenu popupMenu;
+    //XXX popup menu removed
+    //private JPopupMenu popupMenu;
     //XXX hover option removed, Calendar changed to LocalDate
     //private CalendarEventFormat formater;
     private LocalDate selectedDay;
@@ -146,7 +147,8 @@ public class JCalendar extends JPanel {
     /**
      * Binds listeners to the components
      */
-    private void bindListeners() {
+    private void bindListeners()
+    {
     	
         /*final ActionListener strategyActionListener = new ActionListener() {
 
@@ -446,31 +448,34 @@ public class JCalendar extends JPanel {
         repaint();
     }
 
+    //XXX removed Popup in calendar view
     /**
      * @return the {@link JPopupMenu} attached to this component
      */
-    public JPopupMenu getPopupMenu() {
+    /*public JPopupMenu getPopupMenu() {
         return popupMenu;
-    }
+    }*/
 
     /**
      * @param popupMenu the {@link JPopupMenu} to attach to this component
      */
-    public void setJPopupMenu(final JPopupMenu popupMenu) {
+    /*public void setJPopupMenu(final JPopupMenu popupMenu) {
         this.popupMenu = popupMenu;
-    }
+    }*/
     /**
      *  XXX Added room getter
      * @return the room selected
      */
-    public Room getRoom() {
+    public Room getRoom()
+    {
 		return room;
 	}
     /**
      * XXX Added room setters
      * @param room
      */
-	public void setRoom(Room room) {
+	public void setRoom(Room room)
+	{
 		this.room = room;
 		contentPane.repaint();
 	}
