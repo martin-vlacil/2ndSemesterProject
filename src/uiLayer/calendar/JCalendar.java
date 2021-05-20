@@ -22,10 +22,9 @@ import uiLayer.ui.strategy.*;
 import uiLayer.util.*;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
-import modelLayer.*;
-
+import modelLayer.Room;
+import modelLayer.Booking;
 import javax.swing.*;
-
 import uiLayer.events.IntervalChangedEvent;
 
 import java.awt.*;
