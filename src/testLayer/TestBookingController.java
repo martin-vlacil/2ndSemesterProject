@@ -23,13 +23,6 @@ class TestBookingController
 	BookingDBStub bookingDBStub;
 	LogEntryDBStub logEntryDBStub;
 	
-	LocalDateTime startTime;
-	LocalDateTime endTime;
-	
-	User shortUser;
-	User longUser;
-	ArrayList<Room> selectedRooms;
-	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception
 	{
@@ -44,13 +37,7 @@ class TestBookingController
 		bookingDBStub = new BookingDBStub();
 		logEntryDBStub = new LogEntryDBStub();
 		
-		startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
-		endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
-		
-		shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
-		longUser = new User(2, "ForSomeReasonVeryLongName", "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com", "+451234567891234", "Managing Marketer", UserType.DEFAULT, new Organization(2, "Bauhaus"));
-		selectedRooms = new ArrayList<>();
-
+		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 	}
 	
 	@AfterEach
@@ -63,8 +50,11 @@ class TestBookingController
 	void shouldCreateBookingAndSaveToDatabaseWithCorrectShortInfo() throws SQLException
 	{
 		//Arrange
+		ArrayList<Room> selectedRooms = new ArrayList<>();
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		User shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
+		LocalDateTime startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
+		LocalDateTime endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, shortUser, selectedRooms, startTime, endTime);
@@ -86,8 +76,11 @@ class TestBookingController
 	void shouldCreateBookingAndSaveToDatabaseWithCorrectLongInfo() throws SQLException
 	{
 		//Arrange
+		ArrayList<Room> selectedRooms = new ArrayList<>();
 		selectedRooms.add(roomCtr.findByID(1));
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
+		User longUser = new User(2, "ForSomeReasonVeryLongName", "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com", "+451234567891234", "Managing Marketer", UserType.DEFAULT, new Organization(2, "Bauhaus"));
+		LocalDateTime startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
+		LocalDateTime endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
 		
 		//Act
 		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, longUser, selectedRooms, startTime, endTime);
@@ -113,8 +106,6 @@ class TestBookingController
 	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
-		
 		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
 		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 15, 0);
 		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
@@ -132,7 +123,6 @@ class TestBookingController
 	void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);			
 		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
 		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 15, 0);
 		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 17, 0);
@@ -150,8 +140,6 @@ class TestBookingController
 	void startTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
-		
 		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
 		LocalDateTime startTime = LocalDateTime.of(2021, 5, 5, 17, 0);
 		LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
@@ -169,7 +157,6 @@ class TestBookingController
 	void eventTitleLongerThan50CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "title";
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullary";
@@ -186,7 +173,6 @@ class TestBookingController
 	void contactNameLongerThan25CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "contactName";
 		eventDetails[1] = "Mette Juul Thorhauge Søren";
@@ -203,7 +189,6 @@ class TestBookingController
 	void contactNameShorterThan2CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "contactName";
 		eventDetails[1] = "M";
@@ -220,7 +205,6 @@ class TestBookingController
 	void phoneNumberLongerThan15CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "phoneNumber";
 		eventDetails[1] = "+231343578493011";
@@ -237,7 +221,6 @@ class TestBookingController
 	void phoneNumberShorterThan1ShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "phoneNumber";
 		eventDetails[1] = "";
@@ -254,7 +237,6 @@ class TestBookingController
 	void emailWithoutAtSymbolShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "email";
 		eventDetails[1] = "homeaddress.dk";
@@ -271,7 +253,6 @@ class TestBookingController
 	void emailLongerThan100CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "email";
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
@@ -288,7 +269,6 @@ class TestBookingController
 	void emailShorterThan2CharactersShouldReturnFalse() throws SQLException
 	{
 		//Arrange
-		bookingCtr.setStub(bookingDBStub, logEntryDBStub);
 		String[] eventDetails = new String[2];
 		eventDetails[0] = "email";
 		eventDetails[1] = "a";
