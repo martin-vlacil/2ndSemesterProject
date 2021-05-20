@@ -16,9 +16,7 @@
 package uiLayer.util;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import modelLayer.Booking;

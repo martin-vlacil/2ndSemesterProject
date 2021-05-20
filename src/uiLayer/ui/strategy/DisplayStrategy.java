@@ -16,7 +16,6 @@
 package uiLayer.ui.strategy;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * 

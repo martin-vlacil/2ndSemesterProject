@@ -17,17 +17,12 @@ package uiLayer.ui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import javax.swing.JPanel;
 
 import uiLayer.calendar.JCalendar;
-import uiLayer.ui.strategy.DisplayStrategy.Type;
 
 /**
  * 

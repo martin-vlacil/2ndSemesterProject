@@ -22,15 +22,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -42,7 +37,6 @@ import uiLayer.calendar.JCalendar;
 import uiLayer.ui.ContentPanel;
 import uiLayer.ui.DayPanel;
 import uiLayer.ui.HoursPanel;
-import uiLayer.util.CalendarUtil;
 
 /**
  * 
