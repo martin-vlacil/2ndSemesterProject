@@ -145,11 +145,12 @@ public class Booking implements Comparable<Booking>
 		return room;
 	}
 
+	//TODO - comment
 	@Override
-	 public int compareTo(final Booking o) {
-        final int comp = startTime.compareTo(o.getStartTime());
+	 public int compareTo(final Booking booking) {
+        final int comp = startTime.compareTo(booking.getStartTime());
         if (comp == 0)
-            return endTime.compareTo(o.getEndTime());
+            return endTime.compareTo(booking.getEndTime());
         return comp;
 	}
 	

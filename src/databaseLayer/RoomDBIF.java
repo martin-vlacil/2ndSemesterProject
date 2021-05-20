@@ -1,5 +1,6 @@
 package databaseLayer;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -11,11 +12,13 @@ import modelLayer.Room;
  */
 public interface RoomDBIF
 {
-	//Room findByNumber(String roomNumber) throws SQLException;
 	/**
 	 * This method gets and returns all rooms in the database
 	 * @return list of all rooms for booking
 	 * @throws SQLException
 	 */
 	ArrayList<Room> getAll() throws SQLException;
+	
+	//TODO - comment
+	Room buildObject(ResultSet rs) throws SQLException;
 }

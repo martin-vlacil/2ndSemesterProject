@@ -96,9 +96,7 @@ public class BookingDB implements BookingDBIF
 	public Booking buildObject(ResultSet rs) throws SQLException
 	{
 		User user = userDB.getUserByID(rs.getInt("user_id"));
-		
 		String contactEmail = rs.getString("contact_email");
-
 		
 		if(rs.wasNull())
 		{

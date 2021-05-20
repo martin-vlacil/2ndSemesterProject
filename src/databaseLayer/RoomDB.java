@@ -24,15 +24,6 @@ public class RoomDB implements RoomDBIF
 		sqlGetAll = connection.prepareStatement(GET_ALL, Statement.RETURN_GENERATED_KEYS);
 	}
 
-	private Room buildObject(ResultSet rs) throws SQLException
-	{
-		Room room = null;
-		
-		room = new Room(rs.getString("number"), rs.getInt("capacity"), rs.getString("name"), rs.getInt("id"));
-						
-		return room;				
-	}
-
 	@Override
 	public ArrayList<Room> getAll() throws SQLException
 	{
@@ -47,9 +38,16 @@ public class RoomDB implements RoomDBIF
 		}
 		
 		return rooms;
-		/*ArrayList<Room> rooms2 = new ArrayList<>();
-		rooms2.add(new Room("1", 5, "Conference", 1));
-		rooms2.add(new Room("2A", 5, "Main", 0));
-		return rooms2;*/
 	}
+	
+	@Override
+	public Room buildObject(ResultSet rs) throws SQLException
+	{
+		Room room = null;
+		
+		room = new Room(rs.getString("number"), rs.getInt("capacity"), rs.getString("name"), rs.getInt("id"));
+						
+		return room;				
+	}
+
 }
