@@ -160,44 +160,6 @@ public class BookingController
 		return Color.black;
 	}
 	
-	
-	
-	
-	
-	//TODO REMOVE
-	
-	/**
-	 * This method checks whether or not the chosen times for a room are available
-	 * @param startTime, end time, room
-	 * @return an error message if not, nothing if its ok
-	 * @throws SQLException
-	 */
-	/*
-	public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
-	{
-		ArrayList<Booking> interferingBookings = new ArrayList<>();
-		if (startTime != null && endTime != null && room != null)
-		{
-			//interferingBookings = bookingDB.(startTime, endTime, room.getId());
-			if (interferingBookings.size() > 0)
-			{
-				String returnString = "Interfering bookings: ";
-				for(Booking booking: interferingBookings)
-				{
-					returnString += booking.getStartTime() + " - " + booking.getEndTime() + "  "; 
-				}
-				return returnString;
-			}
-		}
-		else
-		{
-			//TODO - some exception?
-		}
-		
-		return ""; //Returns nothing. One of the elements is not filled
-	}
-	*/
-	
 	/**
 	 * A method to check if a certain room is available for booking between start and end time
 	 * @param startTime, endTime, room

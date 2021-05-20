@@ -20,16 +20,6 @@ public interface BookingDBIF
 	 */
 	boolean create(Booking booking) throws SQLException;
 	
-	//TODO Remove?
-	/**
-	 * This method checks if the chosen time for a booking is correct - no other bookings for the specified room are made in that time
-	 * @param startTime, endTime, roomID
-	 * @return a list of bookings that interfere with the chosen booking time
-	 * @throws SQLException
-	 */
-	//ArrayList<Booking> checkAvailability(LocalDateTime startTime, LocalDateTime endTime, int roomID) throws SQLException;
-	
-	
 	/**
 	 * This method returns a list of all the bookings made for a specific room and a specific day, it is used for later comparing
 	 * times of those bookings to check availability
@@ -40,7 +30,7 @@ public interface BookingDBIF
 	ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException;
 	
 	/**
-	 * TODO - comment
+	 * TODO Gets all bookings for a 
 	 * @param startTime, endTime
 	 * @return 
 	 * @throws SQLException

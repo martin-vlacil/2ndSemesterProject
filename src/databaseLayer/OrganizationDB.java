@@ -34,11 +34,8 @@ public class OrganizationDB implements OrganizationDBIF
 		return organization;
 	}
 
-	/**
-	 * Builds a Java Object from database information
-	 * @param resultSet
-	 */
-	private Organization buildObject(ResultSet resultSet) throws SQLException
+	@Override
+	public Organization buildObject(ResultSet resultSet) throws SQLException
 	{
 		return new Organization(resultSet.getInt("id"), resultSet.getString("name"));
 	}
