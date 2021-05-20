@@ -100,7 +100,6 @@ class TestBookingController
 	//CB2 - Booking cancelled - Done Ad hoc instead
 	
 	
-	
 	//CB3 - TC1 The entire booking interferes with a another booking
 	@Test
 	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
@@ -162,10 +161,10 @@ class TestBookingController
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullary";
 		
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
-		
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
+					
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 	
 	//CB4 - TC2 contact name too long
@@ -178,10 +177,10 @@ class TestBookingController
 		eventDetails[1] = "Mette Juul Thorhauge Søren";
 		
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
-		
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
+				
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 
 	//CB4 - TC3 contact name too short
@@ -194,10 +193,10 @@ class TestBookingController
 		eventDetails[1] = "M";
 		
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
-		
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
+			
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 
 	//CB4 - TC4 phone number too long
@@ -210,10 +209,10 @@ class TestBookingController
 		eventDetails[1] = "+231343578493011";
 		
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 		
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 	
 	//CB4 - TC5 phone number shorter than 1
@@ -226,10 +225,10 @@ class TestBookingController
 		eventDetails[1] = "";
 			
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 			
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 	
 	//CB4 - TC6 email does not contain '@'
@@ -242,10 +241,10 @@ class TestBookingController
 		eventDetails[1] = "homeaddress.dk";
 			
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
-			
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
+					
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 
 	//CB4 - TC7 email longer than 100 characters
@@ -258,10 +257,10 @@ class TestBookingController
 		eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
 			
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
-			
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
+				
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 	
 	//CB4 - TC8 email shorter than 2 characters
@@ -274,9 +273,9 @@ class TestBookingController
 		eventDetails[1] = "a";
 			
 		//Act
-		Color checkValidity = bookingCtr.validateInformation(eventDetails);
+		boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 			
 		//Assert
-		assertTrue(checkValidity == Color.RED);
+		assertTrue(checkValidity);
 	}
 }
