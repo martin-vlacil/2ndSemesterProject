@@ -218,6 +218,59 @@ public class JCalendar extends JPanel {
 				}
             }
         });
+        
+        //XXX Added month change
+        headerPane.getScrollMonthLeft().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final DisplayStrategy strategy = contentPane.getStrategy();
+                strategy.moveMonthIntervalLeft();
+                headerPane.getIntervalLabel().setText(contentPane.getStrategy().getDisplayInterval());
+                final IntervalChangedEvent event = new IntervalChangedEvent(JCalendar.this, strategy.getType(),
+                        config.getIntervalStart(), config.getIntervalEnd());
+                
+                //XXX check if we need an interval listener changed
+                for (final IntervalChangedListener listener : intervalChangedListener) {
+                    listener.intervalChanged(event);
+                }
+                //XXX New code
+                try 
+                {
+					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
+				} 
+                catch (SQLException e1) 
+                {
+					e1.printStackTrace();
+				}
+
+            }
+        });
+        
+        headerPane.getScrollMonthRight().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                final DisplayStrategy strategy = contentPane.getStrategy();
+                strategy.moveMonthIntervalRight();
+                headerPane.getIntervalLabel().setText(contentPane.getStrategy().getDisplayInterval());
+                final IntervalChangedEvent event = new IntervalChangedEvent(JCalendar.this, strategy.getType(),
+                        config.getIntervalStart(), config.getIntervalEnd());
+                
+                //XXX check if we need an interval listener changed
+                for (final IntervalChangedListener listener : intervalChangedListener) {
+                    listener.intervalChanged(event);
+                }
+                //XXX New code
+                try 
+                {
+					bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
+				} 
+                catch (SQLException e1) 
+                {
+					e1.printStackTrace();
+				}
+
+            }
+        });
     }
 
     /**

@@ -32,6 +32,10 @@ public class HeaderPanel extends JPanel {
 
 	private JButton scrollRightButton;
 
+	//XXX Added month change
+	private JButton scrollMonthLeftButton;
+	private JButton scrollMonthRightButton;
+	
 	private JLabel intervalLabel;
 
 	/**
@@ -47,6 +51,9 @@ public class HeaderPanel extends JPanel {
 		//XXX Removed model buttons
 		scrollLeftButton = new JButton();
 		scrollRightButton = new JButton();
+		//XXX Added month change
+		scrollMonthLeftButton = new JButton();
+		scrollMonthRightButton = new JButton();
 
 		intervalLabel = new JLabel();
 		scrollLeftButton.setBorderPainted(false);
@@ -56,13 +63,27 @@ public class HeaderPanel extends JPanel {
 		scrollRightButton.setBorderPainted(false);
 		scrollRightButton.setFocusPainted(false);
 		scrollRightButton.setContentAreaFilled(false);
+		
+		//XXX Added month change 
+		scrollMonthLeftButton.setBorderPainted(false);
+		scrollMonthLeftButton.setFocusPainted(false);
+		scrollMonthLeftButton.setContentAreaFilled(false);
+		scrollMonthLeftButton.setText("<<");
+
+		scrollMonthRightButton.setBorderPainted(false);
+		scrollMonthRightButton.setFocusPainted(false);
+		scrollMonthRightButton.setContentAreaFilled(false);
+		scrollMonthRightButton.setText(">>");
+		
 		//XXX changed layout and removed models
 			scrollLeftButton.setText("<");
 			scrollRightButton.setText(">");
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.add(scrollMonthLeftButton);
 		this.add(scrollLeftButton);
 		this.add(intervalLabel);
 		this.add(scrollRightButton);
+		this.add(scrollMonthRightButton);
 	}
 
 	/**
@@ -86,4 +107,18 @@ public class HeaderPanel extends JPanel {
 		return intervalLabel;
 	}
 
+	//XXX Added month change
+	/**
+	 * @return the scrollMonthLeft
+	 */
+	public JButton getScrollMonthLeft() {
+		return scrollMonthLeftButton;
+	}
+
+	/**
+	 * @return the scrollMonthRight
+	 */
+	public JButton getScrollMonthRight() {
+		return scrollMonthRightButton;
+	}
 }
