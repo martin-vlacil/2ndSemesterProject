@@ -52,12 +52,14 @@ class TestBookingController
 		//Arrange
 		ArrayList<Room> selectedRooms = new ArrayList<>();
 		selectedRooms.add(roomCtr.findByID(1));
-		User shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
+		User shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", 
+				UserType.DEFAULT, new Organization(1, "IKEA"));
 		LocalDateTime startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
 		LocalDateTime endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
 		
 		//Act
-		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, shortUser, selectedRooms, startTime, endTime);
+		boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", 
+				null, 15, shortUser, selectedRooms, startTime, endTime);
 		
 		//Assert
 		assertTrue(isBookingCreated, "Controller returned False");
@@ -102,7 +104,7 @@ class TestBookingController
 	
 	//CB3 - TC1 The entire booking interferes with a another booking
 	@Test
-	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
+	void anEntireInterferingBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException
 	{
 		//Arrange
 		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
@@ -119,7 +121,7 @@ class TestBookingController
 	
 	//CB3 - TC2 The endTime is inside another event
 	@Test
-	void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException //TODO - can be changed probably uwu
+	void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException
 	{
 		//Arrange
 		Room room1 = new Room("Test Number", 15, "Conference Room", 1);
