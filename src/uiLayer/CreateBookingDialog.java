@@ -57,6 +57,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CreateBookingDialog extends JDialog {
 
@@ -100,6 +102,7 @@ public class CreateBookingDialog extends JDialog {
 	 * Create the dialog.
 	 * 
 	 * @throws SQLException
+	 * @wbp.parser.constructor
 	 */
 	public CreateBookingDialog(User user, BookingPanel panel) throws SQLException {
 		this.bookingPanel = panel;
@@ -666,6 +669,17 @@ public class CreateBookingDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				saveButton = new JButton("Save");
+				
+				saveButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						saveButton.setBackground(config.getButtonColorSavedBackground().brighter());
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						saveButton.setBackground(config.getButtonColorSavedBackground());
+					}
+				});
 				saveButton.setForeground(Color.WHITE);
 				saveButton.setBackground(config.getButtonColorSavedBackground());
 				saveButton.setBorder(config.getButtonSaveBorder());
@@ -683,6 +697,19 @@ public class CreateBookingDialog extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						cancelButton.setBackground(config.getButtonColorCancelBackground().brighter());
+						//TODO ADD THIS TO CONFIG
+						cancelButton.setForeground(Color.BLACK);
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						cancelButton.setBackground(config.getButtonColorCancelBackground());
+						cancelButton.setForeground(config.getButtonColorCancelForeground());
+					}
+				});
 				cancelButton.setForeground(config.getButtonColorCancelForeground());
 				cancelButton.setBackground(config.getButtonColorCancelBackground());
 				cancelButton.setBorder(config.getButtonCancelBorder());
