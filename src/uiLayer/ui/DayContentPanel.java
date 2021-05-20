@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -326,12 +327,9 @@ public class DayContentPanel extends JPanel {
 
     private void drawCalendarEvents(final Graphics2D graphics2d) {
 
-        final EventCollection eventsCollection = EventCollectionRepository
-                .get(owner.getOwner());
-      //XXX CalendarEvent changed to Booking
-        final Collection<Booking> events = eventsCollection
-                .getEvents(owner.getDate());
-      //XXX CalendarEvents changed to Booking
+        //XXX Collection creation moved to custom method
+    	Collection<Booking> events = getBookings();
+      	//XXX CalendarEvents changed to Booking
         final Map<Booking, List<Booking>> conflictingEvents = CalendarUtil
                 .getConflicting(events);
 
@@ -408,13 +406,10 @@ public class DayContentPanel extends JPanel {
     }
   //XXX CalendarEvent changed to Booking, changed name to getEvent from GetNonMonthEvent as month events are displayed differently in the legacy code.
     private Booking getEvent(final int x, final int y) {
-
-        final EventCollection eventsCollection = EventCollectionRepository
-                .get(owner.getOwner());
-        //XXX CalendarEvent changed to Booking
-        final Collection<Booking> events = eventsCollection
-                .getEvents(owner.getDate());
-      //XXX CalendarEvent changed to Booking
+    	
+    	//XXX Collection creation moved to custom method
+    	Collection<Booking> events = getBookings();
+    	//XXX CalendarEvent changed to Booking
         final Map<Booking, List<Booking>> conflictingEvents = CalendarUtil
                 .getConflicting(events);
 
@@ -467,5 +462,25 @@ public class DayContentPanel extends JPanel {
             }
         }
         return null;
+    }
+    
+    //XXX Get selected room
+    public Collection<Booking> getBookings()
+    {
+        final EventCollection eventsCollection = EventCollectionRepository
+                .get(owner.getOwner());
+        //XXX CalendarEvent changed to Booking
+        final Collection<Booking> events = eventsCollection
+                .getEvents(owner.getDate());
+        final JCalendar calendar = DayContentPanel.this.owner
+                .getOwner();
+        ArrayList<Booking> bookings = new ArrayList<>();
+        if (calendar.getRoom() == null)
+        {
+        	return events;
+        }
+        events.parallelStream().filter(p -> p.getRoom().getId() == calendar.getRoom().getId()).forEach(e -> bookings.add(e));
+    	
+    	return bookings;
     }
 }
