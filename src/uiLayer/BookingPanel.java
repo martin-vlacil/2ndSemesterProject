@@ -148,7 +148,7 @@ public class BookingPanel extends JPanel
     {
         try
         {
-            CreateBookingDialog dialog = new CreateBookingDialog(loggedUser,
+            BookingDialog dialog = new BookingDialog(loggedUser,
                     this);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
@@ -191,7 +191,7 @@ public class BookingPanel extends JPanel
                                 && (bookingStart.isBefore(bookingStart.withHour(
                                         config.getWorkingHoursEnd()))))
                         {
-                            CreateBookingDialog dialog = new CreateBookingDialog(
+                            BookingDialog dialog = new BookingDialog(
                                     loggedUser, event.getIntervalStart(),
                                     event.getIntervalEnd(), panel);
                             dialog.setDefaultCloseOperation(
@@ -211,7 +211,7 @@ public class BookingPanel extends JPanel
                     else
                     {
                         Booking booking = event.getBooking();
-                        CreateBookingDialog dialog = new CreateBookingDialog(
+                        BookingDialog dialog = new BookingDialog(
                                 booking, panel);
                         dialog.setDefaultCloseOperation(
                                 JDialog.DISPOSE_ON_CLOSE);

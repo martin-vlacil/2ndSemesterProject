@@ -60,7 +60,7 @@ import javax.swing.event.CaretEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CreateBookingDialog extends JDialog
+public class BookingDialog extends JDialog
 {
 
     /**
@@ -105,7 +105,7 @@ public class CreateBookingDialog extends JDialog
      * @throws SQLException
      * @wbp.parser.constructor
      */
-    public CreateBookingDialog(User user, BookingPanel panel)
+    public BookingDialog(User user, BookingPanel panel)
             throws SQLException
     {
         this.bookingPanel = panel;
@@ -119,14 +119,10 @@ public class CreateBookingDialog extends JDialog
         contentPanel.setBackground(config.getBackGroundDefaultColor());
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         GridBagLayout gbl_contentPanel = new GridBagLayout();
-        gbl_contentPanel.columnWidths = new int[]
-        { 0, 0 };
-        gbl_contentPanel.rowHeights = new int[]
-        { 43, 0, 0 };
-        gbl_contentPanel.columnWeights = new double[]
-        { 0.2, 0.8 };
-        gbl_contentPanel.rowWeights = new double[]
-        { 0.0, 1.0 };
+        gbl_contentPanel.columnWidths = new int[] { 0, 0 };
+        gbl_contentPanel.rowHeights = new int[] { 43, 0, 0 };
+        gbl_contentPanel.columnWeights = new double[] { 0.2, 0.8 };
+        gbl_contentPanel.rowWeights = new double[] { 0.0, 1.0 };
         contentPanel.setLayout(gbl_contentPanel);
         {
             JPanel titlePanel = new JPanel();
@@ -139,14 +135,10 @@ public class CreateBookingDialog extends JDialog
             gbc_titlePanel.gridy = 0;
             contentPanel.add(titlePanel, gbc_titlePanel);
             GridBagLayout gbl_titlePanel = new GridBagLayout();
-            gbl_titlePanel.columnWidths = new int[]
-            { 0 };
-            gbl_titlePanel.rowHeights = new int[]
-            { 0 };
-            gbl_titlePanel.columnWeights = new double[]
-            { 0.0 };
-            gbl_titlePanel.rowWeights = new double[]
-            { 0.0 };
+            gbl_titlePanel.columnWidths = new int[] { 0 };
+            gbl_titlePanel.rowHeights = new int[] { 0 };
+            gbl_titlePanel.columnWeights = new double[] { 0.0 };
+            gbl_titlePanel.rowWeights = new double[] { 0.0 };
             titlePanel.setLayout(gbl_titlePanel);
             {
                 titlePanelLabel = new JLabel("Create Booking");
@@ -169,15 +161,10 @@ public class CreateBookingDialog extends JDialog
             gbc_leftPanel.gridy = 1;
             contentPanel.add(leftPanel, gbc_leftPanel);
             GridBagLayout gbl_leftPanel = new GridBagLayout();
-            gbl_leftPanel.columnWidths = new int[]
-            { 30, 0, 30 };
-            gbl_leftPanel.rowHeights = new int[]
-            { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
-            gbl_leftPanel.columnWeights = new double[]
-            { 0.0, 1.0, 0.0 };
-            gbl_leftPanel.rowWeights = new double[]
-            { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                    0.0, 0.0, Double.MIN_VALUE };
+            gbl_leftPanel.columnWidths = new int[] { 30, 0, 30 };
+            gbl_leftPanel.rowHeights = new int[] { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
+            gbl_leftPanel.columnWeights = new double[] { 0.0, 1.0, 0.0 };
+            gbl_leftPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
             leftPanel.setLayout(gbl_leftPanel);
             {
                 titleLabel = new JLabel("Event Title");
@@ -223,18 +210,15 @@ public class CreateBookingDialog extends JDialog
                 organizationDropDownPlaceholder.setText(
                         bookingPanel.getUser().getOrganization().getName());
 
-                if (user.getUserType() == UserType.DEFAULT
-                        || user.getUserType() == UserType.SUPER)
+                if ((user.getUserType() == UserType.DEFAULT) || (user.getUserType() == UserType.SUPER))
                 {
                     organizationDropDownPlaceholder.setEditable(false);
                 }
                 // TODO Make the dropdown for the admin user, so they can choose
-                // it. Until that time, it is disabled
                 organizationDropDownPlaceholder.setEditable(false);
                 formatTextField(organizationDropDownPlaceholder);
                 GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
-                gbc_organizationDropDownPlaceholder.insets = new Insets(0, 0, 5,
-                        5);
+                gbc_organizationDropDownPlaceholder.insets = new Insets(0, 0, 5, 5);
                 gbc_organizationDropDownPlaceholder.fill = GridBagConstraints.HORIZONTAL;
                 gbc_organizationDropDownPlaceholder.gridx = 1;
                 gbc_organizationDropDownPlaceholder.gridy = 4;
@@ -382,14 +366,10 @@ public class CreateBookingDialog extends JDialog
             gbc_rightPanel.gridy = 1;
             contentPanel.add(rightPanel, gbc_rightPanel);
             GridBagLayout gbl_rightPanel = new GridBagLayout();
-            gbl_rightPanel.columnWidths = new int[]
-            { 30, 0, 0, 30 };
-            gbl_rightPanel.rowHeights = new int[]
-            { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
-            gbl_rightPanel.columnWeights = new double[]
-            { 0.0, 1.0, 1.0, 0.0 };
-            gbl_rightPanel.rowWeights = new double[]
-            { 0.0, 0, 1.0, 0, 0, 0.0, 0, 0, 0, 0, 1.0, 0.0 };
+            gbl_rightPanel.columnWidths = new int[] { 30, 0, 0, 30 };
+            gbl_rightPanel.rowHeights = new int[] { 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30 };
+            gbl_rightPanel.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0 };
+            gbl_rightPanel.rowWeights = new double[] { 0.0, 0, 1.0, 0, 0, 0.0, 0, 0, 0, 0, 1.0, 0.0 };
             rightPanel.setLayout(gbl_rightPanel);
             {
                 JLabel descriptionPanel = new JLabel("Description");
@@ -556,8 +536,7 @@ public class CreateBookingDialog extends JDialog
                         config.getWorkingHoursStart());
                 startTime.set(Calendar.MINUTE, 0);
                 startTimePicker = new JSpinner();
-                startTimePicker.setModel(new SpinnerDateModel(
-                        startTime.getTime(), null, null, Calendar.HOUR_OF_DAY)
+                startTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY)
                 {
                     @Override
                     public Object getNextValue()
@@ -623,8 +602,7 @@ public class CreateBookingDialog extends JDialog
                 endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
                 endTime.set(Calendar.MINUTE, 00);
                 endTimePicker = new JSpinner();
-                endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(),
-                        null, null, Calendar.HOUR_OF_DAY)
+                endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY)
                 {
                     @Override
                     public Object getNextValue()
@@ -724,15 +702,13 @@ public class CreateBookingDialog extends JDialog
                     @Override
                     public void mouseEntered(MouseEvent e)
                     {
-                        saveButton.setBackground(config
-                                .getButtonColorSavedBackground().brighter());
+                        saveButton.setBackground(config.getButtonColorSavedBackground().brighter());
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e)
                     {
-                        saveButton.setBackground(
-                                config.getButtonColorSavedBackground());
+                        saveButton.setBackground(config.getButtonColorSavedBackground());
                     }
                 });
                 saveButton.setForeground(Color.WHITE);
@@ -762,8 +738,8 @@ public class CreateBookingDialog extends JDialog
                     {
                         cancelButton.setBackground(config
                                 .getButtonColorCancelBackground().brighter());
-                        // TODO ADD THIS TO CONFIG
-                        cancelButton.setForeground(Color.BLACK);
+                        //cancelButton.setForeground(Color.BLACK);
+                        cancelButton.setForeground(config.getLabelDefaultForeground());
                     }
 
                     @Override
@@ -796,7 +772,7 @@ public class CreateBookingDialog extends JDialog
         }
     }
 
-    public CreateBookingDialog(User user, LocalDateTime startInterval,
+    public BookingDialog(User user, LocalDateTime startInterval,
             LocalDateTime endInterval, BookingPanel panel) throws SQLException
     {
         this(user, panel);
@@ -811,7 +787,7 @@ public class CreateBookingDialog extends JDialog
         }
     }
 
-    public CreateBookingDialog(Booking booking, BookingPanel panel)
+    public BookingDialog(Booking booking, BookingPanel panel)
             throws SQLException
     {
         this((booking.getContact() != null) ? booking.getContact()
@@ -819,6 +795,7 @@ public class CreateBookingDialog extends JDialog
         // Fill fields
         this.descriptionTextArea.setText(booking.getDescription());
         this.titleTextField.setText(booking.getTitle());
+        this.titleTextField.setCaretPosition(0);
         this.attendeesTextField.setText("" + booking.getNumberOfParticipants());
         this.organizationDropDownPlaceholder
                 .setText(booking.getCreatedBy().getOrganization().getName());
