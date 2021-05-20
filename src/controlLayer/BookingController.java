@@ -113,20 +113,23 @@ public class BookingController
 
 						if (selectedRooms.isEmpty())
 						{
-							return Color.pink;
+							return Color.BLACK;
 						}
 						for (Room room: selectedRooms)
 						{
 							attendees -= room.getCapacity();
 						}
-						return attendees <= 0 ? Color.black : new Color(244, 129, 34);
+						return attendees <= 0 ? Color.BLACK : new Color(244, 129, 34);
+					}
+					else 
+					{
+						return config.getErrorMessageColor();
 					}
 				}
 				catch(Exception e)
 				{
 					return config.getErrorMessageColor();
 				}
-				break;
 			case "contactName":
 				if (information[1].length() > 25 || information[1].length() < 2)
 				{
