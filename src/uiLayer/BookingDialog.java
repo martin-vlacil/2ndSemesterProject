@@ -583,8 +583,7 @@ public class BookingDialog extends JDialog
                         return calendar.getTime();
                     }
                 });
-                DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker,
-                        "HH:mm");
+                DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
                 startTimePicker.setEditor(dateEditor);
                 ((DefaultEditor) startTimePicker.getEditor()).getTextField()
                         .setEditable(false);
@@ -615,8 +614,7 @@ public class BookingDialog extends JDialog
                         time.setTime(77400000);
                         if (calendar.getTime().after(time))
                         {
-                            calendar.set(Calendar.HOUR_OF_DAY,
-                                    config.getWorkingHoursStart());
+                            calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
                             calendar.set(Calendar.MINUTE, 00);
                         }
                         else
@@ -637,8 +635,7 @@ public class BookingDialog extends JDialog
                         time.setTime(52200000);
                         if (calendar.getTime().before(time))
                         {
-                            calendar.set(Calendar.HOUR_OF_DAY,
-                                    config.getWorkingHoursEnd());
+                            calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
                             calendar.set(Calendar.MINUTE, 00);
                         }
                         else
@@ -648,11 +645,9 @@ public class BookingDialog extends JDialog
                         return calendar.getTime();
                     }
                 });
-                DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker,
-                        "HH:mm");
+                DateEditor dateEditor = new JSpinner.DateEditor(endTimePicker, "HH:mm");
                 endTimePicker.setEditor(dateEditor);
-                ((DefaultEditor) endTimePicker.getEditor()).getTextField()
-                        .setEditable(false);
+                ((DefaultEditor) endTimePicker.getEditor()).getTextField().setEditable(false);
                 endTimePicker.setFocusable(false);
                 endTimePicker.setFont(config.getLabelDefaultFont());
                 GridBagConstraints gbc_endTimePicker = new GridBagConstraints();
@@ -668,16 +663,12 @@ public class BookingDialog extends JDialog
                 errorMessageRoom.setLineWrap(true);
                 errorMessageRoom.setWrapStyleWord(true);
                 errorMessageRoom.setOpaque(true);
-                errorMessageRoom
-                        .setBackground(config.getFrontPanelDefaultColor());
+                errorMessageRoom.setBackground(config.getFrontPanelDefaultColor());
                 errorMessageRoom.setBorder(BorderFactory.createEmptyBorder());
                 errorMessageRoom.setForeground(config.getErrorMessageColor());
-                JScrollPane errorMessageScrollPane = new JScrollPane(
-                        errorMessageRoom);
-                errorMessageScrollPane
-                        .setBorder(BorderFactory.createEmptyBorder());
-                errorMessageScrollPane
-                        .setBackground(config.getFrontPanelDefaultColor());
+                JScrollPane errorMessageScrollPane = new JScrollPane(errorMessageRoom);
+                errorMessageScrollPane.setBorder(BorderFactory.createEmptyBorder());
+                errorMessageScrollPane.setBackground(config.getFrontPanelDefaultColor());
                 errorMessageScrollPane.setOpaque(true);
                 GridBagConstraints gbc_errorMessageRoom = new GridBagConstraints();
                 gbc_errorMessageRoom.gridwidth = 2;
@@ -712,8 +703,7 @@ public class BookingDialog extends JDialog
                     }
                 });
                 saveButton.setForeground(Color.WHITE);
-                saveButton
-                        .setBackground(config.getButtonColorSavedBackground());
+                saveButton.setBackground(config.getButtonColorSavedBackground());
                 saveButton.setBorder(config.getButtonSaveBorder());
                 saveButton.setFocusable(false);
                 saveButton.setFont(config.getButtonDefaultFont());
@@ -736,8 +726,7 @@ public class BookingDialog extends JDialog
                     @Override
                     public void mouseEntered(MouseEvent e)
                     {
-                        cancelButton.setBackground(config
-                                .getButtonColorCancelBackground().brighter());
+                        cancelButton.setBackground(config.getButtonColorCancelBackground().brighter());
                         //cancelButton.setForeground(Color.BLACK);
                         cancelButton.setForeground(config.getLabelDefaultForeground());
                     }
@@ -745,16 +734,12 @@ public class BookingDialog extends JDialog
                     @Override
                     public void mouseExited(MouseEvent e)
                     {
-                        cancelButton.setBackground(
-                                config.getButtonColorCancelBackground());
-                        cancelButton.setForeground(
-                                config.getButtonColorCancelForeground());
+                        cancelButton.setBackground( config.getButtonColorCancelBackground());
+                        cancelButton.setForeground(config.getButtonColorCancelForeground());
                     }
                 });
-                cancelButton
-                        .setForeground(config.getButtonColorCancelForeground());
-                cancelButton
-                        .setBackground(config.getButtonColorCancelBackground());
+                cancelButton.setForeground(config.getButtonColorCancelForeground());
+                cancelButton.setBackground(config.getButtonColorCancelBackground());
                 cancelButton.setBorder(config.getButtonCancelBorder());
                 cancelButton.setFocusable(false);
                 cancelButton.setFont(config.getButtonDefaultFont());
@@ -778,12 +763,9 @@ public class BookingDialog extends JDialog
         this(user, panel);
         if (startInterval.compareTo(LocalDateTime.now()) >= 0)
         {
-            startTimePicker.setValue(Date.from(
-                    startInterval.atZone(ZoneId.systemDefault()).toInstant()));
-            endTimePicker.setValue(Date.from(
-                    endInterval.atZone(ZoneId.systemDefault()).toInstant()));
-            datePicker.setValue(Date.from(
-                    startInterval.atZone(ZoneId.systemDefault()).toInstant()));
+            startTimePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
+            endTimePicker.setValue(Date.from(endInterval.atZone(ZoneId.systemDefault()).toInstant()));
+            datePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
         }
     }
 
@@ -814,10 +796,8 @@ public class BookingDialog extends JDialog
             {
                 ((JTextArea) component).setEditable(false);
             }
-            else if (component instanceof JSpinner
-                    || component instanceof JComboBox
-                    || component instanceof JList
-                    || component instanceof JScrollPane)
+            //FIXME Can we replace this with JComponent instead of 4 Jthings?
+            else if (component instanceof JSpinner || component instanceof JComboBox || component instanceof JList || component instanceof JScrollPane)
             {
                 component.setVisible(false);
             }
