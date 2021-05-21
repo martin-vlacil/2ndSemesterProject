@@ -17,7 +17,7 @@ public class UserDB implements UserDBIF
     private OrganizationDBIF organizationDB = new OrganizationDB();
 
     private static final String SELECT_USER_BY_EMAIL_AND_PASSWORD = String
-            .format("SELECT * FROM [User] WHERE email = ? AND password = ?");
+            .format("SELECT * FROM [User] WHERE email = ? AND password = ? COLLATE Latin1_General_CS_AS");
     private PreparedStatement sqlSelectByEmailAndPassword;
 
     private static final String SELECT_USERTYPE_BY_ID = String
