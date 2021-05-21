@@ -279,8 +279,25 @@ class TestBookingController
         // Assert
         assertTrue(checkValidity);
     }
+    
+    // CB4 - TC7 email does not contain '.'
+    @Test
+    void emailWithoutDotSymbolAfterAtShouldReturnFalse() throws SQLException
+    {
+        // Arrange
+        String[] eventDetails = new String[2];
+        eventDetails[0] = "email";
+        eventDetails[1] = "homeaddress@dk";
 
-    // CB4 - TC7 email longer than 100 characters
+        // Act
+        boolean checkValidity = bookingCtr
+                .validateInformation(eventDetails) == Color.RED;
+
+        // Assert
+        assertTrue(checkValidity);
+    }
+
+    // CB4 - TC8 email longer than 100 characters
     @Test
     void emailLongerThan100CharactersShouldReturnFalse() throws SQLException
     {
@@ -297,14 +314,14 @@ class TestBookingController
         assertTrue(checkValidity);
     }
 
-    // CB4 - TC8 email shorter than 2 characters
+    // CB4 - TC9 email shorter than 2 characters
     @Test
-    void emailShorterThan2CharactersShouldReturnFalse() throws SQLException
+    void emailShorterThan6CharactersShouldReturnFalse() throws SQLException
     {
         // Arrange
         String[] eventDetails = new String[2];
         eventDetails[0] = "email";
-        eventDetails[1] = "a";
+        eventDetails[1] = "b@c.d";
 
         // Act
         boolean checkValidity = bookingCtr
