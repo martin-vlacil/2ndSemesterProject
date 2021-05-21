@@ -34,7 +34,7 @@ public class BookingController
         logEntryDB = new LogEntryDB();
         bookingDB = new BookingDB();
         emailPattern = Pattern.compile("(.+)@(.+).(.+)");
-        phonePattern = Pattern.compile("\\+?\\d+[0-9]{5,16}");
+        phonePattern = Pattern.compile("^\\+?[0-9]{5,16}$");
     }
 
     /**
@@ -68,23 +68,18 @@ public class BookingController
 
                 if (contact == null)
                 {
-                    booking = new Booking(title, description, selectedStartTime,
-                            selectedEndTime, numberOfParticipants, room,
-                            createdBy, contact);
+                    booking = new Booking(title, description, selectedStartTime, selectedEndTime, numberOfParticipants, room, createdBy, contact);
                 }
                 else
                 {
-                    booking = new Booking(title, description, selectedStartTime,
-                            selectedEndTime, numberOfParticipants, room,
-                            createdBy);
+                    booking = new Booking(title, description, selectedStartTime, selectedEndTime, numberOfParticipants, room, createdBy);
                 }
 
                 if (!bookingDB.create(booking))
                 {
                     bookingConfirmed = false;
                 }
-                DateTimeFormatter formatter = DateTimeFormatter
-                        .ofPattern("dd/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter .ofPattern("dd/MM/yyyy");
                 logEntryDB.create(createdBy.getName() + " from "
                         + createdBy.getOrganization().getName() + " has booked "
                         + room.getName().substring(0, 1).toUpperCase()
@@ -166,7 +161,7 @@ public class BookingController
 
         case "phoneNumber":
         	matcher = phonePattern.matcher(information[1]);
-            if(!matcher.find())
+            if(!matcher.find() || information[1].length() > 16)
             {
             	return errorColor;
             }
@@ -174,7 +169,7 @@ public class BookingController
 
         case "email":
             matcher = emailPattern.matcher(information[1]);
-            if (!matcher.find() || information[1].length() > 100 || information[1].length() < 5)
+            if (!matcher.find() || information[1].length() > 100 || information[1].length() < 6)
             {
                 return errorColor;
             }
