@@ -59,13 +59,14 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * 
+ * A booking JDialog used both  for creating/viewing a booking.
+ * @author dmai0920 group 1
+ *
+ */
 public class BookingDialog extends JDialog
 {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4971333530173079875L;
     private final JPanel contentPanel = new JPanel();
     private JPanel rightPanel;
@@ -100,13 +101,12 @@ public class BookingDialog extends JDialog
     private JButton saveButton;
 
     /**
-     * Create the dialog.
+     * Constructor for "Create a booking" with all empty fields
      * 
      * @throws SQLException
      * @wbp.parser.constructor
      */
-    public BookingDialog(User user, BookingPanel panel)
-            throws SQLException
+    public BookingDialog(User user, BookingPanel panel) throws SQLException
     {
         this.bookingPanel = panel;
         fields = new HashMap<>();
@@ -458,15 +458,13 @@ public class BookingDialog extends JDialog
             {
                 listModel = new DefaultListModel<>();
                 JList<Room> listOfSelectedRooms = new JList<>(listModel);
-                listOfSelectedRooms
-                        .addListSelectionListener(new ListSelectionListener()
+                listOfSelectedRooms.addListSelectionListener(new ListSelectionListener()
                         {
 
                             @Override
                             public void valueChanged(ListSelectionEvent e)
                             {
-                                removeSelectedRoom(
-                                        listOfSelectedRooms.getSelectedValue());
+                                removeSelectedRoom(listOfSelectedRooms.getSelectedValue());
 
                             }
                         });
@@ -549,8 +547,7 @@ public class BookingDialog extends JDialog
                         time.setTime(77400000);
                         if (calendar.getTime().after(time))
                         {
-                            calendar.set(Calendar.HOUR_OF_DAY,
-                                    config.getWorkingHoursStart());
+                            calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
                             calendar.set(Calendar.MINUTE, 00);
                         }
                         else
@@ -572,8 +569,7 @@ public class BookingDialog extends JDialog
                         time.setTime(52200000);
                         if (calendar.getTime().before(time))
                         {
-                            calendar.set(Calendar.HOUR_OF_DAY,
-                                    config.getWorkingHoursEnd());
+                            calendar.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
                             calendar.set(Calendar.MINUTE, 00);
                         }
                         else
@@ -585,8 +581,7 @@ public class BookingDialog extends JDialog
                 });
                 DateEditor dateEditor = new JSpinner.DateEditor(startTimePicker, "HH:mm");
                 startTimePicker.setEditor(dateEditor);
-                ((DefaultEditor) startTimePicker.getEditor()).getTextField()
-                        .setEditable(false);
+                ((DefaultEditor) startTimePicker.getEditor()).getTextField().setEditable(false);
                 startTimePicker.setFocusable(false);
                 startTimePicker.setFont(config.getLabelDefaultFont());
                 GridBagConstraints gbc_startTimePicker = new GridBagConstraints();
@@ -756,7 +751,15 @@ public class BookingDialog extends JDialog
             }
         }
     }
-
+    
+    /**
+     * Constructor for creating a booking with specified start and end dates selected. 
+     * @param user
+     * @param startInterval
+     * @param endInterval
+     * @param panel
+     * @throws SQLException
+     */
     public BookingDialog(User user, LocalDateTime startInterval,
             LocalDateTime endInterval, BookingPanel panel) throws SQLException
     {
@@ -768,7 +771,12 @@ public class BookingDialog extends JDialog
             datePicker.setValue(Date.from(startInterval.atZone(ZoneId.systemDefault()).toInstant()));
         }
     }
-
+    /**
+     * Constructor for viewing a booking, based on an existing booking selected
+     * @param booking
+     * @param panel
+     * @throws SQLException
+     */
     public BookingDialog(Booking booking, BookingPanel panel)
             throws SQLException
     {
@@ -820,8 +828,7 @@ public class BookingDialog extends JDialog
         gbc_selectedRoomField.gridy = 5;
         rightPanel.add(selectedRoomField, gbc_selectedRoomField);
 
-        JTextField selectedDateField = new JTextField(
-                dateFormatter.format(booking.getStartTime()));
+        JTextField selectedDateField = new JTextField(dateFormatter.format(booking.getStartTime()));
         selectedDateField.setEditable(false);
         formatTextField(selectedDateField);
         GridBagConstraints gbc_selectedDateField = new GridBagConstraints();
@@ -832,8 +839,7 @@ public class BookingDialog extends JDialog
         gbc_selectedDateField.gridy = 7;
         rightPanel.add(selectedDateField, gbc_selectedDateField);
 
-        JTextField selectedStartTimeField = new JTextField(
-                timeFormatter.format(booking.getStartTime()));
+        JTextField selectedStartTimeField = new JTextField(timeFormatter.format(booking.getStartTime()));
         selectedStartTimeField.setEditable(false);
         formatTextField(selectedStartTimeField);
         GridBagConstraints gbc_selectedStartTimeField = new GridBagConstraints();
@@ -843,8 +849,7 @@ public class BookingDialog extends JDialog
         gbc_selectedStartTimeField.gridy = 9;
         rightPanel.add(selectedStartTimeField, gbc_selectedStartTimeField);
 
-        JTextField selectedEndTimeField = new JTextField(
-                timeFormatter.format(booking.getEndTime()));
+        JTextField selectedEndTimeField = new JTextField(timeFormatter.format(booking.getEndTime()));
         selectedEndTimeField.setEditable(false);
         formatTextField(selectedEndTimeField);
         GridBagConstraints gbc_selectedEndTimeField = new GridBagConstraints();
@@ -854,22 +859,26 @@ public class BookingDialog extends JDialog
         gbc_selectedEndTimeField.gridy = 9;
         rightPanel.add(selectedEndTimeField, gbc_selectedEndTimeField);
     }
-
+    
     /**
-     * private void initializeHashMap() { fields = new HashMap<>();
-     * 
-     * for(Component textField: leftPanel.getComponents()) { if(textField
-     * instanceof JTextField) { fields.put((JTextField)textField, false); } } }
-     **/
-
+     *  Receives a JTextComponent(Test field, test area) and styles it accordingly.
+     * @param component
+     */
     private void formatTextField(JTextComponent component)
     {
         component.setForeground(config.getLabelDefaultForeground());
         component.setFont(config.getLabelDefaultFont());
-        component.setBorder(
-                BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+        //FIXME can this be in the config?
+        component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
     }
 
+    /**
+     * Recieves a Jlabel and a JTextField and validates the input
+     * in the textfield according to which Jlabel it is.
+     * @param label
+     * @param field
+     * @return
+     */
     private boolean checkInformation(JLabel label, JTextField field)
     {
         boolean informationCorrect = false;
@@ -903,6 +912,11 @@ public class BookingDialog extends JDialog
         return informationCorrect;
     }
 
+    /**
+     * Checks if a room/all rooms selected are  available for the certain period of time. 
+     * @return a boolean value of the availability of the chosen room(s).
+     * @throws SQLException using a query to check bookings.
+     */
     private boolean checkRoomAvailability() throws SQLException
     {
         errorMessageRoom.setVisible(false);
@@ -916,8 +930,7 @@ public class BookingDialog extends JDialog
 
         for (Room r : selectedRooms)
         {
-            String roomCheck = bookingController
-                    .checkAvailability(getStartTime(), getEndTime(), r);
+            String roomCheck = bookingController.checkAvailability(getStartTime(), getEndTime(), r);
             if (!roomCheck.equals(""))
             {
                 errorMessage += (roomCheck);
@@ -936,6 +949,10 @@ public class BookingDialog extends JDialog
         }
     }
 
+    /**
+     * Adding a selected room to an ArrayList of rooms used for creating a booking
+     * @param room an object from type room based on the selection from the list
+     */
     private void addSelectedRoom(Room room)
     {
         if (!room.getName().equals(" Select..."))
@@ -960,6 +977,11 @@ public class BookingDialog extends JDialog
         }
     }
 
+    
+    /**
+     * Removing a room from the arrayList of selected rooms
+     * @param room a Room boject to be removed
+     */
     private void removeSelectedRoom(Room room)
     {
         if (selectedRooms.contains(room))
@@ -975,7 +997,12 @@ public class BookingDialog extends JDialog
             comboBox.addItem(room);
         }
     }
-
+    
+    
+    /**
+     * Called by createBooking method and checks all fields that are not validated yet.
+     * @return a boolean value of all fields that haven't been validated yet, are correct.
+     */
     private boolean checkUnvalidatedFields()
     {
         boolean informationCorrect = true;
@@ -1007,6 +1034,10 @@ public class BookingDialog extends JDialog
         return informationCorrect;
     }
 
+    
+    /**
+     * Creates a booking based on the details provided.
+     */
     private void confirmBooking()
     {
         try
@@ -1015,26 +1046,20 @@ public class BookingDialog extends JDialog
             {
                 if (!checkUnvalidatedFields())
                 {
-                    JOptionPane.showMessageDialog(null,
-                            "Some of the information is not correct.",
-                            "Invalid information", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Some of the information is not correct.", "Invalid information", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 // if the email matches the users email, then contact is null
                 User contactPerson = null;
                 if (!emailTextField.getText().equalsIgnoreCase(user.getEmail()))
                 {
-                    contactPerson = new User(nameTextField.getText(),
-                            phoneTextField.getText(), emailTextField.getText());
+                    contactPerson = new User(nameTextField.getText(), phoneTextField.getText(), emailTextField.getText());
                 }
 
                 LocalDateTime startDateTime = getStartTime();
                 LocalDateTime endDateTime = getEndTime();
 
-                if (bookingController.confirmBooking(titleTextField.getText(),
-                        descriptionTextArea.getText(), contactPerson,
-                        Integer.parseInt(attendeesTextField.getText()), user,
-                        selectedRooms, startDateTime, endDateTime))
+                if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(), contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, startDateTime, endDateTime))
                 {
                     bookingPanel.getAllBookingsForAWeek(startDateTime);
                     MainUI.updateLog();
@@ -1042,9 +1067,7 @@ public class BookingDialog extends JDialog
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,
-                            "Failed to confirm your booking.",
-                            "Failed confirmation", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Failed to confirm your booking.", "Failed confirmation", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
@@ -1054,24 +1077,27 @@ public class BookingDialog extends JDialog
         }
     }
 
+    /**
+     * Provides current chosen Start time retrieved from JSpinner
+     * @return a LocalDateTime object containing the date and the starting time
+     */
     private LocalDateTime getStartTime()
     {
         Date startDate = (Date) startTimePicker.getValue();
-        LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(),
-                ZoneId.systemDefault());
-        LocalDate localDate = ((Date) datePicker.getValue()).toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
+        LocalDate localDate = ((Date) datePicker.getValue()).toInstant() .atZone(ZoneId.systemDefault()).toLocalDate();
 
         return LocalDateTime.of(localDate, bookingStartTime);
     }
-
+    /**
+     * Provides current chosen End time retrieved from JSpinner
+     * @return a LocalDateTime object containing the date and the end time
+     */
     private LocalDateTime getEndTime()
     {
         Date endDate = (Date) endTimePicker.getValue();
-        LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(),
-                ZoneId.systemDefault());
-        LocalDate localDate = ((Date) datePicker.getValue()).toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
+        LocalDate localDate = ((Date) datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         return LocalDateTime.of(localDate, bookingEndTime);
     }
