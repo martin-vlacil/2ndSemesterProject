@@ -230,13 +230,13 @@ class TestBookingController
 
     // CB4 - TC4 phone number too long
     @Test
-    void phoneNumberLongerThan15CharactersShouldReturnFalse()
+    void phoneNumberLongerThan16CharactersShouldReturnFalse()
             throws SQLException
     {
         // Arrange
         String[] eventDetails = new String[2];
         eventDetails[0] = "phoneNumber";
-        eventDetails[1] = "+231343578493011";
+        eventDetails[1] = "+2313435784930113";
 
         // Act
         boolean checkValidity = bookingCtr
