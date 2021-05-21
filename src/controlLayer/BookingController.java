@@ -11,8 +11,9 @@ import databaseLayer.*;
 import modelLayer.*;
 
 /**
- * @author Group1 dmai0920 This is a controller that handles most of the
- *         "business logic" regarding the Bookings that the Users create
+ * @author Group1 dmai0920 
+ * This is a controller that handles most of the
+ * "business logic" regarding the Bookings that the Users create
  */
 public class BookingController
 {
@@ -30,12 +31,14 @@ public class BookingController
     }
 
     /**
-     * TODO - finish desc
+     * Is called when the Save button is clicked in the create booking dialog,
+     * takes all the information from the text fields and creates the booking objects
+     * which are then inserted into the database, also creates a log object that is inserted
+     * into the database
      * 
      * @param title, description, contactName, contactPhoneNumber, contactEmail,
-     *            numberOfParticipants, createdBy
-     * @return true/false if the booking(s) was/were successfully created in the
-     *         database
+     * numberOfParticipants, createdBy
+     * @return true/false if the booking(s) was/were successfully created in the database
      * @throws SQLException
      */
     public boolean confirmBooking(String title, String description,
@@ -98,19 +101,21 @@ public class BookingController
      * is taken from
      * 
      * @param information
-     * @return true/false whether or not the information is correct
+     * @return Color of the textField border (black - correct, stays the same color, orange - warning color, red - error color)
      */
     public Color validateInformation(String[] information)
     {
         Config config = new Config();
-        // TODO maybe we can use smth fancy like hashmap? Also Regex at
-        // phonenumber and attendees
+        Color errorColor = config.getErrorMessageColor();
+        Color warningColor = new Color(244, 129, 34);
+        Color correctColor = Color.BLACK;
+        
         switch (information[0])
         {
         case "title":
             if (information[1].length() > 50)
             {
-                return config.getErrorMessageColor();
+                return errorColor;
             }
             break;
 
@@ -122,33 +127,33 @@ public class BookingController
                     int attendees = Integer.parseInt(information[1]);
                     if (attendees == 0)
                     {
-                        return config.getErrorMessageColor();
+                        return errorColor;
                     }
 
                     if (selectedRooms.isEmpty())
                     {
-                        return Color.BLACK;
+                        return correctColor;
                     }
                     for (Room room : selectedRooms)
                     {
                         attendees -= room.getCapacity();
                     }
-                    return attendees <= 0 ? Color.BLACK
-                            : new Color(244, 129, 34);
+                    return attendees <= 0 ? correctColor
+                            : warningColor;
                 }
                 else
                 {
-                    return config.getErrorMessageColor();
+                    return errorColor;
                 }
             }
             catch (Exception e)
             {
-                return config.getErrorMessageColor();
+                return errorColor;
             }
         case "contactName":
             if (information[1].length() > 25 || information[1].length() < 2)
             {
-                return config.getErrorMessageColor();
+                return errorColor;
             }
             break;
 
@@ -158,12 +163,12 @@ public class BookingController
             {
                 if (!Character.isDigit(information[1].charAt(e)))
                 {
-                    return config.getErrorMessageColor();
+                    return errorColor;
                 }
             }
             if (information[1].length() > 15 || information[1].length() < 1)
             {
-                return config.getErrorMessageColor();
+                return errorColor;
             }
             break;
 
@@ -171,14 +176,14 @@ public class BookingController
             if (!information[1].contains("@") || information[1].length() > 100
                     || information[1].length() < 1)
             {
-                return config.getErrorMessageColor();
+                return errorColor;
             }
             break;
 
         default:
-            return Color.black;
+            return correctColor;
         }
-        return Color.black;
+        return correctColor;
     }
 
     /**
@@ -261,6 +266,12 @@ public class BookingController
         return bookingDB.getAllByTimeInterval(startDate, endDate);
     }
 
+    /**
+     * Sets stubs for the Data Access Object Classes to return dummy data instead of connecting to the
+     * database, utilized for testing
+     * @param bookingDB
+     * @param logEntryDB
+     */
     public void setStub(BookingDBIF bookingDB, LogEntryDBIF logEntryDB)
     {
         this.bookingDB = bookingDB;

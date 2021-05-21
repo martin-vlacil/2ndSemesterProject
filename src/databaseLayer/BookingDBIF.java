@@ -34,8 +34,7 @@ public interface BookingDBIF
     ArrayList<Booking> getAllByDateOfOneDay(LocalDate date) throws SQLException;
 
     /**
-     * TODO Gets all bookings for a
-     * 
+     * Used to return all the bookings made in the defined time interval
      * @param startTime, endTime
      * @return
      * @throws SQLException
