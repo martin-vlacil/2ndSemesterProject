@@ -22,7 +22,7 @@ public interface UserDBIF
     User getUser(String email, String password) throws SQLException;
 
     /**
-     * This method is used to create a User object from the databse
+     * This method is used to create a User object from the database
      * 
      * @param id of the user
      * @return the created user

@@ -5,8 +5,9 @@ import java.awt.*;
 import javax.swing.border.*;
 
 /**
- * @author Group 1 dmai0920 This class serves as a premade configuration of all
- *         the colors, fonts and styles of the UI elements
+ * @author Group 1 dmai0920 
+ * This class serves as a premade configuration of all
+ * the colors, fonts and styles of the UI elements
  */
 public class Config
 {

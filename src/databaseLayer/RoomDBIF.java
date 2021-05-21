@@ -8,7 +8,6 @@ import modelLayer.Room;
 
 /**
  * This interface defines all the methods for the Room Data Access Object
- * 
  * @author Group 1 dmai0920
  */
 public interface RoomDBIF
@@ -21,6 +20,11 @@ public interface RoomDBIF
      */
     ArrayList<Room> getAll() throws SQLException;
 
-    // TODO - comment
+    /**
+     * Used to create and return a room object from the result set
+     * @param rs - ResultSet of the executed query
+     * @return The created room object
+     * @throws SQLException
+     */
     Room buildObject(ResultSet rs) throws SQLException;
 }

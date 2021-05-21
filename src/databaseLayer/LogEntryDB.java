@@ -8,9 +8,10 @@ import config.Config;
 import modelLayer.LogEntry;
 
 /**
- * @author Group 1 dmai0920 This is a database class for LogEntries, the handles
- *         its persistence, it is responsible for finding, updating, deleting,
- *         and inserting to the database
+ * @author Group 1 dmai0920 
+ * This is a database class for LogEntries, the handles
+ * its persistence, it is responsible for finding, updating, deleting,
+ * and inserting to the database
  */
 public class LogEntryDB implements LogEntryDBIF
 {

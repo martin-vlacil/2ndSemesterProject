@@ -11,9 +11,13 @@ import modelLayer.Room;
 import modelLayer.User;
 import modelLayer.User.UserType;
 
+/**
+ * This is a stub class used for testing the BookingController that returns
+ * dummy data instead of connecting to the database
+ * @author Group 1 dmai0920
+ */
 public class BookingDBStub implements BookingDBIF
 {
-
     Booking booking;
 
     public BookingDBStub()

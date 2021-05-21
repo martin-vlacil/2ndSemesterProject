@@ -8,19 +8,20 @@ import java.time.LocalDateTime;
  */
 public class Booking implements Comparable<Booking>
 {
-
-    private boolean selected;
     private String title;
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private int numberOfParticipants;
+    private int numberOfParticipants; 
     private Room room;
     private User createdBy;
     private User contact; // if null, then the creator is the contact
+    
+    private boolean selected;
 
     /**
      * Constructor used to build bookings from the database
+     * It accepts a contact if the contact information has been changed
      */
     public Booking(String title, String description, LocalDateTime startTime,
             LocalDateTime endTime, int numberOfParticipants, Room room,
@@ -36,6 +37,11 @@ public class Booking implements Comparable<Booking>
         this.contact = contact;
     }
 
+    /**
+     * Constructor used to build bookings from the database
+     * It is missing a contact, because this one is used when the contact information in the UI
+     * has bee unchanged
+     */
     public Booking(String title, String description, LocalDateTime startTime,
             LocalDateTime endTime, int numberOfParticipants, Room room,
             User createdBy)
@@ -148,7 +154,10 @@ public class Booking implements Comparable<Booking>
         return room;
     }
 
-    // TODO - comment
+    /**
+     * Is implemented from the Comparable interface, which compares two times
+     * returns a positive/negative integer based on the result of the comparison
+     */
     @Override
     public int compareTo(final Booking booking)
     {

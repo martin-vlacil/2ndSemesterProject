@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import modelLayer.Room;
 
 /**
- * @author Group 1 dmai0920 This is a database class for Rooms, the handles its
- *         persistence, it is responsible for finding, updating, deleting, and
- *         inserting to the database
+ * @author Group 1 dmai0920 
+ * This is a database class for Rooms, the handles its
+ * persistence, it is responsible for finding, updating, deleting, and
+ * inserting to the database
  */
 public class RoomDB implements RoomDBIF
 {
