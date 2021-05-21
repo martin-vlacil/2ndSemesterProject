@@ -85,10 +85,10 @@ public class BookingPanel extends JPanel
             }
         });
         createBookingButton.setForeground(Color.WHITE);
-        createBookingButton.setBackground(new Color(40, 41, 82));
+        createBookingButton.setBackground(config.getBlueColorDefault());
         createBookingButton.setBorder(new EmptyBorder(8, 10, 8, 10));
         createBookingButton.setFocusable(false);
-        createBookingButton.setFont(new Font("Roboto", Font.BOLD, 15));
+        createBookingButton.setFont(config.getLabelTitleFont());
         createBookingButton.setOpaque(true);
         GridBagConstraints gbc_createBookingButton = new GridBagConstraints();
         gbc_createBookingButton.gridheight = 2;
@@ -124,7 +124,7 @@ public class BookingPanel extends JPanel
         comboBox.setPreferredSize(new Dimension(100, 30));
         comboBox.setEditable(false);
         comboBox.setFocusable(false);
-        comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
+        comboBox.setFont(config.getLabelTitleFont());
         comboBox.setForeground(Color.GRAY);
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;

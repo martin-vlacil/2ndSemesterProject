@@ -142,8 +142,8 @@ public class BookingDialog extends JDialog
             titlePanel.setLayout(gbl_titlePanel);
             {
                 titlePanelLabel = new JLabel("Create Booking");
-                titlePanelLabel.setForeground(new Color(255, 255, 255));
-                titlePanelLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+                titlePanelLabel.setForeground(config.getTitleColorForeground());
+                titlePanelLabel.setFont(config.getTextBiggerSize());
                 GridBagConstraints gbc_titleLabel = new GridBagConstraints();
                 gbc_titleLabel.insets = new Insets(0, 0, 5, 5);
                 gbc_titleLabel.gridx = 0;
@@ -153,7 +153,7 @@ public class BookingDialog extends JDialog
         }
         {
             leftPanel = new JPanel();
-            leftPanel.setBackground(Color.WHITE);
+            leftPanel.setBackground(config.getPanelDefaultColor());
             GridBagConstraints gbc_leftPanel = new GridBagConstraints();
             gbc_leftPanel.insets = new Insets(0, 20, 0, 0);
             gbc_leftPanel.fill = GridBagConstraints.BOTH;
@@ -256,7 +256,7 @@ public class BookingDialog extends JDialog
             }
             {
                 JLabel contactLabel = new JLabel("Contact Person Information");
-                contactLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+                contactLabel.setFont(config.getLogSize());
                 GridBagConstraints gbc_contactLabel = new GridBagConstraints();
                 gbc_contactLabel.anchor = GridBagConstraints.WEST;
                 gbc_contactLabel.insets = new Insets(10, 0, 5, 5);
@@ -397,7 +397,7 @@ public class BookingDialog extends JDialog
             {
                 JButton attachmentButton = new JButton("Add Attachment");
                 attachmentButton.setEnabled(false);
-                attachmentButton.setBackground(new Color(192, 192, 192));
+                attachmentButton.setBackground(config.getAttachmentButtonColor());
                 attachmentButton.setOpaque(true);
                 GridBagConstraints gbc_attachmentButton = new GridBagConstraints();
                 gbc_attachmentButton.anchor = GridBagConstraints.EAST;
@@ -443,7 +443,7 @@ public class BookingDialog extends JDialog
                 comboBox.setPreferredSize(new Dimension(100, 30));
                 comboBox.setEditable(false);
                 comboBox.setFocusable(false);
-                comboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
+                comboBox.setFont(config.getButtonDefaultFont());
                 comboBox.setForeground(Color.GRAY);
 
                 GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -729,7 +729,7 @@ public class BookingDialog extends JDialog
                     @Override
                     public void mouseExited(MouseEvent e)
                     {
-                        cancelButton.setBackground( config.getButtonColorCancelBackground());
+                        cancelButton.setBackground(config.getButtonColorCancelBackground());
                         cancelButton.setForeground(config.getButtonColorCancelForeground());
                     }
                 });
@@ -873,7 +873,7 @@ public class BookingDialog extends JDialog
     }
 
     /**
-     * Recieves a Jlabel and a JTextField and validates the input
+     * Receives a Jlabel and a JTextField and validates the input
      * in the textfield according to which Jlabel it is.
      * @param label
      * @param field
@@ -890,12 +890,12 @@ public class BookingDialog extends JDialog
             field.setBorder(new LineBorder(returnedValue));
             fields.put(field, false);
         }
-        else if (returnedValue.equals(new Color(244, 129, 34)))
+        else if (returnedValue.equals(config.getWarningColor()))
         {
             label.setForeground(returnedValue);
             field.setBorder(new LineBorder(returnedValue));
-            label.setToolTipText("Number of attendees accedes room's capacity");
-            field.setToolTipText("Number of attendees accedes room's capacity");
+            label.setToolTipText("Number of attendees exceedes room's capacity");
+            field.setToolTipText("Number of attendees exceedes room's capacity");
             fields.put(field, false);
             informationCorrect = true;
         }

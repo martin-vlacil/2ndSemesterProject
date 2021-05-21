@@ -29,6 +29,9 @@ public class Config
     private Color separatorColor;
     private Color selectedSidebarButtonColor;
     private Color labelDefaultForeground;
+    private Color titleColorForeground;
+    private Color attachmentButtonColor;
+    private Color warningColor;
     private Font buttonDefaultFont;
     private Font buttonBiggerFont;
     private Font labelDefaultFont;
@@ -83,12 +86,30 @@ public class Config
         separatorColor = new Color(196, 196, 196);
         selectedSidebarButtonColor = new Color(234, 234, 238);
         labelDefaultForeground = Color.BLACK;
+        titleColorForeground = new Color(255, 255, 255);
+        attachmentButtonColor = new Color(192, 192, 192);
+        warningColor = new Color(244, 129, 34);
 
         setWorkingHoursStart(15);
         setWorkingHoursEnd(23);
 
     }
+    public Color getWarningColor()
+    {
+    	return warningColor;
+    }
+    
+    
+    public Color getAttachmentButtonColor()
+    {
+    	return attachmentButtonColor;
+    }
 
+    public Color getTitleColorForeground()
+    {
+    	return titleColorForeground;
+    }
+    
     public Color getFrontPanelDefaultColor()
     {
         return frontPanelDefaultColor;
@@ -340,7 +361,7 @@ public class Config
         return logTextSize;
     }
 
-    public void setLogSize(Font logSize)
+    public void setLogTextSize(Font logSize)
     {
         this.logTextSize = logSize;
     }
