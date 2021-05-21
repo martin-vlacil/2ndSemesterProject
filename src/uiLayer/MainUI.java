@@ -22,6 +22,7 @@ import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
 import modelLayer.User.UserType;
+import query.Query;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -377,7 +378,7 @@ public class MainUI extends JFrame
     public static void updateLog() throws SQLException
     {
         logTextArea.setText("");
-        ArrayList<LogEntry> logs = new LogEntryDB().getLogs();
+        ArrayList<LogEntry> logs = Query.getInstance().getLogsFirstTime();
         logs.parallelStream().forEach(
                 log -> logTextArea.append(" -" + log.getAction() + "\n"));
     }

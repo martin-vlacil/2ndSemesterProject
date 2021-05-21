@@ -239,7 +239,7 @@ public class BookingPanel extends JPanel
     {
         calendar.removeAllEvents();
         BookingController bc = new BookingController();
-        ArrayList<Booking> bookings = Query.getInstance().getBookings();
+        ArrayList<Booking> bookings = Query.getInstance().getBookingsFirstTime();
         for (Booking booking : bookings)
         {
             calendar.addCalendarEvent(booking);

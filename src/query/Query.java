@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.SwingWorker;
 
 import databaseLayer.BookingDB;
+import databaseLayer.LogEntryDB;
 import modelLayer.Booking;
 import modelLayer.LogEntry;
 
@@ -29,17 +30,38 @@ public class Query {
 		return uniqueInstance;
 	}
 	
-	public ArrayList<Booking> getBookings()
+	public ArrayList<Booking> getBookingsFirstTime()
 	{
 		return bookings;
 	}
 	
-	public void queryBookings()
+
+	public ArrayList<LogEntry> getLogsFirstTime()
 	{
-		
+		return logs;
 	}
 	
 	public void startUp() throws SQLException
+	{
+		SwingWorker sw = new SwingWorker()
+		{
+
+				@Override
+				protected Object doInBackground() throws Exception {
+					BookingDB bookingDB = new BookingDB();
+					bookings = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
+					System.out.println("Bookings got!");
+					LogEntryDB log = new LogEntryDB();
+					logs = log.getLogs();
+					System.out.println("Logs got!");
+					return null;
+				}
+			
+		};
+		sw.execute();
+	}
+	
+	public ArrayList<Booking> getBookings() throws SQLException
 	{
 		SwingWorker sw = new SwingWorker()
 		{
@@ -53,10 +75,26 @@ public class Query {
 			
 		};
 		sw.execute();
-;
+		return bookings;
 		
 	}
 	
-	
+	public ArrayList<LogEntry> getLogs() throws SQLException
+	{
+		SwingWorker sw = new SwingWorker()
+		{
+
+				@Override
+				protected Object doInBackground() throws Exception {
+					LogEntryDB log = new LogEntryDB();
+					logs = log.getLogs();
+					return null;
+				}
+			
+		};
+		sw.execute();
+		return logs;
+		
+	}
 	
 }
