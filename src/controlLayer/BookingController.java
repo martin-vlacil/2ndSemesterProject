@@ -189,45 +189,33 @@ public class BookingController
      * @return the error message
      * @throws SQLException
      */
-    public String checkAvailability(LocalDateTime startTime,
-            LocalDateTime endTime, Room room) throws SQLException
+    public String checkAvailability(LocalDateTime startTime, LocalDateTime endTime, Room room) throws SQLException
     {
         StringBuilder returnString = new StringBuilder();
-        String problemTemplate = "\n%s room is booked by %s from %s until %s. \n";
+        String problemTemplate = "\nInteference: %s room is booked by %s from %s until %s.";
+        if(startTime.isEqual(endTime) || endTime.isBefore(startTime))
+        {
+        	return "The selected start time is invalid!";
+        }
         for (Booking booking : getBookingsOfOneDay(startTime.toLocalDate()))
         {
             if (booking.getRoom().getId() == room.getId())
             {
-                DateTimeFormatter formatter = DateTimeFormatter
-                        .ofPattern("HH:mm");
-                String startTimeString = booking.getStartTime()
-                        .format(formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                String startTimeString = booking.getStartTime().format(formatter);
                 String endTimeString = booking.getEndTime().format(formatter);
-                String organization = booking.getCreatedBy().getOrganization()
-                        .getName();
-                String roomName = room.getName().substring(0, 1).toUpperCase()
-                        + room.getName().substring(1).toLowerCase();
+                String organization = booking.getCreatedBy().getOrganization().getName();
+                String roomName = room.getName().substring(0, 1).toUpperCase() + room.getName().substring(1).toLowerCase();
                 // If the events starts before and ends meanwhile
-                if (booking.getStartTime().isBefore(startTime)
-                        && booking.getEndTime().isAfter(startTime))
-                    returnString.append(String.format(problemTemplate, roomName,
-                            organization, startTimeString, endTimeString));
+                if (booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(startTime)) returnString.append(String.format(problemTemplate, roomName, organization, startTimeString, endTimeString));
                 // If the events starts meanwhile and ends after
-                else if (booking.getStartTime().isBefore(endTime)
-                        && booking.getEndTime().isAfter(endTime))
-                    returnString.append(String.format(problemTemplate, roomName,
-                            organization, startTimeString, endTimeString));
+                else if (booking.getStartTime().isBefore(endTime) && booking.getEndTime().isAfter(endTime)) returnString.append(String.format(problemTemplate, roomName, organization, startTimeString, endTimeString));
                 // If the event starts and ends between the two timeslots
-                else if (booking.getStartTime().isAfter(startTime)
-                        && booking.getEndTime().isBefore(endTime))
-                    returnString.append(String.format(problemTemplate, roomName,
-                            organization, startTimeString, endTimeString));
-                // If the event starts before the startTime and ends after the
-                // endTime
-                else if (booking.getStartTime().isBefore(startTime)
-                        && booking.getEndTime().isAfter(endTime))
-                    returnString.append(String.format(problemTemplate, roomName,
-                            organization, startTimeString, endTimeString));
+                else if (booking.getStartTime().isAfter(startTime) && booking.getEndTime().isBefore(endTime)) returnString.append(String.format(problemTemplate, roomName, organization, startTimeString, endTimeString));
+                // If the event starts before the startTime and ends after the endTime
+                else if (booking.getStartTime().isBefore(startTime) && booking.getEndTime().isAfter(endTime)) returnString.append(String.format(problemTemplate, roomName, organization, startTimeString, endTimeString));
+                //If the bookings have the same start and end time
+                else if (booking.getStartTime().isEqual(startTime) && (booking.getEndTime().isEqual(endTime) || booking.getEndTime().isBefore(endTime))) returnString.append(String.format(problemTemplate, roomName, organization, startTimeString, endTimeString));
             }
         }
         return returnString.toString();

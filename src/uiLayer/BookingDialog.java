@@ -920,7 +920,7 @@ public class BookingDialog extends JDialog
     private boolean checkRoomAvailability() throws SQLException
     {
         errorMessageRoom.setVisible(false);
-        String errorMessage = "Interference with the following booking(s):";
+        String errorMessage = "Error: ";
         boolean bookingInterference = false;
         if (selectedRooms.isEmpty())
         {
