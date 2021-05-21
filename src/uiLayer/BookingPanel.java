@@ -9,6 +9,7 @@ import controlLayer.BookingController;
 import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
+import query.Query;
 import uiLayer.calendar.JCalendar;
 import uiLayer.calendar.events.IntervalSelectionEvent;
 import uiLayer.calendar.events.IntervalSelectionListener;
@@ -238,7 +239,7 @@ public class BookingPanel extends JPanel
     {
         calendar.removeAllEvents();
         BookingController bc = new BookingController();
-        ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(currentDate);
+        ArrayList<Booking> bookings = Query.getInstance().getBookings();
         for (Booking booking : bookings)
         {
             calendar.addCalendarEvent(booking);
