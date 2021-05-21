@@ -6,6 +6,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import config.Config;
 import databaseLayer.*;
 import modelLayer.*;
@@ -20,6 +23,7 @@ public class BookingController
     private LogEntryDBIF logEntryDB;
     private BookingDBIF bookingDB;
     private ArrayList<Room> selectedRooms;
+    Pattern pattern;
 
     public BookingController() throws SQLException
     {
@@ -27,6 +31,7 @@ public class BookingController
         roomCtr = new RoomController();
         logEntryDB = new LogEntryDB();
         bookingDB = new BookingDB();
+        pattern = Pattern.compile("(.+)@(.+).(.+)");
     }
 
     /**
@@ -168,8 +173,8 @@ public class BookingController
             break;
 
         case "email":
-            if (!information[1].contains("@") || information[1].length() > 100
-                    || information[1].length() < 1)
+            Matcher matcher = pattern.matcher(information[1]);
+            if (!matcher.find() || information[1].length() > 100 || information[1].length() < 5)
             {
                 return config.getErrorMessageColor();
             }

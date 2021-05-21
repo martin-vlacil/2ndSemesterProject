@@ -80,12 +80,12 @@ public class Query {
 	{
 		SwingWorker sw = new SwingWorker()
 		{
-				@Override
-				protected Object doInBackground() throws Exception {
-					LogEntryDB log = new LogEntryDB();
-					logs = log.getLogs();
-					return null;
-				}
+			@Override
+			protected Object doInBackground() throws Exception {
+				LogEntryDB log = new LogEntryDB();
+				logs = log.getLogs();
+				return null;
+			}
 		};
 		sw.execute();
 	}
