@@ -153,7 +153,7 @@ public class BookingDialog extends JDialog
         }
         {
             leftPanel = new JPanel();
-            leftPanel.setBackground(config.getPanelDefaultColor());
+            leftPanel.setBackground(config.getFrontPanelDefaultColor());
             GridBagConstraints gbc_leftPanel = new GridBagConstraints();
             gbc_leftPanel.insets = new Insets(0, 20, 0, 0);
             gbc_leftPanel.fill = GridBagConstraints.BOTH;
@@ -443,7 +443,7 @@ public class BookingDialog extends JDialog
                 comboBox.setPreferredSize(new Dimension(100, 30));
                 comboBox.setEditable(false);
                 comboBox.setFocusable(false);
-                comboBox.setFont(config.getButtonDefaultFont());
+                comboBox.setFont(config.getLogSize());
                 comboBox.setForeground(Color.GRAY);
 
                 GridBagConstraints gbc_comboBox = new GridBagConstraints();

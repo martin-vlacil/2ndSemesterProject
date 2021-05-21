@@ -124,7 +124,7 @@ public class BookingPanel extends JPanel
         comboBox.setPreferredSize(new Dimension(100, 30));
         comboBox.setEditable(false);
         comboBox.setFocusable(false);
-        comboBox.setFont(config.getLabelTitleFont());
+        comboBox.setFont(config.getLogSize());
         comboBox.setForeground(Color.GRAY);
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
