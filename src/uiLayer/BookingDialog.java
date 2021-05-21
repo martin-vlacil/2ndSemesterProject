@@ -65,9 +65,9 @@ import java.awt.event.MouseEvent;
  * @author dmai0920 group 1
  *
  */
+@SuppressWarnings("serial")
 public class BookingDialog extends JDialog
 {
-    private static final long serialVersionUID = 4971333530173079875L;
     private final JPanel contentPanel = new JPanel();
     private JPanel rightPanel;
     private JPanel leftPanel;
