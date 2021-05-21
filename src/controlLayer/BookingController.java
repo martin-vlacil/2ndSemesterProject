@@ -24,7 +24,8 @@ public class BookingController
     private LogEntryDBIF logEntryDB;
     private BookingDBIF bookingDB;
     private ArrayList<Room> selectedRooms;
-    Pattern pattern;
+    private Pattern emailPattern;
+    private Pattern phonePattern;
 
     public BookingController() throws SQLException
     {
@@ -32,7 +33,8 @@ public class BookingController
         roomCtr = new RoomController();
         logEntryDB = new LogEntryDB();
         bookingDB = new BookingDB();
-        pattern = Pattern.compile("(.+)@(.+).(.+)");
+        emailPattern = Pattern.compile("(.+)@(.+).(.+)");
+        phonePattern = Pattern.compile("\\+?\\d+[0-9]{5,16}");
     }
 
     /**
@@ -114,6 +116,7 @@ public class BookingController
         Color errorColor = config.getErrorMessageColor();
         Color warningColor = new Color(244, 129, 34);
         Color correctColor = Color.BLACK;
+        Matcher matcher;
         
         switch (information[0])
         {
@@ -143,8 +146,7 @@ public class BookingController
                     {
                         attendees -= room.getCapacity();
                     }
-                    return attendees <= 0 ? correctColor
-                            : warningColor;
+                    return attendees <= 0 ? correctColor : warningColor;
                 }
                 else
                 {
@@ -163,22 +165,15 @@ public class BookingController
             break;
 
         case "phoneNumber":
-            for (int e = information[1].startsWith("+") ? 1
-                    : 0; e < information[1].length(); e++)
+        	matcher = phonePattern.matcher(information[1]);
+            if(!matcher.find())
             {
-                if (!Character.isDigit(information[1].charAt(e)))
-                {
-                    return errorColor;
-                }
-            }
-            if (information[1].length() > 15 || information[1].length() < 1)
-            {
-                return errorColor;
+            	return errorColor;
             }
             break;
 
         case "email":
-            Matcher matcher = pattern.matcher(information[1]);
+            matcher = emailPattern.matcher(information[1]);
             if (!matcher.find() || information[1].length() > 100 || information[1].length() < 5)
             {
                 return errorColor;
