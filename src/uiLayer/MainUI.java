@@ -378,8 +378,9 @@ public class MainUI extends JFrame
     public static void updateLog() throws SQLException
     {
         logTextArea.setText("");
-        ArrayList<LogEntry> logs = Query.getInstance().getLogsFirstTime();
+        ArrayList<LogEntry> logs = Query.getInstance().getLogs();
         logs.parallelStream().forEach(
                 log -> logTextArea.append(" -" + log.getAction() + "\n"));
+        Query.getInstance().queryLogs();
     }
 }

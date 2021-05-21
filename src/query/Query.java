@@ -2,6 +2,7 @@ package query;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
@@ -30,13 +31,13 @@ public class Query {
 		return uniqueInstance;
 	}
 	
-	public ArrayList<Booking> getBookingsFirstTime()
+	public ArrayList<Booking> getBookings()
 	{
 		return bookings;
 	}
 	
 
-	public ArrayList<LogEntry> getLogsFirstTime()
+	public ArrayList<LogEntry> getLogs()
 	{
 		return logs;
 	}
@@ -50,10 +51,8 @@ public class Query {
 				protected Object doInBackground() throws Exception {
 					BookingDB bookingDB = new BookingDB();
 					bookings = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
-					System.out.println("Bookings got!");
 					LogEntryDB log = new LogEntryDB();
 					logs = log.getLogs();
-					System.out.println("Logs got!");
 					return null;
 				}
 			
@@ -61,7 +60,7 @@ public class Query {
 		sw.execute();
 	}
 	
-	public ArrayList<Booking> getBookings() throws SQLException
+	public void queryBookings(LocalDateTime date) throws SQLException
 	{
 		SwingWorker sw = new SwingWorker()
 		{
@@ -75,11 +74,10 @@ public class Query {
 			
 		};
 		sw.execute();
-		return bookings;
 		
 	}
 	
-	public ArrayList<LogEntry> getLogs() throws SQLException
+	public void queryLogs() throws SQLException
 	{
 		SwingWorker sw = new SwingWorker()
 		{
@@ -93,7 +91,6 @@ public class Query {
 			
 		};
 		sw.execute();
-		return logs;
 		
 	}
 	

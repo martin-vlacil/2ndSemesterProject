@@ -24,6 +24,7 @@ import uiLayer.calendar.util.EventRepository;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
 import modelLayer.Room;
+import query.Query;
 import modelLayer.Booking;
 import javax.swing.*;
 
@@ -151,8 +152,8 @@ public class JCalendar extends JPanel
                 // XXX New code
                 try
                 {
-                    bookingPanel.getAllBookingsForAWeek(
-                            event.getIntervalStart().atStartOfDay());
+                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
+	                bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
                 }
                 catch (SQLException e1)
                 {
@@ -183,6 +184,7 @@ public class JCalendar extends JPanel
                 // XXX New code
                 try
                 {
+                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
 
@@ -216,6 +218,7 @@ public class JCalendar extends JPanel
                 // XXX New code
                 try
                 {
+                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
                 }
@@ -248,6 +251,7 @@ public class JCalendar extends JPanel
                 // XXX New code
                 try
                 {
+                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
                 }
