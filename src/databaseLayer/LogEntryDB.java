@@ -1,7 +1,9 @@
 package databaseLayer;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import config.Config;
@@ -22,12 +24,16 @@ public class LogEntryDB implements LogEntryDBIF
 
     private static final String SELECT_LATEST_LOGS = String.format("SELECT TOP (?) * FROM Log ORDER BY [date] DESC");
     private PreparedStatement sqlSelectLatestLogs;
+    
+    private static final String DELETE_LOGS_OLDER_THEN_14_DAYS = String.format("DELETE FROM Log WHERE [date] < DATEADD(day, -14, GETDATE())");
+    private PreparedStatement sqlDeletedOldLogs;
 
     public LogEntryDB() throws SQLException
     {
         connection = DBConnection.getInstance().getConnection();
         sqlInsertLogEntry = connection.prepareStatement(INSERT_LOG_ENTRY);
         sqlSelectLatestLogs = connection.prepareStatement(SELECT_LATEST_LOGS);
+        sqlDeletedOldLogs = connection.prepareStatement(DELETE_LOGS_OLDER_THEN_14_DAYS);
     }
 
     @Override
@@ -73,4 +79,10 @@ public class LogEntryDB implements LogEntryDBIF
         return new LogEntry(resultSet.getString("action"),
                 resultSet.getTimestamp("date").toLocalDateTime());
     }
+    
+
+	@Override
+	public void deleteOldLogs() throws SQLException {
+		sqlDeletedOldLogs.executeUpdate();
+	}
 }

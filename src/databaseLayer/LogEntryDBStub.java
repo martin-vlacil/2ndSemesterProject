@@ -40,4 +40,9 @@ public class LogEntryDBStub implements LogEntryDBIF
         return logEntry;
     }
 
+	@Override
+	public void deleteOldLogs() throws SQLException {
+			
+	}
+
 }

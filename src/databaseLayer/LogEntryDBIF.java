@@ -29,4 +29,7 @@ public interface LogEntryDBIF
      * @throws SQLException
      */
     ArrayList<LogEntry> getLogs() throws SQLException;
+    
+    //TODO Write comment
+    void deleteOldLogs() throws SQLException;
 }

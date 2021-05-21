@@ -49,6 +49,7 @@ public class Query {
 				BookingDB bookingDB = new BookingDB();
 				bookings = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
 				LogEntryDB log = new LogEntryDB();
+				log.deleteOldLogs();
 				logs = log.getLogs();
 				return null;
 			}
