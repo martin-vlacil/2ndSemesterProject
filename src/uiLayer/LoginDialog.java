@@ -15,12 +15,14 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import config.Config;
 import controlLayer.UserController;
 import modelLayer.User;
+import query.Query;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -49,6 +51,14 @@ public class LoginDialog extends JDialog
      */
     public static void main(String[] args)
     {
+    	try 
+    	{
+			Query.getInstance().startUp();
+		} 
+    	catch (SQLException e1) 
+    	{
+			e1.printStackTrace();
+		}
         EventQueue.invokeLater(new Runnable()
         {
             public void run()
