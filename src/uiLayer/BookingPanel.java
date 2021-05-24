@@ -9,7 +9,7 @@ import controlLayer.BookingController;
 import modelLayer.Booking;
 import modelLayer.Room;
 import modelLayer.User;
-import query.Query;
+import databus.Databus;
 import uiLayer.calendar.JCalendar;
 import uiLayer.calendar.events.IntervalSelectionEvent;
 import uiLayer.calendar.events.IntervalSelectionListener;
@@ -238,7 +238,7 @@ public class BookingPanel extends JPanel
             throws SQLException
     {
         calendar.removeAllEvents();
-        ArrayList<Booking> bookings = Query.getInstance().getBookings();
+        ArrayList<Booking> bookings = Databus.getInstance().getBookings();
         for (Booking booking : bookings)
         {
             calendar.addCalendarEvent(booking);

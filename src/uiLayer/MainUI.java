@@ -22,7 +22,7 @@ import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
 import modelLayer.User.UserType;
-import query.Query;
+import databus.Databus;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -378,9 +378,9 @@ public class MainUI extends JFrame
     public static void updateLog() throws SQLException
     {
         logTextArea.setText("");
-        ArrayList<LogEntry> logs = Query.getInstance().getLogs();
+        ArrayList<LogEntry> logs = Databus.getInstance().getLogs();
         logs.parallelStream().forEach(
                 log -> logTextArea.append(" -" + log.getAction() + "\n"));
-        Query.getInstance().queryLogs();
+        Databus.getInstance().queryLogs();
     }
 }

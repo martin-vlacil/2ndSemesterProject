@@ -24,7 +24,7 @@ import uiLayer.calendar.util.EventRepository;
 import org.apache.commons.collections4.collection.UnmodifiableCollection;
 
 import modelLayer.Room;
-import query.Query;
+import databus.Databus;
 import modelLayer.Booking;
 import javax.swing.*;
 
@@ -153,8 +153,8 @@ public class JCalendar extends JPanel
                 try
                 {
 	                bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
-                	Query.getInstance().clearBookings();
-                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
+	                Databus.getInstance().clearBookings();
+	                Databus.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                 }
                 catch (SQLException e1)
                 {
@@ -187,8 +187,8 @@ public class JCalendar extends JPanel
                 {
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
-                	Query.getInstance().clearBookings();
-                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
+                    Databus.getInstance().clearBookings();
+                    Databus.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
 
                 }
                 catch (SQLException e1)
@@ -222,8 +222,8 @@ public class JCalendar extends JPanel
                 {
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
-                	Query.getInstance().clearBookings();
-                	Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
+                	Databus.getInstance().clearBookings();
+                	Databus.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                 }
                 catch (SQLException e1)
                 {
@@ -256,8 +256,8 @@ public class JCalendar extends JPanel
                 {
                     bookingPanel.getAllBookingsForAWeek(
                             event.getIntervalStart().atStartOfDay());
-                	Query.getInstance().clearBookings();
-                    Query.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
+                    Databus.getInstance().clearBookings();
+                    Databus.getInstance().queryBookings(event.getIntervalStart().atStartOfDay());
                 }
                 catch (SQLException e1)
                 {

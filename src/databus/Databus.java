@@ -1,4 +1,4 @@
-package query;
+package databus;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,19 +13,19 @@ import databaseLayer.LogEntryDB;
 import modelLayer.Booking;
 import modelLayer.LogEntry;
 
-public class Query {
+public class Databus {
 	private ArrayList<Booking> bookings;
 	private ArrayList<Booking> bookingsForMultipleWeeks;
 	private ArrayList<LogEntry> logs;
-	private static Query uniqueInstance = new Query();
+	private static Databus uniqueInstance = new Databus();
 	
-	private Query() {
+	private Databus() {
 		bookings = new ArrayList<>();
 		bookingsForMultipleWeeks = new ArrayList<>();
 		logs = new ArrayList<>();
 	}
 	
-	public static Query getInstance()
+	public static Databus getInstance()
 	{
 		return uniqueInstance;
 	}

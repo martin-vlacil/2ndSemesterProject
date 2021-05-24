@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
 import config.Config;
 import controlLayer.UserController;
 import modelLayer.User;
-import query.Query;
+import databus.Databus;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -53,7 +53,7 @@ public class LoginDialog extends JDialog
     {
     	try 
     	{
-			Query.getInstance().startUp();
+    		Databus.getInstance().startUp();
 		} 
     	catch (SQLException e1) 
     	{
