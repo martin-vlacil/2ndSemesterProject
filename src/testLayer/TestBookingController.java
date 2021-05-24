@@ -24,9 +24,7 @@ class TestBookingController
     LogEntryDBStub logEntryDBStub;
 
     @BeforeAll
-    static void setUpBeforeClass() throws Exception
-    {
-    }
+    static void setUpBeforeClass() throws Exception {}
 
     @BeforeEach
     void setUp() throws Exception
@@ -53,67 +51,49 @@ class TestBookingController
         // Arrange
         ArrayList<Room> selectedRooms = new ArrayList<>();
         selectedRooms.add(roomCtr.findByID(1));
-        User shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678",
-                "Marketing Manager", UserType.DEFAULT,
-                new Organization(1, "IKEA"));
+        User shortUser = new User(1, "Ib", "Ib@gmail.com", "+4512345678", "Marketing Manager", UserType.DEFAULT, new Organization(1, "IKEA"));
         LocalDateTime startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
         LocalDateTime endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
 
         // Act
-        boolean isBookingCreated = bookingCtr.confirmBooking(
-                "2nd Semester Exam", "We are all passing :)", null, 15,
-                shortUser, selectedRooms, startTime, endTime);
+        boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, shortUser, selectedRooms, startTime, endTime);
 
         // Assert
         assertTrue(isBookingCreated, "Controller returned False");
 
         Booking booking = bookingDBStub.getBooking();
 
-        assertTrue(startTime.isEqual(booking.getStartTime()),
-                "Start time doesn't match");
-        assertTrue(endTime.isEqual(booking.getEndTime()),
-                "End time doesn't match");
+        assertTrue(startTime.isEqual(booking.getStartTime()), "Start time doesn't match");
+        assertTrue(endTime.isEqual(booking.getEndTime()), "End time doesn't match");
         assertEquals(shortUser, booking.getCreatedBy(), "User doesn't match");
-        assertEquals(selectedRooms.get(0), booking.getRoom(),
-                "Room doesn't match");
-        assertEquals(15, booking.getNumberOfParticipants(),
-                "Number of participants doesn't match");
+        assertEquals(selectedRooms.get(0), booking.getRoom(), "Room doesn't match");
+        assertEquals(15, booking.getNumberOfParticipants(), "Number of participants doesn't match");
     }
 
     // CB1 - Successful booking - TC2
     @Test
-    void shouldCreateBookingAndSaveToDatabaseWithCorrectLongInfo()
-            throws SQLException
+    void shouldCreateBookingAndSaveToDatabaseWithCorrectLongInfo() throws SQLException
     {
         // Arrange
         ArrayList<Room> selectedRooms = new ArrayList<>();
         selectedRooms.add(roomCtr.findByID(1));
-        User longUser = new User(2, "ForSomeReasonVeryLongName",
-                "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com",
-                "+451234567891234", "Managing Marketer", UserType.DEFAULT,
-                new Organization(2, "Bauhaus"));
+        User longUser = new User(2, "ForSomeReasonVeryLongName", "forTestingPurposesWeHaveCreatedThisVeryLongEmailThatContainsExactlyOneHundredCharactersUwU@gmail.com", "+451234567891234", "Managing Marketer", UserType.DEFAULT, new Organization(2, "Bauhaus"));
         LocalDateTime startTime = LocalDateTime.of(2021, 6, 5, 15, 0);
         LocalDateTime endTime = LocalDateTime.of(2021, 6, 5, 23, 0);
 
         // Act
-        boolean isBookingCreated = bookingCtr.confirmBooking(
-                "2nd Semester Exam", "We are all passing :)", null, 15,
-                longUser, selectedRooms, startTime, endTime);
+        boolean isBookingCreated = bookingCtr.confirmBooking("2nd Semester Exam", "We are all passing :)", null, 15, longUser, selectedRooms, startTime, endTime);
 
         // Assert
         assertTrue(isBookingCreated, "Controller returned False");
 
         Booking booking = bookingDBStub.getBooking();
 
-        assertTrue(startTime.isEqual(booking.getStartTime()),
-                "Start time doesn't match");
-        assertTrue(endTime.isEqual(booking.getEndTime()),
-                "End time doesn't match");
+        assertTrue(startTime.isEqual(booking.getStartTime()), "Start time doesn't match");
+        assertTrue(endTime.isEqual(booking.getEndTime()), "End time doesn't match");
         assertEquals(longUser, booking.getCreatedBy(), "User doesn't match");
-        assertEquals(selectedRooms.get(0), booking.getRoom(),
-                "Room doesn't match");
-        assertEquals(15, booking.getNumberOfParticipants(),
-                "Number of participants doesn't match");
+        assertEquals(selectedRooms.get(0), booking.getRoom(), "Room doesn't match");
+        assertEquals(15, booking.getNumberOfParticipants(), "Number of participants doesn't match");
     }
 
     // CB2 - Booking cancelled - Done Ad hoc instead
@@ -129,8 +109,7 @@ class TestBookingController
         LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
 
         // Act
-        String problemTemplate = bookingCtr.checkAvailability(startTime,
-                endTime, room1);
+        String problemTemplate = bookingCtr.checkAvailability(startTime,  endTime, room1);
         int problemTemplateLength = problemTemplate.length();
 
         // Assert
@@ -139,8 +118,7 @@ class TestBookingController
 
     // CB3 - TC2 The endTime is inside another event
     @Test
-    void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo()
-            throws SQLException
+    void endTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException
     {
         // Arrange
         Room room1 = new Room("Test Number", 15, "Conference Room", 1);
@@ -148,8 +126,7 @@ class TestBookingController
         LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 17, 0);
 
         // Act
-        String problemTemplate = bookingCtr.checkAvailability(startTime,
-                endTime, room1);
+        String problemTemplate = bookingCtr.checkAvailability(startTime, endTime, room1);
         int problemTemplateLength = problemTemplate.length();
 
         // Assert
@@ -158,8 +135,7 @@ class TestBookingController
 
     // CB3 - TC3 The startTime is inside another event
     @Test
-    void startTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo()
-            throws SQLException // TODO - can be changed probably uwu
+    void startTimeOfBookingisInsideOtherBookingShouldReturnAStringContainingTheBookingInfo() throws SQLException
     {
         // Arrange
         Room room1 = new Room("Test Number", 15, "Conference Room", 1);
@@ -167,8 +143,7 @@ class TestBookingController
         LocalDateTime endTime = LocalDateTime.of(2021, 5, 5, 23, 0);
 
         // Act
-        String problemTemplate = bookingCtr.checkAvailability(startTime,
-                endTime, room1);
+        String problemTemplate = bookingCtr.checkAvailability(startTime, endTime, room1);
         int problemTemplateLength = problemTemplate.length();
 
         // Assert
@@ -185,8 +160,7 @@ class TestBookingController
         eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullary";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -194,8 +168,7 @@ class TestBookingController
 
     // CB4 - TC2 contact name too long
     @Test
-    void contactNameLongerThan25CharactersShouldReturnFalse()
-            throws SQLException
+    void contactNameLongerThan25CharactersShouldReturnFalse() throws SQLException
     {
         // Arrange
         String[] eventDetails = new String[2];
@@ -203,8 +176,7 @@ class TestBookingController
         eventDetails[1] = "Mette Juul Thorhauge Søren";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -212,8 +184,7 @@ class TestBookingController
 
     // CB4 - TC3 contact name too short
     @Test
-    void contactNameShorterThan2CharactersShouldReturnFalse()
-            throws SQLException
+    void contactNameShorterThan2CharactersShouldReturnFalse() throws SQLException
     {
         // Arrange
         String[] eventDetails = new String[2];
@@ -221,8 +192,7 @@ class TestBookingController
         eventDetails[1] = "M";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -230,8 +200,7 @@ class TestBookingController
 
     // CB4 - TC4 phone number too long
     @Test
-    void phoneNumberLongerThan16CharactersShouldReturnFalse()
-            throws SQLException
+    void phoneNumberLongerThan16CharactersShouldReturnFalse() throws SQLException
     {
         // Arrange
         String[] eventDetails = new String[2];
@@ -239,8 +208,7 @@ class TestBookingController
         eventDetails[1] = "+2313435784930113";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -256,8 +224,7 @@ class TestBookingController
         eventDetails[1] = "";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -273,8 +240,7 @@ class TestBookingController
         eventDetails[1] = "homeaddress.dk";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -290,8 +256,7 @@ class TestBookingController
         eventDetails[1] = "homeaddress@dk";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -307,8 +272,7 @@ class TestBookingController
         eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);
@@ -324,8 +288,7 @@ class TestBookingController
         eventDetails[1] = "b@c.d";
 
         // Act
-        boolean checkValidity = bookingCtr
-                .validateInformation(eventDetails) == Color.RED;
+        boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;
 
         // Assert
         assertTrue(checkValidity);

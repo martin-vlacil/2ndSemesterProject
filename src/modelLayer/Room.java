@@ -3,22 +3,19 @@ package modelLayer;
 import java.awt.Color;
 
 /**
- * @author Group1 dmai0920 Represents the physical Rooms to be booked in the
- *         system.
+ * @author Group1 dmai0920
+ * Represents the physical Rooms to be booked in the system.
  */
 public class Room
 {
-    private String number;// Room number
-    private int capacity;
-    private String name;
+	private int capacity;
     private int id;
-
-    // TODO Somehow keep them always the same color
+    private String number;// Room number
+    private String name;
     private Color backgroundColor;
     private Color foregroundColor;
     // This will be changed later on when developing Room CRUD
-    private Color[] colors = new Color[]
-    { new Color(40, 41, 82), new Color(214, 65, 65) };
+    private Color[] colors = new Color[]{new Color(40, 41, 82), new Color(214, 65, 65)};
 
     public Room(String number, int capacity, String name, int id)
     {

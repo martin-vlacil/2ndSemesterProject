@@ -7,43 +7,23 @@
 
 package uiLayer;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
 import config.Config;
 import databaseLayer.DBConnection;
-import databaseLayer.LogEntryDB;
 import modelLayer.LogEntry;
 import modelLayer.User;
 import modelLayer.User.UserType;
 import databus.Databus;
 
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.GridBagConstraints;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-import java.awt.CardLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class MainUI extends JFrame
 {
 
@@ -74,20 +54,15 @@ public class MainUI extends JFrame
         contentPane = new JPanel();
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[]
-        { 0, 0 };
-        gbl_contentPane.rowHeights = new int[]
-        { 0 };
-        gbl_contentPane.columnWeights = new double[]
-        { 0.1, 1.0 };
-        gbl_contentPane.rowWeights = new double[]
-        { Double.MIN_VALUE };
+        gbl_contentPane.columnWidths = new int[]{ 0, 0 };
+        gbl_contentPane.rowHeights = new int[]{ 0 };
+        gbl_contentPane.columnWeights = new double[]{ 0.1, 1.0 };
+        gbl_contentPane.rowWeights = new double[]{ Double.MIN_VALUE };
         contentPane.setLayout(gbl_contentPane);
 
         this.addWindowListener(new WindowAdapter()
         {
-            // Close the connection when app is closed. (logout triggers
-            // windownClosed)
+            // Close the connection when app is closed. (logout triggers windownClosed)
             @Override
             public void windowClosing(WindowEvent e)
             {
@@ -106,20 +81,15 @@ public class MainUI extends JFrame
         gbc_sidebarPanel.gridy = 0;
         contentPane.add(sidebarPanel, gbc_sidebarPanel);
         GridBagLayout gbl_sidebarPanel = new GridBagLayout();
-        gbl_sidebarPanel.columnWidths = new int[]
-        { 0, 0, 0, 0 };
-        gbl_sidebarPanel.rowHeights = new int[]
-        { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        gbl_sidebarPanel.columnWeights = new double[]
-        { 0.1, 1.0, 0.0, Double.MIN_VALUE };
-        gbl_sidebarPanel.rowWeights = new double[]
-        { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.4, Double.MIN_VALUE };
+        gbl_sidebarPanel.columnWidths = new int[]{ 0, 0, 0, 0 };
+        gbl_sidebarPanel.rowHeights = new int[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        gbl_sidebarPanel.columnWeights = new double[]{ 0.1, 1.0, 0.0, Double.MIN_VALUE };
+        gbl_sidebarPanel.rowWeights = new double[]{ 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.4, Double.MIN_VALUE };
         sidebarPanel.setLayout(gbl_sidebarPanel);
 
         // Set the image icon of the button and scale is to 50x50
         ImageIcon icon = new ImageIcon("src/uiLayer/images/Icon.png", "YOU");
-        icon = new ImageIcon(
-                icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         JButton avatarButton = new JButton(icon);
         GridBagConstraints gbc_avatarButton = new GridBagConstraints();
         avatarButton.setContentAreaFilled(false);
@@ -185,7 +155,6 @@ public class MainUI extends JFrame
         gbc_separator.gridx = 0;
         gbc_separator.gridy = 2;
         gbc_separator.fill = GridBagConstraints.BOTH;
-        // gbc_separator.weighty = 1;
         sidebarPanel.add(separator, gbc_separator);
 
         // Booking page button
@@ -286,14 +255,10 @@ public class MainUI extends JFrame
         gbc_logPanel.gridy = 7;
         sidebarPanel.add(logPanel, gbc_logPanel);
         GridBagLayout gbl_logPanel = new GridBagLayout();
-        gbl_logPanel.columnWidths = new int[]
-        { 0 };
-        gbl_logPanel.rowHeights = new int[]
-        { 0, 0, 0 };
-        gbl_logPanel.columnWeights = new double[]
-        { 1.0 };
-        gbl_logPanel.rowWeights = new double[]
-        { 0.0, 1.0, Double.MIN_VALUE };
+        gbl_logPanel.columnWidths = new int[]{ 0 };
+        gbl_logPanel.rowHeights = new int[]{ 0, 0, 0 };
+        gbl_logPanel.columnWeights = new double[]{ 1.0 };
+        gbl_logPanel.rowWeights = new double[]{ 0.0, 1.0, Double.MIN_VALUE };
         logPanel.setLayout(gbl_logPanel);
 
         JLabel logLabel = new JLabel("LOG");
@@ -338,6 +303,10 @@ public class MainUI extends JFrame
         updateLog();
     }
 
+    /**
+     * A method to select a page when using the sidebar buttons
+     * @param page
+     */
     private void selectPage(String page)
     {
         formatSidebarButton(selectedPageButton);
@@ -359,6 +328,10 @@ public class MainUI extends JFrame
         formatSelectedSidebarButton(selectedPageButton);
     }
 
+    /**
+     * A method to format the sidebar buttons
+     * @param button
+     */
     private void formatSidebarButton(JButton button)
     {
         button.setForeground(config.getButtonDefaultForeground());
@@ -368,6 +341,10 @@ public class MainUI extends JFrame
         button.setFont(config.getButtonDefaultFont());
     }
 
+    /**
+     * A method to format the selected format button
+     * @param button
+     */
     private void formatSelectedSidebarButton(JButton button)
     {
         button.setForeground(config.getBlueColorDefault());
@@ -375,12 +352,15 @@ public class MainUI extends JFrame
         button.setOpaque(true);
     }
 
+    /**
+     * A method to update the log text area
+     * @throws SQLException
+     */
     public static void updateLog() throws SQLException
     {
         logTextArea.setText("");
         ArrayList<LogEntry> logs = Databus.getInstance().getLogs();
-        logs.parallelStream().forEach(
-                log -> logTextArea.append(" -" + log.getAction() + "\n"));
+        logs.parallelStream().forEach(log -> logTextArea.append(" -" + log.getAction() + "\n"));
         Databus.getInstance().queryLogs();
     }
 }

@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
  */
 public class Booking implements Comparable<Booking>
 {
+	private int numberOfParticipants; 
     private String title;
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private int numberOfParticipants; 
     private Room room;
     private User createdBy;
     private User contact; // if null, then the creator is the contact
@@ -24,9 +24,7 @@ public class Booking implements Comparable<Booking>
      * Constructor used to build bookings from the database
      * It accepts a contact if the contact information has been changed
      */
-    public Booking(String title, String description, LocalDateTime startTime,
-            LocalDateTime endTime, int numberOfParticipants, Room room,
-            User createdBy, User contact)
+    public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy, User contact)
     {
         this.title = title;
         this.description = description;
@@ -43,9 +41,7 @@ public class Booking implements Comparable<Booking>
      * It is missing a contact, because this one is used when the contact information in the UI
      * has bee unchanged
      */
-    public Booking(String title, String description, LocalDateTime startTime,
-            LocalDateTime endTime, int numberOfParticipants, Room room,
-            User createdBy)
+    public Booking(String title, String description, LocalDateTime startTime, LocalDateTime endTime, int numberOfParticipants, Room room, User createdBy)
     {
         this.title = title;
         this.description = description;
@@ -164,8 +160,9 @@ public class Booking implements Comparable<Booking>
     {
         final int comp = startTime.compareTo(booking.getStartTime());
         if (comp == 0)
-            return endTime.compareTo(booking.getEndTime());
+        {
+        	return endTime.compareTo(booking.getEndTime());
+        }
         return comp;
     }
-
 }

@@ -1,21 +1,8 @@
 package uiLayer;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingWorker;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -23,21 +10,9 @@ import config.Config;
 import controlLayer.UserController;
 import modelLayer.User;
 import databus.Databus;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.SQLException;
-import java.util.Locale;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class LoginDialog extends JDialog
 {
     private JTextField emailTextField;
@@ -72,9 +47,7 @@ public class LoginDialog extends JDialog
                     dialog.setVisible(true);
                     // Centres the dialog
                     dialog.setLocationRelativeTo(null);
-                    dialog.setIconImage(
-                            new ImageIcon("src/uiLayer/images/ihndLogo.png")
-                                    .getImage());
+                    dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
                     dialog.setTitle("Login - IHND Booking System");
                 }
                 catch (Exception e)
@@ -105,14 +78,10 @@ public class LoginDialog extends JDialog
 
         setBounds(100, 100, 931, 601);
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[]
-        { 0, 0 };
-        gridBagLayout.rowHeights = new int[]
-        { 43, 0 };
-        gridBagLayout.columnWeights = new double[]
-        { 1.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[]
-        { 0.0, 1.0 };
+        gridBagLayout.columnWidths = new int[]{ 0, 0 };
+        gridBagLayout.rowHeights = new int[]{ 43, 0 };
+        gridBagLayout.columnWeights = new double[]{ 1.0, Double.MIN_VALUE };
+        gridBagLayout.rowWeights = new double[]{ 0.0, 1.0 };
         getContentPane().setLayout(gridBagLayout);
 
         JPanel titlePanel = new JPanel();
@@ -138,14 +107,10 @@ public class LoginDialog extends JDialog
         gbc_mainPanel.gridy = 1;
         getContentPane().add(mainPanel, gbc_mainPanel);
         GridBagLayout gbl_mainPanel = new GridBagLayout();
-        gbl_mainPanel.columnWidths = new int[]
-        { 0, 0, 0 };
-        gbl_mainPanel.rowHeights = new int[]
-        { 0, 0, 0, 0, 0, 0, 0, 0 };
-        gbl_mainPanel.columnWeights = new double[]
-        { 0.6, 0.6, 0.6 };
-        gbl_mainPanel.rowWeights = new double[]
-        { 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, Double.MIN_VALUE };
+        gbl_mainPanel.columnWidths = new int[]{ 0, 0, 0 };
+        gbl_mainPanel.rowHeights = new int[]{ 0, 0, 0, 0, 0, 0, 0, 0 };
+        gbl_mainPanel.columnWeights = new double[]{ 0.6, 0.6, 0.6 };
+        gbl_mainPanel.rowWeights = new double[]{ 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, Double.MIN_VALUE };
         mainPanel.setLayout(gbl_mainPanel);
 
         errorPanel = new JPanel();
@@ -166,8 +131,7 @@ public class LoginDialog extends JDialog
         errorFrame.setBackground(Color.WHITE);
         errorPanel.add(errorFrame);
 
-        JLabel errorLabel = new JLabel(
-                "The email or the password is incorrect!");
+        JLabel errorLabel = new JLabel("The email or the password is incorrect!");
         errorLabel.setForeground(Color.RED);
         errorFrame.add(errorLabel);
 
@@ -184,8 +148,7 @@ public class LoginDialog extends JDialog
         emailTextField = new JTextField("Miguel@Olivera.dk");
         emailTextField.setForeground(config.getLabelDefaultForeground());
         emailTextField.setFont(config.getLogSize());
-        emailTextField.setBorder(
-                BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+        emailTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
         GridBagConstraints gbc_emailTextField = new GridBagConstraints();
         gbc_emailTextField.insets = new Insets(0, 0, 5, 5);
         gbc_emailTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -207,8 +170,7 @@ public class LoginDialog extends JDialog
         passwordTextField = new JPasswordField("password1");
         passwordTextField.setForeground(config.getLabelDefaultForeground());
         passwordTextField.setFont(config.getLogSize());
-        passwordTextField.setBorder(
-                BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+        passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
         GridBagConstraints gbc_passwordTextField = new GridBagConstraints();
         gbc_passwordTextField.insets = new Insets(0, 0, 5, 5);
         gbc_passwordTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -223,8 +185,7 @@ public class LoginDialog extends JDialog
             @Override
             public void mouseEntered(MouseEvent e)
             {
-                loginButton
-                        .setBackground(config.getBlueColorDefault().brighter());
+                loginButton.setBackground(config.getBlueColorDefault().brighter());
             }
 
             @Override
@@ -245,7 +206,6 @@ public class LoginDialog extends JDialog
         loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
         loginButton.setFocusable(false);
         loginButton.setBackground(config.getBlueColorDefault());
-        // loginButton.setBackground(new Color(40, 41, 82));
         loginButton.setFont(config.getButtonDefaultFont());
         loginButton.setForeground(config.getButtonDefaultForeground());
         loginButton.setOpaque(true);
@@ -256,14 +216,16 @@ public class LoginDialog extends JDialog
         mainPanel.add(loginButton, gbc_loginButton);
     }
 
+    /**
+     * A method to check if the login credentials are right and open the main application
+     */
     private void openMainUI()
     {
         User loggedUser;
 
         try
         {
-            loggedUser = userController.getUser(emailTextField.getText(),
-                    String.valueOf(passwordTextField.getPassword()));
+            loggedUser = userController.getUser(emailTextField.getText(), String.valueOf(passwordTextField.getPassword()));
         }
         catch (SQLException e)
         {
@@ -273,11 +235,8 @@ public class LoginDialog extends JDialog
 
         if (loggedUser == null)
         {
-            // TODO Set the errorPanel to fixed position
-            passwordTextField
-                    .setBorder(new LineBorder(config.getErrorMessageColor()));
-            emailTextField
-                    .setBorder(new LineBorder(config.getErrorMessageColor()));
+            passwordTextField.setBorder(new LineBorder(config.getErrorMessageColor()));
+            emailTextField.setBorder(new LineBorder(config.getErrorMessageColor()));
             errorPanel.setVisible(true);
             return;
         }
@@ -291,9 +250,7 @@ public class LoginDialog extends JDialog
                     MainUI frame = new MainUI(loggedUser);
                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     frame.setVisible(true);
-                    frame.setIconImage(
-                            new ImageIcon("src/uiLayer/images/ihndLogo.png")
-                                    .getImage());
+                    frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
                     frame.setTitle("IHND Booking System");
                     dispose();
                 }

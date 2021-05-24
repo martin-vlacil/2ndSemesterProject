@@ -1,8 +1,8 @@
 package modelLayer;
 
 /**
- * @author Group1 dmai0920 Represents an Organization in the system that groups
- *         their Users, not fully implemented as it is not a big part of any implemented use case
+ * @author Group1 dmai0920
+ * Represents an Organization in the system that groups their Users, not fully implemented as it is not a big part of any implemented use case
  */
 public class Organization
 {

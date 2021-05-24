@@ -42,8 +42,7 @@ public class User
      * Constructor 1 needs all fields and is used to build objects from the
      * database
      */
-    public User(int id, String name, String email, String phone,
-            String position, UserType userType, Organization organization)
+    public User(int id, String name, String email, String phone, String position, UserType userType, Organization organization)
     {
         this.id = id;
         this.name = name;

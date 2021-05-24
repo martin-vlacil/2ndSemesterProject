@@ -1,69 +1,27 @@
 package uiLayer;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+import javax.swing.text.JTextComponent;
+import javax.swing.border.LineBorder;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.JSpinner.DefaultEditor;
 
 import config.Config;
 import controlLayer.BookingController;
-import modelLayer.Booking;
-import modelLayer.Room;
-import modelLayer.User;
+import modelLayer.*;
 import modelLayer.User.UserType;
 
-import java.awt.event.ActionListener;
+import java.time.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.ListCellRenderer;
-
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JSpinner;
-import javax.swing.JSpinner.DateEditor;
-import javax.swing.JSpinner.DefaultEditor;
-import javax.swing.SpinnerDateModel;
-
 import java.util.*;
-import javax.swing.text.JTextComponent;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 /**
- * 
  * A booking JDialog used both  for creating/viewing a booking.
  * @author dmai0920 group 1
- *
  */
 @SuppressWarnings("serial")
 public class BookingDialog extends JDialog
@@ -96,6 +54,7 @@ public class BookingDialog extends JDialog
     private Calendar startTime;
     private Calendar endTime;
     private JTextArea descriptionTextArea;
+    //A Map to check which fields were already validated
     private HashMap<JTextField, Boolean> fields;
     private JTextArea errorMessageRoom;
     private JButton saveButton;
@@ -196,7 +155,6 @@ public class BookingDialog extends JDialog
                 titleTextField.setColumns(10);
             }
             {
-
                 JLabel organizationLabel = new JLabel("Organization");
                 GridBagConstraints gbc_organizationLabel = new GridBagConstraints();
                 gbc_organizationLabel.anchor = GridBagConstraints.WEST;
@@ -207,8 +165,7 @@ public class BookingDialog extends JDialog
             }
             {
                 organizationDropDownPlaceholder = new JTextField();
-                organizationDropDownPlaceholder.setText(
-                        bookingPanel.getUser().getOrganization().getName());
+                organizationDropDownPlaceholder.setText(bookingPanel.getUser().getOrganization().getName());
 
                 if ((user.getUserType() == UserType.DEFAULT) || (user.getUserType() == UserType.SUPER))
                 {
@@ -222,8 +179,7 @@ public class BookingDialog extends JDialog
                 gbc_organizationDropDownPlaceholder.fill = GridBagConstraints.HORIZONTAL;
                 gbc_organizationDropDownPlaceholder.gridx = 1;
                 gbc_organizationDropDownPlaceholder.gridy = 4;
-                leftPanel.add(organizationDropDownPlaceholder,
-                        gbc_organizationDropDownPlaceholder);
+                leftPanel.add(organizationDropDownPlaceholder, gbc_organizationDropDownPlaceholder);
                 organizationDropDownPlaceholder.setColumns(10);
             }
             {
@@ -420,7 +376,6 @@ public class BookingDialog extends JDialog
                 try
                 {
                     allRooms = new BookingController().getAllRooms();
-
                 }
                 catch (SQLException e)
                 {
@@ -435,8 +390,7 @@ public class BookingDialog extends JDialog
                         addSelectedRoom(((Room) comboBox.getSelectedItem()));
                     }
                 });
-                comboBox.setModel(new DefaultComboBoxModel<Room>(
-                        allRooms.toArray(new Room[0])));
+                comboBox.setModel(new DefaultComboBoxModel<Room>(allRooms.toArray(new Room[0])));
                 ListCellRenderer<? super Room> renderer = new RoomComboboxCellRenderer();
 
                 comboBox.setRenderer(renderer);
@@ -453,21 +407,18 @@ public class BookingDialog extends JDialog
                 gbc_comboBox.gridx = 1;
                 gbc_comboBox.gridy = 5;
                 rightPanel.add(comboBox, gbc_comboBox);
-
             }
             {
                 listModel = new DefaultListModel<>();
                 JList<Room> listOfSelectedRooms = new JList<>(listModel);
                 listOfSelectedRooms.addListSelectionListener(new ListSelectionListener()
-                        {
-
-                            @Override
-                            public void valueChanged(ListSelectionEvent e)
-                            {
-                                removeSelectedRoom(listOfSelectedRooms.getSelectedValue());
-
-                            }
-                        });
+                {
+                	@Override
+                    public void valueChanged(ListSelectionEvent e)
+                    {
+                    removeSelectedRoom(listOfSelectedRooms.getSelectedValue());
+                    }
+                });
                 ListCellRenderer<? super Room> renderer = new RoomListCellRenderer();
                 listOfSelectedRooms.setCellRenderer(renderer);
                 GridBagConstraints gbc_list = new GridBagConstraints();
@@ -478,7 +429,6 @@ public class BookingDialog extends JDialog
                 gbc_list.gridy = 4;
                 gbc_list.gridheight = 3;
                 rightPanel.add(listOfSelectedRooms, gbc_list);
-
                 addSelectedRoom(bookingPanel.getSelectedRoom());
             }
             {
@@ -493,13 +443,10 @@ public class BookingDialog extends JDialog
             {
                 Calendar yesterday = Calendar.getInstance();
                 yesterday.add(Calendar.DATE, -1);
-                datePicker = new JSpinner(new SpinnerDateModel(new Date(),
-                        yesterday.getTime(), null, Calendar.DAY_OF_MONTH));
-                DateEditor dateEditor = new JSpinner.DateEditor(datePicker,
-                        "dd/MM/yyyy");
+                datePicker = new JSpinner(new SpinnerDateModel(new Date(), yesterday.getTime(), null, Calendar.DAY_OF_MONTH));
+                DateEditor dateEditor = new JSpinner.DateEditor(datePicker, "dd/MM/yyyy");
                 datePicker.setEditor(dateEditor);
-                ((DefaultEditor) datePicker.getEditor()).getTextField()
-                        .setEditable(false);
+                ((DefaultEditor) datePicker.getEditor()).getTextField().setEditable(false);
                 datePicker.setFocusable(false);
                 datePicker.setFont(config.getLabelDefaultFont());
                 GridBagConstraints gbc_datePicker = new GridBagConstraints();
@@ -530,10 +477,10 @@ public class BookingDialog extends JDialog
             }
             {
                 startTime = Calendar.getInstance();
-                startTime.set(Calendar.HOUR_OF_DAY,
-                        config.getWorkingHoursStart());
+                startTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursStart());
                 startTime.set(Calendar.MINUTE, 0);
                 startTimePicker = new JSpinner();
+                //Custom anonymous class for the spinner date model to be used as a time picker with 30 minutes interval
                 startTimePicker.setModel(new SpinnerDateModel(startTime.getTime(), null, null, Calendar.HOUR_OF_DAY)
                 {
                     @Override
@@ -554,10 +501,9 @@ public class BookingDialog extends JDialog
                         {
                             calendar.add(Calendar.MINUTE, 30);
                         }
-
                         return calendar.getTime();
                     }
-
+                    
                     @Override
                     public Object getPreviousValue()
                     {
@@ -596,6 +542,7 @@ public class BookingDialog extends JDialog
                 endTime.set(Calendar.HOUR_OF_DAY, config.getWorkingHoursEnd());
                 endTime.set(Calendar.MINUTE, 00);
                 endTimePicker = new JSpinner();
+                //Custom anonymous class for the spinner date model to be used as a time picker with 30 minutes interval
                 endTimePicker.setModel(new SpinnerDateModel(endTime.getTime(), null, null, Calendar.HOUR_OF_DAY)
                 {
                     @Override
@@ -760,8 +707,7 @@ public class BookingDialog extends JDialog
      * @param panel
      * @throws SQLException
      */
-    public BookingDialog(User user, LocalDateTime startInterval,
-            LocalDateTime endInterval, BookingPanel panel) throws SQLException
+    public BookingDialog(User user, LocalDateTime startInterval, LocalDateTime endInterval, BookingPanel panel) throws SQLException
     {
         this(user, panel);
         if (startInterval.compareTo(LocalDateTime.now()) >= 0)
@@ -777,18 +723,15 @@ public class BookingDialog extends JDialog
      * @param panel
      * @throws SQLException
      */
-    public BookingDialog(Booking booking, BookingPanel panel)
-            throws SQLException
+    public BookingDialog(Booking booking, BookingPanel panel) throws SQLException
     {
-        this((booking.getContact() != null) ? booking.getContact()
-                : booking.getCreatedBy(), panel);
+        this((booking.getContact() != null) ? booking.getContact() : booking.getCreatedBy(), panel);
         // Fill fields
         this.descriptionTextArea.setText(booking.getDescription());
         this.titleTextField.setText(booking.getTitle());
         this.titleTextField.setCaretPosition(0);
         this.attendeesTextField.setText("" + booking.getNumberOfParticipants());
-        this.organizationDropDownPlaceholder
-                .setText(booking.getCreatedBy().getOrganization().getName());
+        this.organizationDropDownPlaceholder.setText(booking.getCreatedBy().getOrganization().getName());
         // Disable left panel
         for (Component component : leftPanel.getComponents())
         {
@@ -804,7 +747,7 @@ public class BookingDialog extends JDialog
             {
                 ((JTextArea) component).setEditable(false);
             }
-            //FIXME Can we replace this with JComponent instead of 4 Jthings?
+            //Hide JSpinners, the room combobox and the error log in JScrollPane
             else if (component instanceof JSpinner || component instanceof JComboBox || component instanceof JList || component instanceof JScrollPane)
             {
                 component.setVisible(false);
@@ -812,12 +755,10 @@ public class BookingDialog extends JDialog
         }
         this.saveButton.setVisible(false);
         this.titlePanelLabel.setText("Viewing " + booking.getTitle());
-        DateTimeFormatter dateFormatter = DateTimeFormatter
-                .ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         // Replace editable components with JTextFields (JSpinners, JComboBoxes)
-        JTextField selectedRoomField = new JTextField(
-                booking.getRoom().getName());
+        JTextField selectedRoomField = new JTextField(booking.getRoom().getName());
         selectedRoomField.setEditable(false);
         formatTextField(selectedRoomField);
         GridBagConstraints gbc_selectedRoomField = new GridBagConstraints();
@@ -861,15 +802,14 @@ public class BookingDialog extends JDialog
     }
     
     /**
-     *  Receives a JTextComponent(Test field, test area) and styles it accordingly.
+     * Receives a JTextComponent(Test field, test area) and styles it accordingly.
      * @param component
      */
     private void formatTextField(JTextComponent component)
     {
         component.setForeground(config.getLabelDefaultForeground());
         component.setFont(config.getLabelDefaultFont());
-        //FIXME can this be in the config?
-        component.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
+        component.setBorder(config.getTextFieldDefaultBorder());
     }
 
     /**
@@ -977,7 +917,6 @@ public class BookingDialog extends JDialog
         }
     }
 
-    
     /**
      * Removing a room from the arrayList of selected rooms
      * @param room a Room boject to be removed

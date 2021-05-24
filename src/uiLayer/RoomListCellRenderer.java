@@ -3,24 +3,23 @@ package uiLayer;
 import java.awt.Color;
 import java.awt.Component;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 import config.Config;
 import modelLayer.Room;
 
+/**
+ * A renderer for the selected rooms in the CreateBookingDialog
+ * @author group1 dmai0920
+ */
 public class RoomListCellRenderer implements ListCellRenderer<Room>
 {
     protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
     private Config config = new Config();
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Room> list,
-            Room room, int index, boolean isSelected, boolean cellHasFocus)
+    public Component getListCellRendererComponent(JList<? extends Room> list, Room room, int index, boolean isSelected, boolean cellHasFocus)
     {
         JButton renderer = new JButton();
         renderer.setFont(config.getButtonDefaultFont());
