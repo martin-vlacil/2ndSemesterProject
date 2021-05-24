@@ -46,8 +46,9 @@ public class Databus {
 		{
 			@Override
 			protected Object doInBackground() throws Exception {
-				BookingDB bookingDB = new BookingDB();
-				bookingsForMultipleWeeks = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
+				BookingController bookingControler = new BookingController();
+				bookingsForMultipleWeeks = bookingControler.getAllBookingsForAWeek(LocalDateTime.now());
+				queryBookings(LocalDateTime.now());
 				
 				LogEntryDB log = new LogEntryDB();
 				log.deleteOldLogs();
