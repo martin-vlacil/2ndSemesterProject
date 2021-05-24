@@ -245,6 +245,18 @@ public class BookingPanel extends JPanel
         }
 
     }
+    
+    public void confirmBooking(LocalDateTime currentDate) throws SQLException
+    {
+        calendar.removeAllEvents();
+        BookingController bc = new BookingController();
+    	ArrayList<Booking> bookings = bc.getAllBookingsForAWeek(currentDate);
+
+        for (Booking booking : bookings)
+        {
+            calendar.addCalendarEvent(booking);
+        }
+    }
 
     // TODO Comment needed
     public void getRoomsOfOneDay(LocalDate date) throws SQLException

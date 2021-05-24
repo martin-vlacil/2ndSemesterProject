@@ -1061,7 +1061,7 @@ public class BookingDialog extends JDialog
 
                 if (bookingController.confirmBooking(titleTextField.getText(), descriptionTextArea.getText(), contactPerson, Integer.parseInt(attendeesTextField.getText()), user, selectedRooms, startDateTime, endDateTime))
                 {
-                    bookingPanel.getAllBookingsForAWeek(startDateTime);
+                    bookingPanel.confirmBooking(startDateTime);
                     MainUI.updateLog();
                     dispose();
                 }
