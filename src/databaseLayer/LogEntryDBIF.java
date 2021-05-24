@@ -30,6 +30,9 @@ public interface LogEntryDBIF
      */
     ArrayList<LogEntry> getLogs() throws SQLException;
     
-    //TODO Write comment
+    /**
+     * This method is used to delete old logs from the database
+     * @throws SQLException
+     */
     void deleteOldLogs() throws SQLException;
 }

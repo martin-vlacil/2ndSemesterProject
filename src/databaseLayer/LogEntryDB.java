@@ -1,9 +1,7 @@
 package databaseLayer;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import config.Config;
@@ -11,7 +9,7 @@ import modelLayer.LogEntry;
 
 /**
  * @author Group 1 dmai0920 
- * This is a database class for LogEntries, the handles
+ * This is a database class for LogEntries, that handles
  * its persistence, it is responsible for finding, updating, deleting,
  * and inserting to the database
  */
@@ -54,7 +52,6 @@ public class LogEntryDB implements LogEntryDBIF
     {
         ArrayList<LogEntry> logEntries = new ArrayList<>();
 
-        // sqlSelectLatestLogs.setInt(1, SELECT_LATEST_AMOUNT);
         sqlSelectLatestLogs.setInt(1, new Config().getLogEntryAmount());
         ResultSet resultSet = sqlSelectLatestLogs.executeQuery();
 
@@ -65,7 +62,6 @@ public class LogEntryDB implements LogEntryDBIF
                 logEntries.add(buildObject(resultSet));
             }
         }
-
         return logEntries;
     }
 
@@ -76,8 +72,7 @@ public class LogEntryDB implements LogEntryDBIF
      */
     private LogEntry buildObject(ResultSet resultSet) throws SQLException
     {
-        return new LogEntry(resultSet.getString("action"),
-                resultSet.getTimestamp("date").toLocalDateTime());
+        return new LogEntry(resultSet.getString("action"), resultSet.getTimestamp("date").toLocalDateTime());
     }
     
 

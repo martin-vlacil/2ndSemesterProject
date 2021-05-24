@@ -53,7 +53,6 @@ public class Config
 
     public Config()
     {
-        // TODO finish implementing these
         buttonColorSavedBackground = new Color(86, 197, 104);
         buttonColorDeleteBackground = new Color(235, 87, 87);
         buttonColorCancelBackground = new Color(200, 200, 200);
@@ -89,16 +88,17 @@ public class Config
         titleColorForeground = new Color(255, 255, 255);
         attachmentButtonColor = new Color(192, 192, 192);
         warningColor = new Color(244, 129, 34);
-
         setWorkingHoursStart(15);
         setWorkingHoursEnd(23);
-
     }
+    
+    /*
+     * Getters and setters for the fields
+     */
     public Color getWarningColor()
     {
     	return warningColor;
     }
-    
     
     public Color getAttachmentButtonColor()
     {
@@ -461,5 +461,4 @@ public class Config
     {
         return logEntryAmount;
     }
-
 }

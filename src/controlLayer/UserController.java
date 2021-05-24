@@ -6,8 +6,9 @@ import databaseLayer.*;
 import modelLayer.User;
 
 /**
- * @author Group1 dmai0920 A controller for the User objects, handling their
- *         logic in the system.
+ * @author Group1 dmai0920
+ * A controller for the User objects, handling their
+ * logic in the system.
  */
 public class UserController
 {
@@ -23,7 +24,7 @@ public class UserController
      * the password matches
      * 
      * @param email, password
-     * @return
+     * @return the user
      * @throws SQLException
      */
     public User getUser(String email, String password) throws SQLException

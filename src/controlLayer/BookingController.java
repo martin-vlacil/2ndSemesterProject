@@ -43,15 +43,12 @@ public class BookingController
      * which are then inserted into the database, also creates a log object that is inserted
      * into the database
      * 
-     * @param title, description, contactName, contactPhoneNumber, contactEmail,
-     * numberOfParticipants, createdBy
+     * @param title, description, contactName, contactPhoneNumber, contactEmail, numberOfParticipants, createdBy
      * @return true/false if the booking(s) was/were successfully created in the database
      * @throws SQLException
      */
-    public boolean confirmBooking(String title, String description,
-            User contact, int numberOfParticipants, User createdBy,
-            ArrayList<Room> selectedRooms, LocalDateTime selectedStartTime,
-            LocalDateTime selectedEndTime) throws SQLException
+    public boolean confirmBooking(String title, String description, User contact, int numberOfParticipants, User createdBy,
+            ArrayList<Room> selectedRooms, LocalDateTime selectedStartTime, LocalDateTime selectedEndTime) throws SQLException
     {
         boolean bookingConfirmed = true;
         Booking booking = null;
@@ -80,12 +77,8 @@ public class BookingController
                     bookingConfirmed = false;
                 }
                 DateTimeFormatter formatter = DateTimeFormatter .ofPattern("dd/MM/yyyy");
-                logEntryDB.create(createdBy.getName() + " from "
-                        + createdBy.getOrganization().getName() + " has booked "
-                        + room.getName().substring(0, 1).toUpperCase()
-                        + room.getName().substring(1).toLowerCase() + " on "
-                        + selectedStartTime.format(formatter),
-                        LocalDateTime.now());
+                logEntryDB.create(createdBy.getName() + " from " + createdBy.getOrganization().getName() + " has booked " + room.getName().substring(0, 1).toUpperCase()
+                        + room.getName().substring(1).toLowerCase() + " on " + selectedStartTime.format(formatter), LocalDateTime.now());
 
                 DBConnection.getInstance().commitTransaction();
             }
@@ -228,14 +221,13 @@ public class BookingController
      * @return list of all bookings on a given day
      * @throws SQLException
      */
-    public ArrayList<Booking> getBookingsOfOneDay(LocalDate date)
-            throws SQLException
+    public ArrayList<Booking> getBookingsOfOneDay(LocalDate date) throws SQLException
     {
         return bookingDB.getAllByDateOfOneDay(date);
     }
 
     /**
-     * This method gets a list of all the rooms from the database
+     * This method gets a list of all the rooms from the room controller
      * 
      * @return a list of all rooms
      * @throws SQLException
@@ -252,8 +244,7 @@ public class BookingController
      * @return
      * @throws SQLException
      */
-    public ArrayList<Booking> getAllBookingsForAWeek(LocalDateTime currentDate)
-            throws SQLException
+    public ArrayList<Booking> getAllBookingsForAWeek(LocalDateTime currentDate) throws SQLException
     {
         LocalDate startDate = currentDate.with(DayOfWeek.MONDAY).toLocalDate();
         LocalDate endDate = startDate.plusDays(6);
@@ -273,14 +264,21 @@ public class BookingController
         this.logEntryDB = logEntryDB;
     }
 
+    /**
+     * A method to add a room to the selected rooms
+     * @param room to be added
+     */
     public void addSelectedRoom(Room room)
     {
         selectedRooms.add(room);
     }
 
+    /**
+     * A method to remove a room from the selected rooms
+     * @param room to be remved
+     */
     public void removeSelectedRoom(Room room)
     {
         selectedRooms.remove(room);
     }
-
 }

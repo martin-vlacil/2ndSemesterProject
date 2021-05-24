@@ -25,14 +25,10 @@ public class DBConnection
     /**
      * Constructor establishing the connection. Throws an exception if the
      * connection fails
-     * 
      */
     private DBConnection()
     {
-        String connectionString = String.format(
-                "jdbc:sqlserver://%s:%d;databaseName=%s;user=%s;password=%s",
-                SERVER_ADDRESS, SERVER_PORT, DATABASE_NAME, USER_NAME,
-                PASSWORD);
+        String connectionString = String.format("jdbc:sqlserver://%s:%d;databaseName=%s;user=%s;password=%s",SERVER_ADDRESS, SERVER_PORT, DATABASE_NAME, USER_NAME, PASSWORD);
         try
         {
             connection = DriverManager.getConnection(connectionString);

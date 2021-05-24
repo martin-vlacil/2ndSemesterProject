@@ -28,21 +28,21 @@ public class LogEntryDBStub implements LogEntryDBIF
         return true;
     }
 
-    @Override
-    public ArrayList<LogEntry> getLogs() throws SQLException
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     public LogEntry getLogEntry()
     {
         return logEntry;
     }
 
+    /**
+     * Unused methods
+     */
+    @Override
+    public ArrayList<LogEntry> getLogs() throws SQLException
+    {
+        return null;
+    }
+    
 	@Override
-	public void deleteOldLogs() throws SQLException {
-			
-	}
+	public void deleteOldLogs() throws SQLException {}
 
 }

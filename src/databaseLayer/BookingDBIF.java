@@ -1,8 +1,8 @@
 package databaseLayer;
 
 import java.sql.*;
-import java.time.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import modelLayer.*;
 
@@ -23,9 +23,8 @@ public interface BookingDBIF
     boolean create(Booking booking) throws SQLException;
 
     /**
-     * This method returns a list of all the bookings made for a specific room
-     * and a specific day, it is used for later comparing times of those
-     * bookings to check availability
+     * This method returns a list of all the bookings made on a specific day,
+     * it is used for later comparing times of those bookings to check availability
      * 
      * @param room, date
      * @return a list of bookings for that day on that room
@@ -39,8 +38,7 @@ public interface BookingDBIF
      * @return
      * @throws SQLException
      */
-    ArrayList<Booking> getAllByTimeInterval(LocalDate startDate,
-            LocalDate endTime) throws SQLException;
+    ArrayList<Booking> getAllByTimeInterval(LocalDate startDate, LocalDate endTime) throws SQLException;
 
     /**
      * This method is used for creating the Booking objects from the Result set

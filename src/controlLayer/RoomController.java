@@ -7,12 +7,14 @@ import databaseLayer.*;
 import modelLayer.Room;
 
 /**
- * @author Group1 dmai0920 This controller handles the logic behind managing
- *         rooms and doing operations on them.
+ * @author Group1 dmai0920 
+ * This controller handles the logic behind managing
+ * rooms and doing operations on them.
  */
 public class RoomController
 {
     private RoomDBIF roomDB;
+    // A list of rooms loaded from the database on startup
     private ArrayList<Room> rooms;
 
     public RoomController() throws SQLException
@@ -56,7 +58,6 @@ public class RoomController
                 room = chosenRoom;
             }
         }
-        // TODO - create a room not found exception?
         return room;
     }
 }

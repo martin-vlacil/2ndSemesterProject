@@ -3,8 +3,9 @@ package modelLayer;
 import java.time.LocalDateTime;
 
 /**
- * @author Group1 dmai0920 Represents the booking in the system that the user
- *         can make for a room.
+ * @author Group1 dmai0920
+ * Represents the booking in the system that the user
+ * can make for a room.
  */
 public class Booking implements Comparable<Booking>
 {
