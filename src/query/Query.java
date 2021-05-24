@@ -32,7 +32,7 @@ public class Query {
 	
 	public ArrayList<Booking> getBookings()
 	{
-		return bookings;
+		return bookingsForMultipleWeeks;
 	}
 
 	public ArrayList<LogEntry> getLogs()
@@ -47,7 +47,8 @@ public class Query {
 			@Override
 			protected Object doInBackground() throws Exception {
 				BookingDB bookingDB = new BookingDB();
-				bookings = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
+				bookingsForMultipleWeeks = bookingDB.getAllByTimeInterval(LocalDate.now().minusDays(7), LocalDate.now().plusDays(11));
+				
 				LogEntryDB log = new LogEntryDB();
 				log.deleteOldLogs();
 				logs = log.getLogs();
@@ -63,14 +64,14 @@ public class Query {
 		{
 			@Override
 			protected Object doInBackground() throws Exception {
-				bookingsForMultipleWeeks.clear();
+				
 				
 				BookingController bookingControler = new BookingController();
 				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.minusWeeks(1)));
 				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.plusWeeks(1)));
 				// Get bookings from neighboring months first weeks
 				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.minusMonths(1)));
-				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.plusMonths(1)));
+				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.plusMonths(1).plusDays(7)));
 				return null;
 			}
 		};
@@ -89,5 +90,10 @@ public class Query {
 			}
 		};
 		sw.execute();
+	}
+	
+	public void clearBookings()
+	{
+		bookingsForMultipleWeeks.clear();
 	}
 }

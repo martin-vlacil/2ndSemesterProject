@@ -238,7 +238,6 @@ public class BookingPanel extends JPanel
             throws SQLException
     {
         calendar.removeAllEvents();
-        BookingController bc = new BookingController();
         ArrayList<Booking> bookings = Query.getInstance().getBookings();
         for (Booking booking : bookings)
         {
