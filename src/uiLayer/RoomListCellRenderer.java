@@ -23,7 +23,7 @@ public class RoomListCellRenderer implements ListCellRenderer<Room>
     {
         JButton renderer = new JButton();
         renderer.setFont(config.getButtonDefaultFont());
-        renderer.setText("  \uD83D\uDDD1  " + room.getName());
+        renderer.setText("  X  " + room.getName());
         renderer.setHorizontalAlignment(SwingConstants.LEFT);
         renderer.setForeground(config.getButtonColorDeleteForeground());
         renderer.setBackground(config.getButtonColorDeleteBackground());
