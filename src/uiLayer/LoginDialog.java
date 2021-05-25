@@ -135,8 +135,7 @@ public class LoginDialog extends JDialog
         errorLabel.setForeground(Color.RED);
         errorFrame.add(errorLabel);
 
-        // TODO remove miguel
-        JLabel emailLabel = new JLabel("Email (Miguel@Olivera.dk)");
+        JLabel emailLabel = new JLabel("Email");
         GridBagConstraints gbc_emailLabel = new GridBagConstraints();
         gbc_emailLabel.anchor = GridBagConstraints.WEST;
         gbc_emailLabel.insets = new Insets(0, 0, 5, 5);
@@ -144,8 +143,7 @@ public class LoginDialog extends JDialog
         gbc_emailLabel.gridy = 2;
         mainPanel.add(emailLabel, gbc_emailLabel);
 
-        // TODO - remove miguel
-        emailTextField = new JTextField("Miguel@Olivera.dk");
+        emailTextField = new JTextField();
         emailTextField.setForeground(config.getLabelDefaultForeground());
         emailTextField.setFont(config.getLogSize());
         emailTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
@@ -157,8 +155,7 @@ public class LoginDialog extends JDialog
         mainPanel.add(emailTextField, gbc_emailTextField);
         emailTextField.setColumns(10);
 
-        // TODO - remove password
-        JLabel passwordLabel = new JLabel("Password (password1)");
+        JLabel passwordLabel = new JLabel("Password");
         GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
         gbc_passwordLabel.anchor = GridBagConstraints.WEST;
         gbc_passwordLabel.insets = new Insets(30, 0, 5, 5);
@@ -166,8 +163,7 @@ public class LoginDialog extends JDialog
         gbc_passwordLabel.gridy = 4;
         mainPanel.add(passwordLabel, gbc_passwordLabel);
 
-        // TODO - remove pass
-        passwordTextField = new JPasswordField("password1");
+        passwordTextField = new JPasswordField();
         passwordTextField.setForeground(config.getLabelDefaultForeground());
         passwordTextField.setFont(config.getLogSize());
         passwordTextField.setBorder(BorderFactory.createLineBorder(new Color(212, 212, 212), 1));
