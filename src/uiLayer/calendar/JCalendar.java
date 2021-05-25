@@ -412,7 +412,6 @@ public class JCalendar extends JPanel
     }
 
     /**
-     * FIXME calling the method for adding a calendar event
      * 
      * @param event
      */
