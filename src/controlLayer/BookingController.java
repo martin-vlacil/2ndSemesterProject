@@ -121,7 +121,7 @@ public class BookingController
                 if (!information[1].equals(""))
                 {
                     int attendees = Integer.parseInt(information[1]);
-                    if (attendees == 0)
+                    if (attendees < 1)
                     {
                         return errorColor;
                     }
