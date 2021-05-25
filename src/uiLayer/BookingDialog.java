@@ -171,7 +171,7 @@ public class BookingDialog extends JDialog
                 {
                     organizationDropDownPlaceholder.setEditable(false);
                 }
-                // TODO Make the dropdown for the admin user, so they can choose
+                //TODO Make the dropdown for the admin user, so they can choose
                 organizationDropDownPlaceholder.setEditable(false);
                 formatTextField(organizationDropDownPlaceholder);
                 GridBagConstraints gbc_organizationDropDownPlaceholder = new GridBagConstraints();
