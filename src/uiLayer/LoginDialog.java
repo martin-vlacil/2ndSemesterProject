@@ -123,7 +123,6 @@ public class LoginDialog extends JDialog
         gbc_errorPanel.gridx = 0;
         gbc_errorPanel.gridy = 1;
         gbc_errorPanel.gridwidth = 3;
-        gbc_errorPanel.gridheight = 2;
         mainPanel.add(errorPanel, gbc_errorPanel);
 
         JPanel errorFrame = new JPanel();
