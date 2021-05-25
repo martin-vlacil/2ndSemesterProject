@@ -24,19 +24,20 @@ import uiLayer.calendar.events.SelectionChangedListener;
 
 /**
  * 
- * @author theodorcostache
+ * @author theodorcostache 
  * 
  */
-public interface EventCollection {
+public interface EventCollection 
+{
 	//XXX CalendarEvents have been renamed to Booking
 	void add(Booking event);
 
 	void remove(Booking event);
 
-    void removeAll(List<Booking> calendarEventList);
+        void removeAll(List<Booking> calendarEventList);
     
-    //XXX added
-    void removeAllEvents();
+        //XXX added
+        void removeAllEvents();
 
 	void addSelected(Booking event);
 
@@ -44,14 +45,15 @@ public interface EventCollection {
 
 	void clearSelected(Booking event, boolean b);
 
-    List<Booking> getHolidayEvents(LocalDate date);
+	//XXX removed
+        /*List<Booking> getHolidayEvents(LocalDate date);*/
 
 	Collection<Booking> getSelectedEvents();
 
 	Collection<Booking> getEvents(LocalDate date);
 
-    Collection<Booking> getAllEvents();
-
+        Collection<Booking> getAllEvents();
+        //XXX removed
 	/*void addCollectionChangedListener(ModelChangedListener listener);
 
 	void removeCollectionChangedListener(ModelChangedListener listener);

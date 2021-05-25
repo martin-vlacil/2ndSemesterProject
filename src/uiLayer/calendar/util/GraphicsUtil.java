@@ -62,7 +62,7 @@ public class GraphicsUtil {
 				wordWidth = fm.stringWidth(word + " ");
 				textTrimmed = true;
 			}
-			//XXX EDITED, IT CAUSED BUGS FOR US
+			//XXX changed, intitially removed all 2 letter words or smaller
 			word = word.length() > 3 && textTrimmed ? word.substring(0, word.length() - 3) + "..."
 					: word.length() > 0 ? word : "";
 

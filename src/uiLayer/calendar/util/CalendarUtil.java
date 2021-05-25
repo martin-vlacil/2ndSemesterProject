@@ -44,7 +44,7 @@ public class CalendarUtil {
         return result;
     }
     
-    /* XXX Deprecated
+    /* XXX Not used method
     public static long getTotalSeconds(final Date date) {
         final Calendar c = CalendarUtil.getCalendar(date, false);
         long seconds = c.get(Calendar.HOUR_OF_DAY) * 60 * 60;

@@ -75,25 +75,20 @@ public class DayContentPanel extends JPanel
             @Override
             public void mouseClicked(final MouseEvent e)
             {
-                for (final MouseListener ml : DayContentPanel.this.owner
-                        .getOwner().getMouseListeners())
+                for (final MouseListener ml : DayContentPanel.this.owner.getOwner().getMouseListeners())
                 {
                     ml.mouseClicked(e);
                 }
-                if (e.getClickCount() == 2
-                        && e.getButton() == MouseEvent.BUTTON1)
+                if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1)
                 {
                     // if (e.getButton() == MouseEvent.BUTTON1) {
                     if (startSelection == null || endSelection == null)
                         return;
-                    LocalDateTime startDate = CalendarUtil.pixelToDate(
-                            owner.getDate(), (int) startSelection.getY(),
+                    LocalDateTime startDate = CalendarUtil.pixelToDate(owner.getDate(), (int) startSelection.getY(),
                             getHeight());
-                    LocalDateTime endDate = CalendarUtil.pixelToDate(
-                            owner.getDate(), (int) endSelection.getY(),
+                    LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) endSelection.getY(),
                             getHeight());
-                    EventRepository.get().triggerIntervalSelection(calendar,
-                            startDate, endDate);
+                    EventRepository.get().triggerIntervalSelection(calendar, startDate, endDate);
                 }
             }
 
@@ -107,8 +102,7 @@ public class DayContentPanel extends JPanel
                  * calendar.getPopupMenu().show(DayContentPanel.this, e.getX(),
                  * e.getY()); }
                  */
-                for (final MouseListener ml : DayContentPanel.this.owner
-                        .getOwner().getMouseListeners())
+                for (final MouseListener ml : DayContentPanel.this.owner.getOwner().getMouseListeners())
                 {
                     ml.mouseReleased(e);
                 }
@@ -127,8 +121,7 @@ public class DayContentPanel extends JPanel
                  */
                 // XXX CalendarEvent changed to Booking
                 final Booking event = getEvent(e.getX(), e.getY());
-                final EventCollection events = EventCollectionRepository
-                        .get(calendar);
+                final EventCollection events = EventCollectionRepository.get(calendar);
                 if (e.getClickCount() == 1)
                 {
                     if (!e.isControlDown())
@@ -157,9 +150,7 @@ public class DayContentPanel extends JPanel
                 {
                     if (event != null)
                     {
-                        EventRepository.get().triggerIntervalSelection(calendar,
-                                event, event.getStartTime(),
-                                event.getEndTime());
+                        EventRepository.get().triggerIntervalSelection(calendar, event, event.getStartTime(), event.getEndTime());
                     }
                 }
                 // XXX removed popup trigger
@@ -168,8 +159,7 @@ public class DayContentPanel extends JPanel
                  * calendar.getPopupMenu().show(DayContentPanel.this, e.getX(),
                  * e.getY()); }
                  */
-                for (final MouseListener ml : DayContentPanel.this.owner
-                        .getOwner().getMouseListeners())
+                for (final MouseListener ml : DayContentPanel.this.owner.getOwner().getMouseListeners())
                 {
                     ml.mousePressed(e);
                 }
@@ -214,18 +204,15 @@ public class DayContentPanel extends JPanel
                         owner.getDate(), (int) e.getY(), getHeight());
                 // startDate = CalendarUtil.roundDateToHalfAnHour(startDate,
                 // false);
-                startDate = startDate.truncatedTo(ChronoUnit.HOURS)
-                        .plusMinutes(30 * (startDate.getMinute() / 30));
+                startDate = startDate.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (startDate.getMinute() / 30));
 
                 // Date endDate = CalendarUtil.pixelToDate(owner.getDate(),
                 // (int) e.getY(), getHeight());
                 LocalDateTime endDate = startDate.plusMinutes(30);
                 // endDate = CalendarUtil.roundDateToHalfAnHour(endDate, true);
 
-                startSelection = new Point(e.getX(),
-                        CalendarUtil.secondsToPixels(startDate, getHeight()));
-                endSelection = new Point(e.getX(),
-                        CalendarUtil.secondsToPixels(endDate, getHeight()));
+                startSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(startDate, getHeight()));
+                endSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(endDate, getHeight()));
                 calendar.validate();
                 calendar.repaint();
             }
@@ -242,23 +229,20 @@ public class DayContentPanel extends JPanel
                     // getHeight());
                     // endDate = CalendarUtil.roundDateToHalfAnHour(endDate,
                     // true);
-                    LocalDateTime endDate = CalendarUtil.pixelToDate(
-                            owner.getDate(), (int) e.getY(), getHeight());
-                    endDate = endDate.truncatedTo(ChronoUnit.HOURS)
-                            .plusMinutes(30 * (endDate.getMinute() / 30));
+                    LocalDateTime endDate = CalendarUtil.pixelToDate(owner.getDate(), (int) e.getY(), getHeight());
+                    endDate = endDate.truncatedTo(ChronoUnit.HOURS).plusMinutes(30 * (endDate.getMinute() / 30));
 
-                    endSelection = new Point(e.getX(),
-                            CalendarUtil.secondsToPixels(endDate, getHeight()));
-
+                    endSelection = new Point(e.getX(), CalendarUtil.secondsToPixels(endDate, getHeight()));
                     calendar.validate();
                     calendar.repaint();
                 }
             }
         });
 
-        // Listener for tooltip
+
         /*
-         * XXX removed addMouseMotionListener(new MouseAdapter() {
+         * XXX removed listener for tooltip
+         * addMouseMotionListener(new MouseAdapter() {
          * 
          * final JCalendar calendar = DayContentPanel.this.owner .getOwner();
          * 
@@ -298,6 +282,7 @@ public class DayContentPanel extends JPanel
     {
         super.paint(g);
         drawBackground((Graphics2D) g);
+        //XXX removed functionality for changing the model(day, week, month)
         /*
          * if (owner.getOwner().getDisplayStrategy() != Type.MONTH) {
          * drawCalendarEvents((Graphics2D) g); } else {
@@ -462,8 +447,7 @@ public class DayContentPanel extends JPanel
     }
 
     // XXX CalendarEvent changed to Booking, changed name to getEvent from
-    // GetNonMonthEvent as month events are displayed differently in the legacy
-    // code.
+    //refactored from getNonMonthEvent to getEvent, because of removed functionality for changing the model(day, week, month)
     private Booking getEvent(final int x, final int y)
     {
 
@@ -484,14 +468,11 @@ public class DayContentPanel extends JPanel
                  */
                 int eventYStart = 0;
                 // XXX Changed from getStart() to getStartTime()
-                // XXX
-                final boolean isSameStartDay = event.getStartTime()
-                        .toLocalDate().isEqual(owner.getDate());
+                final boolean isSameStartDay = event.getStartTime().toLocalDate().isEqual(owner.getDate());
                 if (isSameStartDay)
                 {
-                    eventYStart = CalendarUtil.secondsToPixels(
-                            // XXX Changed from getStart() to getStartTime()
-                            event.getStartTime(), getHeight());
+                    // XXX Changed from getStart() to getStartTime()
+                    eventYStart = CalendarUtil.secondsToPixels(event.getStartTime(), getHeight());
                 }
 
                 int eventYEnd = getHeight();
@@ -501,26 +482,20 @@ public class DayContentPanel extends JPanel
                 if (event.getEndTime().toLocalDate().isEqual(owner.getDate()))
                 {
                     // XXX Changed from getEnd() to getEndTime()
-                    eventYEnd = CalendarUtil.secondsToPixels(event.getEndTime(),
-                            getHeight());
+                    eventYEnd = CalendarUtil.secondsToPixels(event.getEndTime(), getHeight());
                 }
 
-                final int conflictIndex = conflictingEvents.get(event)
-                        .indexOf(event);
-                final int conflictingEventsSize = conflictingEvents.get(event)
-                        .size();
+                final int conflictIndex = conflictingEvents.get(event).indexOf(event);
+                final int conflictingEventsSize = conflictingEvents.get(event).size();
 
-                final int rectXStart = conflictIndex * (getWidth() - 4)
-                        / conflictingEventsSize;
+                final int rectXStart = conflictIndex * (getWidth() - 4) / conflictingEventsSize;
                 final int rectYStart = eventYStart;
 
-                final int rectWidth = (getWidth() - 4) / conflictingEventsSize
-                        - 2;
+                final int rectWidth = (getWidth() - 4) / conflictingEventsSize - 2;
 
                 final int rectHeight = eventYEnd - eventYStart;
 
-                final Rectangle r = new Rectangle(rectXStart, rectYStart,
-                        rectWidth, rectHeight);
+                final Rectangle r = new Rectangle(rectXStart, rectYStart, rectWidth, rectHeight);
                 if (r.contains(x, y))
                 {
                     return event;
@@ -533,11 +508,9 @@ public class DayContentPanel extends JPanel
     // XXX Get selected room
     public Collection<Booking> getBookings()
     {
-        final EventCollection eventsCollection = EventCollectionRepository
-                .get(owner.getOwner());
+        final EventCollection eventsCollection = EventCollectionRepository.get(owner.getOwner());
         // XXX CalendarEvent changed to Booking
-        final Collection<Booking> events = eventsCollection
-                .getEvents(owner.getDate());
+        final Collection<Booking> events = eventsCollection.getEvents(owner.getDate());
         final JCalendar calendar = DayContentPanel.this.owner.getOwner();
         ArrayList<Booking> bookings = new ArrayList<>();
         if (calendar.getRoom() == null)

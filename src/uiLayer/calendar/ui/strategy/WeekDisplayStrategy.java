@@ -165,8 +165,7 @@ public class WeekDisplayStrategy implements DisplayStrategy {
 		//XXX Changed from Calendar to LocalDate, added minus 7 days to move interval
 		LocalDate start = calendar.getConfig().getIntervalStart().minusDays(7).with(DayOfWeek.MONDAY);
         //start.setTime(CalendarUtil.createInDays(start.getTime(), -7));
-        //TODO
-		//start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+	//start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
         //start.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         //Calendar end = CalendarUtil.getCalendar(start.getTime(), true);
         //end.add(Calendar.DATE,7);
@@ -243,7 +242,7 @@ public class WeekDisplayStrategy implements DisplayStrategy {
 
 	@Override
 	public void setIntervalStart(LocalDate date) {
-		//XXX converted Date/Calendar to LocalDate
+		//XXX changed Date/Calendar to LocalDate
 		LocalDate start = date.with(DayOfWeek.MONDAY);
 	    //Calendar start = CalendarUtil.getCalendar(date, true);
 		//start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());

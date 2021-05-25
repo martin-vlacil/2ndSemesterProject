@@ -27,20 +27,20 @@ import uiLayer.calendar.JCalendar;
  */
 public class EventCollectionRepository {
 
-	final Map<JCalendar, NewIndexedEventCollection> repository;
+	final Map<JCalendar, IndexedEventCollection> repository;
 
 	static final EventCollectionRepository instance = new EventCollectionRepository();
 
 	private EventCollectionRepository() {
-		repository = new HashMap<JCalendar, NewIndexedEventCollection>();
+		repository = new HashMap<JCalendar, IndexedEventCollection>();
 	}
 
 	public static void register(final JCalendar calendar) {
-		instance.repository.put(calendar, new NewIndexedEventCollection(calendar));
+		instance.repository.put(calendar, new IndexedEventCollection(calendar));
 	}
 
 	public static EventCollection get(final JCalendar calendar) {
-		NewIndexedEventCollection eventCollection = instance.repository.get(calendar);
+		IndexedEventCollection eventCollection = instance.repository.get(calendar);
 		if (eventCollection == null)
 			throw new IllegalArgumentException(
 					"Calendar not registered. Please register calendar before calling this method");

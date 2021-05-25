@@ -23,8 +23,8 @@ import uiLayer.calendar.ui.strategy.DisplayStrategy.Type;
 
 /**
  * 
- * @author theodorcostache, dmai0920_group1
- * XXX
+ * @author theodorcostache, group 1 dmai0920
+ * XXX Changed Calendar to LocalDate
  */
 public class IntervalChangedEvent implements Serializable {
 
@@ -56,8 +56,7 @@ public class IntervalChangedEvent implements Serializable {
 	 * @param intervalStart
 	 * @param intervalEnd
 	 */
-	public IntervalChangedEvent(final JCalendar source, final Type selectedStrategy, final LocalDate intervalStart,
-			final LocalDate intervalEnd) {
+	public IntervalChangedEvent(final JCalendar source, final Type selectedStrategy, final LocalDate intervalStart, final LocalDate intervalEnd) {
 		super();
 		this.source = source;
 		this.selectedStrategy = selectedStrategy;

@@ -43,18 +43,9 @@ public class JCalendar extends JPanel
 
     private static final long serialVersionUID = 1L;
     private final List<IntervalChangedListener> intervalChangedListener;
-    // private JCalendar jCalendar;
-    // TODO variables to be cleaned up
-    // private final String[] names = new String[] { "Team meeting", "Code
-    // review"};
-    // private final Random r = new Random();
     private HeaderPanel headerPane;
     private ContentPanel contentPane;
     private Config config;
-    // XXX popup menu removed
-    // private JPopupMenu popupMenu;
-    // XXX hover option removed, Calendar changed to LocalDate
-    // private CalendarEventFormat formater;
     private LocalDate selectedDay;
     // XXX Added room parameter
     private Room room;
@@ -143,13 +134,12 @@ public class JCalendar extends JPanel
                 final IntervalChangedEvent event = new IntervalChangedEvent(
                         JCalendar.this, strategy.getType(),
                         config.getIntervalStart(), config.getIntervalEnd());
-
-                // XXX check if we need an interval listener changed
+                
                 for (final IntervalChangedListener listener : intervalChangedListener)
                 {
                     listener.intervalChanged(event);
                 }
-                // XXX New code
+                // XXX New code 
                 try
                 {
 	                bookingPanel.getAllBookingsForAWeek(event.getIntervalStart().atStartOfDay());
@@ -212,7 +202,6 @@ public class JCalendar extends JPanel
                         JCalendar.this, strategy.getType(),
                         config.getIntervalStart(), config.getIntervalEnd());
 
-                // XXX check if we need an interval listener changed
                 for (final IntervalChangedListener listener : intervalChangedListener)
                 {
                     listener.intervalChanged(event);
@@ -246,7 +235,6 @@ public class JCalendar extends JPanel
                         JCalendar.this, strategy.getType(),
                         config.getIntervalStart(), config.getIntervalEnd());
 
-                // XXX check if we need an interval listener changed
                 for (final IntervalChangedListener listener : intervalChangedListener)
                 {
                     listener.intervalChanged(event);
@@ -279,7 +267,8 @@ public class JCalendar extends JPanel
     }
 
     /**
-     * @param date
+     * XXX changed to accept LocalDate instead of Calendar
+     * @param date 
      */
     public void setSelectedDay(final LocalDate date)
     {

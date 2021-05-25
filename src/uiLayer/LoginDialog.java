@@ -202,7 +202,7 @@ public class LoginDialog extends JDialog
                 openMainUI();
             }
         });
-        // TODO Add this to the config
+        
         loginButton.setBorder(new EmptyBorder(8, 50, 8, 50));
         loginButton.setFocusable(false);
         loginButton.setBackground(config.getBlueColorDefault());
