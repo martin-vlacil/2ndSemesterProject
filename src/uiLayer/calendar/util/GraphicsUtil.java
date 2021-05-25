@@ -13,6 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
+
+/**
+ * Edited by Tamás for a school project
+ * School: University College Of Northern Denmark
+ * Project: Booking System
+ * Year: 2021
+ * 
+ */
+
 package uiLayer.calendar.util;
 
 import java.awt.FontMetrics;
@@ -62,7 +71,7 @@ public class GraphicsUtil {
 				wordWidth = fm.stringWidth(word + " ");
 				textTrimmed = true;
 			}
-			//XXX changed, intitially removed all 2 letter words or smaller
+			//XXX changed, initially removed all 2 letter words or smaller
 			word = word.length() > 3 && textTrimmed ? word.substring(0, word.length() - 3) + "..."
 					: word.length() > 0 ? word : "";
 

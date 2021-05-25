@@ -1,6 +1,16 @@
 /* ************************************************************************ *
  * Copyright 2011 costache for MSD                                            *
  * ************************************************************************ */
+
+/**
+ * Edited by Miroslav for a school project
+ * School: University College Of Northern Denmark
+ * Project: Booking System
+ * Year: 2021
+ * 
+ */
+
+
 package uiLayer.calendar.util;
 
 import java.time.LocalDateTime;

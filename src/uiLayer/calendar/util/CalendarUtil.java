@@ -13,6 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License. 
  */
+
+
+/**
+ * Edited by Miroslav for a school project
+ * School: University College Of Northern Denmark
+ * Project: Booking System
+ * Year: 2021
+ * 
+ */
 package uiLayer.calendar.util;
 
 import java.time.LocalDate;

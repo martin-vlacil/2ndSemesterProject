@@ -17,6 +17,14 @@ import uiLayer.calendar.events.SelectionChangedEvent;
 import uiLayer.calendar.events.SelectionChangedListener;
 
 /**
+ * Edited by Miroslav and Tamás for a school project
+ * School: University College Of Northern Denmark
+ * Project: Booking System
+ * Year: 2021
+ * 
+ */
+
+/**
  * 
  * XXX Rewritten a full class IndexedEventCollection, that contains all Bookings
  * for certain days and All selection listeners that handle event and empty
