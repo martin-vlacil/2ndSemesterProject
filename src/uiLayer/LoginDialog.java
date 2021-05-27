@@ -3,6 +3,8 @@ package uiLayer;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -47,7 +49,9 @@ public class LoginDialog extends JDialog
                     dialog.setVisible(true);
                     // Centres the dialog
                     dialog.setLocationRelativeTo(null);
-                    dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+                    URL url = getClass().getResource("images/ihndLogo.png");
+                    ImageIcon icon = new ImageIcon(url, "YOU");
+                    dialog.setIconImage(icon.getImage());
                     dialog.setTitle("Login - IHND Booking System");
                 }
                 catch (Exception e)

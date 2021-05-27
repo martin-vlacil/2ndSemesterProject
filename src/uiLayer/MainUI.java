@@ -10,6 +10,8 @@ package uiLayer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
+
 import javax.swing.border.EmptyBorder;
 
 import config.Config;
@@ -88,7 +90,8 @@ public class MainUI extends JFrame
         sidebarPanel.setLayout(gbl_sidebarPanel);
 
         // Set the image icon of the button and scale is to 50x50
-        ImageIcon icon = new ImageIcon("src/uiLayer/images/Icon.png", "YOU");
+        URL url = getClass().getResource("images/Icon.png");
+        ImageIcon icon = new ImageIcon(url, "YOU");
         icon = new ImageIcon(icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         JButton avatarButton = new JButton(icon);
         GridBagConstraints gbc_avatarButton = new GridBagConstraints();
