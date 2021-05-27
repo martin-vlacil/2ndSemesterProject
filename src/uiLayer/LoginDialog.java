@@ -50,7 +50,7 @@ public class LoginDialog extends JDialog
                     // Centres the dialog
                     dialog.setLocationRelativeTo(null);
                     URL url = getClass().getResource("images/ihndLogo.png");
-                    ImageIcon icon = new ImageIcon(url, "YOU");
+                    ImageIcon icon = new ImageIcon(url);
                     dialog.setIconImage(icon.getImage());
                     dialog.setTitle("Login - IHND Booking System");
                 }
@@ -249,7 +249,9 @@ public class LoginDialog extends JDialog
                     MainUI frame = new MainUI(loggedUser);
                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     frame.setVisible(true);
-                    frame.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+                    URL url = getClass().getResource("images/ihndLogo.png");
+                    ImageIcon icon = new ImageIcon(url);
+                    frame.setIconImage(icon.getImage());
                     frame.setTitle("IHND Booking System");
                     dispose();
                 }

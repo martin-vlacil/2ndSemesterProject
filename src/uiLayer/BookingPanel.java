@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 
 import modelLayer.*;
@@ -133,7 +134,9 @@ public class BookingPanel extends JPanel
             BookingDialog dialog = new BookingDialog(loggedUser, this);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-            dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+            URL url = getClass().getResource("images/ihndLogo.png");
+            ImageIcon icon = new ImageIcon(url);
+            dialog.setIconImage(icon.getImage());
             dialog.setTitle("Create Booking - IHND Booking System");
             // Centres the dialog
             dialog.setLocationRelativeTo(null);
@@ -171,7 +174,9 @@ public class BookingPanel extends JPanel
                             BookingDialog dialog = new BookingDialog(loggedUser, event.getIntervalStart(), event.getIntervalEnd(), panel);
                             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                             dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-                            dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+                            URL url = getClass().getResource("images/ihndLogo.png");
+                            ImageIcon icon = new ImageIcon(url);
+                            dialog.setIconImage(icon.getImage());
                             dialog.setTitle("View Booking - IHND Booking System");
                             // Centres the dialog
                             dialog.setLocationRelativeTo(null);
@@ -184,7 +189,9 @@ public class BookingPanel extends JPanel
                         BookingDialog dialog = new BookingDialog(booking, panel);
                         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                         dialog.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
-                        dialog.setIconImage(new ImageIcon("src/uiLayer/images/ihndLogo.png").getImage());
+                        URL url = getClass().getResource("images/ihndLogo.png");
+                        ImageIcon icon = new ImageIcon(url);
+                        dialog.setIconImage(icon.getImage());
                         dialog.setTitle("View Booking - IHND Booking System");
                         // Centres the dialog
                         dialog.setLocationRelativeTo(null);
