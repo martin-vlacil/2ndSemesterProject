@@ -1023,8 +1023,10 @@ public class BookingDialog extends JDialog
     private LocalDateTime getStartTime()
     {
         Date startDate = (Date) startTimePicker.getValue();
-        LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
-        LocalDate localDate = ((Date) datePicker.getValue()).toInstant() .atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalTime bookingStartTime = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        // works only for Java 9 and up.
+        //LocalTime bookingStartTime = LocalTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault());
+        LocalDate localDate = ((Date) datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         return LocalDateTime.of(localDate, bookingStartTime);
     }
@@ -1035,7 +1037,9 @@ public class BookingDialog extends JDialog
     private LocalDateTime getEndTime()
     {
         Date endDate = (Date) endTimePicker.getValue();
-        LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
+        LocalTime bookingEndTime = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        // works only for Java 9 and up.
+        //LocalTime bookingEndTime = LocalTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault());
         LocalDate localDate = ((Date) datePicker.getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         return LocalDateTime.of(localDate, bookingEndTime);
