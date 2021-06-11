@@ -16,7 +16,7 @@ public class Booking implements Comparable<Booking>
     private LocalDateTime endTime;
     private Room room;
     private User createdBy;
-    private User contact; // if null, then the creator is the contact
+    private User contact; // if null, then the createdBy is the contact
     
     private boolean selected;
 
@@ -154,6 +154,10 @@ public class Booking implements Comparable<Booking>
     /**
      * Is implemented from the Comparable interface, which compares two times
      * returns a positive/negative integer based on the result of the comparison
+     * 
+     * negative - current booking is less than parameter booking
+     * 0 - bookings are equal
+     * positive - current booking is more than parameter booking
      */
     @Override
     public int compareTo(final Booking booking)

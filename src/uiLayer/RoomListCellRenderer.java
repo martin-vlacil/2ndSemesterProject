@@ -31,7 +31,7 @@ public class RoomListCellRenderer implements ListCellRenderer<Room>
 
         if (index == 0)
         {
-            renderer.setBorder(config.getButtonDeleteBorder());
+        	renderer.setBorder(config.getButtonDeleteBorder());
         }
         else
         {

@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * A panel for the Booking page. Used in CardLayout of the MainUI's frame
  * @author Group1 dmai0920
  */
+
 @SuppressWarnings("serial")
 public class BookingPanel extends JPanel
 {

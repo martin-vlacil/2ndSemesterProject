@@ -12,7 +12,7 @@ import modelLayer.Booking;
 import modelLayer.LogEntry;
 
 /**
- * A Singleton to handle data from the database by preloading it in the background
+ * A Singleton to handle data from the database by pre-loading it in the background
  * using SwingWorkers. The information stored in the filed is then accessed and displayed to the UI
  * @author group1 dmai0920
  */
@@ -95,8 +95,6 @@ public class Databus {
 		{
 			@Override
 			protected Object doInBackground() throws Exception {
-				
-				
 				BookingController bookingControler = new BookingController();
 				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.minusWeeks(1)));
 				bookingsForMultipleWeeks.addAll(bookingControler.getAllBookingsForAWeek(date.plusWeeks(1)));

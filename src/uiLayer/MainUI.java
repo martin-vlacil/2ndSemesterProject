@@ -237,8 +237,7 @@ public class MainUI extends JFrame
         gbc_logSeparator.anchor = GridBagConstraints.SOUTH;
         logSeparator.setForeground(config.getSeparatorColor());
         logSeparator.setOpaque(true);
-        logSeparator
-                .setPreferredSize(new Dimension(sidebarPanel.getWidth(), 4));
+        logSeparator.setPreferredSize(new Dimension(sidebarPanel.getWidth(), 4));
         gbc_logSeparator.fill = GridBagConstraints.HORIZONTAL;
         gbc_logSeparator.gridwidth = 3;
         gbc_logSeparator.gridx = 0;

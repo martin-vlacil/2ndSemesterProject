@@ -269,7 +269,7 @@ class TestBookingController
         // Arrange
         String[] eventDetails = new String[2];
         eventDetails[0] = "email";
-        eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineoviscericartilaginonervomedullar";
+        eventDetails[1] = "asseocarnisanguineoviscericartilaginonervomedullar@asseocarnisanguineovisce.icartilaginonervomedullar";
 
         // Act
         boolean checkValidity = bookingCtr.validateInformation(eventDetails) == Color.RED;

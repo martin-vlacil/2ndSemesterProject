@@ -17,7 +17,7 @@ public class RoomComboboxCellRenderer implements ListCellRenderer<Room>
     private Config config = new Config();
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Room> list,Room value, int index, boolean isSelected, boolean cellHasFocus)
+    public Component getListCellRendererComponent(JList<? extends Room> list, Room value, int index, boolean isSelected, boolean cellHasFocus)
     {
         JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         renderer.setFont(config.getLabelDefaultFont());

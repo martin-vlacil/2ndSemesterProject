@@ -68,7 +68,7 @@ public class BookingDB implements BookingDBIF
         }
         sqlInsertBooking.setInt(7, booking.getCreatedBy().getId());
         sqlInsertBooking.setInt(8, booking.getRoom().getId());
-
+        
         return (sqlInsertBooking.executeUpdate() > 0);
     }
 
